@@ -12,4 +12,5 @@ dependencies = [
     "polars>=1.21.0",
     "pyarrow>=17.0.0",
     "sqlmesh[github,web]>=0.150.1",
+    "streamlit>=1.42.1",
 ]
