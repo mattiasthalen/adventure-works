@@ -1,41 +1,74 @@
-import os
+import glob
+import re
 
-def generate_uss_bridge_union():
-    # Path to the folder containing the SQL files
-    sql_folder = './models/silver/'
+def generate_bridge_query():
+    # Get all matching SQL files
+    sql_files = glob.glob('./models/silver/uss_bridge__*.sql')
     
-    # List to hold the SQL queries
-    sql_queries = []
+    # First, collect all pit hook fields from all files
+    pit_hook_fields = set()
     
-    # Loop through the files in the directory
-    for filename in os.listdir(sql_folder):
-        # Check if the file matches the pattern uss__bridge__*.sql but skip uss__bridge.sql
-        if filename.startswith('uss_bridge__') and filename.endswith('.sql'):
-            table_name = filename.replace('.sql', '')  # Remove the '.sql' to get the table name
-            # Build the SQL query for each file, adding the silver schema and file name
-            sql_queries.append(f"SELECT\n  *\nFROM silver.{table_name}")
+    # First pass - collect all fields
+    for file_path in sql_files:
+        with open(file_path, 'r') as f:
+            content = f.read()
+            select_match = re.search(r'SELECT\s+(.*?)\s+FROM', content, re.IGNORECASE | re.DOTALL)
+            if select_match:
+                fields = select_match.group(1)
+                # Split fields and clean them
+                field_matches = re.finditer(r'(?:AS\s+)?([a-zA-Z_][a-zA-Z0-9_]*)\s*(?:,|$)', fields)
+                for match in field_matches:
+                    field_name = match.group(1).strip()
+                    if field_name.startswith('_pit_hook__'):
+                        pit_hook_fields.add(field_name)
     
-    # Combine the queries with UNION ALL BY NAME, adding a line break before the UNION
-    if sql_queries:
-        combined_query = "\nUNION ALL BY NAME\n".join(sql_queries)  # Corrected with line break before UNION
-    else:
-        combined_query = "No matching files found."
+    # Sort pit hook fields
+    sorted_pit_hooks = sorted(pit_hook_fields)
     
-    # Output the combined query to uss__bridge.sql
-    output_file = os.path.join("./models/gold", '_bridge__as_of.sql')
+    # Start building the query
+    query_parts = [
+        "MODEL (\n  kind VIEW\n);\n",
+        "WITH bridge AS ("
+    ]
     
-    # Write the final SQL output with the required format
-    final_sql = f"""MODEL (
-  kind VIEW
-);
+    # Generate UNION ALL part
+    for file_path in sql_files:
+        table_name = re.search(r'uss_bridge__[^.]*', file_path).group(0)
+        select_part = f"  SELECT\n    *\n  FROM silver.{table_name}"
+        query_parts.append(select_part)
+        if file_path != sql_files[-1]:  # If not the last file
+            query_parts.append("  UNION ALL BY NAME")
     
-{combined_query}
-    """
+    # Close the CTE and add the main query
+    query_parts.extend([
+        ")",
+        "SELECT"
+    ])
     
-    with open(output_file, 'w', encoding='utf-8') as f:
-        f.write(final_sql)
+    # Add pit hook fields
+    for field in sorted_pit_hooks:
+        query_parts.append(f"  {field},")
     
-    print(f"Generated {output_file}")
+    # Add bridge fields
+    query_parts.extend([
+        "  bridge__record_loaded_at,",
+        "  bridge__record_updated_at,",
+        "  bridge__record_valid_from,",
+        "  bridge__record_valid_to,",
+        "  bridge__is_current_record",
+        "FROM bridge"
+    ])
     
-if __name__ == "__main__":
-    generate_uss_bridge_union()
+    # Join all parts with newlines
+    final_query = '\n'.join(query_parts)
+    
+    # Save the result
+    output_path = './models/silver/uss_bridge.sql'
+    with open(output_path, 'w') as f:
+        f.write(final_query)
+    
+    print(f"Query has been saved to {output_path}")
+    return final_query
+
+if __name__ == '__main__':
+    result = generate_bridge_query()

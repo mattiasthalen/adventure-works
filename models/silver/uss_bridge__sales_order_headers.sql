@@ -77,6 +77,6 @@ WITH bridge AS (
     AND bag__adventure_works__sales_order_headers.sales_order__record_valid_to >= uss_bridge__addresses.bridge__record_valid_from
 )
 SELECT
-    *,
-    bridge__record_valid_to = '9999-12-31 23:59:59'::TIMESTAMP AS bridge__is_current_record
+  *,
+  bridge__record_valid_to = '9999-12-31 23:59:59'::TIMESTAMP AS bridge__is_current_record
 FROM bridge
