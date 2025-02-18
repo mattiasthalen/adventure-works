@@ -75,76 +75,8 @@ WITH bridge AS (
     ON bag__adventure_works__sales_order_headers._hook__ship_to_address = uss_bridge__addresses._hook__address
     AND bag__adventure_works__sales_order_headers.sales_order__record_valid_from <= uss_bridge__addresses.bridge__record_valid_to
     AND bag__adventure_works__sales_order_headers.sales_order__record_valid_to >= uss_bridge__addresses.bridge__record_valid_from
-), sales_order__order_date AS (
-  SELECT
-    bridge.*,
-    bag__adventure_works__sales_order_headers.sales_order__order_date AS event_date,
-    1 AS measure__sales_order_placed,
-    sales_order__due_date - sales_order__order_date AS measure__sales_order_due_lead_time,
-    sales_order__ship_date - sales_order__order_date AS measure__sales_order_shipping_lead_time
-  FROM bridge
-  INNER JOIN silver.bag__adventure_works__sales_order_headers
-    USING (_pit_hook__sales_order)
-), sales_order__due_date AS (
-  SELECT
-    bridge.*,
-    bag__adventure_works__sales_order_headers.sales_order__due_date AS event_date,
-    1 AS measure__sales_order_due,
-    CASE
-      WHEN bag__adventure_works__sales_order_headers.sales_order__ship_date = bag__adventure_works__sales_order_headers.sales_order__due_date
-      THEN 1
-    END AS measure__sales_order_shipped_on_time
-  FROM bridge
-  INNER JOIN silver.bag__adventure_works__sales_order_headers
-    USING (_pit_hook__sales_order)
-), sales_order__ship_date AS (
-  SELECT
-    bridge.*,
-    bag__adventure_works__sales_order_headers.sales_order__ship_date AS event_date,
-    1 AS measure__sales_order_shipped
-  FROM bridge
-  INNER JOIN silver.bag__adventure_works__sales_order_headers
-    USING (_pit_hook__sales_order)
-), measures AS (
-  SELECT
-    *
-  FROM sales_order__order_date
-  UNION ALL BY NAME
-  SELECT
-    *
-  FROM sales_order__due_date
-  UNION ALL BY NAME
-  SELECT
-    *
-  FROM sales_order__ship_date
-), final AS (
-  SELECT
-    stage,
-    _pit_hook__sales_order,
-    _hook__sales_order,
-    _pit_hook__credit_card,
-    _pit_hook__currency_rate,
-    _pit_hook__customer,
-    _pit_hook__sales_person,
-    _pit_hook__ship_method,
-    _pit_hook__address,
-    _pit_hook__state_province,
-    _pit_hook__territory,
-    CONCAT('calendar|date|', event_date)::BLOB AS _hook__calendar__date,
-    MAX(measure__sales_order_placed) AS measure__sales_order_placed,
-    MAX(measure__sales_order_due_lead_time) AS measure__sales_order_due_lead_time,
-    MAX(measure__sales_order_shipping_lead_time) AS measure__sales_order_shipping_lead_time,
-    MAX(measure__sales_order_due) AS measure__sales_order_due,
-    MAX(measure__sales_order_shipped_on_time) AS measure__sales_order_shipped_on_time,
-    MAX(measure__sales_order_shipped) AS measure__sales_order_shipped,
-    bridge__record_loaded_at,
-    bridge__record_updated_at,
-    bridge__record_valid_from,
-    bridge__record_valid_to,
-    bridge__record_valid_to = '9999-12-31 23:59:59'::TIMESTAMP AS bridge__is_current_record
-  FROM measures
-  GROUP BY ALL
 )
 SELECT
-  *
-FROM final
+    *,
+    bridge__record_valid_to = '9999-12-31 23:59:59'::TIMESTAMP AS bridge__is_current_record
+FROM bridge
