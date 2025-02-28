@@ -30,14 +30,14 @@ WITH cte__union AS (
     ROW_NUMBER() OVER (PARTITION BY transaction_id ORDER BY transaction__record_loaded_at) AS transaction__record_version,
     CASE
       WHEN transaction__record_version = 1
-      THEN '1970-01-01 00:00:00'::TIMESTAMP
+      THEN @MIN_TS::TIMESTAMP
       ELSE transaction__record_loaded_at
     END AS transaction__record_valid_from,
     COALESCE(
       LEAD(transaction__record_loaded_at) OVER (PARTITION BY transaction_id ORDER BY transaction__record_loaded_at),
-      '9999-12-31 23:59:59'::TIMESTAMP
+      @MAX_TS::TIMESTAMP
     ) AS transaction__record_valid_to,
-    transaction__record_valid_to = '9999-12-31 23:59:59'::TIMESTAMP AS transaction__is_current_record,
+    transaction__record_valid_to = @MAX_TS::TIMESTAMP AS transaction__is_current_record,
     CASE
       WHEN transaction__is_current_record
       THEN transaction__record_loaded_at

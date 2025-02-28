@@ -48,7 +48,8 @@ config = Config(
                         "spark.sql.catalog.lakehouse.warehouse": "./lakehouse",
                         "spark.sql.catalog.lakehouse.jdbc.schema-version": "V1",
                         "spark.sql.defaultCatalog": "lakehouse",
-                        "spark.sql.warehouse.dir": "./lakehouse/spark-warehouse"
+                        "spark.sql.warehouse.dir": "./lakehouse/spark-warehouse",
+                        "spark.sql.datetime.java8API.enabled": True
                     },
                 concurrent_tasks=1
             ),
@@ -83,5 +84,9 @@ config = Config(
             github_username="mattiasthalen",
             roles=[UserRole.REQUIRED_APPROVER],
         )
-    ]
+    ],
+    variables = {
+        "min_ts": "1970-01-01 00:00:00",
+        "max_ts": "2262-04-11 23:47:16"
+    }
 )

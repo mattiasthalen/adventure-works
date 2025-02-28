@@ -39,14 +39,14 @@ WITH staging AS (
     ROW_NUMBER() OVER (PARTITION BY sales_order_id ORDER BY sales_order__record_loaded_at) AS sales_order__record_version,
     CASE
       WHEN sales_order__record_version = 1
-      THEN '1970-01-01 00:00:00'::TIMESTAMP
+      THEN @MIN_TS::TIMESTAMP
       ELSE sales_order__record_loaded_at
     END AS sales_order__record_valid_from,
     COALESCE(
       LEAD(sales_order__record_loaded_at) OVER (PARTITION BY sales_order_id ORDER BY sales_order__record_loaded_at),
-      '9999-12-31 23:59:59'::TIMESTAMP
+      @MAX_TS::TIMESTAMP
     ) AS sales_order__record_valid_to,
-    sales_order__record_valid_to = '9999-12-31 23:59:59'::TIMESTAMP AS sales_order__is_current_record,
+    sales_order__record_valid_to = @MAX_TS::TIMESTAMP AS sales_order__is_current_record,
     CASE
       WHEN sales_order__is_current_record
       THEN sales_order__record_loaded_at

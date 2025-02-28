@@ -20,14 +20,14 @@ WITH staging AS (
     ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY customer__record_loaded_at) AS customer__record_version,
     CASE
       WHEN customer__record_version = 1
-      THEN '1970-01-01 00:00:00'::TIMESTAMP
+      THEN @MIN_TS::TIMESTAMP
       ELSE customer__record_loaded_at
     END AS customer__record_valid_from,
     COALESCE(
       LEAD(customer__record_loaded_at) OVER (PARTITION BY customer_id ORDER BY customer__record_loaded_at),
-      '9999-12-31 23:59:59'::TIMESTAMP
+      @MAX_TS::TIMESTAMP
     ) AS customer__record_valid_to,
-    customer__record_valid_to = '9999-12-31 23:59:59'::TIMESTAMP AS customer__is_current_record,
+    customer__record_valid_to = @MAX_TS::TIMESTAMP AS customer__is_current_record,
     CASE
       WHEN customer__is_current_record
       THEN customer__record_loaded_at

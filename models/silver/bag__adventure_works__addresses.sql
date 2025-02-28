@@ -1,5 +1,5 @@
 MODEL (
-  kind VIEW,
+  kind FULL,
   enabled TRUE
 );
 
@@ -21,14 +21,14 @@ WITH staging AS (
     ROW_NUMBER() OVER (PARTITION BY address_id ORDER BY address__record_loaded_at) AS address__record_version,
     CASE
       WHEN address__record_version = 1
-      THEN '1970-01-01 00:00:00'::TIMESTAMP
+      THEN @MIN_TS::TIMESTAMP
       ELSE address__record_loaded_at
     END AS address__record_valid_from,
     COALESCE(
       LEAD(address__record_loaded_at) OVER (PARTITION BY address_id ORDER BY address__record_loaded_at),
-      '9999-12-31 23:59:59'::TIMESTAMP
+      @MAX_TS::TIMESTAMP
     ) AS address__record_valid_to,
-    address__record_valid_to = '9999-12-31 23:59:59'::TIMESTAMP AS address__is_current_record,
+    address__record_valid_to = @MAX_TS::TIMESTAMP AS address__is_current_record,
     CASE
       WHEN address__is_current_record
       THEN address__record_loaded_at
@@ -51,3 +51,4 @@ WITH staging AS (
 SELECT
   *
 FROM hooks
+WHERE 1 = 1 --address__record_updated_at BETWEEN @start_ts AND @end_ts

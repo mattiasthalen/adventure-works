@@ -23,14 +23,14 @@ WITH staging AS (
     ROW_NUMBER() OVER (PARTITION BY territory_id ORDER BY territory__record_loaded_at) AS territory__record_version,
     CASE
       WHEN territory__record_version = 1
-      THEN '1970-01-01 00:00:00'::TIMESTAMP
+      THEN @MIN_TS::TIMESTAMP
       ELSE territory__record_loaded_at
     END AS territory__record_valid_from,
     COALESCE(
       LEAD(territory__record_loaded_at) OVER (PARTITION BY territory_id ORDER BY territory__record_loaded_at),
-      '9999-12-31 23:59:59'::TIMESTAMP
+      @MAX_TS::TIMESTAMP
     ) AS territory__record_valid_to,
-    territory__record_valid_to = '9999-12-31 23:59:59'::TIMESTAMP AS territory__is_current_record,
+    territory__record_valid_to = @MAX_TS::TIMESTAMP AS territory__is_current_record,
     CASE
       WHEN territory__is_current_record
       THEN territory__record_loaded_at

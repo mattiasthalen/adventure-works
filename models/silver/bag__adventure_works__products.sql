@@ -37,14 +37,14 @@ WITH staging AS (
     ROW_NUMBER() OVER (PARTITION BY product_id ORDER BY product__record_loaded_at) AS product__record_version,
     CASE
       WHEN product__record_version = 1
-      THEN '1970-01-01 00:00:00'::TIMESTAMP
+      THEN @MIN_TS::TIMESTAMP
       ELSE product__record_loaded_at
     END AS product__record_valid_from,
     COALESCE(
       LEAD(product__record_loaded_at) OVER (PARTITION BY product_id ORDER BY product__record_loaded_at),
-      '9999-12-31 23:59:59'::TIMESTAMP
+      @MAX_TS::TIMESTAMP
     ) AS product__record_valid_to,
-    product__record_valid_to = '9999-12-31 23:59:59'::TIMESTAMP AS product__is_current_record,
+    product__record_valid_to = @MAX_TS::TIMESTAMP AS product__is_current_record,
     CASE
       WHEN product__is_current_record
       THEN product__record_loaded_at

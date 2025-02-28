@@ -62,7 +62,7 @@ WITH cte__bridge AS (
     bridge__record_updated_at,
     bridge__record_valid_from,
     bridge__record_valid_to,
-    bridge__record_valid_to = '9999-12-31 23:59:59'::TIMESTAMP AS bridge__is_current_record
+    bridge__record_valid_to = @MAX_TS::TIMESTAMP AS bridge__is_current_record
   FROM cte__bridge
   LEFT JOIN cte__measures
     USING (_pit_hook__inventory)
