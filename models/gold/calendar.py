@@ -208,6 +208,7 @@ def generate_calendar(df: pl.DataFrame, date_column: str) -> pl.DataFrame:
     kind=dict(
         name=ModelKindName.FULL,
     ),
+    enabled=False,
     columns={
         "_hook__calendar__date": "binary",
         "calendar_grain": "string",
