@@ -58,7 +58,9 @@ def register_iceberg_tables_to_sqlite(
         return
 
     # Iterate through table directories within the specified namespace
-    for table_dir in os.listdir(namespace_path):
+    tables = sorted(os.listdir(namespace_path))
+    
+    for table_dir in tables:
         table_path = os.path.join(namespace_path, table_dir)
         metadata_dir = os.path.join(table_path, "metadata")
         
@@ -82,29 +84,11 @@ def register_iceberg_tables_to_sqlite(
                 print(f"No metadata files found for table {namespace}.{table_dir}. Skipping.")
                 continue
             
-            # Pick the metadata file with snapshots and latest last-updated-ms
-            latest_metadata_file = None
-            latest_timestamp = -1
-            has_snapshots = False
-            for metafile in metadata_files:
-                metafile_path = os.path.join(metadata_dir, metafile)
-                with open(metafile_path, 'r') as f:
-                    import json
-                    metadata = json.load(f)
-                    timestamp = metadata.get("last-updated-ms", -1)
-                    snapshots = metadata.get("snapshots", [])
-                    if snapshots and timestamp >= latest_timestamp:
-                        latest_timestamp = timestamp
-                        latest_metadata_file = metafile
-                        has_snapshots = True
-                    elif not has_snapshots and timestamp > latest_timestamp:
-                        latest_timestamp = timestamp
-                        latest_metadata_file = metafile
-            
-            if latest_metadata_file is None:
-                print(f"No valid metadata file found for {namespace}.{table_dir}. Skipping.")
-                continue
-            
+            # Pick the metadata file with the highest numeric prefix in the filename
+            latest_metadata_file = max(
+                metadata_files,
+                key=lambda f: int(f.split('-')[0])  # Extract '00001' and convert to int
+            )
             metadata_location = f"file://{os.path.join(metadata_dir, latest_metadata_file)}"
             
             # Check if the table already exists in the catalog
@@ -739,18 +723,13 @@ def load_adventure_works(env) -> None:
     load_info = pipeline.run(source, table_format="iceberg")
     print(load_info)
     
-    register_iceberg_tables(
-        path=destination_path,
-        namespace=pipeline.dataset_name
+    register_iceberg_tables_to_sqlite(
+        catalog_path=destination_path,
+        catalog_name=str.split(destination_path, "/")[1],
+        namespace=pipeline.dataset_name,
+        sqlite_db_path=os.path.join(destination_path, "catalog.db")
     )
     
 if __name__ == "__main__":
     env = sys.argv[1] if len(sys.argv) > 1 else "dev"
-    #load_adventure_works(env=env)
-
-    register_iceberg_tables_to_sqlite(
-        catalog_path="./lakehouse",
-        catalog_name="lakehouse",
-        namespace="bronze",
-        sqlite_db_path="./lakehouse/catalog.db"
-    )
+    load_adventure_works(env=env)
