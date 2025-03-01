@@ -1,6 +1,8 @@
 MODEL (
-  kind VIEW,
-  enabled FALSE
+  kind INCREMENTAL_BY_TIME_RANGE(
+    time_column inventory__record_updated_at
+  ),
+  enabled TRUE
 );
 
 WITH cte__aggregated_transactions AS (
@@ -33,17 +35,15 @@ WITH cte__aggregated_transactions AS (
     LEAD(transaction__transaction_date) OVER (PARTITION BY _hook__product ORDER BY transaction__transaction_date) AS transaction__next_transaction_date,
     SUM(inventory__net_transacted_quantity) OVER (PARTITION BY _hook__product ORDER BY transaction__transaction_date ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS inventory__net_on_hand_quantity
   FROM cte__aggregated_transactions
+), cte__date_spine AS (
+    @date_spine('day', @min_date, @max_date)
 ), cte__expanded AS (
   SELECT
-    *,
-    UNNEST(
-      GENERATE_SERIES(
-        transaction__transaction_date,
-        transaction__next_transaction_date - INTERVAL '1' DAY,
-        INTERVAL '1' DAY
-      )
-    )::DATE AS inventory__inventory_date
+    cte__window.*,
+    cte__date_spine.date_day AS inventory__inventory_date
   FROM cte__window
+  LEFT JOIN cte__date_spine
+    ON cte__date_spine.date_day BETWEEN transaction__transaction_date AND transaction__next_transaction_date
 ), cte__final AS (
   SELECT
     CONCAT(
@@ -98,3 +98,5 @@ WITH cte__aggregated_transactions AS (
 SELECT
   *
 FROM cte__final
+WHERE 1 = 1
+AND inventory__record_updated_at BETWEEN @start_ts AND @end_ts

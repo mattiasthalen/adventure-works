@@ -1,6 +1,8 @@
 MODEL (
-  kind VIEW,
-  enabled FALSE
+  kind INCREMENTAL_BY_TIME_RANGE(
+    time_column bridge__record_updated_at
+  ),
+  enabled TRUE
 );
 
 WITH cte__bridge AS (
@@ -70,3 +72,5 @@ WITH cte__bridge AS (
 SELECT
   *
 FROM cte__final
+WHERE 1 = 1
+AND bridge__record_updated_at BETWEEN @start_ts AND @end_ts
