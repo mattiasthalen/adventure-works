@@ -1,8 +1,8 @@
 MODEL (
   kind INCREMENTAL_BY_TIME_RANGE(
-    time_column address__record_updated_at
+    time_column transaction__record_updated_at
   ),
-  enabled FALSE
+  enabled TRUE
 );
 
 WITH cte__union AS (
@@ -65,4 +65,4 @@ SELECT
   *
 FROM cte__hooks
 WHERE 1 = 1
-AND address__record_updated_at BETWEEN @start_ts AND @end_ts
+AND transaction__record_updated_at BETWEEN @start_ts AND @end_ts

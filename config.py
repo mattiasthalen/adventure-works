@@ -49,7 +49,10 @@ config = Config(
                         "spark.sql.catalog.lakehouse.jdbc.schema-version": "V1",
                         "spark.sql.defaultCatalog": "lakehouse",
                         "spark.sql.warehouse.dir": "./lakehouse/spark-warehouse",
-                        "spark.sql.datetime.java8API.enabled": True
+                        "spark.hadoop.javax.jdo.option.ConnectionURL": "jdbc:derby:memory:metastore_db;create=true",
+                        "spark.hadoop.javax.jdo.option.ConnectionDriverName": "org.apache.derby.jdbc.EmbeddedDriver",
+                        "spark.hadoop.hive.metastore.schema.verification": "false",
+                        "spark.hadoop.datanucleus.schema.autoCreateAll": "true"
                     },
                 concurrent_tasks=1
             ),
