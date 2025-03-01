@@ -65,7 +65,9 @@ config = Config(
     model_defaults=ModelDefaultsConfig(
         dialect="duckdb,normalization_strategy=case_sensitive",
         start="2025-01-01",
-        cron="*/5 * * * *"
+        cron="*/5 * * * *",
+        table_format="iceberg",
+        storage_format="parquet"
     ),
     model_naming=NameInferenceConfig(
         infer_names=True
