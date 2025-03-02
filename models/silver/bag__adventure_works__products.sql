@@ -1,7 +1,5 @@
 MODEL (
-  kind INCREMENTAL_BY_TIME_RANGE(
-    time_column product__record_updated_at
-  ),
+  kind FULL,
   enabled TRUE
 );
 
@@ -70,5 +68,3 @@ WITH staging AS (
 SELECT
   *
 FROM hooks
-WHERE 1 = 1
-AND product__record_updated_at BETWEEN @start_ts AND @end_ts

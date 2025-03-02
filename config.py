@@ -52,7 +52,7 @@ config = Config(
                         "spark.hadoop.javax.jdo.option.ConnectionURL": "jdbc:derby:memory:metastore_db;create=true",
                         "spark.hadoop.javax.jdo.option.ConnectionDriverName": "org.apache.derby.jdbc.EmbeddedDriver",
                         "spark.hadoop.hive.metastore.schema.verification": "false",
-                        "spark.hadoop.datanucleus.schema.autoCreateAll": "true"
+                        "spark.hadoop.datanucleus.schema.autoCreateAll": "true",
                     },
                 concurrent_tasks=1
             ),

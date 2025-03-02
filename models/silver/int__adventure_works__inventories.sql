@@ -1,7 +1,5 @@
 MODEL (
-  kind INCREMENTAL_BY_TIME_RANGE(
-    time_column inventory__record_updated_at
-  ),
+  kind FULL,
   enabled TRUE
 );
 
@@ -98,5 +96,3 @@ WITH cte__aggregated_transactions AS (
 SELECT
   *
 FROM cte__final
-WHERE 1 = 1
-AND inventory__record_updated_at BETWEEN @start_ts AND @end_ts
