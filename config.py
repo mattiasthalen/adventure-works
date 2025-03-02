@@ -40,7 +40,7 @@ config = Config(
         "spark": GatewayConfig(
             connection=SparkConnectionConfig(
                 config={
-                        "spark.jars.packages": "org.apache.iceberg:iceberg-spark-runtime-3.5_2.12:1.8.0,org.xerial:sqlite-jdbc:3.43.0.0",
+                        "spark.jars.packages": "org.apache.iceberg:iceberg-spark-runtime-3.5_2.12:1.8.1,org.xerial:sqlite-jdbc:3.43.0.0",
                         "spark.sql.extensions": "org.apache.iceberg.spark.extensions.IcebergSparkSessionExtensions",
                         "spark.sql.catalog.lakehouse": "org.apache.iceberg.spark.SparkCatalog",
                         "spark.sql.catalog.lakehouse.type": "jdbc",
@@ -91,6 +91,8 @@ config = Config(
         )
     ],
     variables = {
+        "min_date": "1970-01-01",
+        "max_date": "2262-04-11",
         "min_ts": "1970-01-01 00:00:00",
         "max_ts": "2262-04-11 23:47:16"
     }

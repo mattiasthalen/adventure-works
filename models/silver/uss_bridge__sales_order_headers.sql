@@ -1,6 +1,8 @@
 MODEL (
-  kind VIEW,
-  enabled FALSE
+  kind INCREMENTAL_BY_TIME_RANGE(
+    time_column bridge__record_updated_at
+  ),
+  enabled TRUE
 );
 
 WITH bridge AS (
@@ -82,8 +84,8 @@ WITH bridge AS (
     sales_order__order_date AS event_date,
     CASE WHEN sales_order__customer_order_sequence > 1 THEN 1 END AS measure__is_returning_customer,
     1 AS measure__sales_order_placed,
-    DATE_DIFF('DAYS', sales_order__order_date, sales_order__due_date) AS measure__sales_order_due_lead_time,
-    DATE_DIFF('DAYS', sales_order__order_date, sales_order__ship_date) AS measure__sales_order_shipping_lead_time
+    (sales_order__due_date-sales_order__order_date)::INT AS measure__sales_order_due_lead_time,
+    (sales_order__ship_date-sales_order__order_date)::INT AS measure__sales_order_shipping_lead_time
   FROM silver.bag__adventure_works__sales_order_headers
 ), sales_order__due_date AS (
   SELECT
@@ -139,3 +141,5 @@ WITH bridge AS (
 SELECT
   *
 FROM final
+WHERE 1 = 1
+AND bridge__record_updated_at BETWEEN @start_ts AND @end_ts
