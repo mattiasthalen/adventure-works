@@ -23,14 +23,14 @@ WITH staging AS (
     ROW_NUMBER() OVER (PARTITION BY territory__territory_id ORDER BY territory__record_loaded_at) AS territory__record_version,
     CASE
       WHEN territory__record_version = 1
-      THEN '1970-01-01 00:00:00'::TIMESTAMP
+      THEN @min_ts::TIMESTAMP
       ELSE territory__record_loaded_at
     END AS territory__record_valid_from,
     COALESCE(
       LEAD(territory__record_loaded_at) OVER (PARTITION BY territory__territory_id ORDER BY territory__record_loaded_at),
-      '9999-12-31 23:59:59'::TIMESTAMP
+      @max_ts::TIMESTAMP
     ) AS territory__record_valid_to,
-    territory__record_valid_to = '9999-12-31 23:59:59'::TIMESTAMP AS territory__is_current_record,
+    territory__record_valid_to = @max_ts::TIMESTAMP AS territory__is_current_record,
     CASE
       WHEN territory__is_current_record
       THEN territory__record_loaded_at
@@ -44,11 +44,28 @@ WITH staging AS (
       territory__territory_id,
       '~epoch|valid_from|',
       territory__record_valid_from
-    )::BLOB AS _pit_hook__territory,
-    CONCAT('territory|adventure_works|', territory__territory_id)::BLOB AS _hook__territory,
+    ) AS _pit_hook__territory,
+    CONCAT('territory|adventure_works|', territory__territory_id) AS _hook__territory,
     *
   FROM validity
 )
 SELECT
-  *
+  _pit_hook__territory::BLOB,
+  _hook__territory::BLOB,
+  territory__territory_id::VARCHAR,
+  territory__cost_last_year::VARCHAR,
+  territory__cost_ytd::VARCHAR,
+  territory__country_region_code::VARCHAR,
+  territory__group::VARCHAR,
+  territory__modified_date::VARCHAR,
+  territory__name::VARCHAR,
+  territory__rowguid::VARCHAR,
+  territory__sales_last_year::VARCHAR,
+  territory__sales_ytd::VARCHAR,
+  territory__record_loaded_at::TIMESTAMP,
+  territory__record_version::INT,
+  territory__record_valid_from::TIMESTAMP,
+  territory__record_valid_to::TIMESTAMP,
+  territory__is_current_record::BOOLEAN,
+  territory__record_updated_at::TIMESTAMP
 FROM hooks

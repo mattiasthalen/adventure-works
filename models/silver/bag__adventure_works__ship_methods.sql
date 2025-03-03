@@ -19,14 +19,14 @@ WITH staging AS (
     ROW_NUMBER() OVER (PARTITION BY ship_method__ship_method_id ORDER BY ship_method__record_loaded_at) AS ship_method__record_version,
     CASE
       WHEN ship_method__record_version = 1
-      THEN '1970-01-01 00:00:00'::TIMESTAMP
+      THEN @min_ts::TIMESTAMP
       ELSE ship_method__record_loaded_at
     END AS ship_method__record_valid_from,
     COALESCE(
       LEAD(ship_method__record_loaded_at) OVER (PARTITION BY ship_method__ship_method_id ORDER BY ship_method__record_loaded_at),
-      '9999-12-31 23:59:59'::TIMESTAMP
+      @max_ts::TIMESTAMP
     ) AS ship_method__record_valid_to,
-    ship_method__record_valid_to = '9999-12-31 23:59:59'::TIMESTAMP AS ship_method__is_current_record,
+    ship_method__record_valid_to = @max_ts::TIMESTAMP AS ship_method__is_current_record,
     CASE
       WHEN ship_method__is_current_record
       THEN ship_method__record_loaded_at
@@ -40,11 +40,24 @@ WITH staging AS (
       ship_method__ship_method_id,
       '~epoch|valid_from|',
       ship_method__record_valid_from
-    )::BLOB AS _pit_hook__ship_method,
-    CONCAT('ship_method|adventure_works|', ship_method__ship_method_id)::BLOB AS _hook__ship_method,
+    ) AS _pit_hook__ship_method,
+    CONCAT('ship_method|adventure_works|', ship_method__ship_method_id) AS _hook__ship_method,
     *
   FROM validity
 )
 SELECT
-  *
+  _pit_hook__ship_method::BLOB,
+  _hook__ship_method::BLOB,
+  ship_method__ship_method_id::VARCHAR,
+  ship_method__modified_date::VARCHAR,
+  ship_method__name::VARCHAR,
+  ship_method__rowguid::VARCHAR,
+  ship_method__ship_base::VARCHAR,
+  ship_method__ship_rate::VARCHAR,
+  ship_method__record_loaded_at::TIMESTAMP,
+  ship_method__record_version::INT,
+  ship_method__record_valid_from::TIMESTAMP,
+  ship_method__record_valid_to::TIMESTAMP,
+  ship_method__is_current_record::BOOLEAN,
+  ship_method__record_updated_at::TIMESTAMP
 FROM hooks

@@ -37,14 +37,14 @@ WITH staging AS (
     ROW_NUMBER() OVER (PARTITION BY product__product_id ORDER BY product__record_loaded_at) AS product__record_version,
     CASE
       WHEN product__record_version = 1
-      THEN '1970-01-01 00:00:00'::TIMESTAMP
+      THEN @min_ts::TIMESTAMP
       ELSE product__record_loaded_at
     END AS product__record_valid_from,
     COALESCE(
       LEAD(product__record_loaded_at) OVER (PARTITION BY product__product_id ORDER BY product__record_loaded_at),
-      '9999-12-31 23:59:59'::TIMESTAMP
+      @max_ts::TIMESTAMP
     ) AS product__record_valid_to,
-    product__record_valid_to = '9999-12-31 23:59:59'::TIMESTAMP AS product__is_current_record,
+    product__record_valid_to = @max_ts::TIMESTAMP AS product__is_current_record,
     CASE
       WHEN product__is_current_record
       THEN product__record_loaded_at
@@ -58,13 +58,46 @@ WITH staging AS (
       product__product_id,
       '~epoch|valid_from|',
       product__record_valid_from
-    )::BLOB AS _pit_hook__product,
-    CONCAT('product|adventure_works|', product__product_id)::BLOB AS _hook__product,
-    CONCAT('product_model|adventure_works|', product__product_model_id)::BLOB AS _hook__product_model,
-    CONCAT('product_subcategory|adventure_works|', product__product_subcategory_id)::BLOB AS _hook__product_subcategory,
+    ) AS _pit_hook__product,
+    CONCAT('product|adventure_works|', product__product_id) AS _hook__product,
+    CONCAT('product_model|adventure_works|', product__product_model_id) AS _hook__product_model,
+    CONCAT('product_subcategory|adventure_works|', product__product_subcategory_id) AS _hook__product_subcategory,
     *
   FROM validity
 )
 SELECT
-  *
+  _pit_hook__product::BLOB,
+  _hook__product::BLOB,
+  _hook__product_model::BLOB,
+  _hook__product_subcategory::BLOB,
+  product__product_id::VARCHAR,
+  product__product_model_id::VARCHAR,
+  product__product_subcategory_id::VARCHAR,
+  product__class::VARCHAR,
+  product__color::VARCHAR,
+  product__days_to_manufacture::VARCHAR,
+  product__finished_goods_flag::VARCHAR,
+  product__list_price::VARCHAR,
+  product__make_flag::VARCHAR,
+  product__modified_date::VARCHAR,
+  product__name::VARCHAR,
+  product__product_line::VARCHAR,
+  product__product_number::VARCHAR,
+  product__reorder_point::VARCHAR,
+  product__rowguid::VARCHAR,
+  product__safety_stock_level::VARCHAR,
+  product__sell_end_date::VARCHAR,
+  product__sell_start_date::VARCHAR,
+  product__size::VARCHAR,
+  product__size_unit_measure_code::VARCHAR,
+  product__standard_cost::VARCHAR,
+  product__style::VARCHAR,
+  product__weight::VARCHAR,
+  product__weight_unit_measure_code::VARCHAR,
+  product__record_loaded_at::TIMESTAMP,
+  product__record_version::INT,
+  product__record_valid_from::TIMESTAMP,
+  product__record_valid_to::TIMESTAMP,
+  product__is_current_record::BOOLEAN,
+  product__record_updated_at::TIMESTAMP
 FROM hooks

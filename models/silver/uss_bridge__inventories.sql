@@ -1,6 +1,6 @@
 MODEL (
   kind VIEW,
-  enabled TRUE
+  enabled FALSE
 );
 
 WITH cte__bridge AS (

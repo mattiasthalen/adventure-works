@@ -21,14 +21,14 @@ WITH staging AS (
     ROW_NUMBER() OVER (PARTITION BY address__address_id ORDER BY address__record_loaded_at) AS address__record_version,
     CASE
       WHEN address__record_version = 1
-      THEN '1970-01-01 00:00:00'::TIMESTAMP
+      THEN @min_ts::TIMESTAMP
       ELSE address__record_loaded_at
     END AS address__record_valid_from,
     COALESCE(
       LEAD(address__record_loaded_at) OVER (PARTITION BY address__address_id ORDER BY address__record_loaded_at),
-      '9999-12-31 23:59:59'::TIMESTAMP
+      @max_ts::TIMESTAMP
     ) AS address__record_valid_to,
-    address__record_valid_to = '9999-12-31 23:59:59'::TIMESTAMP AS address__is_current_record,
+    address__record_valid_to = @max_ts::TIMESTAMP AS address__is_current_record,
     CASE
       WHEN address__is_current_record
       THEN address__record_loaded_at
@@ -42,12 +42,28 @@ WITH staging AS (
       address__address_id,
       '~epoch|valid_from|',
       address__record_valid_from
-    )::BLOB AS _pit_hook__address,
-    CONCAT('address|adventure_works|', address__address_id)::BLOB AS _hook__address,
-    CONCAT('state_province|adventure_works|', address__state_province_id)::BLOB AS _hook__state_province,
+    ) AS _pit_hook__address,
+    CONCAT('address|adventure_works|', address__address_id) AS _hook__address,
+    CONCAT('state_province|adventure_works|', address__state_province_id) AS _hook__state_province,
     *
   FROM validity
 )
 SELECT
-  *
+  _pit_hook__address::BLOB,
+  _hook__address::BLOB,
+  _hook__state_province::BLOB,
+  address__address_id::VARCHAR,
+  address__state_province_id::VARCHAR,
+  address__address_line1::VARCHAR,
+  address__address_line2::VARCHAR,
+  address__city::VARCHAR,
+  address__modified_date::VARCHAR,
+  address__postal_code::VARCHAR,
+  address__rowguid::VARCHAR,
+  address__record_loaded_at::TIMESTAMP,
+  address__record_version::INT,
+  address__record_valid_from::TIMESTAMP,
+  address__record_valid_to::TIMESTAMP,
+  address__is_current_record::BOOLEAN,
+  address__record_updated_at::TIMESTAMP
 FROM hooks

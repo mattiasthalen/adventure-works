@@ -1,9 +1,13 @@
 MODEL (
   kind VIEW,
-  enabled TRUE
+  enabled FALSE
 );
 
-WITH cte__aggregated_transactions AS (
+WITH cte__transactions AS (
+  SELECT * FROM silver.bag__adventure_works__transaction_histories
+  UNION ALL
+  SELECT * FROM silver.bag__adventure_works__transaction_history_archives
+), cte__aggregated_transactions AS (
   SELECT
     _hook__product,
     transaction__product_id,
@@ -23,7 +27,7 @@ WITH cte__aggregated_transactions AS (
     MAX(transaction__record_updated_at) AS inventory__record_updated_at,
     MAX(transaction__record_valid_from) AS inventory__record_valid_from,
     MAX(transaction__record_valid_to) AS inventory__record_valid_to
-  FROM silver.bag__adventure_works__transactions
+  FROM cte__transactions
   WHERE
     transaction__is_current_record = TRUE
   GROUP BY ALL
