@@ -58,7 +58,7 @@ def load_schema(schema: str) -> None:
     ]
 
     # Run the pipeline for all tables
-    load_info = pipeline.run(sources, table_format="delta")
+    load_info = pipeline.run(sources, table_format="iceberg")
     print(load_info)
 
 if __name__ == "__main__":
