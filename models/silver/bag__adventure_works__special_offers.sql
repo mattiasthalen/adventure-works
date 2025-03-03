@@ -5,7 +5,7 @@ MODEL (
 
 WITH staging AS (
   SELECT
-    special_offer_id,
+    special_offer_id AS special_offer__special_offer_id,
     category AS special_offer__category,
     description AS special_offer__description,
     discount_percentage AS special_offer__discount_percentage,
@@ -21,14 +21,14 @@ WITH staging AS (
 ), validity AS (
   SELECT
     *,
-    ROW_NUMBER() OVER (PARTITION BY special_offer_id ORDER BY special_offer__record_loaded_at) AS special_offer__record_version,
+    ROW_NUMBER() OVER (PARTITION BY special_offer__special_offer_id ORDER BY special_offer__record_loaded_at) AS special_offer__record_version,
     CASE
       WHEN special_offer__record_version = 1
       THEN '1970-01-01 00:00:00'::TIMESTAMP
       ELSE special_offer__record_loaded_at
     END AS special_offer__record_valid_from,
     COALESCE(
-      LEAD(special_offer__record_loaded_at) OVER (PARTITION BY special_offer_id ORDER BY special_offer__record_loaded_at),
+      LEAD(special_offer__record_loaded_at) OVER (PARTITION BY special_offer__special_offer_id ORDER BY special_offer__record_loaded_at),
       '9999-12-31 23:59:59'::TIMESTAMP
     ) AS special_offer__record_valid_to,
     special_offer__record_valid_to = '9999-12-31 23:59:59'::TIMESTAMP AS special_offer__is_current_record,
@@ -42,11 +42,11 @@ WITH staging AS (
   SELECT
     CONCAT(
       'special_offer|adventure_works|',
-      special_offer_id,
+      special_offer__special_offer_id,
       '~epoch|valid_from|',
       special_offer__record_valid_from
     )::BLOB AS _pit_hook__special_offer,
-    CONCAT('special_offer|adventure_works|', special_offer_id)::BLOB AS _hook__special_offer,
+    CONCAT('special_offer|adventure_works|', special_offer__special_offer_id)::BLOB AS _hook__special_offer,
     *
   FROM validity
 )

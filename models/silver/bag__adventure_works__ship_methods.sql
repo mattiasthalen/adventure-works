@@ -5,7 +5,7 @@ MODEL (
 
 WITH staging AS (
   SELECT
-    ship_method_id,
+    ship_method_id AS ship_method__ship_method_id,
     modified_date AS ship_method__modified_date,
     name AS ship_method__name,
     rowguid AS ship_method__rowguid,
@@ -16,14 +16,14 @@ WITH staging AS (
 ), validity AS (
   SELECT
     *,
-    ROW_NUMBER() OVER (PARTITION BY ship_method_id ORDER BY ship_method__record_loaded_at) AS ship_method__record_version,
+    ROW_NUMBER() OVER (PARTITION BY ship_method__ship_method_id ORDER BY ship_method__record_loaded_at) AS ship_method__record_version,
     CASE
       WHEN ship_method__record_version = 1
       THEN '1970-01-01 00:00:00'::TIMESTAMP
       ELSE ship_method__record_loaded_at
     END AS ship_method__record_valid_from,
     COALESCE(
-      LEAD(ship_method__record_loaded_at) OVER (PARTITION BY ship_method_id ORDER BY ship_method__record_loaded_at),
+      LEAD(ship_method__record_loaded_at) OVER (PARTITION BY ship_method__ship_method_id ORDER BY ship_method__record_loaded_at),
       '9999-12-31 23:59:59'::TIMESTAMP
     ) AS ship_method__record_valid_to,
     ship_method__record_valid_to = '9999-12-31 23:59:59'::TIMESTAMP AS ship_method__is_current_record,
@@ -37,11 +37,11 @@ WITH staging AS (
   SELECT
     CONCAT(
       'ship_method|adventure_works|',
-      ship_method_id,
+      ship_method__ship_method_id,
       '~epoch|valid_from|',
       ship_method__record_valid_from
     )::BLOB AS _pit_hook__ship_method,
-    CONCAT('ship_method|adventure_works|', ship_method_id)::BLOB AS _hook__ship_method,
+    CONCAT('ship_method|adventure_works|', ship_method__ship_method_id)::BLOB AS _hook__ship_method,
     *
   FROM validity
 )
