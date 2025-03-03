@@ -1,5 +1,5 @@
 flowchart LR
-    subgraph lakehouse.bronze["lakehouse.bronze"]
+    subgraph db.bronze["db.bronze"]
         direction LR
         raw__adventure_works__addresses(["raw__adventure_works__addresses"])
         raw__adventure_works__credit_cards(["raw__adventure_works__credit_cards"])
@@ -19,7 +19,7 @@ flowchart LR
         raw__adventure_works__transaction_history_archives(["raw__adventure_works__transaction_history_archives"])
     end
 
-    subgraph lakehouse.silver["lakehouse.silver"]
+    subgraph db.silver["db.silver"]
         direction LR
         bag__adventure_works__addresses(["bag__adventure_works__addresses"])
         bag__adventure_works__credit_cards(["bag__adventure_works__credit_cards"])
@@ -55,12 +55,13 @@ flowchart LR
         uss_bridge__state_provinces(["uss_bridge__state_provinces"])
     end
 
-    subgraph lakehouse.gold["lakehouse.gold"]
+    subgraph db.gold["db.gold"]
         direction LR
         _bridge__as_is(["_bridge__as_is"])
         _bridge__as_of(["_bridge__as_of"])
         _bridge__as_of_event(["_bridge__as_of_event"])
         _cube__metrics(["_cube__metrics"])
+        _one_big_table__as_of_event(["_one_big_table__as_of_event"])
         addresses(["addresses"])
         calendar(["calendar"])
         credit_cards(["credit_cards"])
@@ -78,7 +79,7 @@ flowchart LR
         state_provinces(["state_provinces"])
     end
 
-    %% lakehouse.bronze -> lakehouse.silver
+    %% db.bronze -> db.silver
     raw__adventure_works__addresses --> bag__adventure_works__addresses
     raw__adventure_works__credit_cards --> bag__adventure_works__credit_cards
     raw__adventure_works__currency_rates --> bag__adventure_works__currency_rates
@@ -96,7 +97,7 @@ flowchart LR
     raw__adventure_works__transaction_histories --> bag__adventure_works__transactions
     raw__adventure_works__transaction_history_archives --> bag__adventure_works__transactions
 
-    %% lakehouse.silver -> lakehouse.silver
+    %% db.silver -> db.silver
     bag__adventure_works__addresses --> uss_bridge__addresses
     bag__adventure_works__credit_cards --> uss_bridge__credit_cards
     bag__adventure_works__currency_rates --> uss_bridge__currency_rates
@@ -144,7 +145,7 @@ flowchart LR
     uss_bridge__state_provinces --> uss_bridge
     uss_bridge__state_provinces --> uss_bridge__addresses
 
-    %% lakehouse.silver -> lakehouse.gold
+    %% db.silver -> db.gold
     bag__adventure_works__addresses --> addresses
     bag__adventure_works__credit_cards --> credit_cards
     bag__adventure_works__currency_rates --> currency_rates
@@ -164,24 +165,25 @@ flowchart LR
     uss_bridge --> _bridge__as_of_event
     uss_bridge --> calendar
 
-    %% lakehouse.gold -> lakehouse.gold
-    _bridge__as_of_event --> _cube__metrics
-    addresses --> _cube__metrics
-    calendar --> _cube__metrics
-    credit_cards --> _cube__metrics
-    currency_rates --> _cube__metrics
-    customers --> _cube__metrics
-    product_categories --> _cube__metrics
-    product_subcategories --> _cube__metrics
-    products --> _cube__metrics
-    sales_order_details --> _cube__metrics
-    sales_order_headers --> _cube__metrics
-    sales_persons --> _cube__metrics
-    sales_territories --> _cube__metrics
-    ship_methods --> _cube__metrics
-    special_offers --> _cube__metrics
-    state_provinces --> _cube__metrics
-    
+    %% db.gold -> db.gold
+    _bridge__as_of_event --> _one_big_table__as_of_event
+    _one_big_table__as_of_event --> _cube__metrics
+    addresses --> _one_big_table__as_of_event
+    calendar --> _one_big_table__as_of_event
+    credit_cards --> _one_big_table__as_of_event
+    currency_rates --> _one_big_table__as_of_event
+    customers --> _one_big_table__as_of_event
+    product_categories --> _one_big_table__as_of_event
+    product_subcategories --> _one_big_table__as_of_event
+    products --> _one_big_table__as_of_event
+    sales_order_details --> _one_big_table__as_of_event
+    sales_order_headers --> _one_big_table__as_of_event
+    sales_persons --> _one_big_table__as_of_event
+    sales_territories --> _one_big_table__as_of_event
+    ship_methods --> _one_big_table__as_of_event
+    special_offers --> _one_big_table__as_of_event
+    state_provinces --> _one_big_table__as_of_event
+
     linkStyle default stroke:#666,stroke-width:2px
 
     %% Bronze shades
@@ -202,6 +204,6 @@ flowchart LR
     classDef gold_light fill:#FFE55C,color:black
     classDef gold_antique fill:#CFB53B,color:black
 
-    class lakehouse.bronze bronze_classic
-    class lakehouse.silver silver_classic
-    class lakehouse.gold gold_classic
+    class db.bronze bronze_classic
+    class db.silver silver_classic
+    class db.gold gold_classic
