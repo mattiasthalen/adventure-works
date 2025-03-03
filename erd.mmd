@@ -1,0 +1,144 @@
+flowchart LR
+    subgraph Roots
+        raw__adventure_works__cultures
+        raw__adventure_works__currencies
+        raw__adventure_works__illustrations
+        raw__adventure_works__product_descriptions
+        raw__adventure_works__product_photos
+        raw__adventure_works__sales_reasons
+        raw__adventure_works__address_types
+        raw__adventure_works__contact_types
+        raw__adventure_works__credit_cards
+        raw__adventure_works__currency_rates
+        raw__adventure_works__departments
+        raw__adventure_works__locations
+        raw__adventure_works__phone_number_types
+        raw__adventure_works__product_categories
+        raw__adventure_works__scrap_reasons
+        raw__adventure_works__shifts
+        raw__adventure_works__special_offers
+        raw__adventure_works__country_regions
+        raw__adventure_works__email_addresses
+        raw__adventure_works__employee_pay_histories
+        raw__adventure_works__employees
+        raw__adventure_works__persons
+        raw__adventure_works__product_models
+        raw__adventure_works__sales_person_quota_histories
+        raw__adventure_works__ship_methods
+        raw__adventure_works__stores
+        raw__adventure_works__unit_measures
+        raw__adventure_works__vendors
+        raw__adventure_works__product_cost_histories
+        raw__adventure_works__product_list_price_histories
+    end
+
+    %% Leaves
+    raw__adventure_works__cultures
+    raw__adventure_works__currencies
+    raw__adventure_works__illustrations
+    raw__adventure_works__product_descriptions
+    raw__adventure_works__product_photos
+    raw__adventure_works__sales_reasons
+    raw__adventure_works__addresses
+    raw__adventure_works__bill_of_materials
+    raw__adventure_works__product_model_illustrations
+    raw__adventure_works__sales_tax_rates
+    raw__adventure_works__product_reviews
+    raw__adventure_works__shopping_cart_items
+    raw__adventure_works__transaction_histories
+    raw__adventure_works__transaction_history_archives
+    raw__adventure_works__purchase_order_details
+    raw__adventure_works__sales_order_details
+    raw__adventure_works__work_order_routings
+    raw__adventure_works__job_candidates
+    raw__adventure_works__business_entity_addresses
+    
+    %% Relationships
+    raw__adventure_works__bill_of_materials --> raw__adventure_works__unit_measures
+    raw__adventure_works__product_model_illustrations --> raw__adventure_works__product_models
+    raw__adventure_works__product_subcategories --> raw__adventure_works__product_categories
+    raw__adventure_works__business_entity_contacts --> raw__adventure_works__contact_types
+    raw__adventure_works__person_phones --> raw__adventure_works__phone_number_types
+    raw__adventure_works__purchase_order_headers --> raw__adventure_works__ship_methods
+    raw__adventure_works__addresses --> raw__adventure_works__state_provinces
+    raw__adventure_works__employee_department_histories --> raw__adventure_works__departments
+    raw__adventure_works__employee_department_histories --> raw__adventure_works__shifts
+    raw__adventure_works__sales_tax_rates --> raw__adventure_works__state_provinces
+    raw__adventure_works__purchase_order_details --> raw__adventure_works__purchase_order_headers
+    raw__adventure_works__sales_order_details --> raw__adventure_works__special_offers
+    raw__adventure_works__state_provinces --> raw__adventure_works__country_regions
+    raw__adventure_works__work_orders --> raw__adventure_works__scrap_reasons
+    raw__adventure_works__sales_order_headers --> raw__adventure_works__credit_cards
+    raw__adventure_works__sales_order_headers --> raw__adventure_works__currency_rates
+    raw__adventure_works__work_order_routings --> raw__adventure_works__locations
+    raw__adventure_works__customers --> raw__adventure_works__sales_territories
+    raw__adventure_works__product_vendors --> raw__adventure_works__unit_measures
+    raw__adventure_works__sales_order_headers --> raw__adventure_works__customers
+    raw__adventure_works__sales_order_headers --> raw__adventure_works__ship_methods
+    raw__adventure_works__sales_territories --> raw__adventure_works__country_regions
+    raw__adventure_works__sales_persons --> raw__adventure_works__sales_territories
+    raw__adventure_works__sales_territory_histories --> raw__adventure_works__sales_territories
+    raw__adventure_works__state_provinces --> raw__adventure_works__sales_territories
+    raw__adventure_works__work_order_routings --> raw__adventure_works__product_inventories
+    raw__adventure_works__sales_order_details --> raw__adventure_works__sales_order_headers
+    raw__adventure_works__work_order_routings --> raw__adventure_works__work_orders
+    raw__adventure_works__sales_order_headers --> raw__adventure_works__sales_territories
+    raw__adventure_works__product_reviews --> raw__adventure_works__product_cost_histories
+    raw__adventure_works__product_reviews --> raw__adventure_works__product_list_price_histories
+    raw__adventure_works__shopping_cart_items --> raw__adventure_works__product_cost_histories
+    raw__adventure_works__shopping_cart_items --> raw__adventure_works__product_list_price_histories
+    raw__adventure_works__transaction_histories --> raw__adventure_works__product_cost_histories
+    raw__adventure_works__transaction_histories --> raw__adventure_works__product_list_price_histories
+    raw__adventure_works__transaction_history_archives --> raw__adventure_works__product_cost_histories
+    raw__adventure_works__transaction_history_archives --> raw__adventure_works__product_list_price_histories
+    raw__adventure_works__product_inventories --> raw__adventure_works__product_cost_histories
+    raw__adventure_works__product_inventories --> raw__adventure_works__product_list_price_histories
+    raw__adventure_works__products --> raw__adventure_works__product_models
+    raw__adventure_works__products --> raw__adventure_works__product_subcategories
+    raw__adventure_works__purchase_order_details --> raw__adventure_works__product_cost_histories
+    raw__adventure_works__purchase_order_details --> raw__adventure_works__product_list_price_histories
+    raw__adventure_works__business_entity_addresses --> raw__adventure_works__address_types
+    raw__adventure_works__job_candidates --> raw__adventure_works__email_addresses
+    raw__adventure_works__job_candidates --> raw__adventure_works__employee_pay_histories
+    raw__adventure_works__job_candidates --> raw__adventure_works__employees
+    raw__adventure_works__job_candidates --> raw__adventure_works__persons
+    raw__adventure_works__job_candidates --> raw__adventure_works__sales_person_quota_histories
+    raw__adventure_works__job_candidates --> raw__adventure_works__stores
+    raw__adventure_works__job_candidates --> raw__adventure_works__vendors
+    raw__adventure_works__product_reviews --> raw__adventure_works__products
+    raw__adventure_works__sales_order_details --> raw__adventure_works__product_cost_histories
+    raw__adventure_works__sales_order_details --> raw__adventure_works__product_list_price_histories
+    raw__adventure_works__shopping_cart_items --> raw__adventure_works__products
+    raw__adventure_works__transaction_histories --> raw__adventure_works__products
+    raw__adventure_works__transaction_history_archives --> raw__adventure_works__products
+    raw__adventure_works__work_orders --> raw__adventure_works__product_cost_histories
+    raw__adventure_works__work_orders --> raw__adventure_works__product_list_price_histories
+    raw__adventure_works__business_entity_addresses --> raw__adventure_works__email_addresses
+    raw__adventure_works__business_entity_addresses --> raw__adventure_works__employee_pay_histories
+    raw__adventure_works__business_entity_addresses --> raw__adventure_works__employees
+    raw__adventure_works__business_entity_addresses --> raw__adventure_works__persons
+    raw__adventure_works__business_entity_addresses --> raw__adventure_works__sales_person_quota_histories
+    raw__adventure_works__business_entity_addresses --> raw__adventure_works__stores
+    raw__adventure_works__business_entity_addresses --> raw__adventure_works__vendors
+    raw__adventure_works__job_candidates --> raw__adventure_works__business_entity_contacts
+    raw__adventure_works__job_candidates --> raw__adventure_works__person_phones
+    raw__adventure_works__job_candidates --> raw__adventure_works__sales_persons
+    raw__adventure_works__job_candidates --> raw__adventure_works__sales_territory_histories
+    raw__adventure_works__product_inventories --> raw__adventure_works__products
+    raw__adventure_works__product_vendors --> raw__adventure_works__product_cost_histories
+    raw__adventure_works__product_vendors --> raw__adventure_works__product_list_price_histories
+    raw__adventure_works__purchase_order_details --> raw__adventure_works__products
+    raw__adventure_works__work_order_routings --> raw__adventure_works__product_cost_histories
+    raw__adventure_works__work_order_routings --> raw__adventure_works__product_list_price_histories
+    raw__adventure_works__business_entity_addresses --> raw__adventure_works__business_entity_contacts
+    raw__adventure_works__business_entity_addresses --> raw__adventure_works__person_phones
+    raw__adventure_works__business_entity_addresses --> raw__adventure_works__sales_persons
+    raw__adventure_works__business_entity_addresses --> raw__adventure_works__sales_territory_histories
+    raw__adventure_works__job_candidates --> raw__adventure_works__employee_department_histories
+    raw__adventure_works__sales_order_details --> raw__adventure_works__products
+    raw__adventure_works__work_orders --> raw__adventure_works__products
+    raw__adventure_works__business_entity_addresses --> raw__adventure_works__employee_department_histories
+    raw__adventure_works__product_vendors --> raw__adventure_works__products
+    raw__adventure_works__work_order_routings --> raw__adventure_works__products
+    raw__adventure_works__job_candidates --> raw__adventure_works__product_vendors
+    raw__adventure_works__business_entity_addresses --> raw__adventure_works__product_vendors
