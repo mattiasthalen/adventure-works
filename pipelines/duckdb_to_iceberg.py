@@ -4,11 +4,12 @@ import polars as pl
 
 from dotenv import load_dotenv
 
-DUCKDB_PATH = "./lakehouse/lakehouse.duckdb"  # Path to DuckDB file
+DUCKDB_PATH = "./lakehouse/db.duckdb"  # Path to DuckDB file
 
 def get_tables_from_schema(schema: str) -> list:
     """Retrieve all table names from the given DuckDB schema."""
     con = duckdb.connect(DUCKDB_PATH)
+    
     query = f"SELECT table_name FROM information_schema.tables WHERE table_schema = '{schema}'"
     tables = con.execute(query).fetchall()
     con.close()
@@ -18,6 +19,8 @@ def get_tables_from_schema(schema: str) -> list:
 def read_table_from_duckdb(schema: str, table_name: str):
     """Read a specific table from DuckDB and yield it as a dictionary."""
     con = duckdb.connect(DUCKDB_PATH)
+    
+    con.execute("SET unsafe_enable_version_guessing = true;")
     
     # Load table into Polars
     df = pl.from_pandas(con.execute(f"SELECT * FROM {schema}.{table_name}").fetch_df())
@@ -46,6 +49,10 @@ def load_schema(schema: str) -> None:
 
     # Get all tables in the schema
     tables = get_tables_from_schema(schema)
+    
+    if not tables:
+        print(f"No tables found in schema '{schema}'")
+        return
 
     # Generate DLT resources dynamically, with `write_disposition="replace"`
     sources = [
@@ -73,4 +80,4 @@ if __name__ == "__main__":
     elif len(sys.argv) == 2 and sys.argv[1].lower() in ["silver", "gold"]:
         load_schema(sys.argv[1].lower())
     else:
-        print("Usage: python duckdb_to_delta.py [silver|gold]")
+        print("Usage: python duckdb_to_iceberg.py [silver|gold]")
