@@ -1,6 +1,6 @@
 MODEL (
   kind VIEW,
-  enabled FALSE
+  enabled TRUE
 );
 
 SELECT
@@ -11,4 +11,6 @@ SELECT
   ship_base,
   ship_rate,
   _dlt_load_id
-FROM DELTA_SCAN("./lakehouse/bronze/raw__adventure_works__ship_methods")
+  FROM ICEBERG_SCAN(
+    "file://" || @project_path || "/lakehouse/bronze/raw__adventure_works__ship_methods"
+  )

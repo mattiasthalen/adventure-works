@@ -41,9 +41,9 @@ config = Config(
             connection=DuckDBConnectionConfig(
                 database="./lakehouse/db.duckdb",
                 extensions=["httpfs", "iceberg"],
-                #connector_config={
-                #    "unsafe_enable_version_guessing": True
-                #}
+                connector_config={
+                    "unsafe_enable_version_guessing": True
+                }
             )
         )
     },
@@ -75,7 +75,7 @@ config = Config(
         )
     ],
     variables = {
-        "project_path": os.path.abspath("."),
+        "project_path": os.path.abspath(".").lstrip('/'),
         "min_date": "1970-01-01",
         "max_date": "9999-12-31",
         "min_ts": "1970-01-01 00:00:00",

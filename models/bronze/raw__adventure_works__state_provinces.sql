@@ -1,6 +1,6 @@
 MODEL (
   kind VIEW,
-  enabled FALSE
+  enabled TRUE
 );
 
 SELECT
@@ -13,4 +13,6 @@ SELECT
   rowguid,
   state_province_code,
   _dlt_load_id
-FROM DELTA_SCAN("./lakehouse/bronze/raw__adventure_works__state_provinces")
+  FROM ICEBERG_SCAN(
+    "file://" || @project_path || "/lakehouse/bronze/raw__adventure_works__state_provinces"
+  )

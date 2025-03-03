@@ -1,6 +1,6 @@
 MODEL (
   kind VIEW,
-  enabled FALSE
+  enabled TRUE
 );
 
 SELECT
@@ -30,4 +30,6 @@ SELECT
   tax_amt,
   total_due,
   _dlt_load_id
-FROM DELTA_SCAN("./lakehouse/bronze/raw__adventure_works__sales_order_headers")
+  FROM ICEBERG_SCAN(
+    "file://" || @project_path || "/lakehouse/bronze/raw__adventure_works__sales_order_headers"
+  )
