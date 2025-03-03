@@ -15,6 +15,6 @@ SELECT
   sales_last_year,
   sales_ytd,
   _dlt_load_id
-  FROM ICEBERG_SCAN(
-    "file://" || @project_path || "/lakehouse/bronze/raw__adventure_works__sales_territories"
-  )
+FROM ICEBERG_SCAN(
+  "file://" || @project_path || "/lakehouse/bronze/raw__adventure_works__sales_territories"
+)

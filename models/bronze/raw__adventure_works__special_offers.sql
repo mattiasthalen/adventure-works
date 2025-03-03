@@ -16,6 +16,6 @@ SELECT
   start_date,
   type,
   _dlt_load_id
-  FROM ICEBERG_SCAN(
-    "file://" || @project_path || "/lakehouse/bronze/raw__adventure_works__special_offers"
-  )
+FROM ICEBERG_SCAN(
+  "file://" || @project_path || "/lakehouse/bronze/raw__adventure_works__special_offers"
+)

@@ -12,6 +12,6 @@ SELECT
   modified_date,
   to_currency_code,
   _dlt_load_id
-  FROM ICEBERG_SCAN(
-    "file://" || @project_path || "/lakehouse/bronze/raw__adventure_works__currency_rates"
-  )
+FROM ICEBERG_SCAN(
+  "file://" || @project_path || "/lakehouse/bronze/raw__adventure_works__currency_rates"
+)

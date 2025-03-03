@@ -5,8 +5,6 @@ MODEL (
 
 SELECT
   product_id,
-  product_model_id,
-  product_subcategory_id,
   class,
   color,
   days_to_manufacture,
@@ -16,7 +14,9 @@ SELECT
   modified_date,
   name,
   product_line,
+  product_model_id,
   product_number,
+  product_subcategory_id,
   reorder_point,
   rowguid,
   safety_stock_level,
@@ -29,6 +29,6 @@ SELECT
   weight,
   weight_unit_measure_code,
   _dlt_load_id
-  FROM ICEBERG_SCAN(
-    "file://" || @project_path || "/lakehouse/bronze/raw__adventure_works__products"
-  )
+FROM ICEBERG_SCAN(
+  "file://" || @project_path || "/lakehouse/bronze/raw__adventure_works__products"
+)
