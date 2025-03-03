@@ -1,6 +1,6 @@
 MODEL (
   kind VIEW,
-  enabled FALSE
+  enabled TRUE
 );
 
 WITH one_big_table AS (
