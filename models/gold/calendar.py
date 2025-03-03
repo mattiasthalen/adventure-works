@@ -205,6 +205,7 @@ def generate_calendar(df: pl.DataFrame, date_column: str) -> pl.DataFrame:
 
 @model(
     name='gold.calendar',
+    enabled=False,
     kind=dict(
         name=ModelKindName.FULL,
     ),
