@@ -1,11 +1,12 @@
 MODEL (
-  kind VIEW
+  kind VIEW,
+  enabled TRUE
 );
 
 WITH cte__aggregated_transactions AS (
   SELECT
     _hook__product,
-    product_id,
+    transaction__product_id,
     transaction__transaction_date,
     transaction__quantity,
     SUM(
@@ -47,7 +48,7 @@ WITH cte__aggregated_transactions AS (
   SELECT
     CONCAT(
       'product|adventure_works|',
-      product_id,
+      transaction__product_id,
       '~epoch|inventory_date|',
       inventory__inventory_date,
       '~epoch|valid_from|',
@@ -55,7 +56,7 @@ WITH cte__aggregated_transactions AS (
     )::BLOB AS _pit_hook__inventory,
     CONCAT(
       'product|adventure_works|',
-      product_id,
+      transaction__product_id,
       '~epoch|inventory_date|',
       inventory__inventory_date
     )::BLOB AS _hook__inventory,

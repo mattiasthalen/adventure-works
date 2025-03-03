@@ -1,13 +1,14 @@
 MODEL (
-  kind VIEW
+  kind VIEW,
+  enabled TRUE
 );
 
 WITH staging AS (
   SELECT
-    customer_id,
-    person_id,
-    store_id,
-    territory_id,
+    customer_id AS customer__customer_id,
+    person_id AS customer__person_id,
+    store_id AS customer__store_id,
+    territory_id AS customer__territory_id,
     account_number AS customer__account_number,
     modified_date AS customer__modified_date,
     rowguid AS customer__rowguid,
@@ -16,14 +17,14 @@ WITH staging AS (
 ), validity AS (
   SELECT
     *,
-    ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY customer__record_loaded_at) AS customer__record_version,
+    ROW_NUMBER() OVER (PARTITION BY customer__customer_id ORDER BY customer__record_loaded_at) AS customer__record_version,
     CASE
       WHEN customer__record_version = 1
       THEN '1970-01-01 00:00:00'::TIMESTAMP
       ELSE customer__record_loaded_at
     END AS customer__record_valid_from,
     COALESCE(
-      LEAD(customer__record_loaded_at) OVER (PARTITION BY customer_id ORDER BY customer__record_loaded_at),
+      LEAD(customer__record_loaded_at) OVER (PARTITION BY customer__customer_id ORDER BY customer__record_loaded_at),
       '9999-12-31 23:59:59'::TIMESTAMP
     ) AS customer__record_valid_to,
     customer__record_valid_to = '9999-12-31 23:59:59'::TIMESTAMP AS customer__is_current_record,
@@ -37,14 +38,14 @@ WITH staging AS (
   SELECT
     CONCAT(
       'customer|adventure_works|',
-      customer_id,
+      customer__customer_id,
       '~epoch|valid_from|',
       customer__record_valid_from
     )::BLOB AS _pit_hook__customer,
-    CONCAT('customer|adventure_works|', customer_id)::BLOB AS _hook__customer,
-    CONCAT('person|adventure_works|', person_id)::BLOB AS _hook__person,
-    CONCAT('store|adventure_works|', store_id)::BLOB AS _hook__store,
-    CONCAT('territory|adventure_works|', territory_id)::BLOB AS _hook__territory,
+    CONCAT('customer|adventure_works|', customer__customer_id)::BLOB AS _hook__customer,
+    CONCAT('person|adventure_works|', customer__person_id)::BLOB AS _hook__person,
+    CONCAT('store|adventure_works|', customer__store_id)::BLOB AS _hook__store,
+    CONCAT('territory|adventure_works|', customer__territory_id)::BLOB AS _hook__territory,
     *
   FROM validity
 )

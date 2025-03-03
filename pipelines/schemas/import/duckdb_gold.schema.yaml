@@ -1,5 +1,5 @@
 version: 1
-version_hash: SdrcW5LaSuMWEbWY7Cyv/9tre+CAmXbVfeIVnB6GSPU=
+version_hash: xNPB3VE6EsAKPnqSH3hQ9Bb676YJ+hwfyu+/jIzls9I=
 engine_version: 11
 name: duckdb_gold
 tables:
@@ -49,83 +49,103 @@ tables:
   addresses:
     columns: {}
     write_disposition: replace
-    table_format: delta
+    table_format: iceberg
     resource: addresses
+  calendar:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: calendar
   credit_cards:
     columns: {}
     write_disposition: replace
-    table_format: delta
+    table_format: iceberg
     resource: credit_cards
   currency_rates:
     columns: {}
     write_disposition: replace
-    table_format: delta
+    table_format: iceberg
     resource: currency_rates
   customers:
     columns: {}
     write_disposition: replace
-    table_format: delta
+    table_format: iceberg
     resource: customers
   products:
     columns: {}
     write_disposition: replace
-    table_format: delta
+    table_format: iceberg
     resource: products
   product_categories:
     columns: {}
     write_disposition: replace
-    table_format: delta
+    table_format: iceberg
     resource: product_categories
   product_subcategories:
     columns: {}
     write_disposition: replace
-    table_format: delta
+    table_format: iceberg
     resource: product_subcategories
   sales_order_details:
     columns: {}
     write_disposition: replace
-    table_format: delta
+    table_format: iceberg
     resource: sales_order_details
   sales_order_headers:
     columns: {}
     write_disposition: replace
-    table_format: delta
+    table_format: iceberg
     resource: sales_order_headers
   sales_persons:
     columns: {}
     write_disposition: replace
-    table_format: delta
+    table_format: iceberg
     resource: sales_persons
   sales_territories:
     columns: {}
     write_disposition: replace
-    table_format: delta
+    table_format: iceberg
     resource: sales_territories
   ship_methods:
     columns: {}
     write_disposition: replace
-    table_format: delta
+    table_format: iceberg
     resource: ship_methods
   special_offers:
     columns: {}
     write_disposition: replace
-    table_format: delta
+    table_format: iceberg
     resource: special_offers
   state_provinces:
     columns: {}
     write_disposition: replace
-    table_format: delta
+    table_format: iceberg
     resource: state_provinces
   _bridge__as_is:
     columns: {}
     write_disposition: replace
-    table_format: delta
+    table_format: iceberg
     resource: _bridge__as_is
   _bridge__as_of:
     columns: {}
     write_disposition: replace
-    table_format: delta
+    table_format: iceberg
     resource: _bridge__as_of
+  _bridge__as_of_event:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: _bridge__as_of_event
+  _cube__metrics:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: _cube__metrics
+  _one_big_table:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: _one_big_table
   _dlt_pipeline_state:
     columns:
       version:
@@ -175,4 +195,4 @@ normalizers:
   json:
     module: dlt.common.normalizers.json.relational
 previous_hashes:
-- nb2FhtthJhjsABSdT27hgOCW9M+UPnxgDJ5WOhxoGXc=
+- 7EoOZ3tASmqY84PucyRKDekL2UIgByqxp2W5CqYm4E4=

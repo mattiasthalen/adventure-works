@@ -1,5 +1,6 @@
 MODEL (
-  kind VIEW
+  kind VIEW,
+  enabled TRUE
 );
 
 SELECT
@@ -13,4 +14,6 @@ SELECT
   sales_quota,
   sales_ytd,
   _dlt_load_id
-FROM DELTA_SCAN("./lakehouse/bronze/raw__adventure_works__sales_persons")
+  FROM ICEBERG_SCAN(
+    "file://" || @project_path || "/lakehouse/bronze/raw__adventure_works__sales_persons"
+  )

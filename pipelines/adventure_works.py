@@ -1,4 +1,5 @@
 import dlt
+import sys
 import typing as t
 
 from dotenv import load_dotenv
@@ -6,6 +7,7 @@ from dotenv import load_dotenv
 from dlt.sources.rest_api.typing import RESTAPIConfig
 from dlt.sources.rest_api import rest_api_resources
 from dlt.sources.helpers.rest_client.paginators import JSONLinkPaginator
+
 from requests import Response
 
 class ODataLinkPaginator(JSONLinkPaginator):
@@ -584,7 +586,10 @@ def adventure_works_source() -> t.Any:
 
     yield from rest_api_resources(source_config)
 
-def load_adventure_works() -> None:
+def load_adventure_works(env) -> None:
+    dev_mode = env != "prod"
+    print(f"Running in {'dev' if dev_mode else 'prod'} mode")
+    
     load_dotenv()
     
     pipeline = dlt.pipeline(
@@ -594,13 +599,14 @@ def load_adventure_works() -> None:
         progress="enlighten",
         export_schema_path="./pipelines/schemas/export",
         import_schema_path="./pipelines/schemas/import",
-        dev_mode=False
+        dev_mode=dev_mode
     )
 
     source = adventure_works_source()
     
-    load_info = pipeline.run(source, table_format="delta")
+    load_info = pipeline.run(source, table_format="iceberg")
     print(load_info)
-
+    
 if __name__ == "__main__":
-    load_adventure_works()
+    env = sys.argv[1] if len(sys.argv) > 1 else "dev"
+    load_adventure_works(env=env)

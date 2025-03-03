@@ -1,10 +1,11 @@
 MODEL (
-  kind VIEW
+  kind VIEW,
+  enabled TRUE
 );
 
 WITH staging AS (
   SELECT
-    credit_card_id,
+    credit_card_id AS credit_card__credit_card_id,
     card_number AS credit_card__card_number,
     card_type AS credit_card__card_type,
     exp_month AS credit_card__exp_month,
@@ -15,14 +16,14 @@ WITH staging AS (
 ), validity AS (
   SELECT
     *,
-    ROW_NUMBER() OVER (PARTITION BY credit_card_id ORDER BY credit_card__record_loaded_at) AS credit_card__record_version,
+    ROW_NUMBER() OVER (PARTITION BY credit_card__credit_card_id ORDER BY credit_card__record_loaded_at) AS credit_card__record_version,
     CASE
       WHEN credit_card__record_version = 1
       THEN '1970-01-01 00:00:00'::TIMESTAMP
       ELSE credit_card__record_loaded_at
     END AS credit_card__record_valid_from,
     COALESCE(
-      LEAD(credit_card__record_loaded_at) OVER (PARTITION BY credit_card_id ORDER BY credit_card__record_loaded_at),
+      LEAD(credit_card__record_loaded_at) OVER (PARTITION BY credit_card__credit_card_id ORDER BY credit_card__record_loaded_at),
       '9999-12-31 23:59:59'::TIMESTAMP
     ) AS credit_card__record_valid_to,
     credit_card__record_valid_to = '9999-12-31 23:59:59'::TIMESTAMP AS credit_card__is_current_record,
@@ -36,11 +37,11 @@ WITH staging AS (
   SELECT
     CONCAT(
       'credit_card|adventure_works|',
-      credit_card_id,
+      credit_card__credit_card_id,
       '~epoch|valid_from|',
       credit_card__record_valid_from
     )::BLOB AS _pit_hook__credit_card,
-    CONCAT('credit_card|adventure_works|', credit_card_id)::BLOB AS _hook__credit_card,
+    CONCAT('credit_card|adventure_works|', credit_card__credit_card_id)::BLOB AS _hook__credit_card,
     *
   FROM validity
 )

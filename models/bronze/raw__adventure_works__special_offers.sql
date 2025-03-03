@@ -1,5 +1,6 @@
 MODEL (
-  kind VIEW
+  kind VIEW,
+  enabled TRUE
 );
 
 SELECT
@@ -15,4 +16,6 @@ SELECT
   start_date,
   type,
   _dlt_load_id
-FROM DELTA_SCAN("./lakehouse/bronze/raw__adventure_works__special_offers")
+  FROM ICEBERG_SCAN(
+    "file://" || @project_path || "/lakehouse/bronze/raw__adventure_works__special_offers"
+  )

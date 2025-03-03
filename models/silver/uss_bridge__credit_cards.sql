@@ -1,5 +1,6 @@
 MODEL (
-  kind VIEW
+  kind VIEW,
+  enabled TRUE
 );
 
 WITH bridge AS (
