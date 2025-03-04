@@ -1,17 +1,27 @@
-concepts:
-  - core:
-      - name: customer
-      - name: product
-      - name: order
-        taxonomy:
-          - sales
-          - purchase
-          - work
-      - name: employee
-      - name: vendor
-      - name: store
-      - name: currency
-      - name: promotion
-      - name: inventory
-      - name: department
-      - name: job_candidate
+core_business_concepts:
+  customer:
+    description: ""
+  product:
+    description: ""
+  order:
+    description: ""
+    taxonomy:
+      - sales
+      - purchase
+      - work
+  employee:
+    description: ""
+  vendor:
+    description: ""
+  store:
+    description: ""
+  currency:
+    description: ""
+  promotion:
+    description: ""
+  inventory:
+    description: ""
+  department:
+    description: ""
+  job_candidate:
+    description: ""
