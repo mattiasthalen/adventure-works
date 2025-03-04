@@ -16,14 +16,184 @@ keysets:
     source_table: 
 
 tables:
-  - name: 
+  - name: customers
     concepts:
-      - name: 
-        primary_concept: 
-        identifier: 
-        keyset: 
-          
+      - name: customer
+        primary_concept: true
+        identifier: customer__business_entity_id
+        keyset: adventure_works__customer
+
+  - name: products
+    concepts:
+      - name: product
+        primary_concept: true
+        identifier: product__product_id
+        keyset: adventure_works__product
+
+  - name: sales_order_headers
+    concepts:
+      - name: order
+        primary_concept: true
+        identifier: order__sales_order_id
+        keyset: adventure_works__order
+      - name: customer
+        identifier: order__customer_id
+        keyset: adventure_works__customer
+      - name: address
         qualifiers:
-          - name: 
-            identifier: 
-            keyset: 
+          - name: ship_to
+            identifier: address__ship_to_address_id
+            keyset: adventure_works__address
+          - name: bill_to
+            identifier: address__bill_to_address_id
+            keyset: adventure_works__address
+
+  - name: sales_order_details
+    concepts:
+      - name: order
+        primary_concept: true
+        identifier: order__sales_order_id
+        keyset: adventure_works__order
+      - name: product
+        identifier: order__product_id
+        keyset: adventure_works__product
+      - name: address
+        qualifiers:
+          - name: ship_to
+            identifier: address__ship_to_address_id
+            keyset: adventure_works__address
+          - name: bill_to
+            identifier: address__bill_to_address_id
+            keyset: adventure_works__address
+
+  - name: purchase_order_headers
+    concepts:
+      - name: order
+        primary_concept: true
+        identifier: order__purchase_order_id
+        keyset: adventure_works__order
+      - name: vendor
+        identifier: order__vendor_id
+        keyset: adventure_works__vendor
+      - name: address
+        qualifiers:
+          - name: ship_to
+            identifier: address__ship_to_address_id
+            keyset: adventure_works__address
+
+  - name: purchase_order_details
+    concepts:
+      - name: order
+        primary_concept: true
+        identifier: order__purchase_order_id
+        keyset: adventure_works__order
+      - name: product
+        identifier: order__product_id
+        keyset: adventure_works__product
+      - name: address
+        qualifiers:
+          - name: ship_to
+            identifier: address__ship_to_address_id
+            keyset: adventure_works__address
+
+  - name: employees
+    concepts:
+      - name: employee
+        primary_concept: true
+        identifier: employee__business_entity_id
+        keyset: adventure_works__employee
+      - name: department
+        identifier: employee__department_id
+        keyset: adventure_works__department
+
+  - name: vendors
+    concepts:
+      - name: vendor
+        primary_concept: true
+        identifier: vendor__vendor_id
+        keyset: adventure_works__vendor
+      - name: address
+        qualifiers:
+          - name: main
+            identifier: address__address_id
+            keyset: adventure_works__address
+
+  - name: stores
+    concepts:
+      - name: store
+        primary_concept: true
+        identifier: store__business_entity_id
+        keyset: adventure_works__store
+      - name: address
+        qualifiers:
+          - name: main
+            identifier: address__address_id
+            keyset: adventure_works__address
+
+  - name: currencies
+    concepts:
+      - name: currency
+        primary_concept: true
+        identifier: currency__currency_code
+        keyset: adventure_works__currency
+
+  - name: special_offers
+    concepts:
+      - name: promotion
+        primary_concept: true
+        identifier: promotion__special_offer_id
+        keyset: adventure_works__promotion
+      - name: order
+        identifier: promotion__sales_order_id
+        keyset: adventure_works__order
+
+  - name: work_orders
+    concepts:
+      - name: work_order
+        primary_concept: true
+        identifier: work_order__work_order_id
+        keyset: adventure_works__work_order
+      - name: product
+        identifier: work_order__product_id
+        keyset: adventure_works__product
+      - name: inventory
+        qualifiers:
+          - name: location
+            identifier: inventory__location_id
+            keyset: adventure_works__inventory
+
+  - name: product_inventories
+    concepts:
+      - name: inventory
+        primary_concept: true
+        identifier: inventory__product_id
+        keyset: adventure_works__inventory
+      - name: product
+        identifier: inventory__product_id
+        keyset: adventure_works__product
+      - name: inventory
+        qualifiers:
+          - name: location
+            identifier: inventory__location_id
+            keyset: adventure_works__inventory
+
+  - name: departments
+    concepts:
+      - name: department
+        primary_concept: true
+        identifier: department__department_id
+        keyset: adventure_works__department
+
+  - name: job_candidates
+    concepts:
+      - name: job_candidate
+        primary_concept: true
+        identifier: job_candidate__job_candidate_id
+        keyset: adventure_works__job_candidate
+
+  - name: addresses
+    concepts:
+      - name: address
+        primary_concept: true
+        identifier: address__address_id
+        keyset: adventure_works__address
