@@ -1,259 +1,280 @@
-concepts:
-  - name: 
-    definition: 
-    type: 
-    examples: 
-    business_rules: 
-    taxonomy: 
-    synonyms: 
-    data_steward: 
-    last_revised: 
-
-keysets:
-  - name: adventure_works__customer
-    description: 
-    core_business_concept: customer
-    source_table: adventure_works__customers
-
-  - name: adventure_works__product
-    description: 
-    core_business_concept: product
-    source_table: adventure_works__products
-
-  - name: adventure_works__order
-    description: 
-    core_business_concept: order
-    source_table: adventure_works__sales_order_headers
-
-  - name: adventure_works__employee
-    description: 
-    core_business_concept: employee
-    source_table: adventure_works__employees
-
-  - name: adventure_works__vendor
-    description: 
-    core_business_concept: vendor
-    source_table: adventure_works__vendors
-
-  - name: adventure_works__store
-    description: 
-    core_business_concept: store
-    source_table: adventure_works__stores
-
-  - name: adventure_works__currency
-    description: 
-    core_business_concept: currency
-    source_table: adventure_works__currencies
-
-  - name: adventure_works__promotion
-    description: 
-    core_business_concept: promotion
-    source_table: adventure_works__special_offers
-
-  - name: adventure_works__work_order
-    description: 
-    core_business_concept: work_order
-    source_table: adventure_works__work_orders
-
-  - name: adventure_works__inventory
-    description: 
-    core_business_concept: inventory
-    source_table: adventure_works__product_inventories
-
-  - name: adventure_works__department
-    description: 
-    core_business_concept: department
-    source_table: adventure_works__departments
-
-  - name: adventure_works__job_candidate
-    description: 
-    core_business_concept: job_candidate
-    source_table: adventure_works__job_candidates
-
-  - name: adventure_works__address
-    description: 
-    core_business_concept: address
-    source_table: adventure_works__addresses
-
 tables:
   - name: customers
+    source_table: raw__adventure_works__customers
     concepts:
       - name: customer
-        primary_concept: true
+        core: true
+        primary: true
         identifier: customer__business_entity_id
         keyset: adventure_works__customer
+        hook: _hook__customer__id
 
   - name: products
+    source_table: raw__adventure_works__products
     concepts:
       - name: product
-        primary_concept: true
+        core: true
+        primary: true
         identifier: product__product_id
         keyset: adventure_works__product
+        hook: _hook__product__id
 
   - name: sales_order_headers
+    source_table: raw__adventure_works__sales_order_headers
     concepts:
       - name: order
-        primary_concept: true
+        core: true
+        primary: true
         identifier: order__sales_order_id
         keyset: adventure_works__order
+        hook: _hook__order__id
       - name: customer
+        core: true
+        primary: false
         identifier: order__customer_id
         keyset: adventure_works__customer
+        hook: _hook__customer__id
       - name: address
+        core: false
+        primary: false
         qualifiers:
           - name: ship_to
             identifier: address__ship_to_address_id
             keyset: adventure_works__address
+            hook: _hook__reference__address__ship_to
           - name: bill_to
             identifier: address__bill_to_address_id
             keyset: adventure_works__address
+            hook: _hook__reference__address__bill_to
 
   - name: sales_order_details
+    source_table: raw__adventure_works__sales_order_details
     concepts:
       - name: order
-        primary_concept: true
+        core: true
+        primary: true
         identifier: order__sales_order_id
         keyset: adventure_works__order
+        hook: _hook__order__id
       - name: product
+        core: true
+        primary: false
         identifier: order__product_id
         keyset: adventure_works__product
+        hook: _hook__product__id
       - name: address
+        core: false
+        primary: false
         qualifiers:
           - name: ship_to
             identifier: address__ship_to_address_id
             keyset: adventure_works__address
+            hook: _hook__reference__address__ship_to
           - name: bill_to
             identifier: address__bill_to_address_id
             keyset: adventure_works__address
+            hook: _hook__reference__address__bill_to
 
   - name: purchase_order_headers
+    source_table: raw__adventure_works__purchase_order_headers
     concepts:
       - name: order
-        primary_concept: true
+        core: true
+        primary: true
         identifier: order__purchase_order_id
         keyset: adventure_works__order
+        hook: _hook__order__id
       - name: vendor
+        core: true
+        primary: false
         identifier: order__vendor_id
         keyset: adventure_works__vendor
+        hook: _hook__vendor__id
       - name: address
+        core: false
+        primary: false
         qualifiers:
           - name: ship_to
             identifier: address__ship_to_address_id
             keyset: adventure_works__address
+            hook: _hook__reference__address__ship_to
 
   - name: purchase_order_details
+    source_table: raw__adventure_works__purchase_order_details
     concepts:
       - name: order
-        primary_concept: true
+        core: true
+        primary: true
         identifier: order__purchase_order_id
         keyset: adventure_works__order
+        hook: _hook__order__id
       - name: product
+        core: true
+        primary: false
         identifier: order__product_id
         keyset: adventure_works__product
+        hook: _hook__product__id
       - name: address
+        core: false
+        primary: false
         qualifiers:
           - name: ship_to
             identifier: address__ship_to_address_id
             keyset: adventure_works__address
+            hook: _hook__reference__address__ship_to
 
   - name: employees
+    source_table: raw__adventure_works__employees
     concepts:
       - name: employee
-        primary_concept: true
+        core: true
+        primary: true
         identifier: employee__business_entity_id
         keyset: adventure_works__employee
+        hook: _hook__employee__id
       - name: department
+        core: true
+        primary: false
         identifier: employee__department_id
         keyset: adventure_works__department
+        hook: _hook__department__id
 
   - name: vendors
+    source_table: raw__adventure_works__vendors
     concepts:
       - name: vendor
-        primary_concept: true
+        core: true
+        primary: true
         identifier: vendor__vendor_id
         keyset: adventure_works__vendor
+        hook: _hook__vendor__id
       - name: address
+        core: false
+        primary: false
         qualifiers:
           - name: main
             identifier: address__address_id
             keyset: adventure_works__address
+            hook: _hook__reference__address__main
 
   - name: stores
+    source_table: raw__adventure_works__stores
     concepts:
       - name: store
-        primary_concept: true
+        core: true
+        primary: true
         identifier: store__business_entity_id
         keyset: adventure_works__store
+        hook: _hook__store__id
       - name: address
+        core: false
+        primary: false
         qualifiers:
           - name: main
             identifier: address__address_id
             keyset: adventure_works__address
+            hook: _hook__reference__address__main
 
   - name: currencies
+    source_table: raw__adventure_works__currencies
     concepts:
       - name: currency
-        primary_concept: true
+        core: true
+        primary: true
         identifier: currency__currency_code
         keyset: adventure_works__currency
+        hook: _hook__currency__id
 
   - name: special_offers
+    source_table: raw__adventure_works__special_offers
     concepts:
       - name: promotion
-        primary_concept: true
+        core: true
+        primary: true
         identifier: promotion__special_offer_id
         keyset: adventure_works__promotion
+        hook: _hook__promotion__id
       - name: order
+        core: true
+        primary: false
         identifier: promotion__sales_order_id
         keyset: adventure_works__order
+        hook: _hook__order__id
 
   - name: work_orders
+    source_table: raw__adventure_works__work_orders
     concepts:
       - name: work_order
-        primary_concept: true
+        core: true
+        primary: true
         identifier: work_order__work_order_id
         keyset: adventure_works__work_order
+        hook: _hook__work_order__id
       - name: product
+        core: true
+        primary: false
         identifier: work_order__product_id
         keyset: adventure_works__product
+        hook: _hook__product__id
       - name: inventory
+        core: false
+        primary: false
         qualifiers:
           - name: location
             identifier: inventory__location_id
             keyset: adventure_works__inventory
+            hook: _hook__reference__inventory__location
 
   - name: product_inventories
+    source_table: raw__adventure_works__product_inventories
     concepts:
       - name: inventory
-        primary_concept: true
+        core: true
+        primary: true
         identifier: inventory__product_id
         keyset: adventure_works__inventory
+        hook: _hook__inventory__id
       - name: product
+        core: true
+        primary: false
         identifier: inventory__product_id
         keyset: adventure_works__product
+        hook: _hook__product__id
       - name: inventory
+        core: false
+        primary: false
         qualifiers:
           - name: location
             identifier: inventory__location_id
             keyset: adventure_works__inventory
+            hook: _hook__reference__inventory__location
 
   - name: departments
+    source_table: raw__adventure_works__departments
     concepts:
       - name: department
-        primary_concept: true
+        core: true
+        primary: true
         identifier: department__department_id
         keyset: adventure_works__department
+        hook: _hook__department__id
 
   - name: job_candidates
+    source_table: raw__adventure_works__job_candidates
     concepts:
       - name: job_candidate
-        primary_concept: true
+        core: true
+        primary: true
         identifier: job_candidate__job_candidate_id
         keyset: adventure_works__job_candidate
+        hook: _hook__job_candidate__id
 
   - name: addresses
+    source_table: raw__adventure_works__addresses
     concepts:
       - name: address
-        primary_concept: true
+        core: false
+        primary: false
         identifier: address__address_id
         keyset: adventure_works__address
+        hook: _hook__reference__address__id
