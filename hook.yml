@@ -1,3 +1,202 @@
+concepts:
+  - name: customer
+    type: core
+
+  - name: product
+    type: core
+
+  - name: order
+    type: core
+
+  - name: employee
+    type: core
+
+  - name: vendor
+    type: core
+
+  - name: store
+    type: core
+
+  - name: currency
+    type: core
+
+  - name: promotion
+    type: core
+
+  - name: work_order
+    type: core
+
+  - name: inventory
+    type: core
+
+  - name: department
+    type: core
+
+  - name: job_candidate
+    type: core
+
+  - name: address
+    type: reference
+
+  - name: person
+    type: reference
+
+  - name: sales_territory
+    type: reference
+
+  - name: special_offer_product
+    type: reference
+
+  - name: product_model
+    type: reference
+
+  - name: product_subcategory
+    type: reference
+
+  - name: product_category
+    type: reference
+
+  - name: product_description
+    type: reference
+
+  - name: product_review
+    type: reference
+
+  - name: product_inventory
+    type: reference
+
+  - name: location
+    type: reference
+
+  - name: work_order_routing
+    type: reference
+
+  - name: scrap_reason
+    type: reference
+
+  - name: bill_of_materials
+    type: reference
+
+  - name: product_cost_history
+    type: reference
+
+  - name: product_list_price_history
+    type: reference
+
+  - name: product_document
+    type: reference
+
+  - name: product_product_photo
+    type: reference
+
+  - name: product_photo
+    type: reference
+
+  - name: product_model_illustration
+    type: reference
+
+  - name: product_model_product_description_culture
+    type: reference
+
+  - name: illustration
+    type: reference
+
+  - name: culture
+    type: reference
+
+  - name: transaction_history
+    type: reference
+
+  - name: transaction_history_archive
+    type: reference
+
+  - name: state_province
+    type: reference
+
+  - name: country_region
+    type: reference
+
+  - name: country_region_currency
+    type: reference
+
+  - name: currency_rate
+    type: reference
+
+  - name: sales_person
+    type: reference
+
+  - name: sales_person_quota_history
+    type: reference
+
+  - name: sales_territory_history
+    type: reference
+
+  - name: sales_reason
+    type: reference
+
+  - name: sales_order_header_sales_reason
+    type: reference
+
+  - name: shopping_cart_item
+    type: reference
+
+  - name: store_contact
+    type: reference
+
+  - name: business_entity_contact
+    type: reference
+
+  - name: contact_type
+    type: reference
+
+  - name: contact
+    type: reference
+
+  - name: email_address
+    type: reference
+
+  - name: password
+    type: reference
+
+  - name: individual
+    type: reference
+
+  - name: shift
+    type: reference
+
+  - name: employee_department_history
+    type: reference
+
+  - name: job_candidate_education
+    type: reference
+
+  - name: job_candidate_employment
+    type: reference
+
+  - name: employee_pay_history
+    type: reference
+
+  - name: purchase_order_detail
+    type: reference
+
+  - name: ship_method
+    type: reference
+
+  - name: purchase_order_header
+    type: reference
+
+  - name: vendor_address
+    type: reference
+
+  - name: vendor_contact
+    type: reference
+
+  - name: product_vendor
+    type: reference
+
+  - name: unit_measure
+    type: reference
+
 tables:
   - name: customers
     source_table: raw__adventure_works__customers
