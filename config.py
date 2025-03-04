@@ -44,6 +44,9 @@ config = Config(
                 connector_config={
                     "unsafe_enable_version_guessing": True
                 }
+            ),
+            state_connection=DuckDBConnectionConfig(
+                database="./lakehouse/state.duckdb",
             )
         )
     },
