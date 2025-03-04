@@ -1,0 +1,19 @@
+core_business_concepts:
+  - name: 
+    description: 
+
+keysets:
+  - name: 
+    description: 
+
+tables:
+  - name: 
+    concepts:
+      - name: 
+        identifier: 
+        keyset: 
+        primary_concept: 
+        qualifiers:
+          - name: 
+            identifier: 
+            keyset: 
