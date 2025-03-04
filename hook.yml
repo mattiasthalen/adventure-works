@@ -1,18 +1,28 @@
-core_business_concepts:
+concepts:
   - name: 
-    description: 
+    definition: 
+    type: 
+    examples: 
+    business_rules: 
+    taxonomy: 
+    synonyms: 
+    data_steward: 
+    last_revised: 
 
 keysets:
   - name: 
     description: 
+    core_business_concept: 
+    source_table: 
 
 tables:
   - name: 
     concepts:
       - name: 
+        primary_concept: 
         identifier: 
         keyset: 
-        primary_concept: 
+          
         qualifiers:
           - name: 
             identifier: 
