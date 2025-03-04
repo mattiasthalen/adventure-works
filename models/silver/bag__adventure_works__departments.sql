@@ -1,5 +1,7 @@
 MODEL (
-  kind VIEW,
+  kind INCREMENTAL_BY_TIME_RANGE(
+    time_column department__record_updated_at
+  ),
   enabled TRUE
 );
 
@@ -46,14 +48,16 @@ WITH staging AS (
 SELECT
   _pit_hook__department::BLOB,
   _hook__department::BLOB,
-  department__department_id::VARCHAR,
+  department__department_id::BIGINT,
   department__group_name::VARCHAR,
   department__modified_date::VARCHAR,
   department__name::VARCHAR,
   department__record_loaded_at::TIMESTAMP,
-  department__record_version::INT,
+  department__record_updated_at::TIMESTAMP,
   department__record_valid_from::TIMESTAMP,
   department__record_valid_to::TIMESTAMP,
-  department__is_current_record::BOOLEAN,
-  department__record_updated_at::TIMESTAMP
+  department__record_version::INT,
+  department__is_current_record::BOOLEAN
 FROM hooks
+WHERE 1 = 1
+AND department__record_updated_at BETWEEN @start_ts AND @end_ts

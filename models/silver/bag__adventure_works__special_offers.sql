@@ -1,5 +1,7 @@
 MODEL (
-  kind VIEW,
+  kind INCREMENTAL_BY_TIME_RANGE(
+    time_column special_offer__record_updated_at
+  ),
   enabled TRUE
 );
 
@@ -53,21 +55,23 @@ WITH staging AS (
 SELECT
   _pit_hook__special_offer::BLOB,
   _hook__special_offer::BLOB,
-  special_offer__special_offer_id::VARCHAR,
+  special_offer__special_offer_id::BIGINT,
   special_offer__category::VARCHAR,
   special_offer__description::VARCHAR,
-  special_offer__discount_percentage::VARCHAR,
+  special_offer__discount_percentage::DOUBLE,
   special_offer__end_date::VARCHAR,
-  special_offer__maximum_quantity::VARCHAR,
-  special_offer__minimum_quantity::VARCHAR,
+  special_offer__maximum_quantity::BIGINT,
+  special_offer__minimum_quantity::BIGINT,
   special_offer__modified_date::VARCHAR,
   special_offer__rowguid::VARCHAR,
   special_offer__start_date::VARCHAR,
   special_offer__type::VARCHAR,
   special_offer__record_loaded_at::TIMESTAMP,
-  special_offer__record_version::INT,
+  special_offer__record_updated_at::TIMESTAMP,
   special_offer__record_valid_from::TIMESTAMP,
   special_offer__record_valid_to::TIMESTAMP,
-  special_offer__is_current_record::BOOLEAN,
-  special_offer__record_updated_at::TIMESTAMP
+  special_offer__record_version::INT,
+  special_offer__is_current_record::BOOLEAN
 FROM hooks
+WHERE 1 = 1
+AND special_offer__record_updated_at BETWEEN @start_ts AND @end_ts

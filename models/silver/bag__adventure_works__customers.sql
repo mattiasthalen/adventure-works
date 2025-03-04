@@ -1,5 +1,7 @@
 MODEL (
-  kind VIEW,
+  kind INCREMENTAL_BY_TIME_RANGE(
+    time_column customer__record_updated_at
+  ),
   enabled TRUE
 );
 
@@ -43,9 +45,9 @@ WITH staging AS (
       customer__record_valid_from
     ) AS _pit_hook__customer,
     CONCAT('customer|adventure_works|', customer__customer_id) AS _hook__customer,
-    CONCAT('person|adventure_works|', customer__person_id) AS _hook__person,
     CONCAT('store|adventure_works|', customer__store_id) AS _hook__store,
     CONCAT('territory|adventure_works|', customer__territory_id) AS _hook__territory,
+    CONCAT('person|adventure_works|', customer__person_id) AS _hook__person,
     *
   FROM validity
 )
@@ -55,17 +57,19 @@ SELECT
   _hook__person::BLOB,
   _hook__store::BLOB,
   _hook__territory::BLOB,
-  customer__customer_id::VARCHAR,
-  customer__person_id::VARCHAR,
-  customer__store_id::VARCHAR,
-  customer__territory_id::VARCHAR,
+  customer__customer_id::BIGINT,
+  customer__person_id::BIGINT,
+  customer__store_id::BIGINT,
+  customer__territory_id::BIGINT,
   customer__account_number::VARCHAR,
   customer__modified_date::VARCHAR,
   customer__rowguid::VARCHAR,
   customer__record_loaded_at::TIMESTAMP,
-  customer__record_version::INT,
+  customer__record_updated_at::TIMESTAMP,
   customer__record_valid_from::TIMESTAMP,
   customer__record_valid_to::TIMESTAMP,
-  customer__is_current_record::BOOLEAN,
-  customer__record_updated_at::TIMESTAMP
+  customer__record_version::INT,
+  customer__is_current_record::BOOLEAN
 FROM hooks
+WHERE 1 = 1
+AND customer__record_updated_at BETWEEN @start_ts AND @end_ts

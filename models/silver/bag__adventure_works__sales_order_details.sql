@@ -1,5 +1,7 @@
 MODEL (
-  kind VIEW,
+  kind INCREMENTAL_BY_TIME_RANGE(
+    time_column sales_order_detail__record_updated_at
+  ),
   enabled TRUE
 );
 
@@ -47,8 +49,8 @@ WITH staging AS (
       sales_order_detail__record_valid_from
     ) AS _pit_hook__sales_order_detail,
     CONCAT('sales_order_detail|adventure_works|', sales_order_detail__sales_order_detail_id) AS _hook__sales_order_detail,
-    CONCAT('product|adventure_works|', sales_order_detail__product_id) AS _hook__product,
     CONCAT('sales_order|adventure_works|', sales_order_detail__sales_order_id) AS _hook__sales_order,
+    CONCAT('product|adventure_works|', sales_order_detail__product_id) AS _hook__product,
     CONCAT('special_offer|adventure_works|', sales_order_detail__special_offer_id) AS _hook__special_offer,
     *
   FROM validity
@@ -59,21 +61,23 @@ SELECT
   _hook__product::BLOB,
   _hook__sales_order::BLOB,
   _hook__special_offer::BLOB,
-  sales_order_detail__sales_order_detail_id::VARCHAR,
-  sales_order_detail__product_id::VARCHAR,
-  sales_order_detail__sales_order_id::VARCHAR,
-  sales_order_detail__special_offer_id::VARCHAR,
+  sales_order_detail__sales_order_detail_id::BIGINT,
+  sales_order_detail__product_id::BIGINT,
+  sales_order_detail__sales_order_id::BIGINT,
+  sales_order_detail__special_offer_id::BIGINT,
   sales_order_detail__carrier_tracking_number::VARCHAR,
-  sales_order_detail__line_total::VARCHAR,
+  sales_order_detail__line_total::DOUBLE,
   sales_order_detail__modified_date::VARCHAR,
-  sales_order_detail__order_qty::VARCHAR,
+  sales_order_detail__order_qty::BIGINT,
   sales_order_detail__rowguid::VARCHAR,
-  sales_order_detail__unit_price::VARCHAR,
-  sales_order_detail__unit_price_discount::VARCHAR,
+  sales_order_detail__unit_price::DOUBLE,
+  sales_order_detail__unit_price_discount::DOUBLE,
   sales_order_detail__record_loaded_at::TIMESTAMP,
-  sales_order_detail__record_version::INT,
+  sales_order_detail__record_updated_at::TIMESTAMP,
   sales_order_detail__record_valid_from::TIMESTAMP,
   sales_order_detail__record_valid_to::TIMESTAMP,
-  sales_order_detail__is_current_record::BOOLEAN,
-  sales_order_detail__record_updated_at::TIMESTAMP
+  sales_order_detail__record_version::INT,
+  sales_order_detail__is_current_record::BOOLEAN
 FROM hooks
+WHERE 1 = 1
+AND sales_order_detail__record_updated_at BETWEEN @start_ts AND @end_ts

@@ -1,5 +1,7 @@
 MODEL (
-  kind VIEW,
+  kind INCREMENTAL_BY_TIME_RANGE(
+    time_column scrap_reason__record_updated_at
+  ),
   enabled TRUE
 );
 
@@ -45,13 +47,15 @@ WITH staging AS (
 SELECT
   _pit_hook__scrap_reason::BLOB,
   _hook__scrap_reason::BLOB,
-  scrap_reason__scrap_reason_id::VARCHAR,
+  scrap_reason__scrap_reason_id::BIGINT,
   scrap_reason__modified_date::VARCHAR,
   scrap_reason__name::VARCHAR,
   scrap_reason__record_loaded_at::TIMESTAMP,
-  scrap_reason__record_version::INT,
+  scrap_reason__record_updated_at::TIMESTAMP,
   scrap_reason__record_valid_from::TIMESTAMP,
   scrap_reason__record_valid_to::TIMESTAMP,
-  scrap_reason__is_current_record::BOOLEAN,
-  scrap_reason__record_updated_at::TIMESTAMP
+  scrap_reason__record_version::INT,
+  scrap_reason__is_current_record::BOOLEAN
 FROM hooks
+WHERE 1 = 1
+AND scrap_reason__record_updated_at BETWEEN @start_ts AND @end_ts

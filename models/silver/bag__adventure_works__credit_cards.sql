@@ -1,5 +1,7 @@
 MODEL (
-  kind VIEW,
+  kind INCREMENTAL_BY_TIME_RANGE(
+    time_column credit_card__record_updated_at
+  ),
   enabled TRUE
 );
 
@@ -48,16 +50,18 @@ WITH staging AS (
 SELECT
   _pit_hook__credit_card::BLOB,
   _hook__credit_card::BLOB,
-  credit_card__credit_card_id::VARCHAR,
+  credit_card__credit_card_id::BIGINT,
   credit_card__card_number::VARCHAR,
   credit_card__card_type::VARCHAR,
-  credit_card__exp_month::VARCHAR,
-  credit_card__exp_year::VARCHAR,
+  credit_card__exp_month::BIGINT,
+  credit_card__exp_year::BIGINT,
   credit_card__modified_date::VARCHAR,
   credit_card__record_loaded_at::TIMESTAMP,
-  credit_card__record_version::INT,
+  credit_card__record_updated_at::TIMESTAMP,
   credit_card__record_valid_from::TIMESTAMP,
   credit_card__record_valid_to::TIMESTAMP,
-  credit_card__is_current_record::BOOLEAN,
-  credit_card__record_updated_at::TIMESTAMP
+  credit_card__record_version::INT,
+  credit_card__is_current_record::BOOLEAN
 FROM hooks
+WHERE 1 = 1
+AND credit_card__record_updated_at BETWEEN @start_ts AND @end_ts

@@ -1,5 +1,7 @@
 MODEL (
-  kind VIEW,
+  kind INCREMENTAL_BY_TIME_RANGE(
+    time_column shopping_cart_item__record_updated_at
+  ),
   enabled TRUE
 );
 
@@ -42,8 +44,8 @@ WITH staging AS (
       shopping_cart_item__record_valid_from
     ) AS _pit_hook__shopping_cart_item,
     CONCAT('shopping_cart_item|adventure_works|', shopping_cart_item__shopping_cart_item_id) AS _hook__shopping_cart_item,
-    CONCAT('product|adventure_works|', shopping_cart_item__product_id) AS _hook__product,
     CONCAT('shopping_cart|adventure_works|', shopping_cart_item__shopping_cart_id) AS _hook__shopping_cart,
+    CONCAT('product|adventure_works|', shopping_cart_item__product_id) AS _hook__product,
     *
   FROM validity
 )
@@ -52,16 +54,18 @@ SELECT
   _hook__shopping_cart_item::BLOB,
   _hook__product::BLOB,
   _hook__shopping_cart::BLOB,
-  shopping_cart_item__shopping_cart_item_id::VARCHAR,
-  shopping_cart_item__product_id::VARCHAR,
+  shopping_cart_item__shopping_cart_item_id::BIGINT,
+  shopping_cart_item__product_id::BIGINT,
   shopping_cart_item__shopping_cart_id::VARCHAR,
   shopping_cart_item__date_created::VARCHAR,
   shopping_cart_item__modified_date::VARCHAR,
-  shopping_cart_item__quantity::VARCHAR,
+  shopping_cart_item__quantity::BIGINT,
   shopping_cart_item__record_loaded_at::TIMESTAMP,
-  shopping_cart_item__record_version::INT,
+  shopping_cart_item__record_updated_at::TIMESTAMP,
   shopping_cart_item__record_valid_from::TIMESTAMP,
   shopping_cart_item__record_valid_to::TIMESTAMP,
-  shopping_cart_item__is_current_record::BOOLEAN,
-  shopping_cart_item__record_updated_at::TIMESTAMP
+  shopping_cart_item__record_version::INT,
+  shopping_cart_item__is_current_record::BOOLEAN
 FROM hooks
+WHERE 1 = 1
+AND shopping_cart_item__record_updated_at BETWEEN @start_ts AND @end_ts

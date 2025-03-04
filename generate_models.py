@@ -21,7 +21,7 @@ def generate_raw_model_sql(table_name, columns):
     foreign_keys = []
     general_fields = []
     dlt_columns = []
-    
+
     for col_name, col_info in columns.items():
         if col_info.get('primary_key', False):
             primary_keys.append((col_name, col_info))
@@ -31,21 +31,21 @@ def generate_raw_model_sql(table_name, columns):
             foreign_keys.append((col_name, col_info))
         else:
             general_fields.append((col_name, col_info))
-    
+
     primary_keys.sort()
     foreign_keys.sort()
     general_fields.sort()
     dlt_columns.sort()
-    
+
     ordered_columns = primary_keys + foreign_keys + general_fields + dlt_columns
-    column_defs = [generate_raw_column_def(col_name, col_info) 
+    column_defs = [generate_raw_column_def(col_name, col_info)
                   for col_name, col_info in ordered_columns]
-    
+
     if not any(col_name == '_dlt_load_id' for col_name, _ in ordered_columns):
         column_defs.append("  _dlt_load_id::VARCHAR")
-    
+
     columns_str = ",\n".join(column_defs)
-    
+
     return f"""MODEL (
   kind VIEW,
   enabled TRUE
@@ -63,26 +63,26 @@ def extract_columns_from_raw(raw_sql, prefix):
     select_start = raw_sql.find('SELECT') + len('SELECT')
     select_end = raw_sql.find('FROM ICEBERG_SCAN')
     columns_str = raw_sql[select_start:select_end].strip()
-    
+
     type_mappings = {}
     staging_columns = []
-    
+
     for line in columns_str.split(',\n'):
         if line.strip():
             column_def = line.strip()
             column_name, sql_type = column_def.split('::')
             column_name = column_name.strip()
             sql_type = sql_type.strip()
-            
+
             if column_name.startswith('_dlt_') and column_name != '_dlt_load_id':
                 continue
-                
+
             type_mappings[f"{prefix}__{column_name}"] = sql_type
             if column_name == '_dlt_load_id':
                 staging_columns.append(f"    TO_TIMESTAMP(_dlt_load_id::DOUBLE) AS {prefix}__record_loaded_at")
             else:
                 staging_columns.append(f"    {column_name} AS {prefix}__{column_name}")
-    
+
     return staging_columns, type_mappings
 
 def generate_hook_output_column(column_name, type_mappings):
@@ -101,24 +101,24 @@ def generate_hook_output_column(column_name, type_mappings):
 def generate_hook_model_sql(raw_table_name, columns, raw_sql):
     """Generate the complete SQL model for a hook table"""
     table_name = raw_table_name.replace('raw__adventure_works__', '')
-    
+
     if table_name.endswith('es'):
         prefix = table_name[:-2]
     elif table_name.endswith('s'):
         prefix = table_name[:-1]
     else:
         prefix = table_name
-    
+
     pk_column = next((col for col, info in columns.items() if info.get('primary_key', False)), None)
     if not pk_column:
         raise ValueError(f"No primary key found for {raw_table_name}")
-    
+
     staging_columns, type_mappings = extract_columns_from_raw(raw_sql, prefix)
     staging_columns_str = ",\n".join(staging_columns)
-    
-    foreign_keys = [col for col, info in columns.items() 
+
+    foreign_keys = [col for col, info in columns.items()
                    if col.endswith('_id') and not col.startswith('_dlt_') and not info.get('primary_key', False)]
-    
+
     # Name hooks after the key (strip '_id' if present)
     pk_hook_name = pk_column.replace('_id', '') if pk_column.endswith('_id') else pk_column
     pit_hook = [
@@ -129,12 +129,12 @@ def generate_hook_model_sql(raw_table_name, columns, raw_sql):
       {prefix}__record_valid_from
     ) AS _pit_hook__{pk_hook_name}"""
     ]
-    
+
     hook_columns = [
         f"    CONCAT('{pk_hook_name}|adventure_works|', {prefix}__{pk_column}) AS _hook__{pk_hook_name}"
     ]
     hook_name_mapping = {}
-    
+
     for fk in foreign_keys:
         if fk == 'bill_to_address_id':
             hook_columns.append(
@@ -159,13 +159,13 @@ def generate_hook_model_sql(raw_table_name, columns, raw_sql):
             )
             hook_name_mapping[fk] = f"_hook__{fk_hook_name}"
 
-    
+
     pit_hook_str = ",\n".join(pit_hook)
     hook_columns_str = ",\n".join(hook_columns)
-    
+
     pk_cols = [f"{prefix}__{pk_column}"]
     fk_cols = [f"{prefix}__{fk}" for fk in foreign_keys if fk not in {'bill_to_address_id', 'ship_to_address_id'}]
-    general_cols = [f"{prefix}__{col}" for col, info in columns.items() 
+    general_cols = [f"{prefix}__{col}" for col, info in columns.items()
                    if not col.startswith('_dlt_') and not info.get('primary_key', False) and not col.endswith('_id')]
     metadata_cols = [
         f"{prefix}__record_loaded_at",
@@ -175,20 +175,20 @@ def generate_hook_model_sql(raw_table_name, columns, raw_sql):
         f"{prefix}__record_version",
         f"{prefix}__is_current_record"
     ]
-    
+
     pk_cols.sort()
     fk_cols.sort()
     general_cols.sort()
-    
+
     output_columns = (
         [f"_pit_hook__{pk_hook_name}"] +
         [f"_hook__{pk_hook_name}"] +
         [hook_name_mapping[fk] for fk in sorted(foreign_keys)] +
         pk_cols + fk_cols + general_cols + metadata_cols
     )
-    
+
     output_columns_str = ",\n".join([generate_hook_output_column(col, type_mappings) for col in output_columns])
-    
+
     return f"""MODEL (
   kind INCREMENTAL_BY_TIME_RANGE(
     time_column {prefix}__record_updated_at
@@ -232,35 +232,35 @@ SELECT
 FROM hooks
 WHERE 1 = 1
 AND {prefix}__record_updated_at BETWEEN @start_ts AND @end_ts"""
-  
+
 # ---- Main Processing Function ----
 def process_schema(yaml_content):
     """Process the schema and generate both raw and hook models"""
     schema = yaml.safe_load(yaml_content)
-    
+
     bronze_dir = "./models/bronze"
     silver_dir = "./models/silver"
     os.makedirs(bronze_dir, exist_ok=True)
     os.makedirs(silver_dir, exist_ok=True)
-    
+
     raw_tables = {k: v for k, v in schema['tables'].items() if k.startswith('raw__')}
-    
+
     for table_name, table_info in raw_tables.items():
         raw_model_sql = generate_raw_model_sql(table_name, table_info['columns'])
         print(f"Generated raw model for {table_name}.")
-        
+
         raw_file_path = f"{bronze_dir}/{table_name}.sql"
         with open(raw_file_path, 'w') as f:
             f.write(raw_model_sql)
-        
+
         hook_model_sql = generate_hook_model_sql(table_name, table_info['columns'], raw_model_sql)
-        hook_table_name = table_name.replace('raw__', 'hook__')
+        hook_table_name = table_name.replace('raw__', 'bag__')
         print(f"Generated hook model for {hook_table_name}.")
-        
+
         hook_file_path = f"{silver_dir}/{hook_table_name}.sql"
         with open(hook_file_path, 'w') as f:
             f.write(hook_model_sql)
-            
+
     print(f"Generated {len(raw_tables)*2} models.")
 
 # Read the YAML file and process

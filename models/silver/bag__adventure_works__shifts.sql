@@ -1,5 +1,7 @@
 MODEL (
-  kind VIEW,
+  kind INCREMENTAL_BY_TIME_RANGE(
+    time_column shift__record_updated_at
+  ),
   enabled TRUE
 );
 
@@ -47,15 +49,17 @@ WITH staging AS (
 SELECT
   _pit_hook__shift::BLOB,
   _hook__shift::BLOB,
-  shift__shift_id::VARCHAR,
+  shift__shift_id::BIGINT,
   shift__end_time::VARCHAR,
   shift__modified_date::VARCHAR,
   shift__name::VARCHAR,
   shift__start_time::VARCHAR,
   shift__record_loaded_at::TIMESTAMP,
-  shift__record_version::INT,
+  shift__record_updated_at::TIMESTAMP,
   shift__record_valid_from::TIMESTAMP,
   shift__record_valid_to::TIMESTAMP,
-  shift__is_current_record::BOOLEAN,
-  shift__record_updated_at::TIMESTAMP
+  shift__record_version::INT,
+  shift__is_current_record::BOOLEAN
 FROM hooks
+WHERE 1 = 1
+AND shift__record_updated_at BETWEEN @start_ts AND @end_ts

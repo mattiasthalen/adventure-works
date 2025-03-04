@@ -2,18 +2,18 @@ MODEL (
   kind VIEW,
   enabled TRUE
 );
-
 SELECT
-  bill_of_materials_id,
-  bomlevel,
-  component_id,
-  end_date,
-  modified_date,
-  per_assembly_qty,
-  product_assembly_id,
-  start_date,
-  unit_measure_code,
-  _dlt_load_id
+  bill_of_materials_id::BIGINT,
+  component_id::BIGINT,
+  product_assembly_id::BIGINT,
+  bomlevel::BIGINT,
+  end_date::VARCHAR,
+  modified_date::VARCHAR,
+  per_assembly_qty::DOUBLE,
+  start_date::VARCHAR,
+  unit_measure_code::VARCHAR,
+  _dlt_id::VARCHAR,
+  _dlt_load_id::VARCHAR
 FROM ICEBERG_SCAN(
   "file://" || @project_path || "/lakehouse/bronze/raw__adventure_works__bill_of_materials"
-)
+);

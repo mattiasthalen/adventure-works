@@ -1,5 +1,7 @@
 MODEL (
-  kind VIEW,
+  kind INCREMENTAL_BY_TIME_RANGE(
+    time_column product__record_updated_at
+  ),
   enabled TRUE
 );
 
@@ -60,8 +62,8 @@ WITH staging AS (
       product__record_valid_from
     ) AS _pit_hook__product,
     CONCAT('product|adventure_works|', product__product_id) AS _hook__product,
-    CONCAT('product_model|adventure_works|', product__product_model_id) AS _hook__product_model,
     CONCAT('product_subcategory|adventure_works|', product__product_subcategory_id) AS _hook__product_subcategory,
+    CONCAT('product_model|adventure_works|', product__product_model_id) AS _hook__product_model,
     *
   FROM validity
 )
@@ -70,34 +72,36 @@ SELECT
   _hook__product::BLOB,
   _hook__product_model::BLOB,
   _hook__product_subcategory::BLOB,
-  product__product_id::VARCHAR,
-  product__product_model_id::VARCHAR,
-  product__product_subcategory_id::VARCHAR,
+  product__product_id::BIGINT,
+  product__product_model_id::BIGINT,
+  product__product_subcategory_id::BIGINT,
   product__class::VARCHAR,
   product__color::VARCHAR,
-  product__days_to_manufacture::VARCHAR,
-  product__finished_goods_flag::VARCHAR,
-  product__list_price::VARCHAR,
-  product__make_flag::VARCHAR,
+  product__days_to_manufacture::BIGINT,
+  product__finished_goods_flag::BOOLEAN,
+  product__list_price::DOUBLE,
+  product__make_flag::BOOLEAN,
   product__modified_date::VARCHAR,
   product__name::VARCHAR,
   product__product_line::VARCHAR,
   product__product_number::VARCHAR,
-  product__reorder_point::VARCHAR,
+  product__reorder_point::BIGINT,
   product__rowguid::VARCHAR,
-  product__safety_stock_level::VARCHAR,
+  product__safety_stock_level::BIGINT,
   product__sell_end_date::VARCHAR,
   product__sell_start_date::VARCHAR,
   product__size::VARCHAR,
   product__size_unit_measure_code::VARCHAR,
-  product__standard_cost::VARCHAR,
+  product__standard_cost::DOUBLE,
   product__style::VARCHAR,
-  product__weight::VARCHAR,
+  product__weight::DOUBLE,
   product__weight_unit_measure_code::VARCHAR,
   product__record_loaded_at::TIMESTAMP,
-  product__record_version::INT,
+  product__record_updated_at::TIMESTAMP,
   product__record_valid_from::TIMESTAMP,
   product__record_valid_to::TIMESTAMP,
-  product__is_current_record::BOOLEAN,
-  product__record_updated_at::TIMESTAMP
+  product__record_version::INT,
+  product__is_current_record::BOOLEAN
 FROM hooks
+WHERE 1 = 1
+AND product__record_updated_at BETWEEN @start_ts AND @end_ts

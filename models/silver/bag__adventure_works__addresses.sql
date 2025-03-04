@@ -1,5 +1,7 @@
 MODEL (
-  kind VIEW,
+  kind INCREMENTAL_BY_TIME_RANGE(
+    time_column address__record_updated_at
+  ),
   enabled TRUE
 );
 
@@ -52,8 +54,8 @@ SELECT
   _pit_hook__address::BLOB,
   _hook__address::BLOB,
   _hook__state_province::BLOB,
-  address__address_id::VARCHAR,
-  address__state_province_id::VARCHAR,
+  address__address_id::BIGINT,
+  address__state_province_id::BIGINT,
   address__address_line1::VARCHAR,
   address__address_line2::VARCHAR,
   address__city::VARCHAR,
@@ -61,9 +63,11 @@ SELECT
   address__postal_code::VARCHAR,
   address__rowguid::VARCHAR,
   address__record_loaded_at::TIMESTAMP,
-  address__record_version::INT,
+  address__record_updated_at::TIMESTAMP,
   address__record_valid_from::TIMESTAMP,
   address__record_valid_to::TIMESTAMP,
-  address__is_current_record::BOOLEAN,
-  address__record_updated_at::TIMESTAMP
+  address__record_version::INT,
+  address__is_current_record::BOOLEAN
 FROM hooks
+WHERE 1 = 1
+AND address__record_updated_at BETWEEN @start_ts AND @end_ts

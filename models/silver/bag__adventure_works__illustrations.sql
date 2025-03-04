@@ -1,5 +1,7 @@
 MODEL (
-  kind VIEW,
+  kind INCREMENTAL_BY_TIME_RANGE(
+    time_column illustration__record_updated_at
+  ),
   enabled TRUE
 );
 
@@ -45,13 +47,15 @@ WITH staging AS (
 SELECT
   _pit_hook__illustration::BLOB,
   _hook__illustration::BLOB,
-  illustration__illustration_id::VARCHAR,
+  illustration__illustration_id::BIGINT,
   illustration__diagram::VARCHAR,
   illustration__modified_date::VARCHAR,
   illustration__record_loaded_at::TIMESTAMP,
-  illustration__record_version::INT,
+  illustration__record_updated_at::TIMESTAMP,
   illustration__record_valid_from::TIMESTAMP,
   illustration__record_valid_to::TIMESTAMP,
-  illustration__is_current_record::BOOLEAN,
-  illustration__record_updated_at::TIMESTAMP
+  illustration__record_version::INT,
+  illustration__is_current_record::BOOLEAN
 FROM hooks
+WHERE 1 = 1
+AND illustration__record_updated_at BETWEEN @start_ts AND @end_ts

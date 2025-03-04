@@ -1,5 +1,7 @@
 MODEL (
-  kind VIEW,
+  kind INCREMENTAL_BY_TIME_RANGE(
+    time_column location__record_updated_at
+  ),
   enabled TRUE
 );
 
@@ -47,15 +49,17 @@ WITH staging AS (
 SELECT
   _pit_hook__location::BLOB,
   _hook__location::BLOB,
-  location__location_id::VARCHAR,
-  location__availability::VARCHAR,
-  location__cost_rate::VARCHAR,
+  location__location_id::BIGINT,
+  location__availability::DOUBLE,
+  location__cost_rate::DOUBLE,
   location__modified_date::VARCHAR,
   location__name::VARCHAR,
   location__record_loaded_at::TIMESTAMP,
-  location__record_version::INT,
+  location__record_updated_at::TIMESTAMP,
   location__record_valid_from::TIMESTAMP,
   location__record_valid_to::TIMESTAMP,
-  location__is_current_record::BOOLEAN,
-  location__record_updated_at::TIMESTAMP
+  location__record_version::INT,
+  location__is_current_record::BOOLEAN
 FROM hooks
+WHERE 1 = 1
+AND location__record_updated_at BETWEEN @start_ts AND @end_ts

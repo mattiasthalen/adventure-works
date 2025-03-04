@@ -1,5 +1,7 @@
 MODEL (
-  kind VIEW,
+  kind INCREMENTAL_BY_TIME_RANGE(
+    time_column ship_method__record_updated_at
+  ),
   enabled TRUE
 );
 
@@ -48,16 +50,18 @@ WITH staging AS (
 SELECT
   _pit_hook__ship_method::BLOB,
   _hook__ship_method::BLOB,
-  ship_method__ship_method_id::VARCHAR,
+  ship_method__ship_method_id::BIGINT,
   ship_method__modified_date::VARCHAR,
   ship_method__name::VARCHAR,
   ship_method__rowguid::VARCHAR,
-  ship_method__ship_base::VARCHAR,
-  ship_method__ship_rate::VARCHAR,
+  ship_method__ship_base::DOUBLE,
+  ship_method__ship_rate::DOUBLE,
   ship_method__record_loaded_at::TIMESTAMP,
-  ship_method__record_version::INT,
+  ship_method__record_updated_at::TIMESTAMP,
   ship_method__record_valid_from::TIMESTAMP,
   ship_method__record_valid_to::TIMESTAMP,
-  ship_method__is_current_record::BOOLEAN,
-  ship_method__record_updated_at::TIMESTAMP
+  ship_method__record_version::INT,
+  ship_method__is_current_record::BOOLEAN
 FROM hooks
+WHERE 1 = 1
+AND ship_method__record_updated_at BETWEEN @start_ts AND @end_ts
