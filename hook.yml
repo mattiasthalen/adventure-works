@@ -10,10 +10,70 @@ concepts:
     last_revised: 
 
 keysets:
-  - name: 
+  - name: adventure_works__customer
     description: 
-    core_business_concept: 
-    source_table: 
+    core_business_concept: customer
+    source_table: adventure_works__customers
+
+  - name: adventure_works__product
+    description: 
+    core_business_concept: product
+    source_table: adventure_works__products
+
+  - name: adventure_works__order
+    description: 
+    core_business_concept: order
+    source_table: adventure_works__sales_order_headers
+
+  - name: adventure_works__employee
+    description: 
+    core_business_concept: employee
+    source_table: adventure_works__employees
+
+  - name: adventure_works__vendor
+    description: 
+    core_business_concept: vendor
+    source_table: adventure_works__vendors
+
+  - name: adventure_works__store
+    description: 
+    core_business_concept: store
+    source_table: adventure_works__stores
+
+  - name: adventure_works__currency
+    description: 
+    core_business_concept: currency
+    source_table: adventure_works__currencies
+
+  - name: adventure_works__promotion
+    description: 
+    core_business_concept: promotion
+    source_table: adventure_works__special_offers
+
+  - name: adventure_works__work_order
+    description: 
+    core_business_concept: work_order
+    source_table: adventure_works__work_orders
+
+  - name: adventure_works__inventory
+    description: 
+    core_business_concept: inventory
+    source_table: adventure_works__product_inventories
+
+  - name: adventure_works__department
+    description: 
+    core_business_concept: department
+    source_table: adventure_works__departments
+
+  - name: adventure_works__job_candidate
+    description: 
+    core_business_concept: job_candidate
+    source_table: adventure_works__job_candidates
+
+  - name: adventure_works__address
+    description: 
+    core_business_concept: address
+    source_table: adventure_works__addresses
 
 tables:
   - name: customers
