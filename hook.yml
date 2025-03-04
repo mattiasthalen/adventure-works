@@ -1,212 +1,483 @@
 concepts:
-  - name: customer
-    type: core
-
-  - name: product
-    type: core
-
-  - name: order
-    type: core
-
-  - name: employee
-    type: core
-
-  - name: vendor
-    type: core
-
-  - name: store
-    type: core
-
-  - name: currency
-    type: core
-
-  - name: promotion
-    type: core
-
-  - name: work_order
-    type: core
-
-  - name: inventory
-    type: core
-
-  - name: department
-    type: core
-
-  - name: job_candidate
-    type: core
-
-  - name: address
-    type: reference
-
-  - name: person
-    type: reference
-
-  - name: sales_territory
-    type: reference
-
-  - name: special_offer_product
-    type: reference
-
-  - name: product_model
-    type: reference
-
-  - name: product_subcategory
-    type: reference
-
-  - name: product_category
-    type: reference
-
-  - name: product_description
-    type: reference
-
-  - name: product_review
-    type: reference
-
-  - name: product_inventory
-    type: reference
-
-  - name: location
-    type: reference
-
-  - name: work_order_routing
-    type: reference
-
-  - name: scrap_reason
-    type: reference
-
-  - name: bill_of_materials
-    type: reference
-
-  - name: product_cost_history
-    type: reference
-
-  - name: product_list_price_history
-    type: reference
-
-  - name: product_document
-    type: reference
-
-  - name: product_product_photo
-    type: reference
-
-  - name: product_photo
-    type: reference
-
-  - name: product_model_illustration
-    type: reference
-
-  - name: product_model_product_description_culture
-    type: reference
-
-  - name: illustration
-    type: reference
-
-  - name: culture
-    type: reference
-
-  - name: transaction_history
-    type: reference
-
-  - name: transaction_history_archive
-    type: reference
-
-  - name: state_province
-    type: reference
-
-  - name: country_region
-    type: reference
-
-  - name: country_region_currency
-    type: reference
-
-  - name: currency_rate
-    type: reference
-
-  - name: sales_person
-    type: reference
-
-  - name: sales_person_quota_history
-    type: reference
-
-  - name: sales_territory_history
-    type: reference
-
-  - name: sales_reason
-    type: reference
-
-  - name: sales_order_header_sales_reason
-    type: reference
-
-  - name: shopping_cart_item
-    type: reference
-
-  - name: store_contact
-    type: reference
-
-  - name: business_entity_contact
-    type: reference
-
-  - name: contact_type
-    type: reference
-
-  - name: contact
-    type: reference
-
-  - name: email_address
-    type: reference
-
-  - name: password
-    type: reference
-
-  - name: individual
-    type: reference
-
-  - name: shift
-    type: reference
-
-  - name: employee_department_history
-    type: reference
-
-  - name: job_candidate_education
-    type: reference
-
-  - name: job_candidate_employment
-    type: reference
-
-  - name: employee_pay_history
-    type: reference
-
-  - name: purchase_order_detail
-    type: reference
-
-  - name: ship_method
-    type: reference
-
-  - name: purchase_order_header
-    type: reference
-
-  - name: vendor_address
-    type: reference
-
-  - name: vendor_contact
-    type: reference
-
-  - name: product_vendor
-    type: reference
-
-  - name: unit_measure
-    type: reference
+  - core:
+      - name: currency
+      - name: customer
+      - name: department
+      - name: employee
+      - name: inventory
+      - name: job_candidate
+      - name: order
+      - name: product
+      - name: promotion
+      - name: store
+      - name: vendor
+      - name: work_order
+  - reference:
+      - name: address
+      - name: address_type
+      - name: bill_of_materials
+      - name: business_entity_address
+      - name: business_entity_contact
+      - name: contact
+      - name: contact_type
+      - name: country_region
+      - name: country_region_currency
+      - name: credit_card
+      - name: culture
+      - name: currency_rate
+      - name: employee_department_history
+      - name: employee_pay_history
+      - name: illustration
+      - name: location
+      - name: person
+      - name: person_phone
+      - name: phone_number_type
+      - name: product_category
+      - name: product_cost_history
+      - name: product_description
+      - name: product_list_price_history
+      - name: product_model
+      - name: product_model_illustration
+      - name: product_photo
+      - name: product_product_photo
+      - name: product_review
+      - name: product_subcategory
+      - name: product_vendor
+      - name: purchase_order_detail
+      - name: purchase_order_header
+      - name: sales_person
+      - name: sales_person_quota_history
+      - name: sales_reason
+      - name: sales_tax_rate
+      - name: sales_territory
+      - name: sales_territory_history
+      - name: scrap_reason
+      - name: shift
+      - name: ship_method
+      - name: shopping_cart_item
+      - name: state_province
+      - name: store_contact
+      - name: transaction_history
+      - name: transaction_history_archive
+      - name: unit_measure
+      - name: vendor_address
+      - name: vendor_contact
+      - name: work_order_routing
 
 tables:
-  - name: customers
-    source_table: raw__adventure_works__customers
+  - name: addresses
+    source_table: raw__adventure_works__addresses
     concepts:
-      - name: customer
+      - name: address
+        core: false
+        primary: false
+        identifier: address__address_id
+        keyset: adventure_works__address
+        hook: _hook__reference__address__id
+      - name: state_province
+        core: false
+        primary: false
+        identifier: address__state_province_id
+        keyset: adventure_works__state_province
+        hook: _hook__reference__state_province__id
+
+  - name: bill_of_materials
+    source_table: raw__adventure_works__bill_of_materials
+    concepts:
+      - name: bill_of_materials
+        core: false
+        primary: true
+        identifier: bill_of_materials__bill_of_materials_id
+        keyset: adventure_works__bill_of_materials
+        hook: _hook__reference__bill_of_materials__id
+      - name: product
+        core: true
+        primary: false
+        identifier: bill_of_materials__product_assembly_id
+        keyset: adventure_works__product
+        hook: _hook__product__id
+      - name: product
+        core: true
+        primary: false
+        identifier: bill_of_materials__component_id
+        keyset: adventure_works__product
+        hook: _hook__product__id
+      - name: unit_measure
+        core: false
+        primary: false
+        identifier: bill_of_materials__unit_measure_code
+        keyset: adventure_works__unit_measure
+        hook: _hook__reference__unit_measure__id
+
+  - name: business_entity_addresses
+    source_table: raw__adventure_works__business_entity_addresses
+    concepts:
+      - name: business_entity_address
+        core: false
+        primary: false
+        identifier: business_entity_address__address_id
+        keyset: adventure_works__business_entity_address
+        hook: _hook__reference__business_entity_address__id
+      - name: address
+        core: false
+        primary: false
+        identifier: business_entity_address__address_id
+        keyset: adventure_works__address
+        hook: _hook__reference__address__id
+
+  - name: business_entity_contacts
+    source_table: raw__adventure_works__business_entity_contacts
+    concepts:
+      - name: business_entity_contact
+        core: false
+        primary: false
+        identifier: business_entity_contact__business_entity_id
+        keyset: adventure_works__business_entity_contact
+        hook: _hook__reference__business_entity_contact__id
+      - name: person
+        core: false
+        primary: false
+        identifier: business_entity_contact__person_id
+        keyset: adventure_works__person
+        hook: _hook__reference__person__id
+      - name: contact_type
+        core: false
+        primary: false
+        identifier: business_entity_contact__contact_type_id
+        keyset: adventure_works__contact_type
+        hook: _hook__reference__contact_type__id
+
+  - name: contact_types
+    source_table: raw__adventure_works__contact_types
+    concepts:
+      - name: contact_type
+        core: false
+        primary: true
+        identifier: contact_type__contact_type_id
+        keyset: adventure_works__contact_type
+        hook: _hook__reference__contact_type__id
+
+  - name: contacts
+    source_table: raw__adventure_works__email_addresses
+    concepts:
+      - name: contact
+        core: false
+        primary: false
+        identifier: contact__business_entity_id
+        keyset: adventure_works__contact
+        hook: _hook__reference__contact__id
+      - name: email_address
+        core: false
+        primary: false
+        identifier: contact__email_address_id
+        keyset: adventure_works__email_address
+        hook: _hook__reference__email_address__id
+
+  - name: credit_cards
+    source_table: raw__adventure_works__credit_cards
+    concepts:
+      - name: credit_card
+        core: false
+        primary: true
+        identifier: credit_card__credit_card_id
+        keyset: adventure_works__credit_card
+        hook: _hook__reference__credit_card__id
+
+  - name: currency_rates
+    source_table: raw__adventure_works__currency_rates
+    concepts:
+      - name: currency_rate
+        core: false
+        primary: true
+        identifier: currency_rate__currency_rate_id
+        keyset: adventure_works__currency_rate
+        hook: _hook__reference__currency_rate__id
+      - name: currency
+        core: true
+        primary: false
+        identifier: currency_rate__from_currency_code
+        keyset: adventure_works__currency
+        hook: _hook__currency__id
+      - name: currency
+        core: true
+        primary: false
+        identifier: currency_rate__to_currency_code
+        keyset: adventure_works__currency
+        hook: _hook__currency__id
+
+  - name: currencies
+    source_table: raw__adventure_works__currencies
+    concepts:
+      - name: currency
         core: true
         primary: true
-        identifier: customer__business_entity_id
-        keyset: adventure_works__customer
-        hook: _hook__customer__id
+        identifier: currency__currency_code
+        keyset: adventure_works__currency
+        hook: _hook__currency__id
+
+  - name: departments
+    source_table: raw__adventure_works__departments
+    concepts:
+      - name: department
+        core: true
+        primary: true
+        identifier: department__department_id
+        keyset: adventure_works__department
+        hook: _hook__department__id
+
+  - name: employee_department_histories
+    source_table: raw__adventure_works__employee_department_histories
+    concepts:
+      - name: employee_department_history
+        core: false
+        primary: false
+        identifier: employee_department_history__business_entity_id
+        keyset: adventure_works__employee_department_history
+        hook: _hook__reference__employee_department_history__id
+      - name: employee
+        core: true
+        primary: false
+        identifier: employee_department_history__business_entity_id
+        keyset: adventure_works__employee
+        hook: _hook__employee__id
+      - name: department
+        core: true
+        primary: false
+        identifier: employee_department_history__department_id
+        keyset: adventure_works__department
+        hook: _hook__department__id
+      - name: shift
+        core: false
+        primary: false
+        identifier: employee_department_history__shift_id
+        keyset: adventure_works__shift
+        hook: _hook__reference__shift__id
+
+  - name: employee_pay_histories
+    source_table: raw__adventure_works__employee_pay_histories
+    concepts:
+      - name: employee_pay_history
+        core: false
+        primary: false
+        identifier: employee_pay_history__business_entity_id
+        keyset: adventure_works__employee_pay_history
+        hook: _hook__reference__employee_pay_history__id
+      - name: employee
+        core: true
+        primary: false
+        identifier: employee_pay_history__business_entity_id
+        keyset: adventure_works__employee
+        hook: _hook__employee__id
+
+  - name: employees
+    source_table: raw__adventure_works__employees
+    concepts:
+      - name: employee
+        core: true
+        primary: true
+        identifier: employee__business_entity_id
+        keyset: adventure_works__employee
+        hook: _hook__employee__id
+
+  - name: illustrations
+    source_table: raw__adventure_works__illustrations
+    concepts:
+      - name: illustration
+        core: false
+        primary: true
+        identifier: illustration__illustration_id
+        keyset: adventure_works__illustration
+        hook: _hook__reference__illustration__id
+
+  - name: job_candidates
+    source_table: raw__adventure_works__job_candidates
+    concepts:
+      - name: job_candidate
+        core: true
+        primary: true
+        identifier: job_candidate__job_candidate_id
+        keyset: adventure_works__job_candidate
+        hook: _hook__job_candidate__id
+      - name: business_entity_contact
+        core: false
+        primary: false
+        identifier: job_candidate__business_entity_id
+        keyset: adventure_works__business_entity_contact
+        hook: _hook__reference__business_entity_contact__id
+
+  - name: locations
+    source_table: raw__adventure_works__locations
+    concepts:
+      - name: location
+        core: false
+        primary: true
+        identifier: location__location_id
+        keyset: adventure_works__location
+        hook: _hook__reference__location__id
+
+  - name: product_categories
+    source_table: raw__adventure_works__product_categories
+    concepts:
+      - name: product_category
+        core: false
+        primary: true
+        identifier: product_category__product_category_id
+        keyset: adventure_works__product_category
+        hook: _hook__reference__product_category__id
+
+  - name: product_cost_histories
+    source_table: raw__adventure_works__product_cost_histories
+    concepts:
+      - name: product_cost_history
+        core: false
+        primary: false
+        identifier: product_cost_history__product_id
+        keyset: adventure_works__product_cost_history
+        hook: _hook__reference__product_cost_history__id
+      - name: product
+        core: true
+        primary: false
+        identifier: product_cost_history__product_id
+        keyset: adventure_works__product
+        hook: _hook__product__id
+
+  - name: product_descriptions
+    source_table: raw__adventure_works__product_descriptions
+    concepts:
+      - name: product_description
+        core: false
+        primary: true
+        identifier: product_description__product_description_id
+        keyset: adventure_works__product_description
+        hook: _hook__reference__product_description__id
+
+  - name: product_inventories
+    source_table: raw__adventure_works__product_inventories
+    concepts:
+      - name: inventory
+        core: true
+        primary: false
+        identifier: inventory__product_id
+        keyset: adventure_works__inventory
+        hook: _hook__inventory__id
+      - name: location
+        core: false
+        primary: false
+        identifier: inventory__location_id
+        keyset: adventure_works__location
+        hook: _hook__reference__location__id
+
+  - name: product_list_price_histories
+    source_table: raw__adventure_works__product_list_price_histories
+    concepts:
+      - name: product_list_price_history
+        core: false
+        primary: false
+        identifier: product_list_price_history__product_id
+        keyset: adventure_works__product_list_price_history
+        hook: _hook__reference__product_list_price_history__id
+      - name: product
+        core: true
+        primary: false
+        identifier: product_list_price_history__product_id
+        keyset: adventure_works__product
+        hook: _hook__product__id
+
+  - name: product_model_illustrations
+    source_table: raw__adventure_works__product_model_illustrations
+    concepts:
+      - name: product_model_illustration
+        core: false
+        primary: false
+        identifier: product_model_illustration__illustration_id
+        keyset: adventure_works__product_model_illustration
+        hook: _hook__reference__product_model_illustration__id
+      - name: product_model
+        core: false
+        primary: false
+        identifier: product_model_illustration__product_model_id
+        keyset: adventure_works__product_model
+        hook: _hook__reference__product_model__id
+      - name: illustration
+        core: false
+        primary: false
+        identifier: product_model_illustration__illustration_id
+        keyset: adventure_works__illustration
+        hook: _hook__reference__illustration__id
+
+  - name: product_models
+    source_table: raw__adventure_works__product_models
+    concepts:
+      - name: product_model
+        core: false
+        primary: true
+        identifier: product_model__product_model_id
+        keyset: adventure_works__product_model
+        hook: _hook__reference__product_model__id
+
+  - name: product_photos
+    source_table: raw__adventure_works__product_photos
+    concepts:
+      - name: product_photo
+        core: false
+        primary: true
+        identifier: product_photo__product_photo_id
+        keyset: adventure_works__product_photo
+        hook: _hook__reference__product_photo__id
+
+  - name: product_product_photos
+    source_table: raw__adventure_works__product_product_photos
+    concepts:
+      - name: product_product_photo
+        core: false
+        primary: false
+        identifier: product_product_photo__product_photo_id
+        keyset: adventure_works__product_product_photo
+        hook: _hook__reference__product_product_photo__id
+      - name: product
+        core: true
+        primary: false
+        identifier: product_product_photo__product_id
+        keyset: adventure_works__product
+        hook: _hook__product__id
+      - name: product_photo
+        core: false
+        primary: false
+        identifier: product_product_photo__product_photo_id
+        keyset: adventure_works__product_photo
+        hook: _hook__reference__product_photo__id
+
+  - name: product_reviews
+    source_table: raw__adventure_works__product_reviews
+    concepts:
+      - name: product_review
+        core: false
+        primary: true
+        identifier: product_review__product_review_id
+        keyset: adventure_works__product_review
+        hook: _hook__reference__product_review__id
+      - name: product
+        core: true
+        primary: false
+        identifier: product_review__product_id
+        keyset: adventure_works__product
+        hook: _hook__product__id
+
+  - name: product_subcategories
+    source_table: raw__adventure_works__product_subcategories
+    concepts:
+      - name: product_subcategory
+        core: false
+        primary: true
+        identifier: product_subcategory__product_subcategory_id
+        keyset: adventure_works__product_subcategory
+        hook: _hook__reference__product_subcategory__id
+      - name: product_category
+        core: false
+        primary: false
+        identifier: product_subcategory__product_category_id
+        keyset: adventure_works__product_category
+        hook: _hook__reference__product_category__id
 
   - name: products
     source_table: raw__adventure_works__products
@@ -217,6 +488,96 @@ tables:
         identifier: product__product_id
         keyset: adventure_works__product
         hook: _hook__product__id
+      - name: product_subcategory
+        core: false
+        primary: false
+        identifier: product__product_subcategory_id
+        keyset: adventure_works__product_subcategory
+        hook: _hook__reference__product_subcategory__id
+      - name: product_model
+        core: false
+        primary: false
+        identifier: product__product_model_id
+        keyset: adventure_works__product_model
+        hook: _hook__reference__product_model__id
+      - name: unit_measure
+        core: false
+        primary: false
+        identifier: product__weight_unit_measure_code
+        keyset: adventure_works__unit_measure
+        hook: _hook__reference__unit_measure__id
+      - name: unit_measure
+        core: false
+        primary: false
+        identifier: product__size_unit_measure_code
+        keyset: adventure_works__unit_measure
+        hook: _hook__reference__unit_measure__id
+
+  - name: purchase_order_details
+    source_table: raw__adventure_works__purchase_order_details
+    concepts:
+      - name: purchase_order_detail
+        core: true
+        primary: false
+        identifier: purchase_order_detail__purchase_order_id
+        keyset: adventure_works__purchase_order_detail
+        hook: _hook__purchase_order_detail__id
+      - name: product
+        core: true
+        primary: false
+        identifier: purchase_order_detail__product_id
+        keyset: adventure_works__product
+        hook: _hook__product__id
+
+  - name: purchase_order_headers
+    source_table: raw__adventure_works__purchase_order_headers
+    concepts:
+      - name: purchase_order_header
+        core: true
+        primary: true
+        identifier: purchase_order_header__purchase_order_id
+        keyset: adventure_works__purchase_order_header
+        hook: _hook__purchase_order_header__id
+      - name: employee
+        core: true
+        primary: false
+        identifier: purchase_order_header__employee_id
+        keyset: adventure_works__employee
+        hook: _hook__employee__id
+      - name: vendor
+        core: true
+        primary: false
+        identifier: purchase_order_header__vendor_id
+        keyset: adventure_works__vendor
+        hook: _hook__vendor__id
+      - name: ship_method
+        core: false
+        primary: false
+        identifier: purchase_order_header__ship_method_id
+        keyset: adventure_works__ship_method
+        hook: _hook__reference__ship_method__id
+
+  - name: sales_order_details
+    source_table: raw__adventure_works__sales_order_details
+    concepts:
+      - name: order
+        core: true
+        primary: false
+        identifier: order__sales_order_id
+        keyset: adventure_works__order
+        hook: _hook__order__id
+      - name: product
+        core: true
+        primary: false
+        identifier: order__product_id
+        keyset: adventure_works__product
+        hook: _hook__product__id
+      - name: promotion
+        core: true
+        primary: false
+        identifier: order__special_offer_id
+        keyset: adventure_works__promotion
+        hook: _hook__promotion__id
 
   - name: sales_order_headers
     source_table: raw__adventure_works__sales_order_headers
@@ -233,156 +594,148 @@ tables:
         identifier: order__customer_id
         keyset: adventure_works__customer
         hook: _hook__customer__id
+      - name: sales_person
+        core: false
+        primary: false
+        identifier: order__sales_person_id
+        keyset: adventure_works__sales_person
+        hook: _hook__reference__sales_person__id
+      - name: sales_territory
+        core: false
+        primary: false
+        identifier: order__territory_id
+        keyset: adventure_works__sales_territory
+        hook: _hook__reference__sales_territory__id
       - name: address
         core: false
         primary: false
         qualifiers:
-          - name: ship_to
-            identifier: address__ship_to_address_id
-            keyset: adventure_works__address
-            hook: _hook__reference__address__ship_to
           - name: bill_to
-            identifier: address__bill_to_address_id
+            identifier: order__bill_to_address_id
             keyset: adventure_works__address
             hook: _hook__reference__address__bill_to
+          - name: ship_to
+            identifier: order__ship_to_address_id
+            keyset: adventure_works__address
+            hook: _hook__reference__address__ship_to
+      - name: ship_method
+        core: false
+        primary: false
+        identifier: order__ship_method_id
+        keyset: adventure_works__ship_method
+        hook: _hook__reference__ship_method__id
+      - name: credit_card
+        core: false
+        primary: false
+        identifier: order__credit_card_id
+        keyset: adventure_works__credit_card
+        hook: _hook__reference__credit_card__id
+      - name: currency_rate
+        core: false
+        primary: false
+        identifier: order__currency_rate_id
+        keyset: adventure_works__currency_rate
+        hook: _hook__reference__currency_rate__id
 
-  - name: sales_order_details
-    source_table: raw__adventure_works__sales_order_details
+  - name: sales_persons
+    source_table: raw__adventure_works__sales_persons
     concepts:
-      - name: order
-        core: true
+      - name: sales_person
+        core: false
         primary: true
-        identifier: order__sales_order_id
-        keyset: adventure_works__order
-        hook: _hook__order__id
+        identifier: sales_person__business_entity_id
+        keyset: adventure_works__sales_person
+        hook: _hook__reference__sales_person__id
+      - name: sales_territory
+        core: false
+        primary: false
+        identifier: sales_person__territory_id
+        keyset: adventure_works__sales_territory
+        hook: _hook__reference__sales_territory__id
+
+  - name: sales_territory_histories
+    source_table: raw__adventure_works__sales_territory_histories
+    concepts:
+      - name: sales_territory_history
+        core: false
+        primary: false
+        identifier: sales_territory_history__business_entity_id
+        keyset: adventure_works__sales_territory_history
+        hook: _hook__reference__sales_territory_history__id
+      - name: sales_person
+        core: false
+        primary: false
+        identifier: sales_territory_history__business_entity_id
+        keyset: adventure_works__sales_person
+        hook: _hook__reference__sales_person__id
+      - name: sales_territory
+        core: false
+        primary: false
+        identifier: sales_territory_history__territory_id
+        keyset: adventure_works__sales_territory
+        hook: _hook__reference__sales_territory__id
+
+  - name: sales_territories
+    source_table: raw__adventure_works__sales_territories
+    concepts:
+      - name: sales_territory
+        core: false
+        primary: true
+        identifier: sales_territory__territory_id
+        keyset: adventure_works__sales_territory
+        hook: _hook__reference__sales_territory__id
+      - name: country_region
+        core: false
+        primary: false
+        identifier: sales_territory__country_region_code
+        keyset: adventure_works__country_region
+        hook: _hook__reference__country_region__id
+
+  - name: scrap_reasons
+    source_table: raw__adventure_works__scrap_reasons
+    concepts:
+      - name: scrap_reason
+        core: false
+        primary: true
+        identifier: scrap_reason__scrap_reason_id
+        keyset: adventure_works__scrap_reason
+        hook: _hook__reference__scrap_reason__id
+
+  - name: shifts
+    source_table: raw__adventure_works__shifts
+    concepts:
+      - name: shift
+        core: false
+        primary: true
+        identifier: shift__shift_id
+        keyset: adventure_works__shift
+        hook: _hook__reference__shift__id
+
+  - name: ship_methods
+    source_table: raw__adventure_works__ship_methods
+    concepts:
+      - name: ship_method
+        core: false
+        primary: true
+        identifier: ship_method__ship_method_id
+        keyset: adventure_works__ship_method
+        hook: _hook__reference__ship_method__id
+
+  - name: shopping_cart_items
+    source_table: raw__adventure_works__shopping_cart_items
+    concepts:
+      - name: shopping_cart_item
+        core: false
+        primary: true
+        identifier: shopping_cart_item__shopping_cart_item_id
+        keyset: adventure_works__shopping_cart_item
+        hook: _hook__reference__shopping_cart_item__id
       - name: product
         core: true
         primary: false
-        identifier: order__product_id
+        identifier: shopping_cart_item__product_id
         keyset: adventure_works__product
         hook: _hook__product__id
-      - name: address
-        core: false
-        primary: false
-        qualifiers:
-          - name: ship_to
-            identifier: address__ship_to_address_id
-            keyset: adventure_works__address
-            hook: _hook__reference__address__ship_to
-          - name: bill_to
-            identifier: address__bill_to_address_id
-            keyset: adventure_works__address
-            hook: _hook__reference__address__bill_to
-
-  - name: purchase_order_headers
-    source_table: raw__adventure_works__purchase_order_headers
-    concepts:
-      - name: order
-        core: true
-        primary: true
-        identifier: order__purchase_order_id
-        keyset: adventure_works__order
-        hook: _hook__order__id
-      - name: vendor
-        core: true
-        primary: false
-        identifier: order__vendor_id
-        keyset: adventure_works__vendor
-        hook: _hook__vendor__id
-      - name: address
-        core: false
-        primary: false
-        qualifiers:
-          - name: ship_to
-            identifier: address__ship_to_address_id
-            keyset: adventure_works__address
-            hook: _hook__reference__address__ship_to
-
-  - name: purchase_order_details
-    source_table: raw__adventure_works__purchase_order_details
-    concepts:
-      - name: order
-        core: true
-        primary: true
-        identifier: order__purchase_order_id
-        keyset: adventure_works__order
-        hook: _hook__order__id
-      - name: product
-        core: true
-        primary: false
-        identifier: order__product_id
-        keyset: adventure_works__product
-        hook: _hook__product__id
-      - name: address
-        core: false
-        primary: false
-        qualifiers:
-          - name: ship_to
-            identifier: address__ship_to_address_id
-            keyset: adventure_works__address
-            hook: _hook__reference__address__ship_to
-
-  - name: employees
-    source_table: raw__adventure_works__employees
-    concepts:
-      - name: employee
-        core: true
-        primary: true
-        identifier: employee__business_entity_id
-        keyset: adventure_works__employee
-        hook: _hook__employee__id
-      - name: department
-        core: true
-        primary: false
-        identifier: employee__department_id
-        keyset: adventure_works__department
-        hook: _hook__department__id
-
-  - name: vendors
-    source_table: raw__adventure_works__vendors
-    concepts:
-      - name: vendor
-        core: true
-        primary: true
-        identifier: vendor__vendor_id
-        keyset: adventure_works__vendor
-        hook: _hook__vendor__id
-      - name: address
-        core: false
-        primary: false
-        qualifiers:
-          - name: main
-            identifier: address__address_id
-            keyset: adventure_works__address
-            hook: _hook__reference__address__main
-
-  - name: stores
-    source_table: raw__adventure_works__stores
-    concepts:
-      - name: store
-        core: true
-        primary: true
-        identifier: store__business_entity_id
-        keyset: adventure_works__store
-        hook: _hook__store__id
-      - name: address
-        core: false
-        primary: false
-        qualifiers:
-          - name: main
-            identifier: address__address_id
-            keyset: adventure_works__address
-            hook: _hook__reference__address__main
-
-  - name: currencies
-    source_table: raw__adventure_works__currencies
-    concepts:
-      - name: currency
-        core: true
-        primary: true
-        identifier: currency__currency_code
-        keyset: adventure_works__currency
-        hook: _hook__currency__id
 
   - name: special_offers
     source_table: raw__adventure_works__special_offers
@@ -393,12 +746,192 @@ tables:
         identifier: promotion__special_offer_id
         keyset: adventure_works__promotion
         hook: _hook__promotion__id
+
+  - name: state_provinces
+    source_table: raw__adventure_works__state_provinces
+    concepts:
+      - name: state_province
+        core: false
+        primary: true
+        identifier: state_province__state_province_id
+        keyset: adventure_works__state_province
+        hook: _hook__reference__state_province__id
+      - name: country_region
+        core: false
+        primary: false
+        identifier: state_province__country_region_code
+        keyset: adventure_works__country_region
+        hook: _hook__reference__country_region__id
+      - name: sales_territory
+        core: false
+        primary: false
+        identifier: state_province__territory_id
+        keyset: adventure_works__sales_territory
+        hook: _hook__reference__sales_territory__id
+
+  - name: store_contacts
+    source_table: raw__adventure_works__store_contacts
+    concepts:
+      - name: store_contact
+        core: false
+        primary: false
+        identifier: store_contact__business_entity_id
+        keyset: adventure_works__store_contact
+        hook: _hook__reference__store_contact__id
+      - name: store
+        core: true
+        primary: false
+        identifier: store_contact__business_entity_id
+        keyset: adventure_works__store
+        hook: _hook__store__id
+      - name: person
+        core: false
+        primary: false
+        identifier: store_contact__person_id
+        keyset: adventure_works__person
+        hook: _hook__reference__person__id
+      - name: contact_type
+        core: false
+        primary: false
+        identifier: store_contact__contact_type_id
+        keyset: adventure_works__contact_type
+        hook: _hook__reference__contact_type__id
+
+  - name: stores
+    source_table: raw__adventure_works__stores
+    concepts:
+      - name: store
+        core: true
+        primary: true
+        identifier: store__business_entity_id
+        keyset: adventure_works__store
+        hook: _hook__store__id
+      - name: sales_person
+        core: false
+        primary: false
+        identifier: store__sales_person_id
+        keyset: adventure_works__sales_person
+        hook: _hook__reference__sales_person__id
+
+  - name: transaction_histories
+    source_table: raw__adventure_works__transaction_histories
+    concepts:
+      - name: transaction_history
+        core: false
+        primary: true
+        identifier: transaction_history__transaction_id
+        keyset: adventure_works__transaction_history
+        hook: _hook__reference__transaction_history__id
+      - name: product
+        core: true
+        primary: false
+        identifier: transaction_history__product_id
+        keyset: adventure_works__product
+        hook: _hook__product__id
       - name: order
         core: true
         primary: false
-        identifier: promotion__sales_order_id
+        identifier: transaction_history__reference_order_id
         keyset: adventure_works__order
         hook: _hook__order__id
+
+  - name: transaction_history_archives
+    source_table: raw__adventure_works__transaction_history_archives
+    concepts:
+      - name: transaction_history_archive
+        core: false
+        primary: true
+        identifier: transaction_history_archive__transaction_id
+        keyset: adventure_works__transaction_history_archive
+        hook: _hook__reference__transaction_history_archive__id
+      - name: product
+        core: true
+        primary: false
+        identifier: transaction_history_archive__product_id
+        keyset: adventure_works__product
+        hook: _hook__product__id
+      - name: order
+        core: true
+        primary: false
+        identifier: transaction_history_archive__reference_order_id
+        keyset: adventure_works__order
+        hook: _hook__order__id
+
+  - name: unit_measures
+    source_table: raw__adventure_works__unit_measures
+    concepts:
+      - name: unit_measure
+        core: false
+        primary: true
+        identifier: unit_measure__unit_measure_code
+        keyset: adventure_works__unit_measure
+        hook: _hook__reference__unit_measure__id
+
+  - name: vendors
+    source_table: raw__adventure_works__vendors
+    concepts:
+      - name: vendor
+        core: true
+        primary: true
+        identifier: vendor__business_entity_id
+        keyset: adventure_works__vendor
+        hook: _hook__vendor__id
+
+  - name: vendor_addresses
+    source_table: raw__adventure_works__vendor_addresses
+    concepts:
+      - name: vendor_address
+        core: false
+        primary: false
+        identifier: vendor_address__address_id
+        keyset: adventure_works__vendor_address
+        hook: _hook__reference__vendor_address__id
+      - name: address
+        core: false
+        primary: false
+        identifier: vendor_address__address_id
+        keyset: adventure_works__address
+        hook: _hook__reference__address__id
+      - name: vendor
+        core: true
+        primary: false
+        identifier: vendor_address__business_entity_id
+        keyset: adventure_works__vendor
+        hook: _hook__vendor__id
+      - name: address_type
+        core: false
+        primary: false
+        identifier: vendor_address__address_type_id
+        keyset: adventure_works__address_type
+        hook: _hook__reference__address_type__id
+
+  - name: vendor_contacts
+    source_table: raw__adventure_works__vendor_contacts
+    concepts:
+      - name: vendor_contact
+        core: false
+        primary: false
+        identifier: vendor_contact__business_entity_id
+        keyset: adventure_works__vendor_contact
+        hook: _hook__reference__vendor_contact__id
+      - name: vendor
+        core: true
+        primary: false
+        identifier: vendor_contact__business_entity_id
+        keyset: adventure_works__vendor
+        hook: _hook__vendor__id
+      - name: person
+        core: false
+        primary: false
+        identifier: vendor_contact__person_id
+        keyset: adventure_works__person
+        hook: _hook__reference__person__id
+      - name: contact_type
+        core: false
+        primary: false
+        identifier: vendor_contact__contact_type_id
+        keyset: adventure_works__contact_type
+        hook: _hook__reference__contact_type__id
 
   - name: work_orders
     source_table: raw__adventure_works__work_orders
@@ -415,65 +948,37 @@ tables:
         identifier: work_order__product_id
         keyset: adventure_works__product
         hook: _hook__product__id
-      - name: inventory
+      - name: scrap_reason
         core: false
         primary: false
-        qualifiers:
-          - name: location
-            identifier: inventory__location_id
-            keyset: adventure_works__inventory
-            hook: _hook__reference__inventory__location
+        identifier: work_order__scrap_reason_id
+        keyset: adventure_works__scrap_reason
+        hook: _hook__reference__scrap_reason__id
 
-  - name: product_inventories
-    source_table: raw__adventure_works__product_inventories
+  - name: work_order_routings
+    source_table: raw__adventure_works__work_order_routings
     concepts:
-      - name: inventory
+      - name: work_order_routing
+        core: false
+        primary: false
+        identifier: work_order_routing__work_order_id
+        keyset: adventure_works__work_order_routing
+        hook: _hook__reference__work_order_routing__id
+      - name: work_order
         core: true
-        primary: true
-        identifier: inventory__product_id
-        keyset: adventure_works__inventory
-        hook: _hook__inventory__id
+        primary: false
+        identifier: work_order_routing__work_order_id
+        keyset: adventure_works__work_order
+        hook: _hook__work_order__id
       - name: product
         core: true
         primary: false
-        identifier: inventory__product_id
+        identifier: work_order_routing__product_id
         keyset: adventure_works__product
         hook: _hook__product__id
-      - name: inventory
+      - name: location
         core: false
         primary: false
-        qualifiers:
-          - name: location
-            identifier: inventory__location_id
-            keyset: adventure_works__inventory
-            hook: _hook__reference__inventory__location
-
-  - name: departments
-    source_table: raw__adventure_works__departments
-    concepts:
-      - name: department
-        core: true
-        primary: true
-        identifier: department__department_id
-        keyset: adventure_works__department
-        hook: _hook__department__id
-
-  - name: job_candidates
-    source_table: raw__adventure_works__job_candidates
-    concepts:
-      - name: job_candidate
-        core: true
-        primary: true
-        identifier: job_candidate__job_candidate_id
-        keyset: adventure_works__job_candidate
-        hook: _hook__job_candidate__id
-
-  - name: addresses
-    source_table: raw__adventure_works__addresses
-    concepts:
-      - name: address
-        core: false
-        primary: false
-        identifier: address__address_id
-        keyset: adventure_works__address
-        hook: _hook__reference__address__id
+        identifier: work_order_routing__location_id
+        keyset: adventure_works__location
+        hook: _hook__reference__location__id
