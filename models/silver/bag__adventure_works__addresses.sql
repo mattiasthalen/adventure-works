@@ -1,6 +1,11 @@
 MODEL (
-  kind VIEW,
-  enabled TRUE
+  enabled TRUE,
+  kind INCREMENTAL_BY_TIME_RANGE(
+    time_column address__record_updated_at
+  ),
+  tags hook,
+  grain (_pit_hook__address, _hook__address),
+  references (_hook__state_province)
 );
 
 WITH staging AS (
@@ -43,11 +48,29 @@ WITH staging AS (
       '~epoch|valid_from|',
       address__record_valid_from
     )::BLOB AS _pit_hook__address,
-    CONCAT('address|adventure_works|', address__address_id)::BLOB AS _hook__address,
-    CONCAT('state_province|adventure_works|', address__state_province_id)::BLOB AS _hook__state_province,
+    CONCAT('address|adventure_works|', address__address_id) AS _hook__address,
+    CONCAT('state_province|adventure_works|', address__state_province_id) AS _hook__state_province,
     *
   FROM validity
 )
 SELECT
-  *
+  _pit_hook__address::BLOB,
+  _hook__address::BLOB,
+  _hook__state_province::BLOB,
+  address__address_id::BIGINT,
+  address__state_province_id::BIGINT,
+  address__address_line1::TEXT,
+  address__address_line2::TEXT,
+  address__city::TEXT,
+  address__modified_date::DATE,
+  address__postal_code::TEXT,
+  address__rowguid::UUID,
+  address__record_loaded_at::TIMESTAMP,
+  address__record_updated_at::TIMESTAMP,
+  address__record_version::TEXT,
+  address__record_valid_from::TIMESTAMP,
+  address__record_valid_to::TIMESTAMP,
+  address__is_current_record::TEXT
 FROM hooks
+WHERE 1 = 1
+AND address__record_updated_at BETWEEN @start_ts AND @end_ts
