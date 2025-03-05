@@ -1,37 +1,23 @@
 MODEL (
-  kind VIEW,
-  enabled FALSE
+  enabled TRUE,
+  kind INCREMENTAL_BY_TIME_RANGE(
+    time_column bridge__record_updated_at
+  ),
+  tags uss,
+  grain (_pit_hook__product_subcategory),
+  references (_hook__product_category)
 );
 
-WITH bridge AS (
-  SELECT
-    'product_subcategories' AS stage,
-    bag__adventure_works__product_subcategories._pit_hook__product_subcategory,
-    bag__adventure_works__product_subcategories._hook__product_subcategory,
-    uss_bridge__product_categories._pit_hook__product_category,
-    GREATEST(
-      bag__adventure_works__product_subcategories.product_subcategory__record_loaded_at,
-      uss_bridge__product_categories.bridge__record_loaded_at
-    ) AS bridge__record_loaded_at,
-    GREATEST(
-      bag__adventure_works__product_subcategories.product_subcategory__record_updated_at,
-      uss_bridge__product_categories.bridge__record_updated_at
-    ) AS bridge__record_updated_at,
-    GREATEST(
-      bag__adventure_works__product_subcategories.product_subcategory__record_valid_from,
-      uss_bridge__product_categories.bridge__record_valid_from
-    ) AS bridge__record_valid_from,
-    LEAST(
-      bag__adventure_works__product_subcategories.product_subcategory__record_valid_to,
-      uss_bridge__product_categories.bridge__record_valid_to
-    ) AS bridge__record_valid_to
-  FROM silver.bag__adventure_works__product_subcategories
-  LEFT JOIN silver.uss_bridge__product_categories
-    ON bag__adventure_works__product_subcategories._hook__product_category = uss_bridge__product_categories._hook__product_category
-    AND bag__adventure_works__product_subcategories.product_subcategory__record_valid_from <= uss_bridge__product_categories.bridge__record_valid_to
-    AND bag__adventure_works__product_subcategories.product_subcategory__record_valid_to >= uss_bridge__product_categories.bridge__record_valid_from
-)
 SELECT
-  *,
-  bridge__record_valid_to = '9999-12-31 23:59:59'::TIMESTAMP AS bridge__is_current_record
-FROM bridge
+  'product_subcategories' AS peripheral,
+  _hook__product_subcategory::BLOB,
+  _hook__product_category::BLOB,
+  product_subcategory__record_loaded_at::TIMESTAMP AS bridge__record_loaded_at,
+  product_subcategory__record_updated_at::TIMESTAMP AS bridge__record_updated_at,
+  product_subcategory__record_version::TEXT AS bridge__record_version,
+  product_subcategory__record_valid_from::TIMESTAMP AS bridge__record_valid_from,
+  product_subcategory__record_valid_to::TIMESTAMP AS bridge__record_valid_to,
+  product_subcategory__is_current_record::TEXT AS bridge__is_current_record
+FROM silver.bag__adventure_works__product_subcategories
+WHERE 1 = 1
+AND bridge__record_updated_at BETWEEN @start_ts AND @end_ts

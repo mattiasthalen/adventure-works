@@ -1,20 +1,21 @@
 MODEL (
-  kind VIEW,
-  enabled FALSE
+  enabled TRUE,
+  kind INCREMENTAL_BY_TIME_RANGE(
+    time_column bridge__record_updated_at
+  ),
+  tags uss,
+  grain (_pit_hook__product_category)
 );
 
-WITH bridge AS (
-  SELECT
-    'product_categories' AS stage,
-    bag__adventure_works__product_categories._pit_hook__product_category,
-    bag__adventure_works__product_categories._hook__product_category,
-    bag__adventure_works__product_categories.product_category__record_loaded_at AS bridge__record_loaded_at,
-    bag__adventure_works__product_categories.product_category__record_updated_at AS bridge__record_updated_at,
-    bag__adventure_works__product_categories.product_category__record_valid_from AS bridge__record_valid_from,
-    bag__adventure_works__product_categories.product_category__record_valid_to AS bridge__record_valid_to
-  FROM silver.bag__adventure_works__product_categories
-)
 SELECT
-  *,
-  bridge__record_valid_to = '9999-12-31 23:59:59'::TIMESTAMP AS bridge__is_current_record
-FROM bridge
+  'product_categories' AS peripheral,
+  _hook__product_category::BLOB,
+  product_category__record_loaded_at::TIMESTAMP AS bridge__record_loaded_at,
+  product_category__record_updated_at::TIMESTAMP AS bridge__record_updated_at,
+  product_category__record_version::TEXT AS bridge__record_version,
+  product_category__record_valid_from::TIMESTAMP AS bridge__record_valid_from,
+  product_category__record_valid_to::TIMESTAMP AS bridge__record_valid_to,
+  product_category__is_current_record::TEXT AS bridge__is_current_record
+FROM silver.bag__adventure_works__product_categories
+WHERE 1 = 1
+AND bridge__record_updated_at BETWEEN @start_ts AND @end_ts

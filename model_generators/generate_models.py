@@ -16,8 +16,8 @@ def main():
     print("\n=== Generating Hook Models ===")
     generate_hook_bags()
     
-    # Step 3: Generate USS bridges
-    print("\n=== Generating USS Bridges ===")
+    # Step 3: Generate USS bridge models
+    print("\n=== Generating USS Bridge Models ===")
     generate_uss_bridges()
     
     # Print summary

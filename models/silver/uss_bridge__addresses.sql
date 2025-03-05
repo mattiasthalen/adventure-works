@@ -1,38 +1,23 @@
 MODEL (
-  kind VIEW,
-  enabled FALSE
+  enabled TRUE,
+  kind INCREMENTAL_BY_TIME_RANGE(
+    time_column bridge__record_updated_at
+  ),
+  tags uss,
+  grain (_pit_hook__address),
+  references (_hook__reference__state_province)
 );
 
-WITH bridge AS (
-  SELECT
-    'addresses' AS stage,
-    bag__adventure_works__addresses._pit_hook__address,
-    bag__adventure_works__addresses._hook__address,
-    uss_bridge__state_provinces._pit_hook__state_province,
-    uss_bridge__state_provinces._pit_hook__territory,
-    GREATEST(
-      bag__adventure_works__addresses.address__record_loaded_at,
-      uss_bridge__state_provinces.bridge__record_loaded_at
-    ) AS bridge__record_loaded_at,
-    GREATEST(
-      bag__adventure_works__addresses.address__record_updated_at,
-      uss_bridge__state_provinces.bridge__record_updated_at
-    ) AS bridge__record_updated_at,
-    GREATEST(
-      bag__adventure_works__addresses.address__record_valid_from,
-      uss_bridge__state_provinces.bridge__record_valid_from
-    ) AS bridge__record_valid_from,
-    LEAST(
-      bag__adventure_works__addresses.address__record_valid_to,
-      uss_bridge__state_provinces.bridge__record_valid_to
-    ) AS bridge__record_valid_to
-  FROM silver.bag__adventure_works__addresses
-  LEFT JOIN silver.uss_bridge__state_provinces
-    ON bag__adventure_works__addresses._hook__state_province = uss_bridge__state_provinces._hook__state_province
-    AND bag__adventure_works__addresses.address__record_valid_from <= uss_bridge__state_provinces.bridge__record_valid_to
-    AND bag__adventure_works__addresses.address__record_valid_to >= uss_bridge__state_provinces.bridge__record_valid_from
-)
 SELECT
-  *,
-  bridge__record_valid_to = '9999-12-31 23:59:59'::TIMESTAMP AS bridge__is_current_record
-FROM bridge
+  'addresses' AS peripheral,
+  _hook__address::BLOB,
+  _hook__reference__state_province::BLOB,
+  address__record_loaded_at::TIMESTAMP AS bridge__record_loaded_at,
+  address__record_updated_at::TIMESTAMP AS bridge__record_updated_at,
+  address__record_version::TEXT AS bridge__record_version,
+  address__record_valid_from::TIMESTAMP AS bridge__record_valid_from,
+  address__record_valid_to::TIMESTAMP AS bridge__record_valid_to,
+  address__is_current_record::TEXT AS bridge__is_current_record
+FROM silver.bag__adventure_works__addresses
+WHERE 1 = 1
+AND bridge__record_updated_at BETWEEN @start_ts AND @end_ts

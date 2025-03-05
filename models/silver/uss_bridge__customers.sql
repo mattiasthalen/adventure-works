@@ -1,20 +1,25 @@
 MODEL (
-  kind VIEW,
-  enabled FALSE
+  enabled TRUE,
+  kind INCREMENTAL_BY_TIME_RANGE(
+    time_column bridge__record_updated_at
+  ),
+  tags uss,
+  grain (_pit_hook__customer),
+  references (_hook__person__customer, _hook__store, _hook__territory__sales)
 );
 
-WITH bridge AS (
-  SELECT
-    'customers' AS stage,
-    bag__adventure_works__customers._pit_hook__customer,
-    bag__adventure_works__customers._hook__customer,
-    bag__adventure_works__customers.customer__record_loaded_at AS bridge__record_loaded_at,
-    bag__adventure_works__customers.customer__record_updated_at AS bridge__record_updated_at,
-    bag__adventure_works__customers.customer__record_valid_from AS bridge__record_valid_from,
-    bag__adventure_works__customers.customer__record_valid_to AS bridge__record_valid_to
-  FROM silver.bag__adventure_works__customers
-)
 SELECT
-  *,
-  bridge__record_valid_to = '9999-12-31 23:59:59'::TIMESTAMP AS bridge__is_current_record
-FROM bridge
+  'customers' AS peripheral,
+  _hook__customer::BLOB,
+  _hook__person__customer::BLOB,
+  _hook__store::BLOB,
+  _hook__territory__sales::BLOB,
+  customer__record_loaded_at::TIMESTAMP AS bridge__record_loaded_at,
+  customer__record_updated_at::TIMESTAMP AS bridge__record_updated_at,
+  customer__record_version::TEXT AS bridge__record_version,
+  customer__record_valid_from::TIMESTAMP AS bridge__record_valid_from,
+  customer__record_valid_to::TIMESTAMP AS bridge__record_valid_to,
+  customer__is_current_record::TEXT AS bridge__is_current_record
+FROM silver.bag__adventure_works__customers
+WHERE 1 = 1
+AND bridge__record_updated_at BETWEEN @start_ts AND @end_ts
