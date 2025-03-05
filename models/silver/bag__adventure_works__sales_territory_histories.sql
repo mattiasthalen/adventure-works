@@ -43,7 +43,7 @@ WITH staging AS (
     CONCAT(
       'person__sales__adventure_works|',
       sales_territory_history__business_entity_id,
-      '~epoch__valid_from|',
+      '~epoch|valid_from|',
       sales_territory_history__record_valid_from
     )::BLOB AS _pit_hook__person__sales,
     CONCAT('person__sales__adventure_works|', sales_territory_history__business_entity_id) AS _hook__person__sales,
@@ -58,7 +58,7 @@ SELECT
   sales_territory_history__business_entity_id::BIGINT,
   sales_territory_history__territory_id::BIGINT,
   sales_territory_history__start_date::TEXT,
-  sales_territory_history__rowguid::TEXT,
+  sales_territory_history__rowguid::UUID,
   sales_territory_history__end_date::TEXT,
   sales_territory_history__modified_date::DATE,
   sales_territory_history__record_loaded_at::TIMESTAMP,

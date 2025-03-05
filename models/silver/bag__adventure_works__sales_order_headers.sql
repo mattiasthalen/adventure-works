@@ -62,7 +62,7 @@ WITH staging AS (
     CONCAT(
       'order__sales__adventure_works|',
       sales_order_header__sales_order_id,
-      '~epoch__valid_from|',
+      '~epoch|valid_from|',
       sales_order_header__record_valid_from
     )::BLOB AS _pit_hook__order__sales,
     CONCAT('order__sales__adventure_works|', sales_order_header__sales_order_id) AS _hook__order__sales,
@@ -110,7 +110,7 @@ SELECT
   sales_order_header__tax_amt::DOUBLE,
   sales_order_header__freight::DOUBLE,
   sales_order_header__total_due::DOUBLE,
-  sales_order_header__rowguid::TEXT,
+  sales_order_header__rowguid::UUID,
   sales_order_header__currency_rate_id::BIGINT,
   sales_order_header__modified_date::DATE,
   sales_order_header__record_loaded_at::TIMESTAMP,

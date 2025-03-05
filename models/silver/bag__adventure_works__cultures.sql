@@ -39,7 +39,7 @@ WITH staging AS (
     CONCAT(
       'reference__culture__adventure_works|',
       culture__culture_id,
-      '~epoch__valid_from|',
+      '~epoch|valid_from|',
       culture__record_valid_from
     )::BLOB AS _pit_hook__reference__culture,
     CONCAT('reference__culture__adventure_works|', culture__culture_id) AS _hook__reference__culture,

@@ -44,7 +44,7 @@ WITH staging AS (
     CONCAT(
       'customer__adventure_works|',
       customer__customer_id,
-      '~epoch__valid_from|',
+      '~epoch|valid_from|',
       customer__record_valid_from
     )::BLOB AS _pit_hook__customer,
     CONCAT('customer__adventure_works|', customer__customer_id) AS _hook__customer,
@@ -64,7 +64,7 @@ SELECT
   customer__store_id::BIGINT,
   customer__territory_id::BIGINT,
   customer__account_number::TEXT,
-  customer__rowguid::TEXT,
+  customer__rowguid::UUID,
   customer__person_id::BIGINT,
   customer__modified_date::DATE,
   customer__record_loaded_at::TIMESTAMP,

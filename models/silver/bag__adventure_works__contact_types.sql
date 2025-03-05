@@ -39,7 +39,7 @@ WITH staging AS (
     CONCAT(
       'reference__contact_type__adventure_works|',
       contact_type__contact_type_id,
-      '~epoch__valid_from|',
+      '~epoch|valid_from|',
       contact_type__record_valid_from
     )::BLOB AS _pit_hook__reference__contact_type,
     CONCAT('reference__contact_type__adventure_works|', contact_type__contact_type_id) AS _hook__reference__contact_type,

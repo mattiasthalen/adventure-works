@@ -48,7 +48,7 @@ WITH staging AS (
     CONCAT(
       'order_line__sales__adventure_works|',
       sales_order_detail__sales_order_detail_id,
-      '~epoch__valid_from|',
+      '~epoch|valid_from|',
       sales_order_detail__record_valid_from
     )::BLOB AS _pit_hook__order_line__sales,
     CONCAT('order_line__sales__adventure_works|', sales_order_detail__sales_order_detail_id) AS _hook__order_line__sales,
@@ -73,7 +73,7 @@ SELECT
   sales_order_detail__unit_price::DOUBLE,
   sales_order_detail__unit_price_discount::DOUBLE,
   sales_order_detail__line_total::DOUBLE,
-  sales_order_detail__rowguid::TEXT,
+  sales_order_detail__rowguid::UUID,
   sales_order_detail__modified_date::DATE,
   sales_order_detail__record_loaded_at::TIMESTAMP,
   sales_order_detail__record_updated_at::TIMESTAMP,

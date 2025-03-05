@@ -41,7 +41,7 @@ WITH staging AS (
     CONCAT(
       'reference__location__adventure_works|',
       location__location_id,
-      '~epoch__valid_from|',
+      '~epoch|valid_from|',
       location__record_valid_from
     )::BLOB AS _pit_hook__reference__location,
     CONCAT('reference__location__adventure_works|', location__location_id) AS _hook__reference__location,

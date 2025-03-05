@@ -42,7 +42,7 @@ WITH staging AS (
     CONCAT(
       'address__adventure_works|',
       business_entity_address__address_id,
-      '~epoch__valid_from|',
+      '~epoch|valid_from|',
       business_entity_address__record_valid_from
     )::BLOB AS _pit_hook__address,
     CONCAT('address__adventure_works|', business_entity_address__address_id) AS _hook__address,
@@ -59,7 +59,7 @@ SELECT
   business_entity_address__business_entity_id::BIGINT,
   business_entity_address__address_id::BIGINT,
   business_entity_address__address_type_id::BIGINT,
-  business_entity_address__rowguid::TEXT,
+  business_entity_address__rowguid::UUID,
   business_entity_address__modified_date::DATE,
   business_entity_address__record_loaded_at::TIMESTAMP,
   business_entity_address__record_updated_at::TIMESTAMP,

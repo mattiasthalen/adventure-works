@@ -47,7 +47,7 @@ WITH staging AS (
     CONCAT(
       'reference__special_offer__adventure_works|',
       special_offer__special_offer_id,
-      '~epoch__valid_from|',
+      '~epoch|valid_from|',
       special_offer__record_valid_from
     )::BLOB AS _pit_hook__reference__special_offer,
     CONCAT('reference__special_offer__adventure_works|', special_offer__special_offer_id) AS _hook__reference__special_offer,
@@ -65,7 +65,7 @@ SELECT
   special_offer__start_date::TEXT,
   special_offer__end_date::TEXT,
   special_offer__minimum_quantity::BIGINT,
-  special_offer__rowguid::TEXT,
+  special_offer__rowguid::UUID,
   special_offer__maximum_quantity::BIGINT,
   special_offer__modified_date::DATE,
   special_offer__record_loaded_at::TIMESTAMP,

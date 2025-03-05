@@ -42,7 +42,7 @@ WITH staging AS (
     CONCAT(
       'credit_card__adventure_works|',
       credit_card__credit_card_id,
-      '~epoch__valid_from|',
+      '~epoch|valid_from|',
       credit_card__record_valid_from
     )::BLOB AS _pit_hook__credit_card,
     CONCAT('credit_card__adventure_works|', credit_card__credit_card_id) AS _hook__credit_card,

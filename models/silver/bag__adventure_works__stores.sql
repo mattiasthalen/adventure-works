@@ -43,7 +43,7 @@ WITH staging AS (
     CONCAT(
       'store__adventure_works|',
       store__business_entity_id,
-      '~epoch__valid_from|',
+      '~epoch|valid_from|',
       store__record_valid_from
     )::BLOB AS _pit_hook__store,
     CONCAT('store__adventure_works|', store__business_entity_id) AS _hook__store,
@@ -59,7 +59,7 @@ SELECT
   store__name::TEXT,
   store__sales_person_id::BIGINT,
   store__demographics::TEXT,
-  store__rowguid::TEXT,
+  store__rowguid::UUID,
   store__modified_date::DATE,
   store__record_loaded_at::TIMESTAMP,
   store__record_updated_at::TIMESTAMP,

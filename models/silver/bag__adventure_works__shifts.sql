@@ -41,7 +41,7 @@ WITH staging AS (
     CONCAT(
       'reference__shift__adventure_works|',
       shift__shift_id,
-      '~epoch__valid_from|',
+      '~epoch|valid_from|',
       shift__record_valid_from
     )::BLOB AS _pit_hook__reference__shift,
     CONCAT('reference__shift__adventure_works|', shift__shift_id) AS _hook__reference__shift,

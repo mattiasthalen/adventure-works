@@ -42,7 +42,7 @@ WITH staging AS (
     CONCAT(
       'person__individual__adventure_works|',
       email_address__business_entity_id,
-      '~epoch__valid_from|',
+      '~epoch|valid_from|',
       email_address__record_valid_from
     )::BLOB AS _pit_hook__person__individual,
     CONCAT('person__individual__adventure_works|', email_address__business_entity_id) AS _hook__person__individual,
@@ -57,7 +57,7 @@ SELECT
   email_address__business_entity_id::BIGINT,
   email_address__email_address_id::BIGINT,
   email_address__email::TEXT,
-  email_address__rowguid::TEXT,
+  email_address__rowguid::UUID,
   email_address__modified_date::DATE,
   email_address__record_loaded_at::TIMESTAMP,
   email_address__record_updated_at::TIMESTAMP,

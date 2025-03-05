@@ -51,7 +51,7 @@ WITH staging AS (
     CONCAT(
       'person__employee__adventure_works|',
       employee__business_entity_id,
-      '~epoch__valid_from|',
+      '~epoch|valid_from|',
       employee__record_valid_from
     )::BLOB AS _pit_hook__person__employee,
     CONCAT('person__employee__adventure_works|', employee__business_entity_id) AS _hook__person__employee,
@@ -73,7 +73,7 @@ SELECT
   employee__vacation_hours::BIGINT,
   employee__sick_leave_hours::BIGINT,
   employee__current_flag::BOOLEAN,
-  employee__rowguid::TEXT,
+  employee__rowguid::UUID,
   employee__organization_level::BIGINT,
   employee__modified_date::DATE,
   employee__record_loaded_at::TIMESTAMP,

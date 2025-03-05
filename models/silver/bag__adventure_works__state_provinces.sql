@@ -45,7 +45,7 @@ WITH staging AS (
     CONCAT(
       'reference__state_province__adventure_works|',
       state_province__state_province_id,
-      '~epoch__valid_from|',
+      '~epoch|valid_from|',
       state_province__record_valid_from
     )::BLOB AS _pit_hook__reference__state_province,
     CONCAT('reference__state_province__adventure_works|', state_province__state_province_id) AS _hook__reference__state_province,
@@ -65,7 +65,7 @@ SELECT
   state_province__is_only_state_province_flag::BOOLEAN,
   state_province__name::TEXT,
   state_province__territory_id::BIGINT,
-  state_province__rowguid::TEXT,
+  state_province__rowguid::UUID,
   state_province__modified_date::DATE,
   state_province__record_loaded_at::TIMESTAMP,
   state_province__record_updated_at::TIMESTAMP,

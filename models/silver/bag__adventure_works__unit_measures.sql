@@ -39,7 +39,7 @@ WITH staging AS (
     CONCAT(
       'reference__unit_measure__adventure_works|',
       unit_measure__unit_measure_code,
-      '~epoch__valid_from|',
+      '~epoch|valid_from|',
       unit_measure__record_valid_from
     )::BLOB AS _pit_hook__reference__unit_measure,
     CONCAT('reference__unit_measure__adventure_works|', unit_measure__unit_measure_code) AS _hook__reference__unit_measure,

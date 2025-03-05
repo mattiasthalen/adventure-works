@@ -45,7 +45,7 @@ WITH staging AS (
     CONCAT(
       'address__adventure_works|',
       address__address_id,
-      '~epoch__valid_from|',
+      '~epoch|valid_from|',
       address__record_valid_from
     )::BLOB AS _pit_hook__address,
     CONCAT('address__adventure_works|', address__address_id) AS _hook__address,
@@ -62,7 +62,7 @@ SELECT
   address__city::TEXT,
   address__state_province_id::BIGINT,
   address__postal_code::TEXT,
-  address__rowguid::TEXT,
+  address__rowguid::UUID,
   address__address_line2::TEXT,
   address__modified_date::DATE,
   address__record_loaded_at::TIMESTAMP,

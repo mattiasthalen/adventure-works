@@ -44,7 +44,7 @@ WITH staging AS (
     CONCAT(
       'reference__location__adventure_works|',
       product_inventory__location_id,
-      '~epoch__valid_from|',
+      '~epoch|valid_from|',
       product_inventory__record_valid_from
     )::BLOB AS _pit_hook__reference__location,
     CONCAT('reference__location__adventure_works|', product_inventory__location_id) AS _hook__reference__location,
@@ -61,7 +61,7 @@ SELECT
   product_inventory__shelf::TEXT,
   product_inventory__bin::BIGINT,
   product_inventory__quantity::BIGINT,
-  product_inventory__rowguid::TEXT,
+  product_inventory__rowguid::UUID,
   product_inventory__modified_date::DATE,
   product_inventory__record_loaded_at::TIMESTAMP,
   product_inventory__record_updated_at::TIMESTAMP,

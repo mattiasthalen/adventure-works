@@ -4,14 +4,15 @@ MODEL (
 );
 
 SELECT
-  customer_id,
-  person_id,
-  store_id,
-  territory_id,
-  account_number,
-  modified_date,
-  rowguid,
-  _dlt_load_id
-  FROM ICEBERG_SCAN(
-    "file://" || @project_path || "/lakehouse/bronze/raw__adventure_works__customers"
-  )
+    customer_id::BIGINT,
+    store_id::BIGINT,
+    territory_id::BIGINT,
+    account_number::TEXT,
+    rowguid::UUID,
+    modified_date::DATE,
+    _dlt_load_id::TEXT,
+    person_id::BIGINT
+FROM ICEBERG_SCAN(
+  "file://" || @project_path || "/lakehouse/bronze/raw__adventure_works__customers"
+)
+;

@@ -39,7 +39,7 @@ WITH staging AS (
     CONCAT(
       'currency__adventure_works|',
       currency__currency_code,
-      '~epoch__valid_from|',
+      '~epoch|valid_from|',
       currency__record_valid_from
     )::BLOB AS _pit_hook__currency,
     CONCAT('currency__adventure_works|', currency__currency_code) AS _hook__currency,

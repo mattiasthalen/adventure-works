@@ -46,7 +46,7 @@ WITH staging AS (
     CONCAT(
       'person__sales__adventure_works|',
       sales_person__business_entity_id,
-      '~epoch__valid_from|',
+      '~epoch|valid_from|',
       sales_person__record_valid_from
     )::BLOB AS _pit_hook__person__sales,
     CONCAT('person__sales__adventure_works|', sales_person__business_entity_id) AS _hook__person__sales,
@@ -63,7 +63,7 @@ SELECT
   sales_person__commission_pct::DOUBLE,
   sales_person__sales_ytd::DOUBLE,
   sales_person__sales_last_year::DOUBLE,
-  sales_person__rowguid::TEXT,
+  sales_person__rowguid::UUID,
   sales_person__territory_id::BIGINT,
   sales_person__sales_quota::DOUBLE,
   sales_person__modified_date::DATE,

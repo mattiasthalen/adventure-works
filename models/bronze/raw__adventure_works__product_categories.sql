@@ -4,11 +4,12 @@ MODEL (
 );
 
 SELECT
-  product_category_id,
-  modified_date,
-  name,
-  rowguid,
-  _dlt_load_id
-  FROM ICEBERG_SCAN(
-    "file://" || @project_path || "/lakehouse/bronze/raw__adventure_works__product_categories"
-  )
+    product_category_id::BIGINT,
+    name::TEXT,
+    rowguid::UUID,
+    modified_date::DATE,
+    _dlt_load_id::TEXT
+FROM ICEBERG_SCAN(
+  "file://" || @project_path || "/lakehouse/bronze/raw__adventure_works__product_categories"
+)
+;

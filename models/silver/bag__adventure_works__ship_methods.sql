@@ -42,7 +42,7 @@ WITH staging AS (
     CONCAT(
       'ship_method__adventure_works|',
       ship_method__ship_method_id,
-      '~epoch__valid_from|',
+      '~epoch|valid_from|',
       ship_method__record_valid_from
     )::BLOB AS _pit_hook__ship_method,
     CONCAT('ship_method__adventure_works|', ship_method__ship_method_id) AS _hook__ship_method,
@@ -56,7 +56,7 @@ SELECT
   ship_method__name::TEXT,
   ship_method__ship_base::DOUBLE,
   ship_method__ship_rate::DOUBLE,
-  ship_method__rowguid::TEXT,
+  ship_method__rowguid::UUID,
   ship_method__modified_date::DATE,
   ship_method__record_loaded_at::TIMESTAMP,
   ship_method__record_updated_at::TIMESTAMP,

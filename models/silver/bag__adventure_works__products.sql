@@ -61,7 +61,7 @@ WITH staging AS (
     CONCAT(
       'product__adventure_works|',
       product__product_id,
-      '~epoch__valid_from|',
+      '~epoch|valid_from|',
       product__record_valid_from
     )::BLOB AS _pit_hook__product,
     CONCAT('product__adventure_works|', product__product_id) AS _hook__product,
@@ -86,7 +86,7 @@ SELECT
   product__list_price::DOUBLE,
   product__days_to_manufacture::BIGINT,
   product__sell_start_date::TEXT,
-  product__rowguid::TEXT,
+  product__rowguid::UUID,
   product__color::TEXT,
   product__class::TEXT,
   product__weight_unit_measure_code::TEXT,

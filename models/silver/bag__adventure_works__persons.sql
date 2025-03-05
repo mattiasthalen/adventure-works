@@ -20,7 +20,6 @@ WITH staging AS (
     rowguid AS person__rowguid,
     title AS person__title,
     suffix AS person__suffix,
-    additional_contact_info AS person__additional_contact_info,
     modified_date AS person__modified_date,
     TO_TIMESTAMP(_dlt_load_id::DOUBLE) AS person__record_loaded_at
   FROM bronze.raw__adventure_works__persons
@@ -49,7 +48,7 @@ WITH staging AS (
     CONCAT(
       'person__individual__adventure_works|',
       person__business_entity_id,
-      '~epoch__valid_from|',
+      '~epoch|valid_from|',
       person__record_valid_from
     )::BLOB AS _pit_hook__person__individual,
     CONCAT('person__individual__adventure_works|', person__business_entity_id) AS _hook__person__individual,
@@ -67,10 +66,9 @@ SELECT
   person__last_name::TEXT,
   person__email_promotion::BIGINT,
   person__demographics::TEXT,
-  person__rowguid::TEXT,
+  person__rowguid::UUID,
   person__title::TEXT,
   person__suffix::TEXT,
-  person__additional_contact_info::TEXT,
   person__modified_date::DATE,
   person__record_loaded_at::TIMESTAMP,
   person__record_updated_at::TIMESTAMP,

@@ -47,7 +47,7 @@ WITH staging AS (
     CONCAT(
       'territory__sales__adventure_works|',
       sales_territory__territory_id,
-      '~epoch__valid_from|',
+      '~epoch|valid_from|',
       sales_territory__record_valid_from
     )::BLOB AS _pit_hook__territory__sales,
     CONCAT('territory__sales__adventure_works|', sales_territory__territory_id) AS _hook__territory__sales,
@@ -67,7 +67,7 @@ SELECT
   sales_territory__sales_last_year::DOUBLE,
   sales_territory__cost_ytd::DOUBLE,
   sales_territory__cost_last_year::DOUBLE,
-  sales_territory__rowguid::TEXT,
+  sales_territory__rowguid::UUID,
   sales_territory__modified_date::DATE,
   sales_territory__record_loaded_at::TIMESTAMP,
   sales_territory__record_updated_at::TIMESTAMP,

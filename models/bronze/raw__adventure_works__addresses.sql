@@ -4,15 +4,15 @@ MODEL (
 );
 
 SELECT
-    address_id,
-    state_province_id,
-    address_line1,
-    address_line2,
-    city,
-    modified_date,
-    postal_code,
-    rowguid,
-    _dlt_load_id
+    address_id::BIGINT,
+    address_line1::TEXT,
+    city::TEXT,
+    state_province_id::BIGINT,
+    postal_code::TEXT,
+    rowguid::UUID,
+    modified_date::DATE,
+    _dlt_load_id::TEXT,
+    address_line2::TEXT
 FROM ICEBERG_SCAN(
   "file://" || @project_path || "/lakehouse/bronze/raw__adventure_works__addresses"
 )

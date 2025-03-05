@@ -46,7 +46,7 @@ WITH staging AS (
     CONCAT(
       'product__adventure_works|',
       transaction_history_archive__transaction_id,
-      '~epoch__valid_from|',
+      '~epoch|valid_from|',
       transaction_history_archive__record_valid_from
     )::BLOB AS _pit_hook__transaction_history_archive,
     CONCAT('product__adventure_works|', transaction_history_archive__transaction_id) AS _hook__transaction_history_archive,

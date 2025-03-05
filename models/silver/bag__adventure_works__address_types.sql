@@ -40,7 +40,7 @@ WITH staging AS (
     CONCAT(
       'reference__address_type__adventure_works|',
       address_type__address_type_id,
-      '~epoch__valid_from|',
+      '~epoch|valid_from|',
       address_type__record_valid_from
     )::BLOB AS _pit_hook__reference__address_type,
     CONCAT('reference__address_type__adventure_works|', address_type__address_type_id) AS _hook__reference__address_type,
@@ -52,7 +52,7 @@ SELECT
   _hook__reference__address_type::BLOB,
   address_type__address_type_id::BIGINT,
   address_type__name::TEXT,
-  address_type__rowguid::TEXT,
+  address_type__rowguid::UUID,
   address_type__modified_date::DATE,
   address_type__record_loaded_at::TIMESTAMP,
   address_type__record_updated_at::TIMESTAMP,
