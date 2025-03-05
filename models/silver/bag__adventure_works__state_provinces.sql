@@ -1,18 +1,23 @@
 MODEL (
-  kind VIEW,
-  enabled FALSE
+  enabled TRUE,
+  kind INCREMENTAL_BY_TIME_RANGE(
+    time_column state_province__record_updated_at
+  ),
+  tags hook,
+  grain (_pit_hook__reference__state_province, _hook__reference__state_province),
+  references (_hook__reference__country_region, _hook__territory__sales)
 );
 
 WITH staging AS (
   SELECT
     state_province_id AS state_province__state_province_id,
-    territory_id AS state_province__territory_id,
+    state_province_code AS state_province__state_province_code,
     country_region_code AS state_province__country_region_code,
     is_only_state_province_flag AS state_province__is_only_state_province_flag,
-    modified_date AS state_province__modified_date,
     name AS state_province__name,
+    territory_id AS state_province__territory_id,
     rowguid AS state_province__rowguid,
-    state_province_code AS state_province__state_province_code,
+    modified_date AS state_province__modified_date,
     TO_TIMESTAMP(_dlt_load_id::DOUBLE) AS state_province__record_loaded_at
   FROM bronze.raw__adventure_works__state_provinces
 ), validity AS (
@@ -38,16 +43,36 @@ WITH staging AS (
 ), hooks AS (
   SELECT
     CONCAT(
-      'state_province|adventure_works|',
+      'reference__state_province__adventure_works|',
       state_province__state_province_id,
-      '~epoch|valid_from|',
+      '~epoch__valid_from|',
       state_province__record_valid_from
-    )::BLOB AS _pit_hook__state_province,
-    CONCAT('state_province|adventure_works|', state_province__state_province_id)::BLOB AS _hook__state_province,
-    CONCAT('territory|adventure_works|', state_province__territory_id)::BLOB AS _hook__territory,
+    )::BLOB AS _pit_hook__reference__state_province,
+    CONCAT('reference__state_province__adventure_works|', state_province__state_province_id) AS _hook__reference__state_province,
+    CONCAT('reference__country_region__adventure_works|', state_province__country_region_code) AS _hook__reference__country_region,
+    CONCAT('territory__sales__adventure_works|', state_province__territory_id) AS _hook__territory__sales,
     *
   FROM validity
 )
 SELECT
-  *
+  _pit_hook__reference__state_province::BLOB,
+  _hook__reference__state_province::BLOB,
+  _hook__reference__country_region::BLOB,
+  _hook__territory__sales::BLOB,
+  state_province__state_province_id::BIGINT,
+  state_province__state_province_code::TEXT,
+  state_province__country_region_code::TEXT,
+  state_province__is_only_state_province_flag::BOOLEAN,
+  state_province__name::TEXT,
+  state_province__territory_id::BIGINT,
+  state_province__rowguid::TEXT,
+  state_province__modified_date::DATE,
+  state_province__record_loaded_at::TIMESTAMP,
+  state_province__record_updated_at::TIMESTAMP,
+  state_province__record_version::TEXT,
+  state_province__record_valid_from::TIMESTAMP,
+  state_province__record_valid_to::TIMESTAMP,
+  state_province__is_current_record::TEXT
 FROM hooks
+WHERE 1 = 1
+AND state_province__record_updated_at BETWEEN @start_ts AND @end_ts

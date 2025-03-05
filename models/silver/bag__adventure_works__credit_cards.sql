@@ -1,13 +1,17 @@
 MODEL (
-  kind VIEW,
-  enabled FALSE
+  enabled TRUE,
+  kind INCREMENTAL_BY_TIME_RANGE(
+    time_column credit_card__record_updated_at
+  ),
+  tags hook,
+  grain (_pit_hook__credit_card, _hook__credit_card)
 );
 
 WITH staging AS (
   SELECT
     credit_card_id AS credit_card__credit_card_id,
-    card_number AS credit_card__card_number,
     card_type AS credit_card__card_type,
+    card_number AS credit_card__card_number,
     exp_month AS credit_card__exp_month,
     exp_year AS credit_card__exp_year,
     modified_date AS credit_card__modified_date,
@@ -36,15 +40,30 @@ WITH staging AS (
 ), hooks AS (
   SELECT
     CONCAT(
-      'credit_card|adventure_works|',
+      'credit_card__adventure_works|',
       credit_card__credit_card_id,
-      '~epoch|valid_from|',
+      '~epoch__valid_from|',
       credit_card__record_valid_from
     )::BLOB AS _pit_hook__credit_card,
-    CONCAT('credit_card|adventure_works|', credit_card__credit_card_id)::BLOB AS _hook__credit_card,
+    CONCAT('credit_card__adventure_works|', credit_card__credit_card_id) AS _hook__credit_card,
     *
   FROM validity
 )
 SELECT
-  *
+  _pit_hook__credit_card::BLOB,
+  _hook__credit_card::BLOB,
+  credit_card__credit_card_id::BIGINT,
+  credit_card__card_type::TEXT,
+  credit_card__card_number::TEXT,
+  credit_card__exp_month::BIGINT,
+  credit_card__exp_year::BIGINT,
+  credit_card__modified_date::DATE,
+  credit_card__record_loaded_at::TIMESTAMP,
+  credit_card__record_updated_at::TIMESTAMP,
+  credit_card__record_version::TEXT,
+  credit_card__record_valid_from::TIMESTAMP,
+  credit_card__record_valid_to::TIMESTAMP,
+  credit_card__is_current_record::TEXT
 FROM hooks
+WHERE 1 = 1
+AND credit_card__record_updated_at BETWEEN @start_ts AND @end_ts

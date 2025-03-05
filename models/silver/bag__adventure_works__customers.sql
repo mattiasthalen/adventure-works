@@ -1,17 +1,22 @@
 MODEL (
-  kind VIEW,
-  enabled FALSE
+  enabled TRUE,
+  kind INCREMENTAL_BY_TIME_RANGE(
+    time_column customer__record_updated_at
+  ),
+  tags hook,
+  grain (_pit_hook__customer, _hook__customer),
+  references (_hook__person__customer, _hook__store, _hook__territory__sales)
 );
 
 WITH staging AS (
   SELECT
     customer_id AS customer__customer_id,
-    person_id AS customer__person_id,
     store_id AS customer__store_id,
     territory_id AS customer__territory_id,
     account_number AS customer__account_number,
-    modified_date AS customer__modified_date,
     rowguid AS customer__rowguid,
+    person_id AS customer__person_id,
+    modified_date AS customer__modified_date,
     TO_TIMESTAMP(_dlt_load_id::DOUBLE) AS customer__record_loaded_at
   FROM bronze.raw__adventure_works__customers
 ), validity AS (
@@ -37,18 +42,37 @@ WITH staging AS (
 ), hooks AS (
   SELECT
     CONCAT(
-      'customer|adventure_works|',
+      'customer__adventure_works|',
       customer__customer_id,
-      '~epoch|valid_from|',
+      '~epoch__valid_from|',
       customer__record_valid_from
     )::BLOB AS _pit_hook__customer,
-    CONCAT('customer|adventure_works|', customer__customer_id)::BLOB AS _hook__customer,
-    CONCAT('person|adventure_works|', customer__person_id)::BLOB AS _hook__person,
-    CONCAT('store|adventure_works|', customer__store_id)::BLOB AS _hook__store,
-    CONCAT('territory|adventure_works|', customer__territory_id)::BLOB AS _hook__territory,
+    CONCAT('customer__adventure_works|', customer__customer_id) AS _hook__customer,
+    CONCAT('person__customer__adventure_works|', customer__person_id) AS _hook__person__customer,
+    CONCAT('store__adventure_works|', customer__store_id) AS _hook__store,
+    CONCAT('territory__sales__adventure_works|', customer__territory_id) AS _hook__territory__sales,
     *
   FROM validity
 )
 SELECT
-  *
+  _pit_hook__customer::BLOB,
+  _hook__customer::BLOB,
+  _hook__person__customer::BLOB,
+  _hook__store::BLOB,
+  _hook__territory__sales::BLOB,
+  customer__customer_id::BIGINT,
+  customer__store_id::BIGINT,
+  customer__territory_id::BIGINT,
+  customer__account_number::TEXT,
+  customer__rowguid::TEXT,
+  customer__person_id::BIGINT,
+  customer__modified_date::DATE,
+  customer__record_loaded_at::TIMESTAMP,
+  customer__record_updated_at::TIMESTAMP,
+  customer__record_version::TEXT,
+  customer__record_valid_from::TIMESTAMP,
+  customer__record_valid_to::TIMESTAMP,
+  customer__is_current_record::TEXT
 FROM hooks
+WHERE 1 = 1
+AND customer__record_updated_at BETWEEN @start_ts AND @end_ts
