@@ -1,7 +1,7 @@
 import os
 from parse_yaml import load_schema, load_bags_config, ensure_directory_exists, map_data_type
 
-def generate_hook_models():
+def generate_hook_bags():
     """Generate hook model SQL files based on bags configuration"""
     # Define output directory
     output_dir = './models/silver/'
@@ -159,4 +159,4 @@ AND {column_prefix}__record_updated_at BETWEEN @start_ts AND @end_ts""")
     return True
 
 if __name__ == "__main__":
-    generate_hook_models()
+    generate_hook_bags()

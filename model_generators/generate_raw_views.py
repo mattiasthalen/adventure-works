@@ -1,7 +1,7 @@
 import os
 from parse_yaml import load_schema, get_filtered_tables, ensure_directory_exists, map_data_type
 
-def generate_raw_models():
+def generate_raw_views():
     """Generate raw model SQL files for all tables in the schema"""
     # Define output directory
     output_dir = './models/bronze/'
@@ -65,4 +65,4 @@ def generate_sql_for_table(table_name, table_info):
     return sql
 
 if __name__ == "__main__":
-    generate_raw_models()
+    generate_raw_views()
