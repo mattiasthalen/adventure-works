@@ -3,24 +3,25 @@ MODEL (
   kind INCREMENTAL_BY_TIME_RANGE(
     time_column bridge__record_updated_at
   ),
-  tags uss,
+  tags bridge,
   grain (_pit_hook__bridge),
-  references (_pit_hook__product_subcategory, _pit_hook__product_category)
+  references (_pit_hook__product_category, _pit_hook__product_subcategory)
 );
 
 WITH cte__bridge AS (
   SELECT
     'product_subcategories' AS peripheral,
     _pit_hook__product_subcategory,
-    _hook__product_category,
     _hook__product_subcategory,
+    _hook__product_category,
     product_subcategory__record_loaded_at AS bridge__record_loaded_at,
     product_subcategory__record_updated_at AS bridge__record_updated_at,
     product_subcategory__record_valid_from AS bridge__record_valid_from,
     product_subcategory__record_valid_to AS bridge__record_valid_to,
     product_subcategory__is_current_record AS bridge__is_current_record
   FROM silver.bag__adventure_works__product_subcategories
-), cte__pit_lookup AS (
+),
+cte__pit_lookup AS (
   SELECT
     cte__bridge.peripheral,
     cte__bridge._pit_hook__product_subcategory,
@@ -52,25 +53,26 @@ WITH cte__bridge AS (
   FROM cte__bridge
   LEFT JOIN silver.uss_bridge__product_categories
   ON cte__bridge._hook__product_category = uss_bridge__product_categories._hook__product_category
-  AND cte__bridge.bridge__record_valid_from > uss_bridge__product_categories.bridge__record_valid_to
-  AND cte__bridge.bridge__record_valid_to < uss_bridge__product_categories.bridge__record_valid_from
-), cte__bridge_pit_hook AS (
+  AND cte__bridge.bridge__record_valid_from >= uss_bridge__product_categories.bridge__record_valid_from
+  AND cte__bridge.bridge__record_valid_to <= uss_bridge__product_categories.bridge__record_valid_to
+),
+cte__bridge_pit_hook AS (
   SELECT
     *,
     CONCAT_WS(
       '~',
       peripheral,
       'epoch__valid_from'||bridge__record_valid_from,
-      _pit_hook__product_subcategory,
-      _pit_hook__product_category
+      _pit_hook__product_category,
+      _pit_hook__product_subcategory
     ) AS _pit_hook__bridge
   FROM cte__pit_lookup
 )
 SELECT
   peripheral::TEXT,
   _pit_hook__bridge::BLOB,
-  _pit_hook__product_subcategory::BLOB,
   _pit_hook__product_category::BLOB,
+  _pit_hook__product_subcategory::BLOB,
   _hook__product_subcategory::BLOB,
   bridge__record_loaded_at::TIMESTAMP,
   bridge__record_updated_at::TIMESTAMP,

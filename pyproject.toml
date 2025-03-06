@@ -11,6 +11,7 @@ dependencies = [
     "duckdb>=1.2.0",
     "enlighten>=1.13.0",
     "matplotlib>=3.9.4",
+    "networkx>=3.2.1",
     "plotly>=6.0.0",
     "polars>=1.21.0",
     "pyarrow>=17.0.0",

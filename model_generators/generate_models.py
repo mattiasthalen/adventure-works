@@ -1,7 +1,7 @@
 import time
 from generate_raw_views import generate_raw_views
 from generate_hook_bags import generate_hook_bags
-from generate_uss_bridges import generate_uss_bridges
+from generate_bridges import generate_bridges
 
 def main():
     """Generate all models for Adventure Works"""
@@ -16,9 +16,9 @@ def main():
     print("\n=== Generating Hook Models ===")
     generate_hook_bags()
     
-    # Step 3: Generate USS bridge models
-    print("\n=== Generating USS Bridge Models ===")
-    generate_uss_bridges()
+    # Step 3: Generate bridge models
+    print("\n=== Generating Bridge Models ===")
+    generate_bridges()
     
     # Print summary
     elapsed_time = time.time() - start_time

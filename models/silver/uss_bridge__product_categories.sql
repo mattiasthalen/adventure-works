@@ -3,7 +3,7 @@ MODEL (
   kind INCREMENTAL_BY_TIME_RANGE(
     time_column bridge__record_updated_at
   ),
-  tags uss,
+  tags bridge,
   grain (_pit_hook__bridge),
   references (_pit_hook__product_category)
 );
@@ -19,14 +19,15 @@ WITH cte__bridge AS (
     product_category__record_valid_to AS bridge__record_valid_to,
     product_category__is_current_record AS bridge__is_current_record
   FROM silver.bag__adventure_works__product_categories
-), cte__bridge_pit_hook AS (
+),
+cte__bridge_pit_hook AS (
   SELECT
     *,
     CONCAT_WS(
       '~',
       peripheral,
       'epoch__valid_from'||bridge__record_valid_from,
-      _pit_hook__product_category,
+      _pit_hook__product_category
     ) AS _pit_hook__bridge
   FROM cte__bridge
 )
