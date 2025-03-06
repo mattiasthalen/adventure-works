@@ -28,8 +28,8 @@ def main():
     generate_peripherals()
     
     # Step 5: Generate bridge views
-    print("\n=== Generating Bridge Views ===")
-    generate_bridge_views()
+    #print("\n=== Generating Bridge Views ===")
+    #generate_bridge_views()
     
     # Step 6: Generate one big table views
     print("\n=== Generating One Big Table Views ===")

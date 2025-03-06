@@ -6,9 +6,11 @@ def generate_bridges():
     """Generate bridge model SQL files based on bags configuration"""
     # Define output directory
     output_dir = './models/silver/'
+    secondary_output_dir = './models/gold/'
     
     # Ensure output directory exists
     ensure_directory_exists(output_dir)
+    ensure_directory_exists(secondary_output_dir)
     
     # Load YAML files
     bags_config = load_bags_config()
@@ -37,10 +39,11 @@ def generate_bridges():
                 intermediate_count += 1
     
     # Generate unified bridge for all intermediate bridges
-    success = generate_unified_bridge(bag_info, build_order, output_dir)
+    success = generate_unified_bridge(bag_info, build_order, secondary_output_dir)
     unified_count = 1 if success else 0
     
-    print(f"Generated {intermediate_count} intermediate bridges and {unified_count} unified bridge in {output_dir}")
+    print(f"Generated {intermediate_count} intermediate bridges in {output_dir}")
+    print(f"Generated {unified_count} unified bridge in {secondary_output_dir}")
 
 def build_hook_dependency_graph(bags_config):
     """Build a directed graph representing hook dependencies between bags"""
@@ -392,7 +395,7 @@ def generate_intermediate_bridge(bag_name, bag_info, hook_graph, all_bag_info, o
 
 def generate_unified_bridge(bag_info, build_order, output_dir):
     """Generate a unified bridge that contains all intermediate bridges"""
-    bridge_name = "uss_bridge"
+    bridge_name = "_bridge__as_of"
     sql_path = os.path.join(output_dir, f"{bridge_name}.sql")
     
     # Create list of intermediate bridges to include
@@ -409,10 +412,8 @@ def generate_unified_bridge(bag_info, build_order, output_dir):
         # Write MODEL declaration
         sql_file.write(f"""MODEL (
   enabled TRUE,
-  kind INCREMENTAL_BY_TIME_RANGE(
-    time_column bridge__record_updated_at
-  ),
-  tags bridge,
+  kind VIEW,
+  tags unified_star_schema,
   grain (_pit_hook__bridge),
   references ({', '.join(sorted(all_pit_hooks))})
 );
@@ -444,8 +445,6 @@ def generate_unified_bridge(bag_info, build_order, output_dir):
   bridge__record_valid_from::TIMESTAMP,
   bridge__record_valid_to::TIMESTAMP,
   bridge__is_current_record::BOOL
-FROM cte__bridge_union
-WHERE 1 = 1
-AND bridge__record_updated_at BETWEEN @start_ts AND @end_ts""")
+FROM cte__bridge_union""")
     
     return True

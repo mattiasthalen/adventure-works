@@ -44,7 +44,7 @@ def generate_peripheral_for_bag(bag, output_dir):
     sql = f"""MODEL (
   enabled TRUE,
   kind VIEW,
-  tags uss,
+  tags unified_star_schema,
   grain ({primary_pit_hook})
 );
 

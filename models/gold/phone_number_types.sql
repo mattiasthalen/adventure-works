@@ -1,7 +1,7 @@
 MODEL (
   enabled TRUE,
   kind VIEW,
-  tags uss,
+  tags unified_star_schema,
   grain (_pit_hook__reference__phone_number_type)
 );
 

@@ -30,8 +30,8 @@ cte__pit_lookup AS (
     uss_bridge__employees._pit_hook__person__employee,
     uss_bridge__employee_pay_histories._pit_hook__person__employee,
     uss_bridge__employee_department_histories._pit_hook__person__employee,
-    uss_bridge__employee_department_histories._pit_hook__reference__shift,
     uss_bridge__employee_department_histories._pit_hook__department,
+    uss_bridge__employee_department_histories._pit_hook__reference__shift,
     cte__bridge._hook__job_candidate,
     GREATEST(
         cte__bridge.bridge__record_loaded_at,

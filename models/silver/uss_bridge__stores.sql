@@ -28,11 +28,11 @@ cte__pit_lookup AS (
     cte__bridge.peripheral,
     cte__bridge._pit_hook__store,
     uss_bridge__sales_persons._pit_hook__person__sales,
-    uss_bridge__sales_persons._pit_hook__reference__country_region,
     uss_bridge__sales_persons._pit_hook__territory__sales,
+    uss_bridge__sales_persons._pit_hook__reference__country_region,
     uss_bridge__sales_territory_histories._pit_hook__person__sales,
-    uss_bridge__sales_territory_histories._pit_hook__reference__country_region,
     uss_bridge__sales_territory_histories._pit_hook__territory__sales,
+    uss_bridge__sales_territory_histories._pit_hook__reference__country_region,
     uss_bridge__sales_person_quota_histories._pit_hook__person__sales,
     cte__bridge._hook__store,
     GREATEST(

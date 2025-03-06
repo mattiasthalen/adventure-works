@@ -1,7 +1,7 @@
 MODEL (
   enabled TRUE,
   kind VIEW,
-  tags uss,
+  tags unified_star_schema,
   grain (_pit_hook__shopping_cart_item)
 );
 

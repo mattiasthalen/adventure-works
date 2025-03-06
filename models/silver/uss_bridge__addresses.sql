@@ -26,8 +26,8 @@ cte__pit_lookup AS (
     cte__bridge.peripheral,
     cte__bridge._pit_hook__address,
     uss_bridge__state_provinces._pit_hook__reference__state_province,
-    uss_bridge__state_provinces._pit_hook__reference__country_region,
     uss_bridge__state_provinces._pit_hook__territory__sales,
+    uss_bridge__state_provinces._pit_hook__reference__country_region,
     cte__bridge._hook__address,
     GREATEST(
         cte__bridge.bridge__record_loaded_at,
