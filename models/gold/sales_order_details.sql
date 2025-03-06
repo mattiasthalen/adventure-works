@@ -1,9 +1,11 @@
 MODEL (
+  enabled TRUE,
   kind VIEW,
-  enabled FALSE
+  tags uss,
+  grain (_pit_hook__order_line__sales)
 );
 
 SELECT
   *
-  EXCLUDE (_hook__product, _hook__sales_order, _hook__sales_order_detail, _hook__special_offer)
+  EXCLUDE (_hook__order_line__sales, _hook__order__sales, _hook__product, _hook__reference__special_offer)
 FROM silver.bag__adventure_works__sales_order_details

@@ -1,6 +1,9 @@
 MODEL (
+  enabled TRUE,
   kind VIEW,
-  enabled FALSE
+  tags uss,
+  grain (_pit_hook__bridge),
+  references (_hook__person__individual, _hook__customer, _hook__person__customer, _hook__store, _hook__territory__sales, _hook__person__employee, _hook__product, _hook__product_subcategory, _hook__reference__product_model, _hook__order__sales, _hook__person__sales, _hook__address__billing, _hook__address__shipping, _hook__ship_method, _hook__credit_card, _hook__currency, _hook__order_line__sales, _hook__reference__special_offer, _hook__reference__country_region, _hook__address, _hook__reference__state_province, _hook__department, _hook__vendor, _hook__product_category, _hook__order__work, _hook__reference__scrap_reason, _hook__currency__from, _hook__currency__to, _hook__currency_rate, _hook__reference__shift, _hook__job_candidate, _hook__reference__address_type, _hook__business_entity, _hook__person__contact, _hook__reference__contact_type, _hook__email_address, _hook__reference__phone_number_type, _hook__bill_of_materials, _hook__product__assembly, _hook__product__component, _hook__reference__unit_measure, _hook__reference__culture, _hook__reference__illustration, _hook__reference__location, _hook__reference__product_description, _hook__reference__product_photo, _hook__product_review, _hook__transaction_history, _hook__order__reference, _hook__transaction_history_archive, _hook__order_line__work, _hook__order__purchase, _hook__order_line__purchase, _hook__shopping_cart_item, _hook__reference__sales_tax_rate, _hook__reference__sales_reason)
 );
 
 SELECT

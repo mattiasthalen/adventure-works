@@ -1,6 +1,8 @@
 MODEL (
+  enabled TRUE,
   kind VIEW,
-  enabled FALSE
+  tags uss,
+  grain (_pit_hook__ship_method)
 );
 
 SELECT

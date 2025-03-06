@@ -1,9 +1,11 @@
 MODEL (
+  enabled TRUE,
   kind VIEW,
-  enabled FALSE
+  tags uss,
+  grain (_pit_hook__order__sales)
 );
 
 SELECT
   *
-  EXCLUDE (_hook__address__bill_to, _hook__credit_card, _hook__currency_rate, _hook__customer, _hook__sales_order, _hook__sales_person, _hook__ship_method, _hook__address__ship_to, _hook__territory)
+  EXCLUDE (_hook__order__sales, _hook__customer, _hook__person__sales, _hook__territory__sales, _hook__address__billing, _hook__address__shipping, _hook__ship_method, _hook__credit_card, _hook__currency)
 FROM silver.bag__adventure_works__sales_order_headers
