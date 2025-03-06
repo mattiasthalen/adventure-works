@@ -63,7 +63,7 @@ flowchart LR
 
     subgraph db.silver["db.silver"]
         direction LR
-        subgraph bags
+        subgraph hook
             bag__adventure_works__address_types(["bag__adventure_works__address_types"])
             bag__adventure_works__addresses(["bag__adventure_works__addresses"])
             bag__adventure_works__bill_of_materials(["bag__adventure_works__bill_of_materials"])
@@ -123,7 +123,7 @@ flowchart LR
             bag__adventure_works__work_order_routings(["bag__adventure_works__work_order_routings"])
             bag__adventure_works__work_orders(["bag__adventure_works__work_orders"])
         end
-        uss_bridge(["uss_bridge"])
+        
         uss_bridge__address_types(["uss_bridge__address_types"])
         uss_bridge__addresses(["uss_bridge__addresses"])
         uss_bridge__bill_of_materials(["uss_bridge__bill_of_materials"])
@@ -367,49 +367,24 @@ flowchart LR
     bag__adventure_works__vendors --> uss_bridge__vendors
     bag__adventure_works__work_order_routings --> uss_bridge__work_order_routings
     bag__adventure_works__work_orders --> uss_bridge__work_orders
-    uss_bridge__address_types --> uss_bridge
     uss_bridge__address_types --> uss_bridge__business_entity_addresses
-    uss_bridge__addresses --> uss_bridge
-    uss_bridge__bill_of_materials --> uss_bridge
-    uss_bridge__business_entity_addresses --> uss_bridge
-    uss_bridge__business_entity_contacts --> uss_bridge
     uss_bridge__business_entity_contacts --> uss_bridge__business_entity_addresses
-    uss_bridge__contact_types --> uss_bridge
     uss_bridge__contact_types --> uss_bridge__business_entity_contacts
-    uss_bridge__country_regions --> uss_bridge
     uss_bridge__country_regions --> uss_bridge__sales_territories
     uss_bridge__country_regions --> uss_bridge__state_provinces
-    uss_bridge__credit_cards --> uss_bridge
     uss_bridge__credit_cards --> uss_bridge__sales_order_headers
-    uss_bridge__cultures --> uss_bridge
-    uss_bridge__currencies --> uss_bridge
     uss_bridge__currencies --> uss_bridge__sales_order_headers
-    uss_bridge__currency_rates --> uss_bridge
-    uss_bridge__customers --> uss_bridge
     uss_bridge__customers --> uss_bridge__sales_order_headers
-    uss_bridge__departments --> uss_bridge
     uss_bridge__departments --> uss_bridge__employee_department_histories
-    uss_bridge__email_addresses --> uss_bridge
-    uss_bridge__employee_department_histories --> uss_bridge
     uss_bridge__employee_department_histories --> uss_bridge__job_candidates
     uss_bridge__employee_department_histories --> uss_bridge__purchase_order_headers
-    uss_bridge__employee_pay_histories --> uss_bridge
     uss_bridge__employee_pay_histories --> uss_bridge__job_candidates
     uss_bridge__employee_pay_histories --> uss_bridge__purchase_order_headers
-    uss_bridge__employees --> uss_bridge
     uss_bridge__employees --> uss_bridge__job_candidates
     uss_bridge__employees --> uss_bridge__purchase_order_headers
-    uss_bridge__illustrations --> uss_bridge
-    uss_bridge__job_candidates --> uss_bridge
-    uss_bridge__locations --> uss_bridge
     uss_bridge__locations --> uss_bridge__work_order_routings
-    uss_bridge__person_phones --> uss_bridge
-    uss_bridge__persons --> uss_bridge
-    uss_bridge__phone_number_types --> uss_bridge
     uss_bridge__phone_number_types --> uss_bridge__person_phones
-    uss_bridge__product_categories --> uss_bridge
     uss_bridge__product_categories --> uss_bridge__product_subcategories
-    uss_bridge__product_cost_histories --> uss_bridge
     uss_bridge__product_cost_histories --> uss_bridge__product_inventories
     uss_bridge__product_cost_histories --> uss_bridge__product_reviews
     uss_bridge__product_cost_histories --> uss_bridge__product_vendors
@@ -420,10 +395,7 @@ flowchart LR
     uss_bridge__product_cost_histories --> uss_bridge__transaction_history_archives
     uss_bridge__product_cost_histories --> uss_bridge__work_order_routings
     uss_bridge__product_cost_histories --> uss_bridge__work_orders
-    uss_bridge__product_descriptions --> uss_bridge
-    uss_bridge__product_inventories --> uss_bridge
     uss_bridge__product_inventories --> uss_bridge__work_order_routings
-    uss_bridge__product_list_price_histories --> uss_bridge
     uss_bridge__product_list_price_histories --> uss_bridge__product_inventories
     uss_bridge__product_list_price_histories --> uss_bridge__product_reviews
     uss_bridge__product_list_price_histories --> uss_bridge__product_vendors
@@ -434,17 +406,10 @@ flowchart LR
     uss_bridge__product_list_price_histories --> uss_bridge__transaction_history_archives
     uss_bridge__product_list_price_histories --> uss_bridge__work_order_routings
     uss_bridge__product_list_price_histories --> uss_bridge__work_orders
-    uss_bridge__product_model_illustrations --> uss_bridge
-    uss_bridge__product_models --> uss_bridge
     uss_bridge__product_models --> uss_bridge__product_model_illustrations
     uss_bridge__product_models --> uss_bridge__products
-    uss_bridge__product_photos --> uss_bridge
-    uss_bridge__product_reviews --> uss_bridge
-    uss_bridge__product_subcategories --> uss_bridge
     uss_bridge__product_subcategories --> uss_bridge__products
-    uss_bridge__product_vendors --> uss_bridge
     uss_bridge__product_vendors --> uss_bridge__purchase_order_headers
-    uss_bridge__products --> uss_bridge
     uss_bridge__products --> uss_bridge__product_inventories
     uss_bridge__products --> uss_bridge__product_reviews
     uss_bridge__products --> uss_bridge__product_vendors
@@ -455,53 +420,30 @@ flowchart LR
     uss_bridge__products --> uss_bridge__transaction_history_archives
     uss_bridge__products --> uss_bridge__work_order_routings
     uss_bridge__products --> uss_bridge__work_orders
-    uss_bridge__purchase_order_details --> uss_bridge
-    uss_bridge__purchase_order_headers --> uss_bridge
     uss_bridge__purchase_order_headers --> uss_bridge__purchase_order_details
-    uss_bridge__sales_order_details --> uss_bridge
-    uss_bridge__sales_order_headers --> uss_bridge
     uss_bridge__sales_order_headers --> uss_bridge__sales_order_details
-    uss_bridge__sales_person_quota_histories --> uss_bridge
     uss_bridge__sales_person_quota_histories --> uss_bridge__sales_order_headers
     uss_bridge__sales_person_quota_histories --> uss_bridge__stores
-    uss_bridge__sales_persons --> uss_bridge
     uss_bridge__sales_persons --> uss_bridge__sales_order_headers
     uss_bridge__sales_persons --> uss_bridge__stores
-    uss_bridge__sales_reasons --> uss_bridge
-    uss_bridge__sales_tax_rates --> uss_bridge
-    uss_bridge__sales_territories --> uss_bridge
     uss_bridge__sales_territories --> uss_bridge__customers
     uss_bridge__sales_territories --> uss_bridge__sales_order_headers
     uss_bridge__sales_territories --> uss_bridge__sales_persons
     uss_bridge__sales_territories --> uss_bridge__sales_territory_histories
     uss_bridge__sales_territories --> uss_bridge__state_provinces
-    uss_bridge__sales_territory_histories --> uss_bridge
     uss_bridge__sales_territory_histories --> uss_bridge__sales_order_headers
     uss_bridge__sales_territory_histories --> uss_bridge__stores
-    uss_bridge__scrap_reasons --> uss_bridge
     uss_bridge__scrap_reasons --> uss_bridge__work_orders
-    uss_bridge__shifts --> uss_bridge
     uss_bridge__shifts --> uss_bridge__employee_department_histories
-    uss_bridge__ship_methods --> uss_bridge
     uss_bridge__ship_methods --> uss_bridge__purchase_order_headers
     uss_bridge__ship_methods --> uss_bridge__sales_order_headers
-    uss_bridge__shopping_cart_items --> uss_bridge
-    uss_bridge__special_offers --> uss_bridge
     uss_bridge__special_offers --> uss_bridge__sales_order_details
-    uss_bridge__state_provinces --> uss_bridge
     uss_bridge__state_provinces --> uss_bridge__addresses
     uss_bridge__state_provinces --> uss_bridge__sales_tax_rates
-    uss_bridge__stores --> uss_bridge
     uss_bridge__stores --> uss_bridge__customers
-    uss_bridge__transaction_histories --> uss_bridge
-    uss_bridge__transaction_history_archives --> uss_bridge
-    uss_bridge__unit_measures --> uss_bridge
     uss_bridge__unit_measures --> uss_bridge__bill_of_materials
     uss_bridge__unit_measures --> uss_bridge__product_vendors
-    uss_bridge__vendors --> uss_bridge
     uss_bridge__vendors --> uss_bridge__purchase_order_headers
-    uss_bridge__work_order_routings --> uss_bridge
-    uss_bridge__work_orders --> uss_bridge
     uss_bridge__work_orders --> uss_bridge__work_order_routings
 
     %% db.silver -> db.gold
@@ -563,7 +505,64 @@ flowchart LR
     bag__adventure_works__vendors --> vendors
     bag__adventure_works__work_order_routings --> work_order_routings
     bag__adventure_works__work_orders --> work_orders
-    uss_bridge --> _bridge__as_of
+    uss_bridge__address_types --> _bridge__as_of
+    uss_bridge__addresses --> _bridge__as_of
+    uss_bridge__bill_of_materials --> _bridge__as_of
+    uss_bridge__business_entity_addresses --> _bridge__as_of
+    uss_bridge__business_entity_contacts --> _bridge__as_of
+    uss_bridge__contact_types --> _bridge__as_of
+    uss_bridge__country_regions --> _bridge__as_of
+    uss_bridge__credit_cards --> _bridge__as_of
+    uss_bridge__cultures --> _bridge__as_of
+    uss_bridge__currencies --> _bridge__as_of
+    uss_bridge__currency_rates --> _bridge__as_of
+    uss_bridge__customers --> _bridge__as_of
+    uss_bridge__departments --> _bridge__as_of
+    uss_bridge__email_addresses --> _bridge__as_of
+    uss_bridge__employee_department_histories --> _bridge__as_of
+    uss_bridge__employee_pay_histories --> _bridge__as_of
+    uss_bridge__employees --> _bridge__as_of
+    uss_bridge__illustrations --> _bridge__as_of
+    uss_bridge__job_candidates --> _bridge__as_of
+    uss_bridge__locations --> _bridge__as_of
+    uss_bridge__person_phones --> _bridge__as_of
+    uss_bridge__persons --> _bridge__as_of
+    uss_bridge__phone_number_types --> _bridge__as_of
+    uss_bridge__product_categories --> _bridge__as_of
+    uss_bridge__product_cost_histories --> _bridge__as_of
+    uss_bridge__product_descriptions --> _bridge__as_of
+    uss_bridge__product_inventories --> _bridge__as_of
+    uss_bridge__product_list_price_histories --> _bridge__as_of
+    uss_bridge__product_model_illustrations --> _bridge__as_of
+    uss_bridge__product_models --> _bridge__as_of
+    uss_bridge__product_photos --> _bridge__as_of
+    uss_bridge__product_reviews --> _bridge__as_of
+    uss_bridge__product_subcategories --> _bridge__as_of
+    uss_bridge__product_vendors --> _bridge__as_of
+    uss_bridge__products --> _bridge__as_of
+    uss_bridge__purchase_order_details --> _bridge__as_of
+    uss_bridge__purchase_order_headers --> _bridge__as_of
+    uss_bridge__sales_order_details --> _bridge__as_of
+    uss_bridge__sales_order_headers --> _bridge__as_of
+    uss_bridge__sales_person_quota_histories --> _bridge__as_of
+    uss_bridge__sales_persons --> _bridge__as_of
+    uss_bridge__sales_reasons --> _bridge__as_of
+    uss_bridge__sales_tax_rates --> _bridge__as_of
+    uss_bridge__sales_territories --> _bridge__as_of
+    uss_bridge__sales_territory_histories --> _bridge__as_of
+    uss_bridge__scrap_reasons --> _bridge__as_of
+    uss_bridge__shifts --> _bridge__as_of
+    uss_bridge__ship_methods --> _bridge__as_of
+    uss_bridge__shopping_cart_items --> _bridge__as_of
+    uss_bridge__special_offers --> _bridge__as_of
+    uss_bridge__state_provinces --> _bridge__as_of
+    uss_bridge__stores --> _bridge__as_of
+    uss_bridge__transaction_histories --> _bridge__as_of
+    uss_bridge__transaction_history_archives --> _bridge__as_of
+    uss_bridge__unit_measures --> _bridge__as_of
+    uss_bridge__vendors --> _bridge__as_of
+    uss_bridge__work_order_routings --> _bridge__as_of
+    uss_bridge__work_orders --> _bridge__as_of
 
     %% db.gold -> db.gold
     _bridge__as_of --> _one_big_table__as_of
@@ -625,7 +624,7 @@ flowchart LR
     vendors --> _one_big_table__as_of
     work_order_routings --> _one_big_table__as_of
     work_orders --> _one_big_table__as_of
-    
+
     linkStyle default stroke:#666,stroke-width:2px
 
     %% Bronze shades
@@ -648,5 +647,5 @@ flowchart LR
 
     class db.bronze bronze_classic
     class db.silver silver_classic
-    class bags silver_dark
+    class hook silver_dark
     class db.gold gold_classic
