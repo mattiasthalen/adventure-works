@@ -16,7 +16,7 @@ def generate_bridge_views():
                 all_hooks.append(hook_name)
     
     generate_as_of_view(output_dir, all_hooks)
-    generate_as_is_view(output_dir, all_hooks)
+    #generate_as_is_view(output_dir, all_hooks)
     
     print(f"Generated 2 bridge views in {output_dir}")
 

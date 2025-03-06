@@ -25,7 +25,7 @@ def generate_one_big_table():
             peripheral_to_pit_hook[peripheral_name] = primary_pit_hook
     
     # Generate the SQL for as_is and as_of versions
-    generate_one_big_table_sql(peripheral_to_pit_hook, "as_is", output_dir)
+    #generate_one_big_table_sql(peripheral_to_pit_hook, "as_is", output_dir)
     generate_one_big_table_sql(peripheral_to_pit_hook, "as_of", output_dir)
     
     print(f"Generated 2 'one big table' views in {output_dir}")
