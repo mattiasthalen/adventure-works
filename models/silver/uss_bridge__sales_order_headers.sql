@@ -21,12 +21,18 @@ WITH cte__bridge AS (
     _hook__ship_method,
     _hook__credit_card,
     _hook__currency,
+    _hook__epoch__date,
+    measure__sales_order_placed,
+    measure__sales_order_due,
+    measure__sales_order_shipped,
+    measure__sales_order_modified,
     sales_order_header__record_loaded_at AS bridge__record_loaded_at,
     sales_order_header__record_updated_at AS bridge__record_updated_at,
     sales_order_header__record_valid_from AS bridge__record_valid_from,
     sales_order_header__record_valid_to AS bridge__record_valid_to,
     sales_order_header__is_current_record AS bridge__is_current_record
   FROM silver.bag__adventure_works__sales_order_headers
+  LEFT JOIN silver.measure__adventure_works__sales_order_headers USING (_pit_hook__order__sales)
 ),
 cte__pit_lookup AS (
   SELECT
@@ -50,6 +56,11 @@ cte__pit_lookup AS (
     uss_bridge__credit_cards._pit_hook__credit_card,
     uss_bridge__currencies._pit_hook__currency,
     cte__bridge._hook__order__sales,
+    cte__bridge._hook__epoch__date,
+    cte__bridge.measure__sales_order_placed,
+    cte__bridge.measure__sales_order_due,
+    cte__bridge.measure__sales_order_shipped,
+    cte__bridge.measure__sales_order_modified,
     GREATEST(
         cte__bridge.bridge__record_loaded_at,
         uss_bridge__customers.bridge__record_loaded_at,
@@ -174,6 +185,11 @@ SELECT
   _pit_hook__store::BLOB,
   _pit_hook__territory__sales::BLOB,
   _hook__order__sales::BLOB,
+  _hook__epoch__date::BLOB,
+  measure__sales_order_placed::INT,
+  measure__sales_order_due::INT,
+  measure__sales_order_shipped::INT,
+  measure__sales_order_modified::INT,
   bridge__record_loaded_at::TIMESTAMP,
   bridge__record_updated_at::TIMESTAMP,
   bridge__record_valid_from::TIMESTAMP,
