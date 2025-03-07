@@ -1,7 +1,8 @@
 MODEL (
   enabled TRUE,
-  kind INCREMENTAL_BY_TIME_RANGE(
-    time_column bridge__record_updated_at
+  kind INCREMENTAL_BY_UNIQUE_KEY(
+    unique_key _pit_hook__bridge,
+    batch_size 288, -- cron every 5m: 24h * 60m / 5m = 288
   ),
   tags bridge,
   grain (_pit_hook__bridge),
@@ -13,12 +14,16 @@ WITH cte__bridge AS (
     'product_list_price_histories' AS peripheral,
     _pit_hook__product,
     _hook__product,
+    _hook__epoch__date,
+    measure__product_list_price_histories_started,
+    measure__product_list_price_histories_finished,
     product_list_price_history__record_loaded_at AS bridge__record_loaded_at,
     product_list_price_history__record_updated_at AS bridge__record_updated_at,
     product_list_price_history__record_valid_from AS bridge__record_valid_from,
     product_list_price_history__record_valid_to AS bridge__record_valid_to,
     product_list_price_history__is_current_record AS bridge__is_current_record
   FROM silver.bag__adventure_works__product_list_price_histories
+  LEFT JOIN silver.measure__adventure_works__product_list_price_histories USING (_pit_hook__product)
 ),
 cte__bridge_pit_hook AS (
   SELECT
@@ -36,6 +41,9 @@ SELECT
   _pit_hook__bridge::BLOB,
   _pit_hook__product::BLOB,
   _hook__product::BLOB,
+  _hook__epoch__date::BLOB,
+  measure__product_list_price_histories_started::INT,
+  measure__product_list_price_histories_finished::INT,
   bridge__record_loaded_at::TIMESTAMP,
   bridge__record_updated_at::TIMESTAMP,
   bridge__record_valid_from::TIMESTAMP,

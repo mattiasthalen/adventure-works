@@ -1,7 +1,8 @@
 MODEL (
   enabled TRUE,
-  kind INCREMENTAL_BY_TIME_RANGE(
-    time_column bridge__record_updated_at
+  kind INCREMENTAL_BY_UNIQUE_KEY(
+    unique_key _pit_hook__bridge,
+    batch_size 288, -- cron every 5m: 24h * 60m / 5m = 288
   ),
   tags bridge,
   grain (_pit_hook__bridge),
@@ -19,12 +20,18 @@ WITH cte__bridge AS (
     _hook__product,
     _hook__reference__location,
     _hook__reference__location,
+    _hook__epoch__date,
+    measure__work_order_routings_scheduled_start,
+    measure__work_order_routings_scheduled_end,
+    measure__work_order_routings_actual_start,
+    measure__work_order_routings_actual_end,
     work_order_routing__record_loaded_at AS bridge__record_loaded_at,
     work_order_routing__record_updated_at AS bridge__record_updated_at,
     work_order_routing__record_valid_from AS bridge__record_valid_from,
     work_order_routing__record_valid_to AS bridge__record_valid_to,
     work_order_routing__is_current_record AS bridge__is_current_record
   FROM silver.bag__adventure_works__work_order_routings
+  LEFT JOIN silver.measure__adventure_works__work_order_routings USING (_pit_hook__order_line__work)
 ),
 cte__pit_lookup AS (
   SELECT
@@ -32,23 +39,28 @@ cte__pit_lookup AS (
     cte__bridge._pit_hook__order_line__work,
     uss_bridge__work_orders._pit_hook__order__work,
     uss_bridge__work_orders._pit_hook__reference__scrap_reason,
-    uss_bridge__work_orders._pit_hook__reference__product_model,
-    uss_bridge__work_orders._pit_hook__product_category,
     uss_bridge__work_orders._pit_hook__product,
+    uss_bridge__work_orders._pit_hook__product_category,
     uss_bridge__work_orders._pit_hook__product_subcategory,
+    uss_bridge__work_orders._pit_hook__reference__product_model,
     uss_bridge__products._pit_hook__product,
-    uss_bridge__products._pit_hook__reference__product_model,
     uss_bridge__products._pit_hook__product_category,
     uss_bridge__products._pit_hook__product_subcategory,
+    uss_bridge__products._pit_hook__reference__product_model,
     uss_bridge__product_cost_histories._pit_hook__product,
     uss_bridge__product_list_price_histories._pit_hook__product,
     uss_bridge__locations._pit_hook__reference__location,
     uss_bridge__product_inventories._pit_hook__reference__location,
-    uss_bridge__product_inventories._pit_hook__reference__product_model,
-    uss_bridge__product_inventories._pit_hook__product_category,
-    uss_bridge__product_inventories._pit_hook__product,
     uss_bridge__product_inventories._pit_hook__product_subcategory,
+    uss_bridge__product_inventories._pit_hook__product,
+    uss_bridge__product_inventories._pit_hook__product_category,
+    uss_bridge__product_inventories._pit_hook__reference__product_model,
     cte__bridge._hook__order_line__work,
+    cte__bridge._hook__epoch__date,
+    cte__bridge.measure__work_order_routings_scheduled_start,
+    cte__bridge.measure__work_order_routings_scheduled_end,
+    cte__bridge.measure__work_order_routings_actual_start,
+    cte__bridge.measure__work_order_routings_actual_end,
     GREATEST(
         cte__bridge.bridge__record_loaded_at,
         uss_bridge__work_orders.bridge__record_loaded_at,
@@ -153,6 +165,11 @@ SELECT
   _pit_hook__reference__product_model::BLOB,
   _pit_hook__reference__scrap_reason::BLOB,
   _hook__order_line__work::BLOB,
+  _hook__epoch__date::BLOB,
+  measure__work_order_routings_scheduled_start::INT,
+  measure__work_order_routings_scheduled_end::INT,
+  measure__work_order_routings_actual_start::INT,
+  measure__work_order_routings_actual_end::INT,
   bridge__record_loaded_at::TIMESTAMP,
   bridge__record_updated_at::TIMESTAMP,
   bridge__record_valid_from::TIMESTAMP,

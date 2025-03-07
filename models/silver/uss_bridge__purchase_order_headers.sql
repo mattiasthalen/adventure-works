@@ -1,7 +1,8 @@
 MODEL (
   enabled TRUE,
-  kind INCREMENTAL_BY_TIME_RANGE(
-    time_column bridge__record_updated_at
+  kind INCREMENTAL_BY_UNIQUE_KEY(
+    unique_key _pit_hook__bridge,
+    batch_size 288, -- cron every 5m: 24h * 60m / 5m = 288
   ),
   tags bridge,
   grain (_pit_hook__bridge),
@@ -19,12 +20,16 @@ WITH cte__bridge AS (
     _hook__vendor,
     _hook__vendor,
     _hook__ship_method,
+    _hook__epoch__date,
+    measure__purchase_order_headers_placed,
+    measure__purchase_order_headers_shipped,
     purchase_order_header__record_loaded_at AS bridge__record_loaded_at,
     purchase_order_header__record_updated_at AS bridge__record_updated_at,
     purchase_order_header__record_valid_from AS bridge__record_valid_from,
     purchase_order_header__record_valid_to AS bridge__record_valid_to,
     purchase_order_header__is_current_record AS bridge__is_current_record
   FROM silver.bag__adventure_works__purchase_order_headers
+  LEFT JOIN silver.measure__adventure_works__purchase_order_headers USING (_pit_hook__order__purchase)
 ),
 cte__pit_lookup AS (
   SELECT
@@ -33,17 +38,20 @@ cte__pit_lookup AS (
     uss_bridge__employees._pit_hook__person__employee,
     uss_bridge__employee_pay_histories._pit_hook__person__employee,
     uss_bridge__employee_department_histories._pit_hook__person__employee,
-    uss_bridge__employee_department_histories._pit_hook__department,
     uss_bridge__employee_department_histories._pit_hook__reference__shift,
+    uss_bridge__employee_department_histories._pit_hook__department,
     uss_bridge__vendors._pit_hook__vendor,
     uss_bridge__product_vendors._pit_hook__vendor,
-    uss_bridge__product_vendors._pit_hook__reference__product_model,
-    uss_bridge__product_vendors._pit_hook__product_category,
     uss_bridge__product_vendors._pit_hook__product,
     uss_bridge__product_vendors._pit_hook__reference__unit_measure,
+    uss_bridge__product_vendors._pit_hook__product_category,
     uss_bridge__product_vendors._pit_hook__product_subcategory,
+    uss_bridge__product_vendors._pit_hook__reference__product_model,
     uss_bridge__ship_methods._pit_hook__ship_method,
     cte__bridge._hook__order__purchase,
+    cte__bridge._hook__epoch__date,
+    cte__bridge.measure__purchase_order_headers_placed,
+    cte__bridge.measure__purchase_order_headers_shipped,
     GREATEST(
         cte__bridge.bridge__record_loaded_at,
         uss_bridge__employees.bridge__record_loaded_at,
@@ -154,6 +162,9 @@ SELECT
   _pit_hook__ship_method::BLOB,
   _pit_hook__vendor::BLOB,
   _hook__order__purchase::BLOB,
+  _hook__epoch__date::BLOB,
+  measure__purchase_order_headers_placed::INT,
+  measure__purchase_order_headers_shipped::INT,
   bridge__record_loaded_at::TIMESTAMP,
   bridge__record_updated_at::TIMESTAMP,
   bridge__record_valid_from::TIMESTAMP,

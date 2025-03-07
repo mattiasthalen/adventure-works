@@ -1,7 +1,8 @@
 MODEL (
   enabled TRUE,
-  kind INCREMENTAL_BY_TIME_RANGE(
-    time_column bridge__record_updated_at
+  kind INCREMENTAL_BY_UNIQUE_KEY(
+    unique_key _pit_hook__bridge,
+    batch_size 288, -- cron every 5m: 24h * 60m / 5m = 288
   ),
   tags bridge,
   grain (_pit_hook__bridge),
@@ -17,25 +18,34 @@ WITH cte__bridge AS (
     _hook__product,
     _hook__product,
     _hook__reference__scrap_reason,
+    _hook__epoch__date,
+    measure__work_orders_started,
+    measure__work_orders_finished,
+    measure__work_orders_due,
     work_order__record_loaded_at AS bridge__record_loaded_at,
     work_order__record_updated_at AS bridge__record_updated_at,
     work_order__record_valid_from AS bridge__record_valid_from,
     work_order__record_valid_to AS bridge__record_valid_to,
     work_order__is_current_record AS bridge__is_current_record
   FROM silver.bag__adventure_works__work_orders
+  LEFT JOIN silver.measure__adventure_works__work_orders USING (_pit_hook__order__work)
 ),
 cte__pit_lookup AS (
   SELECT
     cte__bridge.peripheral,
     cte__bridge._pit_hook__order__work,
     uss_bridge__products._pit_hook__product,
-    uss_bridge__products._pit_hook__reference__product_model,
     uss_bridge__products._pit_hook__product_category,
     uss_bridge__products._pit_hook__product_subcategory,
+    uss_bridge__products._pit_hook__reference__product_model,
     uss_bridge__product_cost_histories._pit_hook__product,
     uss_bridge__product_list_price_histories._pit_hook__product,
     uss_bridge__scrap_reasons._pit_hook__reference__scrap_reason,
     cte__bridge._hook__order__work,
+    cte__bridge._hook__epoch__date,
+    cte__bridge.measure__work_orders_started,
+    cte__bridge.measure__work_orders_finished,
+    cte__bridge.measure__work_orders_due,
     GREATEST(
         cte__bridge.bridge__record_loaded_at,
         uss_bridge__products.bridge__record_loaded_at,
@@ -118,6 +128,10 @@ SELECT
   _pit_hook__reference__product_model::BLOB,
   _pit_hook__reference__scrap_reason::BLOB,
   _hook__order__work::BLOB,
+  _hook__epoch__date::BLOB,
+  measure__work_orders_started::INT,
+  measure__work_orders_finished::INT,
+  measure__work_orders_due::INT,
   bridge__record_loaded_at::TIMESTAMP,
   bridge__record_updated_at::TIMESTAMP,
   bridge__record_valid_from::TIMESTAMP,

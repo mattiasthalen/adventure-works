@@ -45,6 +45,40 @@ def generate_bridges():
     print(f"Generated {intermediate_count} intermediate bridges in {output_dir}")
     print(f"Generated {unified_count} unified bridge in {secondary_output_dir}")
 
+def find_measure_model(bag_name):
+    """Check if a measure model exists for the given bag"""
+    table_name = bag_name.replace('bag__adventure_works__', '')
+    measure_model_path = f'./models/silver/measure__adventure_works__{table_name}.sql'
+    return os.path.exists(measure_model_path)
+
+def get_measure_fields(bag_name):
+    """Extract measure fields from measure model file"""
+    table_name = bag_name.replace('bag__adventure_works__', '')
+    measure_model_path = f'./models/silver/measure__adventure_works__{table_name}.sql'
+    
+    if not os.path.exists(measure_model_path):
+        return None, []
+    
+    with open(measure_model_path, 'r') as f:
+        content = f.read()
+    
+    # Find the final SELECT section
+    select_section = content.split('FROM cte__epoch')[0].split('SELECT')[-1]
+    
+    # Extract measure fields and epoch hook
+    measure_fields = []
+    epoch_date_field = None
+    
+    for line in select_section.split('\n'):
+        line = line.strip()
+        if '_hook__epoch__date' in line:
+            epoch_date_field = '_hook__epoch__date'
+        elif line.startswith('measure__'):
+            field_name = line.split('::')[0].strip()
+            measure_fields.append(field_name)
+    
+    return epoch_date_field, measure_fields
+
 def build_hook_dependency_graph(bags_config):
     """Build a directed graph representing hook dependencies between bags"""
     graph = nx.DiGraph()
@@ -127,7 +161,10 @@ def build_references_list(bag_info):
     return sorted(list(bag_info['all_pit_hooks']))
 
 def generate_base_cte(bridge_name, primary_hook, dependencies, column_prefix, bag_name):
-    """Generate the base CTE that selects from the bag"""
+    """Generate the base CTE that selects from the bag including measures"""
+    # Check for measures
+    epoch_date_field, measure_fields = get_measure_fields(bag_name)
+    
     sql = f"""WITH cte__bridge AS (
   SELECT
     '{bridge_name.replace("uss_bridge__", "")}' AS peripheral,
@@ -139,14 +176,30 @@ def generate_base_cte(bridge_name, primary_hook, dependencies, column_prefix, ba
     for dep in dependencies:
         sql += f"    {dep['hook']['name']},\n"
     
+    # Add epoch date field if present
+    if epoch_date_field:
+        sql += f"    {epoch_date_field},\n"
+    
+    # Add measure fields if present
+    for field in measure_fields:
+        sql += f"    {field},\n"
+    
     # Add system fields
     sql += f"""    {column_prefix}__record_loaded_at AS bridge__record_loaded_at,
     {column_prefix}__record_updated_at AS bridge__record_updated_at,
     {column_prefix}__record_valid_from AS bridge__record_valid_from,
     {column_prefix}__record_valid_to AS bridge__record_valid_to,
     {column_prefix}__is_current_record AS bridge__is_current_record
-  FROM silver.{bag_name}
-)"""
+  FROM silver.{bag_name}"""
+    
+    # Add LEFT JOIN to measure model if needed
+    if measure_fields and epoch_date_field:
+        table_name = bag_name.replace('bag__adventure_works__', '')
+        measure_model = f"measure__adventure_works__{table_name}"
+        sql += f"""
+  LEFT JOIN silver.{measure_model} USING (_pit{primary_hook['name']})"""
+    
+    sql += "\n)"
     
     return sql
 
@@ -252,11 +305,11 @@ def generate_temporal_calculations(dependencies, all_bag_info):
     
     return sql
 
-def generate_pit_lookup_cte(bag_info, dependencies, all_bag_info, join_fragments):
-    """Generate PIT lookup CTE with joins"""
-    if not dependencies:
-        return ""
-        
+def generate_pit_lookup_cte(bag_info, dependencies, all_bag_info, join_fragments, bag_name):
+    """Generate PIT lookup CTE with joins and measures"""
+    # Get measure fields
+    epoch_date_field, measure_fields = get_measure_fields(bag_name)
+    
     sql = "cte__pit_lookup AS (\n"
     sql += "  SELECT\n"
     sql += "    cte__bridge.peripheral,\n"
@@ -268,6 +321,14 @@ def generate_pit_lookup_cte(bag_info, dependencies, all_bag_info, join_fragments
     
     # Add primary hook
     sql += f"    cte__bridge.{bag_info['primary_hook']['name']},\n"
+    
+    # Add epoch date hook if present
+    if epoch_date_field:
+        sql += f"    cte__bridge.{epoch_date_field},\n"
+    
+    # Add measure fields if present
+    for field in measure_fields:
+        sql += f"    cte__bridge.{field},\n"
     
     # Add temporal calculations
     sql += generate_temporal_calculations(dependencies, all_bag_info)
@@ -310,8 +371,11 @@ def generate_pit_hook_cte(bag_info, all_bag_info, join_fragments=None):
     
     return sql
 
-def generate_final_select(bag_info):
-    """Generate the final SELECT statement"""
+def generate_final_select(bag_info, bag_name):
+    """Generate the final SELECT statement with measures"""
+    # Get measure fields
+    epoch_date_field, measure_fields = get_measure_fields(bag_name)
+    
     sql = "SELECT\n"
     sql += "  peripheral::TEXT,\n"
     sql += "  _pit_hook__bridge::BLOB,\n"
@@ -322,6 +386,14 @@ def generate_final_select(bag_info):
     
     # Add primary hook
     sql += f"  {bag_info['primary_hook']['name']}::BLOB,\n"
+    
+    # Add epoch date hook if present
+    if epoch_date_field:
+        sql += f"  {epoch_date_field}::BLOB,\n"
+    
+    # Add measure fields if present
+    for field in measure_fields:
+        sql += f"  {field}::INT,\n"
     
     # Add temporal fields
     sql += """  bridge__record_loaded_at::TIMESTAMP,
@@ -334,7 +406,7 @@ WHERE 1 = 1
 AND bridge__record_updated_at BETWEEN @start_ts AND @end_ts"""
     
     return sql
-
+    
 def generate_intermediate_bridge(bag_name, bag_info, hook_graph, all_bag_info, output_dir):
     """Generate SQL for an intermediate bridge model"""
     column_prefix = bag_info['column_prefix']
@@ -359,8 +431,9 @@ def generate_intermediate_bridge(bag_name, bag_info, hook_graph, all_bag_info, o
         # Write MODEL declaration
         sql_file.write(f"""MODEL (
   enabled TRUE,
-  kind INCREMENTAL_BY_TIME_RANGE(
-    time_column bridge__record_updated_at
+  kind INCREMENTAL_BY_UNIQUE_KEY(
+    unique_key _pit_hook__bridge,
+    batch_size 288, -- cron every 5m: 24h * 60m / 5m = 288
   ),
   tags bridge,
   grain (_pit_hook__bridge),
@@ -375,7 +448,7 @@ def generate_intermediate_bridge(bag_name, bag_info, hook_graph, all_bag_info, o
         # If we have dependencies, add join logic
         if dependencies:
             sql_file.write(",\n")
-            pit_lookup_cte = generate_pit_lookup_cte(bag_info, dependencies, all_bag_info, join_fragments)
+            pit_lookup_cte = generate_pit_lookup_cte(bag_info, dependencies, all_bag_info, join_fragments, bag_name)
             sql_file.write(pit_lookup_cte)
             sql_file.write(",\n")
         else:
@@ -388,7 +461,7 @@ def generate_intermediate_bridge(bag_name, bag_info, hook_graph, all_bag_info, o
         sql_file.write("\n")
         
         # Write final SELECT statement
-        final_select = generate_final_select(bag_info)
+        final_select = generate_final_select(bag_info, bag_name)
         sql_file.write(final_select)
     
     return True

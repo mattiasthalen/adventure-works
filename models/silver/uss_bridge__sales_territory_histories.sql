@@ -1,7 +1,8 @@
 MODEL (
   enabled TRUE,
-  kind INCREMENTAL_BY_TIME_RANGE(
-    time_column bridge__record_updated_at
+  kind INCREMENTAL_BY_UNIQUE_KEY(
+    unique_key _pit_hook__bridge,
+    batch_size 288, -- cron every 5m: 24h * 60m / 5m = 288
   ),
   tags bridge,
   grain (_pit_hook__bridge),
@@ -14,12 +15,16 @@ WITH cte__bridge AS (
     _pit_hook__person__sales,
     _hook__person__sales,
     _hook__territory__sales,
+    _hook__epoch__date,
+    measure__sales_territory_histories_started,
+    measure__sales_territory_histories_finished,
     sales_territory_history__record_loaded_at AS bridge__record_loaded_at,
     sales_territory_history__record_updated_at AS bridge__record_updated_at,
     sales_territory_history__record_valid_from AS bridge__record_valid_from,
     sales_territory_history__record_valid_to AS bridge__record_valid_to,
     sales_territory_history__is_current_record AS bridge__is_current_record
   FROM silver.bag__adventure_works__sales_territory_histories
+  LEFT JOIN silver.measure__adventure_works__sales_territory_histories USING (_pit_hook__person__sales)
 ),
 cte__pit_lookup AS (
   SELECT
@@ -28,6 +33,9 @@ cte__pit_lookup AS (
     uss_bridge__sales_territories._pit_hook__territory__sales,
     uss_bridge__sales_territories._pit_hook__reference__country_region,
     cte__bridge._hook__person__sales,
+    cte__bridge._hook__epoch__date,
+    cte__bridge.measure__sales_territory_histories_started,
+    cte__bridge.measure__sales_territory_histories_finished,
     GREATEST(
         cte__bridge.bridge__record_loaded_at,
         uss_bridge__sales_territories.bridge__record_loaded_at
@@ -77,6 +85,9 @@ SELECT
   _pit_hook__reference__country_region::BLOB,
   _pit_hook__territory__sales::BLOB,
   _hook__person__sales::BLOB,
+  _hook__epoch__date::BLOB,
+  measure__sales_territory_histories_started::INT,
+  measure__sales_territory_histories_finished::INT,
   bridge__record_loaded_at::TIMESTAMP,
   bridge__record_updated_at::TIMESTAMP,
   bridge__record_valid_from::TIMESTAMP,

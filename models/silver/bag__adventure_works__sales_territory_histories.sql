@@ -1,7 +1,8 @@
 MODEL (
   enabled TRUE,
-  kind INCREMENTAL_BY_TIME_RANGE(
-    time_column sales_territory_history__record_updated_at
+  kind INCREMENTAL_BY_UNIQUE_KEY(
+    unique_key _pit_hook__person__sales,
+    batch_size 288, -- cron every 5m: 24h * 60m / 5m = 288
   ),
   tags hook,
   grain (_pit_hook__person__sales, _hook__person__sales),
