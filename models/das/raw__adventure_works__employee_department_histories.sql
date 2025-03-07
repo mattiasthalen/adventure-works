@@ -1,0 +1,17 @@
+MODEL (
+  kind VIEW,
+  enabled TRUE
+);
+
+SELECT
+    business_entity_id::BIGINT,
+    department_id::BIGINT,
+    shift_id::BIGINT,
+    start_date::TIMESTAMP,
+    modified_date::DATE,
+    _dlt_load_id::TEXT,
+    end_date::TEXT
+FROM ICEBERG_SCAN(
+  "file://" || @project_path || "/lakehouse/bronze/raw__adventure_works__employee_department_histories"
+)
+;
