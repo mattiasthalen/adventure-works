@@ -1,18 +1,24 @@
 MODEL (
-  kind VIEW,
-  enabled TRUE
+  enabled TRUE,
+  kind INCREMENTAL_BY_UNIQUE_KEY(
+    unique_key _pit_hook__address,
+    batch_size 288, -- cron every 5m: 24h * 60m / 5m = 288
+  ),
+  tags hook,
+  grain (_pit_hook__address, _hook__address),
+  references (_hook__reference__state_province)
 );
 
 WITH staging AS (
   SELECT
     address_id AS address__address_id,
-    state_province_id AS address__state_province_id,
     address_line1 AS address__address_line1,
-    address_line2 AS address__address_line2,
     city AS address__city,
-    modified_date AS address__modified_date,
+    state_province_id AS address__state_province_id,
     postal_code AS address__postal_code,
     rowguid AS address__rowguid,
+    address_line2 AS address__address_line2,
+    modified_date AS address__modified_date,
     TO_TIMESTAMP(_dlt_load_id::DOUBLE) AS address__record_loaded_at
   FROM bronze.raw__adventure_works__addresses
 ), validity AS (
@@ -38,16 +44,34 @@ WITH staging AS (
 ), hooks AS (
   SELECT
     CONCAT(
-      'address|adventure_works|',
+      'address__adventure_works|',
       address__address_id,
       '~epoch|valid_from|',
       address__record_valid_from
     )::BLOB AS _pit_hook__address,
-    CONCAT('address|adventure_works|', address__address_id)::BLOB AS _hook__address,
-    CONCAT('state_province|adventure_works|', address__state_province_id)::BLOB AS _hook__state_province,
+    CONCAT('address__adventure_works|', address__address_id) AS _hook__address,
+    CONCAT('reference__state_province__adventure_works|', address__state_province_id) AS _hook__reference__state_province,
     *
   FROM validity
 )
 SELECT
-  *
+  _pit_hook__address::BLOB,
+  _hook__address::BLOB,
+  _hook__reference__state_province::BLOB,
+  address__address_id::BIGINT,
+  address__address_line1::TEXT,
+  address__city::TEXT,
+  address__state_province_id::BIGINT,
+  address__postal_code::TEXT,
+  address__rowguid::UUID,
+  address__address_line2::TEXT,
+  address__modified_date::DATE,
+  address__record_loaded_at::TIMESTAMP,
+  address__record_updated_at::TIMESTAMP,
+  address__record_version::TEXT,
+  address__record_valid_from::TIMESTAMP,
+  address__record_valid_to::TIMESTAMP,
+  address__is_current_record::TEXT
 FROM hooks
+WHERE 1 = 1
+AND address__record_updated_at BETWEEN @start_ts AND @end_ts

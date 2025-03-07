@@ -4,32 +4,33 @@ MODEL (
 );
 
 SELECT
-  sales_order_id,
-  bill_to_address_id,
-  credit_card_id,
-  currency_rate_id,
-  customer_id,
-  sales_person_id,
-  ship_method_id,
-  ship_to_address_id,
-  territory_id,
-  account_number,
-  credit_card_approval_code,
-  due_date,
-  freight,
-  modified_date,
-  online_order_flag,
-  order_date,
-  purchase_order_number,
-  revision_number,
-  rowguid,
-  sales_order_number,
-  ship_date,
-  status,
-  sub_total,
-  tax_amt,
-  total_due,
-  _dlt_load_id
-  FROM ICEBERG_SCAN(
-    "file://" || @project_path || "/lakehouse/bronze/raw__adventure_works__sales_order_headers"
-  )
+    sales_order_id::BIGINT,
+    revision_number::BIGINT,
+    order_date::TEXT,
+    due_date::TEXT,
+    ship_date::TEXT,
+    status::BIGINT,
+    online_order_flag::BOOLEAN,
+    sales_order_number::TEXT,
+    purchase_order_number::TEXT,
+    account_number::TEXT,
+    customer_id::BIGINT,
+    sales_person_id::BIGINT,
+    territory_id::BIGINT,
+    bill_to_address_id::BIGINT,
+    ship_to_address_id::BIGINT,
+    ship_method_id::BIGINT,
+    credit_card_id::BIGINT,
+    credit_card_approval_code::TEXT,
+    sub_total::DOUBLE,
+    tax_amt::DOUBLE,
+    freight::DOUBLE,
+    total_due::DOUBLE,
+    rowguid::UUID,
+    modified_date::DATE,
+    _dlt_load_id::TEXT,
+    currency_rate_id::BIGINT
+FROM ICEBERG_SCAN(
+  "file://" || @project_path || "/lakehouse/bronze/raw__adventure_works__sales_order_headers"
+)
+;

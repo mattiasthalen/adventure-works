@@ -4,17 +4,18 @@ MODEL (
 );
 
 SELECT
-  territory_id,
-  cost_last_year,
-  cost_ytd,
-  country_region_code,
-  group,
-  modified_date,
-  name,
-  rowguid,
-  sales_last_year,
-  sales_ytd,
-  _dlt_load_id
-  FROM ICEBERG_SCAN(
-    "file://" || @project_path || "/lakehouse/bronze/raw__adventure_works__sales_territories"
-  )
+    territory_id::BIGINT,
+    name::TEXT,
+    country_region_code::TEXT,
+    group::TEXT,
+    sales_ytd::DOUBLE,
+    sales_last_year::DOUBLE,
+    cost_ytd::DOUBLE,
+    cost_last_year::DOUBLE,
+    rowguid::UUID,
+    modified_date::DATE,
+    _dlt_load_id::TEXT
+FROM ICEBERG_SCAN(
+  "file://" || @project_path || "/lakehouse/bronze/raw__adventure_works__sales_territories"
+)
+;

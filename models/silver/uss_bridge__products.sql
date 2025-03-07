@@ -1,38 +1,115 @@
 MODEL (
-  kind VIEW,
-  enabled TRUE
+  enabled TRUE,
+  kind INCREMENTAL_BY_UNIQUE_KEY(
+    unique_key _pit_hook__bridge,
+    batch_size 288, -- cron every 5m: 24h * 60m / 5m = 288
+  ),
+  tags bridge,
+  grain (_pit_hook__bridge),
+  references (_pit_hook__product, _pit_hook__product_category, _pit_hook__product_subcategory, _pit_hook__reference__product_model)
 );
 
-WITH bridge AS (
+WITH cte__bridge AS (
   SELECT
-    'products' AS stage,
-    bag__adventure_works__products._pit_hook__product,
-    bag__adventure_works__products._hook__product,
-    uss_bridge__product_subcategories._pit_hook__product_subcategory,
+    'products' AS peripheral,
+    _pit_hook__product,
+    _hook__product,
+    _hook__product_subcategory,
+    _hook__reference__product_model,
+    _hook__epoch__date,
+    measure__products_sell_start,
+    measure__products_modified,
+    measure__products_sell_end,
+    product__record_loaded_at AS bridge__record_loaded_at,
+    product__record_updated_at AS bridge__record_updated_at,
+    product__record_valid_from AS bridge__record_valid_from,
+    product__record_valid_to AS bridge__record_valid_to,
+    product__is_current_record AS bridge__is_current_record
+  FROM silver.bag__adventure_works__products
+  LEFT JOIN silver.measure__adventure_works__products USING (_pit_hook__product)
+),
+cte__pit_lookup AS (
+  SELECT
+    cte__bridge.peripheral,
+    cte__bridge._pit_hook__product,
+    uss_bridge__product_models._pit_hook__reference__product_model,
     uss_bridge__product_subcategories._pit_hook__product_category,
+    uss_bridge__product_subcategories._pit_hook__product_subcategory,
+    cte__bridge._hook__product,
+    cte__bridge._hook__epoch__date,
+    cte__bridge.measure__products_sell_start,
+    cte__bridge.measure__products_modified,
+    cte__bridge.measure__products_sell_end,
     GREATEST(
-      bag__adventure_works__products.product__record_loaded_at,
-      uss_bridge__product_subcategories.bridge__record_loaded_at
+        cte__bridge.bridge__record_loaded_at,
+        uss_bridge__product_subcategories.bridge__record_loaded_at,
+        uss_bridge__product_models.bridge__record_loaded_at
     ) AS bridge__record_loaded_at,
     GREATEST(
-      bag__adventure_works__products.product__record_updated_at,
-      uss_bridge__product_subcategories.bridge__record_updated_at
+        cte__bridge.bridge__record_updated_at,
+        uss_bridge__product_subcategories.bridge__record_updated_at,
+        uss_bridge__product_models.bridge__record_updated_at
     ) AS bridge__record_updated_at,
     GREATEST(
-      bag__adventure_works__products.product__record_valid_from,
-      uss_bridge__product_subcategories.bridge__record_valid_from
+        cte__bridge.bridge__record_valid_from,
+        uss_bridge__product_subcategories.bridge__record_valid_from,
+        uss_bridge__product_models.bridge__record_valid_from
     ) AS bridge__record_valid_from,
     LEAST(
-      bag__adventure_works__products.product__record_valid_to,
-      uss_bridge__product_subcategories.bridge__record_valid_to
-    ) AS bridge__record_valid_to
-  FROM silver.bag__adventure_works__products
+        cte__bridge.bridge__record_valid_to,
+        uss_bridge__product_subcategories.bridge__record_valid_to,
+        uss_bridge__product_models.bridge__record_valid_to
+    ) AS bridge__record_valid_to,
+    LIST_HAS_ALL(
+      ARRAY[True],
+        ARRAY[
+          cte__bridge.bridge__is_current_record::BOOL,
+          uss_bridge__product_subcategories.bridge__is_current_record::BOOL,
+          uss_bridge__product_models.bridge__is_current_record::BOOL
+        ]
+    ) AS bridge__is_current_record
+  FROM cte__bridge
   LEFT JOIN silver.uss_bridge__product_subcategories
-    ON bag__adventure_works__products._hook__product_subcategory = uss_bridge__product_subcategories._hook__product_subcategory
-    AND bag__adventure_works__products.product__record_valid_from <= uss_bridge__product_subcategories.bridge__record_valid_to
-    AND bag__adventure_works__products.product__record_valid_to >= uss_bridge__product_subcategories.bridge__record_valid_from
+  ON cte__bridge._hook__product_subcategory = uss_bridge__product_subcategories._hook__product_subcategory
+  AND cte__bridge.bridge__record_valid_from >= uss_bridge__product_subcategories.bridge__record_valid_from
+  AND cte__bridge.bridge__record_valid_to <= uss_bridge__product_subcategories.bridge__record_valid_to
+  LEFT JOIN silver.uss_bridge__product_models
+  ON cte__bridge._hook__reference__product_model = uss_bridge__product_models._hook__reference__product_model
+  AND cte__bridge.bridge__record_valid_from >= uss_bridge__product_models.bridge__record_valid_from
+  AND cte__bridge.bridge__record_valid_to <= uss_bridge__product_models.bridge__record_valid_to
+),
+cte__bridge_pit_hook AS (
+  SELECT
+    *,
+    CONCAT_WS(
+      '~',
+      peripheral,
+      'epoch__valid_from'||bridge__record_valid_from,
+      _hook__epoch__date::TEXT,
+      _pit_hook__product::TEXT,
+      _pit_hook__product_category::TEXT,
+      _pit_hook__product_subcategory::TEXT,
+      _pit_hook__reference__product_model::TEXT
+    ) AS _pit_hook__bridge
+  FROM cte__pit_lookup
 )
 SELECT
-  *,
-  bridge__record_valid_to = '9999-12-31 23:59:59'::TIMESTAMP AS bridge__is_current_record
-FROM bridge
+  peripheral::TEXT,
+  _pit_hook__bridge::BLOB,
+  _pit_hook__product::BLOB,
+  _pit_hook__product_category::BLOB,
+  _pit_hook__product_subcategory::BLOB,
+  _pit_hook__reference__product_model::BLOB,
+  _hook__product::BLOB,
+  _hook__epoch__date::BLOB,
+  measure__products_sell_start::INT,
+  measure__products_modified::INT,
+  measure__products_sell_end::INT,
+  bridge__record_loaded_at::TIMESTAMP,
+  bridge__record_updated_at::TIMESTAMP,
+  bridge__record_valid_from::TIMESTAMP,
+  bridge__record_valid_to::TIMESTAMP,
+  bridge__is_current_record::BOOL
+FROM cte__bridge_pit_hook
+WHERE 1 = 1
+AND bridge__record_updated_at BETWEEN @start_ts AND @end_ts

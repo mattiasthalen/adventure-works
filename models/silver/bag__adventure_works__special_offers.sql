@@ -1,21 +1,26 @@
 MODEL (
-  kind VIEW,
-  enabled TRUE
+  enabled TRUE,
+  kind INCREMENTAL_BY_UNIQUE_KEY(
+    unique_key _pit_hook__reference__special_offer,
+    batch_size 288, -- cron every 5m: 24h * 60m / 5m = 288
+  ),
+  tags hook,
+  grain (_pit_hook__reference__special_offer, _hook__reference__special_offer)
 );
 
 WITH staging AS (
   SELECT
     special_offer_id AS special_offer__special_offer_id,
-    category AS special_offer__category,
     description AS special_offer__description,
     discount_percentage AS special_offer__discount_percentage,
-    end_date AS special_offer__end_date,
-    maximum_quantity AS special_offer__maximum_quantity,
-    minimum_quantity AS special_offer__minimum_quantity,
-    modified_date AS special_offer__modified_date,
-    rowguid AS special_offer__rowguid,
-    start_date AS special_offer__start_date,
     type AS special_offer__type,
+    category AS special_offer__category,
+    start_date AS special_offer__start_date,
+    end_date AS special_offer__end_date,
+    minimum_quantity AS special_offer__minimum_quantity,
+    rowguid AS special_offer__rowguid,
+    maximum_quantity AS special_offer__maximum_quantity,
+    modified_date AS special_offer__modified_date,
     TO_TIMESTAMP(_dlt_load_id::DOUBLE) AS special_offer__record_loaded_at
   FROM bronze.raw__adventure_works__special_offers
 ), validity AS (
@@ -41,15 +46,35 @@ WITH staging AS (
 ), hooks AS (
   SELECT
     CONCAT(
-      'special_offer|adventure_works|',
+      'reference__special_offer__adventure_works|',
       special_offer__special_offer_id,
       '~epoch|valid_from|',
       special_offer__record_valid_from
-    )::BLOB AS _pit_hook__special_offer,
-    CONCAT('special_offer|adventure_works|', special_offer__special_offer_id)::BLOB AS _hook__special_offer,
+    )::BLOB AS _pit_hook__reference__special_offer,
+    CONCAT('reference__special_offer__adventure_works|', special_offer__special_offer_id) AS _hook__reference__special_offer,
     *
   FROM validity
 )
 SELECT
-  *
+  _pit_hook__reference__special_offer::BLOB,
+  _hook__reference__special_offer::BLOB,
+  special_offer__special_offer_id::BIGINT,
+  special_offer__description::TEXT,
+  special_offer__discount_percentage::DOUBLE,
+  special_offer__type::TEXT,
+  special_offer__category::TEXT,
+  special_offer__start_date::TEXT,
+  special_offer__end_date::TEXT,
+  special_offer__minimum_quantity::BIGINT,
+  special_offer__rowguid::UUID,
+  special_offer__maximum_quantity::BIGINT,
+  special_offer__modified_date::DATE,
+  special_offer__record_loaded_at::TIMESTAMP,
+  special_offer__record_updated_at::TIMESTAMP,
+  special_offer__record_version::TEXT,
+  special_offer__record_valid_from::TIMESTAMP,
+  special_offer__record_valid_to::TIMESTAMP,
+  special_offer__is_current_record::TEXT
 FROM hooks
+WHERE 1 = 1
+AND special_offer__record_updated_at BETWEEN @start_ts AND @end_ts

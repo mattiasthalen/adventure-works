@@ -4,31 +4,32 @@ MODEL (
 );
 
 SELECT
-  product_id,
-  product_model_id,
-  product_subcategory_id,
-  class,
-  color,
-  days_to_manufacture,
-  finished_goods_flag,
-  list_price,
-  make_flag,
-  modified_date,
-  name,
-  product_line,
-  product_number,
-  reorder_point,
-  rowguid,
-  safety_stock_level,
-  sell_end_date,
-  sell_start_date,
-  size,
-  size_unit_measure_code,
-  standard_cost,
-  style,
-  weight,
-  weight_unit_measure_code,
-  _dlt_load_id
-  FROM ICEBERG_SCAN(
-    "file://" || @project_path || "/lakehouse/bronze/raw__adventure_works__products"
-  )
+    product_id::BIGINT,
+    name::TEXT,
+    product_number::TEXT,
+    make_flag::BOOLEAN,
+    finished_goods_flag::BOOLEAN,
+    safety_stock_level::BIGINT,
+    reorder_point::BIGINT,
+    standard_cost::DOUBLE,
+    list_price::DOUBLE,
+    days_to_manufacture::BIGINT,
+    sell_start_date::TEXT,
+    rowguid::UUID,
+    modified_date::DATE,
+    _dlt_load_id::TEXT,
+    color::TEXT,
+    class::TEXT,
+    weight_unit_measure_code::TEXT,
+    weight::DOUBLE,
+    size::TEXT,
+    size_unit_measure_code::TEXT,
+    product_line::TEXT,
+    style::TEXT,
+    product_subcategory_id::BIGINT,
+    product_model_id::BIGINT,
+    sell_end_date::TEXT
+FROM ICEBERG_SCAN(
+  "file://" || @project_path || "/lakehouse/bronze/raw__adventure_works__products"
+)
+;

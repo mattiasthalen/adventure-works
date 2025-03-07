@@ -1,6 +1,8 @@
 MODEL (
+  enabled TRUE,
   kind VIEW,
-  enabled TRUE
+  tags unified_star_schema,
+  grain (_pit_hook__credit_card)
 );
 
 SELECT

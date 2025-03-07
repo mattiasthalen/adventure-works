@@ -1,114 +1,174 @@
 MODEL (
-  kind VIEW,
-  enabled TRUE
+  enabled TRUE,
+  kind INCREMENTAL_BY_UNIQUE_KEY(
+    unique_key _pit_hook__bridge,
+    batch_size 288, -- cron every 5m: 24h * 60m / 5m = 288
+  ),
+  tags bridge,
+  grain (_pit_hook__bridge),
+  references (_pit_hook__credit_card, _pit_hook__currency, _pit_hook__customer, _pit_hook__order__sales, _pit_hook__order_line__sales, _pit_hook__person__sales, _pit_hook__product, _pit_hook__product_category, _pit_hook__product_subcategory, _pit_hook__reference__country_region, _pit_hook__reference__product_model, _pit_hook__reference__special_offer, _pit_hook__ship_method, _pit_hook__store, _pit_hook__territory__sales)
 );
 
-WITH bridge AS (
+WITH cte__bridge AS (
   SELECT
-    'sales_order_details' AS stage,
-    bag__adventure_works__sales_order_details._pit_hook__sales_order_detail,
-    bag__adventure_works__sales_order_details._hook__sales_order_detail,
+    'sales_order_details' AS peripheral,
+    _pit_hook__order_line__sales,
+    _hook__order_line__sales,
+    _hook__order__sales,
+    _hook__product,
+    _hook__product,
+    _hook__product,
+    _hook__reference__special_offer,
+    _hook__epoch__date,
+    measure__sales_order_details_modified,
+    sales_order_detail__record_loaded_at AS bridge__record_loaded_at,
+    sales_order_detail__record_updated_at AS bridge__record_updated_at,
+    sales_order_detail__record_valid_from AS bridge__record_valid_from,
+    sales_order_detail__record_valid_to AS bridge__record_valid_to,
+    sales_order_detail__is_current_record AS bridge__is_current_record
+  FROM silver.bag__adventure_works__sales_order_details
+  LEFT JOIN silver.measure__adventure_works__sales_order_details USING (_pit_hook__order_line__sales)
+),
+cte__pit_lookup AS (
+  SELECT
+    cte__bridge.peripheral,
+    cte__bridge._pit_hook__order_line__sales,
+    uss_bridge__product_cost_histories._pit_hook__product,
+    uss_bridge__product_list_price_histories._pit_hook__product,
     uss_bridge__products._pit_hook__product,
-    uss_bridge__products._pit_hook__product_subcategory,
     uss_bridge__products._pit_hook__product_category,
-    uss_bridge__sales_order_headers._pit_hook__sales_order,
+    uss_bridge__products._pit_hook__product_subcategory,
+    uss_bridge__products._pit_hook__reference__product_model,
     uss_bridge__sales_order_headers._pit_hook__credit_card,
-    uss_bridge__sales_order_headers._pit_hook__currency_rate,
+    uss_bridge__sales_order_headers._pit_hook__currency,
     uss_bridge__sales_order_headers._pit_hook__customer,
-    uss_bridge__sales_order_headers._pit_hook__sales_person,
+    uss_bridge__sales_order_headers._pit_hook__order__sales,
+    uss_bridge__sales_order_headers._pit_hook__person__sales,
+    uss_bridge__sales_order_headers._pit_hook__reference__country_region,
     uss_bridge__sales_order_headers._pit_hook__ship_method,
-    uss_bridge__sales_order_headers._pit_hook__address,
-    uss_bridge__sales_order_headers._pit_hook__state_province,
-    uss_bridge__sales_order_headers._pit_hook__territory,
-    uss_bridge__special_offers._pit_hook__special_offer,
+    uss_bridge__sales_order_headers._pit_hook__store,
+    uss_bridge__sales_order_headers._pit_hook__territory__sales,
+    uss_bridge__special_offers._pit_hook__reference__special_offer,
+    cte__bridge._hook__order_line__sales,
+    cte__bridge._hook__epoch__date,
+    cte__bridge.measure__sales_order_details_modified,
     GREATEST(
-      bag__adventure_works__sales_order_details.sales_order_detail__record_loaded_at,
-      uss_bridge__sales_order_headers.bridge__record_loaded_at,
-      uss_bridge__special_offers.bridge__record_loaded_at,
-      uss_bridge__products.bridge__record_loaded_at
+        cte__bridge.bridge__record_loaded_at,
+        uss_bridge__sales_order_headers.bridge__record_loaded_at,
+        uss_bridge__products.bridge__record_loaded_at,
+        uss_bridge__product_cost_histories.bridge__record_loaded_at,
+        uss_bridge__product_list_price_histories.bridge__record_loaded_at,
+        uss_bridge__special_offers.bridge__record_loaded_at
     ) AS bridge__record_loaded_at,
     GREATEST(
-      bag__adventure_works__sales_order_details.sales_order_detail__record_updated_at,
-      uss_bridge__sales_order_headers.bridge__record_updated_at,
-      uss_bridge__special_offers.bridge__record_updated_at,
-      uss_bridge__products.bridge__record_updated_at
+        cte__bridge.bridge__record_updated_at,
+        uss_bridge__sales_order_headers.bridge__record_updated_at,
+        uss_bridge__products.bridge__record_updated_at,
+        uss_bridge__product_cost_histories.bridge__record_updated_at,
+        uss_bridge__product_list_price_histories.bridge__record_updated_at,
+        uss_bridge__special_offers.bridge__record_updated_at
     ) AS bridge__record_updated_at,
     GREATEST(
-      bag__adventure_works__sales_order_details.sales_order_detail__record_valid_from,
-      uss_bridge__sales_order_headers.bridge__record_valid_from,
-      uss_bridge__special_offers.bridge__record_valid_from,
-      uss_bridge__products.bridge__record_valid_from
+        cte__bridge.bridge__record_valid_from,
+        uss_bridge__sales_order_headers.bridge__record_valid_from,
+        uss_bridge__products.bridge__record_valid_from,
+        uss_bridge__product_cost_histories.bridge__record_valid_from,
+        uss_bridge__product_list_price_histories.bridge__record_valid_from,
+        uss_bridge__special_offers.bridge__record_valid_from
     ) AS bridge__record_valid_from,
     LEAST(
-      bag__adventure_works__sales_order_details.sales_order_detail__record_valid_to,
-      uss_bridge__sales_order_headers.bridge__record_valid_to,
-      uss_bridge__special_offers.bridge__record_valid_to,
-      uss_bridge__products.bridge__record_valid_to
-    ) AS bridge__record_valid_to
-  FROM silver.bag__adventure_works__sales_order_details
-  LEFT JOIN silver.uss_bridge__products
-    ON bag__adventure_works__sales_order_details._hook__product = uss_bridge__products._hook__product
-    AND bag__adventure_works__sales_order_details.sales_order_detail__record_valid_from <= uss_bridge__products.bridge__record_valid_to
-    AND bag__adventure_works__sales_order_details.sales_order_detail__record_valid_to >= uss_bridge__products.bridge__record_valid_from
+        cte__bridge.bridge__record_valid_to,
+        uss_bridge__sales_order_headers.bridge__record_valid_to,
+        uss_bridge__products.bridge__record_valid_to,
+        uss_bridge__product_cost_histories.bridge__record_valid_to,
+        uss_bridge__product_list_price_histories.bridge__record_valid_to,
+        uss_bridge__special_offers.bridge__record_valid_to
+    ) AS bridge__record_valid_to,
+    LIST_HAS_ALL(
+      ARRAY[True],
+        ARRAY[
+          cte__bridge.bridge__is_current_record::BOOL,
+          uss_bridge__sales_order_headers.bridge__is_current_record::BOOL,
+          uss_bridge__products.bridge__is_current_record::BOOL,
+          uss_bridge__product_cost_histories.bridge__is_current_record::BOOL,
+          uss_bridge__product_list_price_histories.bridge__is_current_record::BOOL,
+          uss_bridge__special_offers.bridge__is_current_record::BOOL
+        ]
+    ) AS bridge__is_current_record
+  FROM cte__bridge
   LEFT JOIN silver.uss_bridge__sales_order_headers
-    ON bag__adventure_works__sales_order_details._hook__sales_order = uss_bridge__sales_order_headers._hook__sales_order
-    AND bag__adventure_works__sales_order_details.sales_order_detail__record_valid_from <= uss_bridge__sales_order_headers.bridge__record_valid_to
-    AND bag__adventure_works__sales_order_details.sales_order_detail__record_valid_to >= uss_bridge__sales_order_headers.bridge__record_valid_from
+  ON cte__bridge._hook__order__sales = uss_bridge__sales_order_headers._hook__order__sales
+  AND cte__bridge.bridge__record_valid_from >= uss_bridge__sales_order_headers.bridge__record_valid_from
+  AND cte__bridge.bridge__record_valid_to <= uss_bridge__sales_order_headers.bridge__record_valid_to
+  LEFT JOIN silver.uss_bridge__products
+  ON cte__bridge._hook__product = uss_bridge__products._hook__product
+  AND cte__bridge.bridge__record_valid_from >= uss_bridge__products.bridge__record_valid_from
+  AND cte__bridge.bridge__record_valid_to <= uss_bridge__products.bridge__record_valid_to
+  LEFT JOIN silver.uss_bridge__product_cost_histories
+  ON cte__bridge._hook__product = uss_bridge__product_cost_histories._hook__product
+  AND cte__bridge.bridge__record_valid_from >= uss_bridge__product_cost_histories.bridge__record_valid_from
+  AND cte__bridge.bridge__record_valid_to <= uss_bridge__product_cost_histories.bridge__record_valid_to
+  LEFT JOIN silver.uss_bridge__product_list_price_histories
+  ON cte__bridge._hook__product = uss_bridge__product_list_price_histories._hook__product
+  AND cte__bridge.bridge__record_valid_from >= uss_bridge__product_list_price_histories.bridge__record_valid_from
+  AND cte__bridge.bridge__record_valid_to <= uss_bridge__product_list_price_histories.bridge__record_valid_to
   LEFT JOIN silver.uss_bridge__special_offers
-    ON bag__adventure_works__sales_order_details._hook__special_offer = uss_bridge__special_offers._hook__special_offer
-    AND bag__adventure_works__sales_order_details.sales_order_detail__record_valid_from <= uss_bridge__special_offers.bridge__record_valid_to
-    AND bag__adventure_works__sales_order_details.sales_order_detail__record_valid_to >= uss_bridge__special_offers.bridge__record_valid_from
-), order_date AS (
+  ON cte__bridge._hook__reference__special_offer = uss_bridge__special_offers._hook__reference__special_offer
+  AND cte__bridge.bridge__record_valid_from >= uss_bridge__special_offers.bridge__record_valid_from
+  AND cte__bridge.bridge__record_valid_to <= uss_bridge__special_offers.bridge__record_valid_to
+),
+cte__bridge_pit_hook AS (
   SELECT
-    _pit_hook__sales_order_detail,
-    sales_order__order_date AS event_date,
-    1 AS measure__sales_order_detail__placed,
-    CASE WHEN NOT _pit_hook__special_offer IS NULL THEN 1 END AS measure__sales_order_detail__has_special_offer,
-    sales_order_detail__unit_price_discount * sales_order_detail__order_qty AS measure__sales_order_detail__discount_price,
-    sales_order_detail__unit_price * sales_order_detail__order_qty AS measure__sales_order_detail__price,
-    measure__sales_order_detail__price - measure__sales_order_detail__discount_price AS measure__sales_order_detail__discount
-  FROM bridge
-  LEFT JOIN silver.bag__adventure_works__sales_order_headers
-    USING (_pit_hook__sales_order)
-  LEFT JOIN silver.bag__adventure_works__sales_order_details
-    USING (_pit_hook__sales_order_detail)
-), measures AS (
-  SELECT
-    *
-  FROM order_date
-), final AS (
-  SELECT
-    stage,
-    _pit_hook__sales_order_detail,
-    _hook__sales_order_detail,
-    _pit_hook__product,
-    _pit_hook__product_subcategory,
-    _pit_hook__product_category,
-    _pit_hook__sales_order,
-    _pit_hook__credit_card,
-    _pit_hook__currency_rate,
-    _pit_hook__customer,
-    _pit_hook__sales_person,
-    _pit_hook__ship_method,
-    _pit_hook__address,
-    _pit_hook__state_province,
-    _pit_hook__territory,
-    _pit_hook__special_offer,
-    CONCAT('calendar|date|', event_date)::BLOB AS _hook__calendar__date,
-    measure__sales_order_detail__placed,
-    measure__sales_order_detail__has_special_offer,
-    measure__sales_order_detail__discount_price,
-    measure__sales_order_detail__price,
-    measure__sales_order_detail__discount,
-    bridge__record_loaded_at,
-    bridge__record_updated_at,
-    bridge__record_valid_from,
-    bridge__record_valid_to,
-    bridge__record_valid_to = '9999-12-31 23:59:59'::TIMESTAMP AS bridge__is_current_record
-  FROM bridge
-  LEFT JOIN measures
-    USING (_pit_hook__sales_order_detail)
+    *,
+    CONCAT_WS(
+      '~',
+      peripheral,
+      'epoch__valid_from'||bridge__record_valid_from,
+      _hook__epoch__date::TEXT,
+      _pit_hook__credit_card::TEXT,
+      _pit_hook__currency::TEXT,
+      _pit_hook__customer::TEXT,
+      _pit_hook__order__sales::TEXT,
+      _pit_hook__order_line__sales::TEXT,
+      _pit_hook__person__sales::TEXT,
+      _pit_hook__product::TEXT,
+      _pit_hook__product_category::TEXT,
+      _pit_hook__product_subcategory::TEXT,
+      _pit_hook__reference__country_region::TEXT,
+      _pit_hook__reference__product_model::TEXT,
+      _pit_hook__reference__special_offer::TEXT,
+      _pit_hook__ship_method::TEXT,
+      _pit_hook__store::TEXT,
+      _pit_hook__territory__sales::TEXT
+    ) AS _pit_hook__bridge
+  FROM cte__pit_lookup
 )
 SELECT
-  *
-FROM final
+  peripheral::TEXT,
+  _pit_hook__bridge::BLOB,
+  _pit_hook__credit_card::BLOB,
+  _pit_hook__currency::BLOB,
+  _pit_hook__customer::BLOB,
+  _pit_hook__order__sales::BLOB,
+  _pit_hook__order_line__sales::BLOB,
+  _pit_hook__person__sales::BLOB,
+  _pit_hook__product::BLOB,
+  _pit_hook__product_category::BLOB,
+  _pit_hook__product_subcategory::BLOB,
+  _pit_hook__reference__country_region::BLOB,
+  _pit_hook__reference__product_model::BLOB,
+  _pit_hook__reference__special_offer::BLOB,
+  _pit_hook__ship_method::BLOB,
+  _pit_hook__store::BLOB,
+  _pit_hook__territory__sales::BLOB,
+  _hook__order_line__sales::BLOB,
+  _hook__epoch__date::BLOB,
+  measure__sales_order_details_modified::INT,
+  bridge__record_loaded_at::TIMESTAMP,
+  bridge__record_updated_at::TIMESTAMP,
+  bridge__record_valid_from::TIMESTAMP,
+  bridge__record_valid_to::TIMESTAMP,
+  bridge__is_current_record::BOOL
+FROM cte__bridge_pit_hook
+WHERE 1 = 1
+AND bridge__record_updated_at BETWEEN @start_ts AND @end_ts

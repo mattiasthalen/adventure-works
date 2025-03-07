@@ -4,16 +4,17 @@ MODEL (
 );
 
 SELECT
-  business_entity_id,
-  territory_id,
-  bonus,
-  commission_pct,
-  modified_date,
-  rowguid,
-  sales_last_year,
-  sales_quota,
-  sales_ytd,
-  _dlt_load_id
-  FROM ICEBERG_SCAN(
-    "file://" || @project_path || "/lakehouse/bronze/raw__adventure_works__sales_persons"
-  )
+    business_entity_id::BIGINT,
+    bonus::DOUBLE,
+    commission_pct::DOUBLE,
+    sales_ytd::DOUBLE,
+    sales_last_year::DOUBLE,
+    rowguid::UUID,
+    modified_date::DATE,
+    _dlt_load_id::TEXT,
+    territory_id::BIGINT,
+    sales_quota::DOUBLE
+FROM ICEBERG_SCAN(
+  "file://" || @project_path || "/lakehouse/bronze/raw__adventure_works__sales_persons"
+)
+;

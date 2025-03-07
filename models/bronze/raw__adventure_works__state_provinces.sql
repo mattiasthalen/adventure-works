@@ -4,15 +4,16 @@ MODEL (
 );
 
 SELECT
-  state_province_id,
-  territory_id,
-  country_region_code,
-  is_only_state_province_flag,
-  modified_date,
-  name,
-  rowguid,
-  state_province_code,
-  _dlt_load_id
-  FROM ICEBERG_SCAN(
-    "file://" || @project_path || "/lakehouse/bronze/raw__adventure_works__state_provinces"
-  )
+    state_province_id::BIGINT,
+    state_province_code::TEXT,
+    country_region_code::TEXT,
+    is_only_state_province_flag::BOOLEAN,
+    name::TEXT,
+    territory_id::BIGINT,
+    rowguid::UUID,
+    modified_date::DATE,
+    _dlt_load_id::TEXT
+FROM ICEBERG_SCAN(
+  "file://" || @project_path || "/lakehouse/bronze/raw__adventure_works__state_provinces"
+)
+;

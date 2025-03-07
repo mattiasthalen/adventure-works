@@ -246,9 +246,9 @@ tables:
       suffix:
         data_type: text
         nullable: true
-      additional_contact_info:
-        data_type: text
-        nullable: true
+      #additional_contact_info:
+        #  data_type: text
+        #  nullable: true
     write_disposition: append
     table_format: delta
     resource: get__adventure_works__odata__v1__persons

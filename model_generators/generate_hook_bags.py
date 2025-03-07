@@ -1,114 +1,163 @@
 import os
-import yaml
+from parse_yaml import load_schema, load_bags_config, ensure_directory_exists, map_data_type
 
 def generate_hook_bags():
-    # Read the schema file
-    with open('./pipelines/schemas/export/adventure_works.schema.yaml', 'r') as schema_file:
-        schema = yaml.safe_load(schema_file)
+    """Generate hook model SQL files based on bags configuration"""
+    # Define output directory
+    output_dir = './models/silver/'
     
-    # Get tables from schema
-    tables = [table_name for table_name in schema['tables'].keys() 
-            if table_name.startswith("raw__")]
+    # Ensure output directory exists
+    ensure_directory_exists(output_dir)
     
-    print("Found tables:", tables)
+    # Load YAML files
+    bags_config = load_bags_config()
+    schema = load_schema()
     
-    def get_hook_columns(columns):
-        """Find columns that end with '_id' to generate hooks."""
-        return [col_name for col_name in columns.keys() if col_name.endswith('_id')]
+    # Counter for generated models
+    count = 0
     
-    def sort_columns(columns, primary_key):
-        """Sort columns into primary key, foreign keys, and other columns."""
-        foreign_keys = [col for col in columns.keys() if col.endswith('_id') and col != primary_key]
-        other_columns = [col for col in columns.keys() if col != primary_key and col not in foreign_keys]
-        
-        return [primary_key] + sorted(foreign_keys) + sorted(other_columns)
+    # Process each bag
+    for bag in bags_config['bags']:
+        success = generate_hook_model_for_bag(bag, schema, output_dir)
+        if success:
+            count += 1
     
-    # Create SQL files for each table
-    for table in tables:
-        model_name = table.replace("raw__", "bag__")
-        file_path = f"./models/silver/{model_name}.sql"
-        
-        # Get columns and find primary key
-        table_schema = schema['tables'][table]
-        columns = {col_name: col_info 
-                for col_name, col_info in table_schema.get('columns', {}).items()
-                if not col_name.startswith('_dlt')}
-        
-        # Get single primary key with PK_NOT_FOUND as default
-        primary_key = next((col_name for col_name, col_info in columns.items() 
-                        if col_info.get('primary_key')), 'PK_NOT_FOUND')
-        
-        # Generate hooks for ID columns
-        hook_columns = get_hook_columns(columns)
-        hook_statements = []
-        
-        # Get entity name from primary key by removing '_id'
-        entity_name = primary_key[:-3] if primary_key.endswith('_id') else primary_key
-        
-        # Sort and format columns
-        sorted_columns = sort_columns(columns, primary_key)
-        prefixed_columns = [f"{column} AS {entity_name}__{column}" if not column.endswith("_id") else column for column in sorted_columns]
-        formatted_columns = ',\n    '.join(prefixed_columns)
-        
-        # Add PIT hook for primary key
-        pit_hook = f"CONCAT('{entity_name}|adventure_works|', {primary_key}, '~epoch|valid_from|', {entity_name}__record_valid_from)::BLOB AS _pit_hook__{entity_name}"
-        hook_statements.append(pit_hook)
-                
-        # Add regular hook for primary key
-        primary_hook = f"CONCAT('{entity_name}|adventure_works|', {primary_key})::BLOB AS _hook__{entity_name}"
-        hook_statements.append(primary_hook)
-        
-        # Add hooks for foreign keys
-        for col in sorted(hook_columns):
-            if col != primary_key:  # Skip primary key as it's already handled
-                referenced_entity = col[:-3]  # Remove '_id' suffix
-                hook = f"CONCAT('{referenced_entity}|adventure_works|', {col})::BLOB AS _hook__{referenced_entity}"
-                hook_statements.append(hook)
-        
-        hook_definitions = ',\n    '.join(hook_statements)
-        
-        body = f"""MODEL (
-  kind VIEW
-);
+    print(f"Generated {count} hook models in {output_dir}")
+
+def generate_hook_model_for_bag(bag, schema, output_dir):
+    """Generate a hook model SQL file for a specific bag"""
+    bag_name = bag['name']
+    source_table = bag['source_table']
+    column_prefix = bag['column_prefix']
+    hooks = bag['hooks']
     
-WITH staging AS (
-  SELECT
-    {formatted_columns},
-    TO_TIMESTAMP(_dlt_load_id::DOUBLE) AS {entity_name}__record_loaded_at
-  FROM DELTA_SCAN("./lakehouse/bronze/{table}")
-), validity AS (
+    # Skip _dlt tables
+    if source_table.startswith('_dlt'):
+        return False
+    
+    # Get primary hook
+    primary_hook = next((h for h in hooks if h.get('primary')), hooks[0])
+    primary_hook_name = primary_hook['name']
+    primary_key_field = primary_hook['business_key_field']
+    
+    # Get source table schema
+    table_columns = {}
+    if source_table in schema['tables']:
+        table_columns = schema['tables'][source_table]['columns']
+    else:
+        print(f"Warning: Table {source_table} not found in schema")
+        return False
+    
+    # Filter columns
+    filtered_columns = {col: props for col, props in table_columns.items() 
+                       if not col.startswith('_dlt_') and col != 'modified_date'}
+    
+    # Get reference hooks
+    reference_hooks = [h['name'] for h in hooks if h != primary_hook]
+    
+    # Generate SQL file
+    sql_path = os.path.join(output_dir, f"{bag_name}.sql")
+    with open(sql_path, 'w') as sql_file:
+        # MODEL declaration
+        sql_file.write(f"""MODEL (
+  enabled TRUE,
+  kind INCREMENTAL_BY_UNIQUE_KEY(
+    unique_key _pit{primary_hook_name},
+    batch_size 288, -- cron every 5m: 24h * 60m / 5m = 288
+  ),
+  tags hook,
+  grain (_pit{primary_hook_name}, {primary_hook_name})""")
+        
+        # Add references only if there are any
+        if reference_hooks:
+            sql_file.write(f",\n  references ({', '.join(reference_hooks)})")
+        
+        sql_file.write("\n);\n\n")
+        
+        # Staging CTE
+        sql_file.write("WITH staging AS (\n  SELECT\n")
+        for i, col in enumerate(filtered_columns.keys()):
+            sql_file.write(f"    {col} AS {column_prefix}__{col},\n")
+        
+        sql_file.write(f"    modified_date AS {column_prefix}__modified_date,\n")
+        sql_file.write(f"    TO_TIMESTAMP(_dlt_load_id::DOUBLE) AS {column_prefix}__record_loaded_at\n")
+        sql_file.write(f"  FROM bronze.{source_table}\n")
+        sql_file.write("), ")
+        
+        # Validity CTE
+        sql_file.write(f"""validity AS (
   SELECT
     *,
-    ROW_NUMBER() OVER (PARTITION BY {primary_key} ORDER BY {entity_name}__record_loaded_at) AS {entity_name}__record_version,
+    ROW_NUMBER() OVER (PARTITION BY {column_prefix}__{primary_key_field} ORDER BY {column_prefix}__record_loaded_at) AS {column_prefix}__record_version,
     CASE
-      WHEN {entity_name}__record_version = 1
+      WHEN {column_prefix}__record_version = 1
       THEN '1970-01-01 00:00:00'::TIMESTAMP
-      ELSE {entity_name}__record_loaded_at
-    END AS {entity_name}__record_valid_from,
+      ELSE {column_prefix}__record_loaded_at
+    END AS {column_prefix}__record_valid_from,
     COALESCE(
-      LEAD({entity_name}__record_loaded_at) OVER (PARTITION BY {primary_key} ORDER BY {entity_name}__record_loaded_at),
+      LEAD({column_prefix}__record_loaded_at) OVER (PARTITION BY {column_prefix}__{primary_key_field} ORDER BY {column_prefix}__record_loaded_at),
       '9999-12-31 23:59:59'::TIMESTAMP
-    ) AS {entity_name}__record_valid_to,
-    {entity_name}__record_valid_to = '9999-12-31 23:59:59'::TIMESTAMP AS {entity_name}__is_current_record,
-    CASE WHEN {entity_name}__is_current_record THEN {entity_name}__record_loaded_at ELSE {entity_name}__record_valid_to END AS {entity_name}__record_updated_at
+    ) AS {column_prefix}__record_valid_to,
+    {column_prefix}__record_valid_to = '9999-12-31 23:59:59'::TIMESTAMP AS {column_prefix}__is_current_record,
+    CASE
+      WHEN {column_prefix}__is_current_record
+      THEN {column_prefix}__record_loaded_at
+      ELSE {column_prefix}__record_valid_to
+    END AS {column_prefix}__record_updated_at
   FROM staging
-), hooks AS (
-  SELECT
-    {hook_definitions},
-    *
-  FROM validity
-)
-SELECT
-  *
-FROM hooks"""
+), """)
         
-        # Ensure the models/silver directory exists
-        os.makedirs(os.path.dirname(file_path), exist_ok=True)
+        # Hooks CTE
+        sql_file.write("hooks AS (\n  SELECT\n")
         
-        with open(file_path, 'w') as file:
-            file.write(body)
+        # Process hooks
+        for i, hook in enumerate(hooks):
+            hook_name = hook['name']
+            keyset = hook['keyset']
+            business_key_field = hook['business_key_field']
+            
+            # Generate PIT hook for primary
+            if hook == primary_hook:
+                sql_file.write(f"""    CONCAT(
+      '{keyset}|',
+      {column_prefix}__{business_key_field},
+      '~epoch|valid_from|',
+      {column_prefix}__record_valid_from
+    )::BLOB AS _pit{hook_name},\n""")
+            
+            # Generate regular hook
+            sql_file.write(f"    CONCAT('{keyset}|', {column_prefix}__{business_key_field}) AS {hook_name},\n")
+        
+        # Add columns from validity
+        sql_file.write("    *\n  FROM validity\n)\n")
+        
+        # Final SELECT
+        sql_file.write("SELECT\n")
+        sql_file.write(f"  _pit{primary_hook_name}::BLOB,\n")
+        
+        # Add all hooks
+        for hook in hooks:
+            sql_file.write(f"  {hook['name']}::BLOB,\n")
+        
+        # Add data columns with types
+        for col in filtered_columns.keys():
+            data_type = filtered_columns[col].get('data_type', 'text')
+            sql_type = map_data_type(data_type, col)
+            sql_file.write(f"  {column_prefix}__{col}::{sql_type},\n")
+        
+        # Add system columns
+        sql_file.write(f"""  {column_prefix}__modified_date::DATE,
+  {column_prefix}__record_loaded_at::TIMESTAMP,
+  {column_prefix}__record_updated_at::TIMESTAMP,
+  {column_prefix}__record_version::TEXT,
+  {column_prefix}__record_valid_from::TIMESTAMP,
+  {column_prefix}__record_valid_to::TIMESTAMP,
+  {column_prefix}__is_current_record::TEXT
+FROM hooks
+WHERE 1 = 1
+AND {column_prefix}__record_updated_at BETWEEN @start_ts AND @end_ts""")
     
-    print(f"Generated {len(tables)} hook models in ./models/silver/")
-    
+    return True
+
 if __name__ == "__main__":
     generate_hook_bags()

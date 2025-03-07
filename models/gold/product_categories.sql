@@ -1,6 +1,8 @@
 MODEL (
+  enabled TRUE,
   kind VIEW,
-  enabled TRUE
+  tags unified_star_schema,
+  grain (_pit_hook__product_category)
 );
 
 SELECT

@@ -28,7 +28,7 @@ def read_table_from_duckdb(schema: str, table_name: str):
 
     # Convert binary fields to strings
     casted_df = df.with_columns([
-        pl.col(col).cast(pl.Utf8) for col in df.columns if df[col].dtype == pl.Binary
+        pl.col(col).cast(pl.Utf8) for col in df.columns if df[col].dtype in [pl.Binary, pl.UUID]
     ])
 
     yield from casted_df.to_dicts()

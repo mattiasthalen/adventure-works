@@ -1,34 +1,40 @@
 MODEL (
-  kind VIEW,
-  enabled TRUE
+  enabled TRUE,
+  kind INCREMENTAL_BY_UNIQUE_KEY(
+    unique_key _pit_hook__product,
+    batch_size 288, -- cron every 5m: 24h * 60m / 5m = 288
+  ),
+  tags hook,
+  grain (_pit_hook__product, _hook__product),
+  references (_hook__product_subcategory, _hook__reference__product_model)
 );
 
 WITH staging AS (
   SELECT
     product_id AS product__product_id,
-    product_model_id AS product__product_model_id,
-    product_subcategory_id AS product__product_subcategory_id,
-    class AS product__class,
-    color AS product__color,
-    days_to_manufacture AS product__days_to_manufacture,
-    finished_goods_flag AS product__finished_goods_flag,
-    list_price AS product__list_price,
-    make_flag AS product__make_flag,
-    modified_date AS product__modified_date,
     name AS product__name,
-    product_line AS product__product_line,
     product_number AS product__product_number,
-    reorder_point AS product__reorder_point,
-    rowguid AS product__rowguid,
+    make_flag AS product__make_flag,
+    finished_goods_flag AS product__finished_goods_flag,
     safety_stock_level AS product__safety_stock_level,
-    sell_end_date AS product__sell_end_date,
+    reorder_point AS product__reorder_point,
+    standard_cost AS product__standard_cost,
+    list_price AS product__list_price,
+    days_to_manufacture AS product__days_to_manufacture,
     sell_start_date AS product__sell_start_date,
+    rowguid AS product__rowguid,
+    color AS product__color,
+    class AS product__class,
+    weight_unit_measure_code AS product__weight_unit_measure_code,
+    weight AS product__weight,
     size AS product__size,
     size_unit_measure_code AS product__size_unit_measure_code,
-    standard_cost AS product__standard_cost,
+    product_line AS product__product_line,
     style AS product__style,
-    weight AS product__weight,
-    weight_unit_measure_code AS product__weight_unit_measure_code,
+    product_subcategory_id AS product__product_subcategory_id,
+    product_model_id AS product__product_model_id,
+    sell_end_date AS product__sell_end_date,
+    modified_date AS product__modified_date,
     TO_TIMESTAMP(_dlt_load_id::DOUBLE) AS product__record_loaded_at
   FROM bronze.raw__adventure_works__products
 ), validity AS (
@@ -54,17 +60,52 @@ WITH staging AS (
 ), hooks AS (
   SELECT
     CONCAT(
-      'product|adventure_works|',
+      'product__adventure_works|',
       product__product_id,
       '~epoch|valid_from|',
       product__record_valid_from
     )::BLOB AS _pit_hook__product,
-    CONCAT('product|adventure_works|', product__product_id)::BLOB AS _hook__product,
-    CONCAT('product_model|adventure_works|', product__product_model_id)::BLOB AS _hook__product_model,
-    CONCAT('product_subcategory|adventure_works|', product__product_subcategory_id)::BLOB AS _hook__product_subcategory,
+    CONCAT('product__adventure_works|', product__product_id) AS _hook__product,
+    CONCAT('product_subcategory__adventure_works|', product__product_subcategory_id) AS _hook__product_subcategory,
+    CONCAT('reference__product_model__adventure_works|', product__product_model_id) AS _hook__reference__product_model,
     *
   FROM validity
 )
 SELECT
-  *
+  _pit_hook__product::BLOB,
+  _hook__product::BLOB,
+  _hook__product_subcategory::BLOB,
+  _hook__reference__product_model::BLOB,
+  product__product_id::BIGINT,
+  product__name::TEXT,
+  product__product_number::TEXT,
+  product__make_flag::BOOLEAN,
+  product__finished_goods_flag::BOOLEAN,
+  product__safety_stock_level::BIGINT,
+  product__reorder_point::BIGINT,
+  product__standard_cost::DOUBLE,
+  product__list_price::DOUBLE,
+  product__days_to_manufacture::BIGINT,
+  product__sell_start_date::TEXT,
+  product__rowguid::UUID,
+  product__color::TEXT,
+  product__class::TEXT,
+  product__weight_unit_measure_code::TEXT,
+  product__weight::DOUBLE,
+  product__size::TEXT,
+  product__size_unit_measure_code::TEXT,
+  product__product_line::TEXT,
+  product__style::TEXT,
+  product__product_subcategory_id::BIGINT,
+  product__product_model_id::BIGINT,
+  product__sell_end_date::TEXT,
+  product__modified_date::DATE,
+  product__record_loaded_at::TIMESTAMP,
+  product__record_updated_at::TIMESTAMP,
+  product__record_version::TEXT,
+  product__record_valid_from::TIMESTAMP,
+  product__record_valid_to::TIMESTAMP,
+  product__is_current_record::TEXT
 FROM hooks
+WHERE 1 = 1
+AND product__record_updated_at BETWEEN @start_ts AND @end_ts
