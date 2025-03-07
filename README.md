@@ -54,34 +54,35 @@ architecture-beta
 *Simplified since there are 200+ models in total.*
 ```mermaid
 flowchart LR
+    classDef bronze fill:#CD7F32,color:black
+    classDef silver fill:#C0C0C0,color:black
+    classDef gold fill:#FFD700,color:black
 
-    subgraph bronze["Bronze"]
-        raw(["Raw Views"])
+    subgraph das["db.das"]
+        raw(["Raw Views"]):::bronze
     end
 
-    subgraph silver["Silver"]
-        hook(["HOOK Bags"])
-        measures(["Event Measures"])
-        bridge_staging(["Bridge Staging"])
+    subgraph dab["db.dab"]
+        hook(["HOOK Bags"]):::silver
     end
 
-    subgraph gold["Gold"]
-        bridge(["Puppini Bridges"])
-        peripheral(["Peripheral Tables"])
+    subgraph dar_stg["db.dar__staging"]
+        measures(["Measures"]):::silver
+        bridge_staging(["Bridge Staging"]):::silver
     end
 
-    raw --> hook --> measures --> bridge_staging --> bridge
-    hook --> bridge_staging
-    hook --> peripheral
+    subgraph dar["db.dar"]
+        bridge(["Puppini Bridges"]):::gold
+        peripheral(["Peripheral Tables"]):::gold
+    end
 
-    style raw fill:#CD7F32,color:black
+    raw -- "1:1" --> hook -- "1:1" --> measures -- "1:1" --> bridge_staging -- "M:1" --> bridge
+    hook -- "1:1" --> bridge_staging
+    hook -- "1:1" --> peripheral
 
-    style hook fill:#C0C0C0,color:black
-    style measures fill:#C0C0C0,color:black
-    style bridge_staging fill:#C0C0C0,color:black
-
-    style bridge fill:#FFD700,color:black
-    style peripheral fill:#FFD700,color:black
+    legend_das["DAS = Data According To System"] -->
+    legend_dab["DAB = Data According To Business"] ---->
+    legend_dar["DAR = Data According To Requirements"]
 ```
 
 ## ERDs - Oriented Data Models
