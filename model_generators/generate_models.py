@@ -3,8 +3,7 @@ from generate_raw_views import generate_raw_views
 from generate_hook_bags import generate_hook_bags
 from generate_bridges import generate_bridges
 from generate_peripherals import generate_peripherals
-from generate_bridge_views import generate_bridge_views
-from generate_one_big_table import generate_one_big_table
+
 
 def main():
     """Generate all models for Adventure Works"""
@@ -26,14 +25,6 @@ def main():
     # Step 4: Generate peripheral models
     print("\n=== Generating Peripheral Models ===")
     generate_peripherals()
-    
-    # Step 5: Generate bridge views
-    #print("\n=== Generating Bridge Views ===")
-    #generate_bridge_views()
-    
-    # Step 6: Generate one big table views
-    print("\n=== Generating One Big Table Views ===")
-    generate_one_big_table()
     
     # Print summary
     elapsed_time = time.time() - start_time
