@@ -1,9 +1,8 @@
 import os
 from parse_yaml import load_bags_config, load_schema, ensure_directory_exists
 
-def generate_measure_models():
+def generate_measure_models(output_dir, hook_schema):
     """Generate measure models for bags with date fields"""
-    output_dir = './models/silver/'
     ensure_directory_exists(output_dir)
     
     bags_config = load_bags_config()
@@ -11,10 +10,11 @@ def generate_measure_models():
     
     count = 0
     for bag in bags_config['bags']:
-        if generate_measure_model_for_bag(bag, schema, output_dir):
+        if generate_measure_model_for_bag(bag, schema, output_dir, hook_schema):
             count += 1
     
     print(f"Generated {count} measure models in {output_dir}")
+    return count
 
 def find_date_fields(bag, schema):
     """Find date fields in a bag's source table that are truly temporal"""
@@ -74,7 +74,7 @@ def generate_measure_name(field_name, table_name):
     else:
         return f"measure__{table_name}_{clean_field}"
 
-def generate_measure_model_for_bag(bag, schema, output_dir):
+def generate_measure_model_for_bag(bag, schema, output_dir, hook_schema):
     """Generate a measure model for a specific bag if it has date fields"""
     bag_name = bag['name']
     
@@ -119,7 +119,7 @@ WITH cte__source AS (
                 sql_file.write(",")
             sql_file.write("\n")
         
-        sql_file.write(f"""  FROM silver.{bag_name}
+        sql_file.write(f"""  FROM {hook_schema}.{bag_name}
   WHERE 1 = 1
   AND {column_prefix}__record_updated_at BETWEEN @start_ts AND @end_ts
 )""")
@@ -176,4 +176,4 @@ SELECT
     return True
 
 if __name__ == "__main__":
-    generate_measure_models()
+    generate_measure_models("./models/silver/", "silver")

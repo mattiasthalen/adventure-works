@@ -1,11 +1,8 @@
 import os
 from parse_yaml import load_schema, load_bags_config, ensure_directory_exists, map_data_type
 
-def generate_hook_bags():
+def generate_hook_bags(output_dir, raw_schema):
     """Generate hook model SQL files based on bags configuration"""
-    # Define output directory
-    output_dir = './models/silver/'
-    
     # Ensure output directory exists
     ensure_directory_exists(output_dir)
     
@@ -18,13 +15,14 @@ def generate_hook_bags():
     
     # Process each bag
     for bag in bags_config['bags']:
-        success = generate_hook_model_for_bag(bag, schema, output_dir)
+        success = generate_hook_model_for_bag(bag, schema, output_dir, raw_schema)
         if success:
             count += 1
     
     print(f"Generated {count} hook models in {output_dir}")
+    return count
 
-def generate_hook_model_for_bag(bag, schema, output_dir):
+def generate_hook_model_for_bag(bag, schema, output_dir, raw_schema):
     """Generate a hook model SQL file for a specific bag"""
     bag_name = bag['name']
     source_table = bag['source_table']
@@ -81,7 +79,7 @@ def generate_hook_model_for_bag(bag, schema, output_dir):
         
         sql_file.write(f"    modified_date AS {column_prefix}__modified_date,\n")
         sql_file.write(f"    TO_TIMESTAMP(_dlt_load_id::DOUBLE) AS {column_prefix}__record_loaded_at\n")
-        sql_file.write(f"  FROM bronze.{source_table}\n")
+        sql_file.write(f"  FROM {raw_schema}.{source_table}\n")
         sql_file.write("), ")
         
         # Validity CTE
@@ -160,4 +158,4 @@ AND {column_prefix}__record_updated_at BETWEEN @start_ts AND @end_ts""")
     return True
 
 if __name__ == "__main__":
-    generate_hook_bags()
+    generate_hook_bags("./models/silver/", "bronze")

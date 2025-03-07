@@ -1,22 +1,22 @@
 import os
 from parse_yaml import load_bags_config, ensure_directory_exists
 
-def generate_peripherals():
+def generate_peripherals(output_dir, hook_schema):
     """Generate peripheral views in the gold layer based on silver bags"""
-    output_dir = './models/gold/'
     ensure_directory_exists(output_dir)
     
     bags_config = load_bags_config()
     count = 0
     
     for bag in bags_config['bags']:
-        success = generate_peripheral_for_bag(bag, output_dir)
+        success = generate_peripheral_for_bag(bag, output_dir, hook_schema)
         if success:
             count += 1
     
     print(f"Generated {count} peripheral views in {output_dir}")
+    return count
 
-def generate_peripheral_for_bag(bag, output_dir):
+def generate_peripheral_for_bag(bag, output_dir, hook_schema):
     """Generate a peripheral view for a specific bag"""
     bag_name = bag['name']
     
@@ -51,7 +51,7 @@ def generate_peripheral_for_bag(bag, output_dir):
 SELECT
   *
   EXCLUDE ({', '.join(exclude_columns)})
-FROM silver.{bag_name}"""
+FROM {hook_schema}.{bag_name}"""
     
     with open(sql_path, 'w') as file:
         file.write(sql)
@@ -59,4 +59,4 @@ FROM silver.{bag_name}"""
     return True
 
 if __name__ == "__main__":
-    generate_peripherals()
+    generate_peripherals("./models/gold/", "silver")

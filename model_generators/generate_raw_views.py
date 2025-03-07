@@ -1,11 +1,8 @@
 import os
 from parse_yaml import load_schema, get_filtered_tables, ensure_directory_exists, map_data_type
 
-def generate_raw_views():
+def generate_raw_views(output_dir):
     """Generate raw model SQL files for all tables in the schema"""
-    # Define output directory
-    output_dir = './models/bronze/'
-    
     # Ensure output directory exists
     ensure_directory_exists(output_dir)
     
@@ -33,6 +30,7 @@ def generate_raw_views():
         count += 1
     
     print(f"Generated {count} raw models in {output_dir}")
+    return count
 
 def generate_sql_for_table(table_name, table_info):
     """Generate SQL VIEW model for a table"""
@@ -65,4 +63,4 @@ def generate_sql_for_table(table_name, table_info):
     return sql
 
 if __name__ == "__main__":
-    generate_raw_views()
+    generate_raw_views("./models/bronze/")
