@@ -33,7 +33,8 @@ cte__bridge_pit_hook AS (
       '~',
       peripheral,
       'epoch__valid_from'||bridge__record_valid_from,
-      _pit_hook__product
+      _hook__epoch__date::TEXT,
+      _pit_hook__product::TEXT
     ) AS _pit_hook__bridge
   FROM cte__bridge
 )

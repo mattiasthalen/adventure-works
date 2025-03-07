@@ -135,17 +135,18 @@ cte__bridge_pit_hook AS (
       '~',
       peripheral,
       'epoch__valid_from'||bridge__record_valid_from,
-      _pit_hook__department,
-      _pit_hook__order__purchase,
-      _pit_hook__person__employee,
-      _pit_hook__product,
-      _pit_hook__product_category,
-      _pit_hook__product_subcategory,
-      _pit_hook__reference__product_model,
-      _pit_hook__reference__shift,
-      _pit_hook__reference__unit_measure,
-      _pit_hook__ship_method,
-      _pit_hook__vendor
+      _hook__epoch__date::TEXT,
+      _pit_hook__department::TEXT,
+      _pit_hook__order__purchase::TEXT,
+      _pit_hook__person__employee::TEXT,
+      _pit_hook__product::TEXT,
+      _pit_hook__product_category::TEXT,
+      _pit_hook__product_subcategory::TEXT,
+      _pit_hook__reference__product_model::TEXT,
+      _pit_hook__reference__shift::TEXT,
+      _pit_hook__reference__unit_measure::TEXT,
+      _pit_hook__ship_method::TEXT,
+      _pit_hook__vendor::TEXT
     ) AS _pit_hook__bridge
   FROM cte__pit_lookup
 )

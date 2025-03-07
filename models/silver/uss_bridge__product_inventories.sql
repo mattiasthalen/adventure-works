@@ -94,11 +94,12 @@ cte__bridge_pit_hook AS (
       '~',
       peripheral,
       'epoch__valid_from'||bridge__record_valid_from,
-      _pit_hook__product,
-      _pit_hook__product_category,
-      _pit_hook__product_subcategory,
-      _pit_hook__reference__location,
-      _pit_hook__reference__product_model
+      _hook__epoch__date::TEXT,
+      _pit_hook__product::TEXT,
+      _pit_hook__product_category::TEXT,
+      _pit_hook__product_subcategory::TEXT,
+      _pit_hook__reference__location::TEXT,
+      _pit_hook__reference__product_model::TEXT
     ) AS _pit_hook__bridge
   FROM cte__pit_lookup
 )

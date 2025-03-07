@@ -69,8 +69,9 @@ cte__bridge_pit_hook AS (
       '~',
       peripheral,
       'epoch__valid_from'||bridge__record_valid_from,
-      _pit_hook__reference__illustration,
-      _pit_hook__reference__product_model
+      _hook__epoch__date::TEXT,
+      _pit_hook__reference__illustration::TEXT,
+      _pit_hook__reference__product_model::TEXT
     ) AS _pit_hook__bridge
   FROM cte__pit_lookup
 )

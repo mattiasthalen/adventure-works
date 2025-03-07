@@ -69,8 +69,9 @@ cte__bridge_pit_hook AS (
       '~',
       peripheral,
       'epoch__valid_from'||bridge__record_valid_from,
-      _pit_hook__person__individual,
-      _pit_hook__reference__phone_number_type
+      _hook__epoch__date::TEXT,
+      _pit_hook__person__individual::TEXT,
+      _pit_hook__reference__phone_number_type::TEXT
     ) AS _pit_hook__bridge
   FROM cte__pit_lookup
 )

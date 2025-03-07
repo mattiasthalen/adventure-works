@@ -350,9 +350,8 @@ def generate_pit_lookup_cte(bag_info, dependencies, all_bag_info, join_fragments
     
     return sql
 
-def generate_pit_hook_cte(bag_info, all_bag_info, join_fragments=None):
+def generate_pit_hook_cte(bag_info, all_bag_info, epoch_date_field=None, join_fragments=None):
     """Generate CTE that creates the bridge PIT hook"""
-    #primary_hook = bag_info['primary_hook']
     
     sql = "cte__bridge_pit_hook AS (\n"
     sql += "  SELECT\n"
@@ -362,11 +361,13 @@ def generate_pit_hook_cte(bag_info, all_bag_info, join_fragments=None):
     sql += "      peripheral,\n"
     sql += "      'epoch__valid_from'||bridge__record_valid_from"
     
+    # Include the epoch date hook if it exists
+    if epoch_date_field:
+        sql += f",\n      {epoch_date_field}::TEXT"
+    
     # Add all PIT hooks to the concatenation
     for pit_hook in sorted(bag_info['all_pit_hooks']):
-        # Extract the real hook name without _pit prefix
-        #hook_name = pit_hook[4:]  # Remove "_pit" prefix
-        sql += f",\n      {pit_hook}"
+        sql += f",\n      {pit_hook}::TEXT"
     
     sql += "\n    ) AS _pit_hook__bridge\n"
     
@@ -435,6 +436,9 @@ def generate_intermediate_bridge(bag_name, bag_info, hook_graph, all_bag_info, o
     base_cte = generate_base_cte(bridge_name, primary_hook, dependencies, column_prefix, bag_name)
     join_fragments = generate_join_fragments(dependencies, all_bag_info)
     
+    # Get measure fields including epoch date field
+    epoch_date_field, measure_fields = get_measure_fields(bag_name)
+    
     with open(sql_path, 'w') as sql_file:
         # Write MODEL declaration
         sql_file.write(f"""MODEL (
@@ -463,7 +467,12 @@ def generate_intermediate_bridge(bag_name, bag_info, hook_graph, all_bag_info, o
             sql_file.write(",\n")
         
         # Add PIT hook generation
-        pit_hook_cte = generate_pit_hook_cte(bag_info, all_bag_info, join_fragments if dependencies else None)
+        pit_hook_cte = generate_pit_hook_cte(
+            bag_info, 
+            all_bag_info, 
+            epoch_date_field=epoch_date_field,
+            join_fragments=join_fragments if dependencies else None
+        )
         sql_file.write(pit_hook_cte)
         
         sql_file.write("\n")
