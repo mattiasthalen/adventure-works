@@ -13,7 +13,8 @@ WITH cte__source AS (
   SELECT
     _pit_hook__person__employee,
     employee__birth_date,
-    employee__hire_date
+    employee__hire_date,
+    employee__modified_date
   FROM silver.bag__adventure_works__employees
   WHERE 1 = 1
   AND employee__record_updated_at BETWEEN @start_ts AND @end_ts
@@ -31,11 +32,19 @@ WITH cte__source AS (
     1 AS measure__employees_hire
   FROM cte__source
   WHERE employee__hire_date IS NOT NULL
+), cte__modified_date AS (
+  SELECT
+    _pit_hook__person__employee,
+    employee__modified_date::DATE AS measure_date,
+    1 AS measure__employees_modified
+  FROM cte__source
+  WHERE employee__modified_date IS NOT NULL
 ), cte__measures AS (
   SELECT
     *
   FROM cte__birth_date
   FULL OUTER JOIN cte__hire_date USING (_pit_hook__person__employee, measure_date)
+  FULL OUTER JOIN cte__modified_date USING (_pit_hook__person__employee, measure_date)
 ), cte__epoch AS (
   SELECT
     *,
@@ -47,5 +56,6 @@ SELECT
   _pit_hook__person__employee::BLOB,
   _hook__epoch__date::BLOB,
   measure__employees_birth::INT,
-  measure__employees_hire::INT
+  measure__employees_hire::INT,
+  measure__employees_modified::INT
 FROM cte__epoch

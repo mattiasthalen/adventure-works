@@ -14,12 +14,15 @@ WITH cte__bridge AS (
     'sales_reasons' AS peripheral,
     _pit_hook__reference__sales_reason,
     _hook__reference__sales_reason,
+    _hook__epoch__date,
+    measure__sales_reasons_modified,
     sales_reason__record_loaded_at AS bridge__record_loaded_at,
     sales_reason__record_updated_at AS bridge__record_updated_at,
     sales_reason__record_valid_from AS bridge__record_valid_from,
     sales_reason__record_valid_to AS bridge__record_valid_to,
     sales_reason__is_current_record AS bridge__is_current_record
   FROM silver.bag__adventure_works__sales_reasons
+  LEFT JOIN silver.measure__adventure_works__sales_reasons USING (_pit_hook__reference__sales_reason)
 ),
 cte__bridge_pit_hook AS (
   SELECT
@@ -37,6 +40,8 @@ SELECT
   _pit_hook__bridge::BLOB,
   _pit_hook__reference__sales_reason::BLOB,
   _hook__reference__sales_reason::BLOB,
+  _hook__epoch__date::BLOB,
+  measure__sales_reasons_modified::INT,
   bridge__record_loaded_at::TIMESTAMP,
   bridge__record_updated_at::TIMESTAMP,
   bridge__record_valid_from::TIMESTAMP,

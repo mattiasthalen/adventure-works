@@ -12,7 +12,8 @@ MODEL (
 WITH cte__source AS (
   SELECT
     _pit_hook__transaction_history,
-    transaction_history__transaction_date
+    transaction_history__transaction_date,
+    transaction_history__modified_date
   FROM silver.bag__adventure_works__transaction_histories
   WHERE 1 = 1
   AND transaction_history__record_updated_at BETWEEN @start_ts AND @end_ts
@@ -23,10 +24,18 @@ WITH cte__source AS (
     1 AS measure__transaction_histories_transaction
   FROM cte__source
   WHERE transaction_history__transaction_date IS NOT NULL
+), cte__modified_date AS (
+  SELECT
+    _pit_hook__transaction_history,
+    transaction_history__modified_date::DATE AS measure_date,
+    1 AS measure__transaction_histories_modified
+  FROM cte__source
+  WHERE transaction_history__modified_date IS NOT NULL
 ), cte__measures AS (
   SELECT
     *
   FROM cte__transaction_date
+  FULL OUTER JOIN cte__modified_date USING (_pit_hook__transaction_history, measure_date)
 ), cte__epoch AS (
   SELECT
     *,
@@ -37,5 +46,6 @@ WITH cte__source AS (
 SELECT
   _pit_hook__transaction_history::BLOB,
   _hook__epoch__date::BLOB,
-  measure__transaction_histories_transaction::INT
+  measure__transaction_histories_transaction::INT,
+  measure__transaction_histories_modified::INT
 FROM cte__epoch

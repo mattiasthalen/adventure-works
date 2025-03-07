@@ -16,21 +16,26 @@ WITH cte__bridge AS (
     _hook__reference__state_province,
     _hook__reference__country_region,
     _hook__territory__sales,
+    _hook__epoch__date,
+    measure__state_provinces_modified,
     state_province__record_loaded_at AS bridge__record_loaded_at,
     state_province__record_updated_at AS bridge__record_updated_at,
     state_province__record_valid_from AS bridge__record_valid_from,
     state_province__record_valid_to AS bridge__record_valid_to,
     state_province__is_current_record AS bridge__is_current_record
   FROM silver.bag__adventure_works__state_provinces
+  LEFT JOIN silver.measure__adventure_works__state_provinces USING (_pit_hook__reference__state_province)
 ),
 cte__pit_lookup AS (
   SELECT
     cte__bridge.peripheral,
     cte__bridge._pit_hook__reference__state_province,
     uss_bridge__country_regions._pit_hook__reference__country_region,
-    uss_bridge__sales_territories._pit_hook__territory__sales,
     uss_bridge__sales_territories._pit_hook__reference__country_region,
+    uss_bridge__sales_territories._pit_hook__territory__sales,
     cte__bridge._hook__reference__state_province,
+    cte__bridge._hook__epoch__date,
+    cte__bridge.measure__state_provinces_modified,
     GREATEST(
         cte__bridge.bridge__record_loaded_at,
         uss_bridge__country_regions.bridge__record_loaded_at,
@@ -89,6 +94,8 @@ SELECT
   _pit_hook__reference__state_province::BLOB,
   _pit_hook__territory__sales::BLOB,
   _hook__reference__state_province::BLOB,
+  _hook__epoch__date::BLOB,
+  measure__state_provinces_modified::INT,
   bridge__record_loaded_at::TIMESTAMP,
   bridge__record_updated_at::TIMESTAMP,
   bridge__record_valid_from::TIMESTAMP,

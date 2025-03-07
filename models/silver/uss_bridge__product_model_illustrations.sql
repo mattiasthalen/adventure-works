@@ -15,12 +15,15 @@ WITH cte__bridge AS (
     _pit_hook__reference__illustration,
     _hook__reference__illustration,
     _hook__reference__product_model,
+    _hook__epoch__date,
+    measure__product_model_illustrations_modified,
     product_model_illustration__record_loaded_at AS bridge__record_loaded_at,
     product_model_illustration__record_updated_at AS bridge__record_updated_at,
     product_model_illustration__record_valid_from AS bridge__record_valid_from,
     product_model_illustration__record_valid_to AS bridge__record_valid_to,
     product_model_illustration__is_current_record AS bridge__is_current_record
   FROM silver.bag__adventure_works__product_model_illustrations
+  LEFT JOIN silver.measure__adventure_works__product_model_illustrations USING (_pit_hook__reference__illustration)
 ),
 cte__pit_lookup AS (
   SELECT
@@ -28,6 +31,8 @@ cte__pit_lookup AS (
     cte__bridge._pit_hook__reference__illustration,
     uss_bridge__product_models._pit_hook__reference__product_model,
     cte__bridge._hook__reference__illustration,
+    cte__bridge._hook__epoch__date,
+    cte__bridge.measure__product_model_illustrations_modified,
     GREATEST(
         cte__bridge.bridge__record_loaded_at,
         uss_bridge__product_models.bridge__record_loaded_at
@@ -75,6 +80,8 @@ SELECT
   _pit_hook__reference__illustration::BLOB,
   _pit_hook__reference__product_model::BLOB,
   _hook__reference__illustration::BLOB,
+  _hook__epoch__date::BLOB,
+  measure__product_model_illustrations_modified::INT,
   bridge__record_loaded_at::TIMESTAMP,
   bridge__record_updated_at::TIMESTAMP,
   bridge__record_valid_from::TIMESTAMP,

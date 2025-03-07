@@ -16,21 +16,26 @@ WITH cte__bridge AS (
     _hook__address,
     _hook__business_entity,
     _hook__reference__address_type,
+    _hook__epoch__date,
+    measure__business_entity_addresses_modified,
     business_entity_address__record_loaded_at AS bridge__record_loaded_at,
     business_entity_address__record_updated_at AS bridge__record_updated_at,
     business_entity_address__record_valid_from AS bridge__record_valid_from,
     business_entity_address__record_valid_to AS bridge__record_valid_to,
     business_entity_address__is_current_record AS bridge__is_current_record
   FROM silver.bag__adventure_works__business_entity_addresses
+  LEFT JOIN silver.measure__adventure_works__business_entity_addresses USING (_pit_hook__address)
 ),
 cte__pit_lookup AS (
   SELECT
     cte__bridge.peripheral,
     cte__bridge._pit_hook__address,
+    uss_bridge__address_types._pit_hook__reference__address_type,
     uss_bridge__business_entity_contacts._pit_hook__business_entity,
     uss_bridge__business_entity_contacts._pit_hook__reference__contact_type,
-    uss_bridge__address_types._pit_hook__reference__address_type,
     cte__bridge._hook__address,
+    cte__bridge._hook__epoch__date,
+    cte__bridge.measure__business_entity_addresses_modified,
     GREATEST(
         cte__bridge.bridge__record_loaded_at,
         uss_bridge__business_entity_contacts.bridge__record_loaded_at,
@@ -91,6 +96,8 @@ SELECT
   _pit_hook__reference__address_type::BLOB,
   _pit_hook__reference__contact_type::BLOB,
   _hook__address::BLOB,
+  _hook__epoch__date::BLOB,
+  measure__business_entity_addresses_modified::INT,
   bridge__record_loaded_at::TIMESTAMP,
   bridge__record_updated_at::TIMESTAMP,
   bridge__record_valid_from::TIMESTAMP,

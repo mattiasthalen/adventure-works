@@ -15,7 +15,8 @@ WITH cte__source AS (
     work_order_routing__scheduled_start_date,
     work_order_routing__scheduled_end_date,
     work_order_routing__actual_start_date,
-    work_order_routing__actual_end_date
+    work_order_routing__actual_end_date,
+    work_order_routing__modified_date
   FROM silver.bag__adventure_works__work_order_routings
   WHERE 1 = 1
   AND work_order_routing__record_updated_at BETWEEN @start_ts AND @end_ts
@@ -47,6 +48,13 @@ WITH cte__source AS (
     1 AS measure__work_order_routings_actual_end
   FROM cte__source
   WHERE work_order_routing__actual_end_date IS NOT NULL
+), cte__modified_date AS (
+  SELECT
+    _pit_hook__order_line__work,
+    work_order_routing__modified_date::DATE AS measure_date,
+    1 AS measure__work_order_routings_modified
+  FROM cte__source
+  WHERE work_order_routing__modified_date IS NOT NULL
 ), cte__measures AS (
   SELECT
     *
@@ -54,6 +62,7 @@ WITH cte__source AS (
   FULL OUTER JOIN cte__scheduled_end_date USING (_pit_hook__order_line__work, measure_date)
   FULL OUTER JOIN cte__actual_start_date USING (_pit_hook__order_line__work, measure_date)
   FULL OUTER JOIN cte__actual_end_date USING (_pit_hook__order_line__work, measure_date)
+  FULL OUTER JOIN cte__modified_date USING (_pit_hook__order_line__work, measure_date)
 ), cte__epoch AS (
   SELECT
     *,
@@ -67,5 +76,6 @@ SELECT
   measure__work_order_routings_scheduled_start::INT,
   measure__work_order_routings_scheduled_end::INT,
   measure__work_order_routings_actual_start::INT,
-  measure__work_order_routings_actual_end::INT
+  measure__work_order_routings_actual_end::INT,
+  measure__work_order_routings_modified::INT
 FROM cte__epoch

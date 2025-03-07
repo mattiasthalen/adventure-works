@@ -13,6 +13,7 @@ WITH cte__source AS (
   SELECT
     _pit_hook__bill_of_materials,
     bill_of_material__start_date,
+    bill_of_material__modified_date,
     bill_of_material__end_date
   FROM silver.bag__adventure_works__bill_of_materials
   WHERE 1 = 1
@@ -24,6 +25,13 @@ WITH cte__source AS (
     1 AS measure__bill_of_materials_started
   FROM cte__source
   WHERE bill_of_material__start_date IS NOT NULL
+), cte__modified_date AS (
+  SELECT
+    _pit_hook__bill_of_materials,
+    bill_of_material__modified_date::DATE AS measure_date,
+    1 AS measure__bill_of_materials_modified
+  FROM cte__source
+  WHERE bill_of_material__modified_date IS NOT NULL
 ), cte__end_date AS (
   SELECT
     _pit_hook__bill_of_materials,
@@ -35,6 +43,7 @@ WITH cte__source AS (
   SELECT
     *
   FROM cte__start_date
+  FULL OUTER JOIN cte__modified_date USING (_pit_hook__bill_of_materials, measure_date)
   FULL OUTER JOIN cte__end_date USING (_pit_hook__bill_of_materials, measure_date)
 ), cte__epoch AS (
   SELECT
@@ -47,5 +56,6 @@ SELECT
   _pit_hook__bill_of_materials::BLOB,
   _hook__epoch__date::BLOB,
   measure__bill_of_materials_started::INT,
+  measure__bill_of_materials_modified::INT,
   measure__bill_of_materials_finished::INT
 FROM cte__epoch

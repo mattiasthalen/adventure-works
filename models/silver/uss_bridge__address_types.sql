@@ -14,12 +14,15 @@ WITH cte__bridge AS (
     'address_types' AS peripheral,
     _pit_hook__reference__address_type,
     _hook__reference__address_type,
+    _hook__epoch__date,
+    measure__address_types_modified,
     address_type__record_loaded_at AS bridge__record_loaded_at,
     address_type__record_updated_at AS bridge__record_updated_at,
     address_type__record_valid_from AS bridge__record_valid_from,
     address_type__record_valid_to AS bridge__record_valid_to,
     address_type__is_current_record AS bridge__is_current_record
   FROM silver.bag__adventure_works__address_types
+  LEFT JOIN silver.measure__adventure_works__address_types USING (_pit_hook__reference__address_type)
 ),
 cte__bridge_pit_hook AS (
   SELECT
@@ -37,6 +40,8 @@ SELECT
   _pit_hook__bridge::BLOB,
   _pit_hook__reference__address_type::BLOB,
   _hook__reference__address_type::BLOB,
+  _hook__epoch__date::BLOB,
+  measure__address_types_modified::INT,
   bridge__record_loaded_at::TIMESTAMP,
   bridge__record_updated_at::TIMESTAMP,
   bridge__record_valid_from::TIMESTAMP,

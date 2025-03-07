@@ -17,6 +17,7 @@ WITH cte__bridge AS (
     _hook__reference__unit_measure,
     _hook__epoch__date,
     measure__bill_of_materials_started,
+    measure__bill_of_materials_modified,
     measure__bill_of_materials_finished,
     bill_of_material__record_loaded_at AS bridge__record_loaded_at,
     bill_of_material__record_updated_at AS bridge__record_updated_at,
@@ -34,6 +35,7 @@ cte__pit_lookup AS (
     cte__bridge._hook__bill_of_materials,
     cte__bridge._hook__epoch__date,
     cte__bridge.measure__bill_of_materials_started,
+    cte__bridge.measure__bill_of_materials_modified,
     cte__bridge.measure__bill_of_materials_finished,
     GREATEST(
         cte__bridge.bridge__record_loaded_at,
@@ -84,6 +86,7 @@ SELECT
   _hook__bill_of_materials::BLOB,
   _hook__epoch__date::BLOB,
   measure__bill_of_materials_started::INT,
+  measure__bill_of_materials_modified::INT,
   measure__bill_of_materials_finished::INT,
   bridge__record_loaded_at::TIMESTAMP,
   bridge__record_updated_at::TIMESTAMP,

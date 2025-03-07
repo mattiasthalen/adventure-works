@@ -13,7 +13,8 @@ WITH cte__source AS (
   SELECT
     _pit_hook__order__purchase,
     purchase_order_header__order_date,
-    purchase_order_header__ship_date
+    purchase_order_header__ship_date,
+    purchase_order_header__modified_date
   FROM silver.bag__adventure_works__purchase_order_headers
   WHERE 1 = 1
   AND purchase_order_header__record_updated_at BETWEEN @start_ts AND @end_ts
@@ -31,11 +32,19 @@ WITH cte__source AS (
     1 AS measure__purchase_order_headers_shipped
   FROM cte__source
   WHERE purchase_order_header__ship_date IS NOT NULL
+), cte__modified_date AS (
+  SELECT
+    _pit_hook__order__purchase,
+    purchase_order_header__modified_date::DATE AS measure_date,
+    1 AS measure__purchase_order_headers_modified
+  FROM cte__source
+  WHERE purchase_order_header__modified_date IS NOT NULL
 ), cte__measures AS (
   SELECT
     *
   FROM cte__order_date
   FULL OUTER JOIN cte__ship_date USING (_pit_hook__order__purchase, measure_date)
+  FULL OUTER JOIN cte__modified_date USING (_pit_hook__order__purchase, measure_date)
 ), cte__epoch AS (
   SELECT
     *,
@@ -47,5 +56,6 @@ SELECT
   _pit_hook__order__purchase::BLOB,
   _hook__epoch__date::BLOB,
   measure__purchase_order_headers_placed::INT,
-  measure__purchase_order_headers_shipped::INT
+  measure__purchase_order_headers_shipped::INT,
+  measure__purchase_order_headers_modified::INT
 FROM cte__epoch

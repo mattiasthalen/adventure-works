@@ -12,21 +12,21 @@ MODEL (
 WITH cte__source AS (
   SELECT
     _pit_hook__shopping_cart_item,
-    shopping_cart_item__date_created
+    shopping_cart_item__modified_date
   FROM silver.bag__adventure_works__shopping_cart_items
   WHERE 1 = 1
   AND shopping_cart_item__record_updated_at BETWEEN @start_ts AND @end_ts
-), cte__date_created AS (
+), cte__modified_date AS (
   SELECT
     _pit_hook__shopping_cart_item,
-    shopping_cart_item__date_created::DATE AS measure_date,
-    1 AS measure__shopping_cart_items_created
+    shopping_cart_item__modified_date::DATE AS measure_date,
+    1 AS measure__shopping_cart_items_modified
   FROM cte__source
-  WHERE shopping_cart_item__date_created IS NOT NULL
+  WHERE shopping_cart_item__modified_date IS NOT NULL
 ), cte__measures AS (
   SELECT
     *
-  FROM cte__date_created
+  FROM cte__modified_date
 ), cte__epoch AS (
   SELECT
     *,
@@ -37,5 +37,5 @@ WITH cte__source AS (
 SELECT
   _pit_hook__shopping_cart_item::BLOB,
   _hook__epoch__date::BLOB,
-  measure__shopping_cart_items_created::INT
+  measure__shopping_cart_items_modified::INT
 FROM cte__epoch

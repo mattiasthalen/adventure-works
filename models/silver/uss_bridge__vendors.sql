@@ -14,12 +14,15 @@ WITH cte__bridge AS (
     'vendors' AS peripheral,
     _pit_hook__vendor,
     _hook__vendor,
+    _hook__epoch__date,
+    measure__vendors_modified,
     vendor__record_loaded_at AS bridge__record_loaded_at,
     vendor__record_updated_at AS bridge__record_updated_at,
     vendor__record_valid_from AS bridge__record_valid_from,
     vendor__record_valid_to AS bridge__record_valid_to,
     vendor__is_current_record AS bridge__is_current_record
   FROM silver.bag__adventure_works__vendors
+  LEFT JOIN silver.measure__adventure_works__vendors USING (_pit_hook__vendor)
 ),
 cte__bridge_pit_hook AS (
   SELECT
@@ -37,6 +40,8 @@ SELECT
   _pit_hook__bridge::BLOB,
   _pit_hook__vendor::BLOB,
   _hook__vendor::BLOB,
+  _hook__epoch__date::BLOB,
+  measure__vendors_modified::INT,
   bridge__record_loaded_at::TIMESTAMP,
   bridge__record_updated_at::TIMESTAMP,
   bridge__record_valid_from::TIMESTAMP,

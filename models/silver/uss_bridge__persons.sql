@@ -14,12 +14,15 @@ WITH cte__bridge AS (
     'persons' AS peripheral,
     _pit_hook__person__individual,
     _hook__person__individual,
+    _hook__epoch__date,
+    measure__persons_modified,
     person__record_loaded_at AS bridge__record_loaded_at,
     person__record_updated_at AS bridge__record_updated_at,
     person__record_valid_from AS bridge__record_valid_from,
     person__record_valid_to AS bridge__record_valid_to,
     person__is_current_record AS bridge__is_current_record
   FROM silver.bag__adventure_works__persons
+  LEFT JOIN silver.measure__adventure_works__persons USING (_pit_hook__person__individual)
 ),
 cte__bridge_pit_hook AS (
   SELECT
@@ -37,6 +40,8 @@ SELECT
   _pit_hook__bridge::BLOB,
   _pit_hook__person__individual::BLOB,
   _hook__person__individual::BLOB,
+  _hook__epoch__date::BLOB,
+  measure__persons_modified::INT,
   bridge__record_loaded_at::TIMESTAMP,
   bridge__record_updated_at::TIMESTAMP,
   bridge__record_valid_from::TIMESTAMP,

@@ -14,12 +14,15 @@ WITH cte__bridge AS (
     'ship_methods' AS peripheral,
     _pit_hook__ship_method,
     _hook__ship_method,
+    _hook__epoch__date,
+    measure__ship_methods_modified,
     ship_method__record_loaded_at AS bridge__record_loaded_at,
     ship_method__record_updated_at AS bridge__record_updated_at,
     ship_method__record_valid_from AS bridge__record_valid_from,
     ship_method__record_valid_to AS bridge__record_valid_to,
     ship_method__is_current_record AS bridge__is_current_record
   FROM silver.bag__adventure_works__ship_methods
+  LEFT JOIN silver.measure__adventure_works__ship_methods USING (_pit_hook__ship_method)
 ),
 cte__bridge_pit_hook AS (
   SELECT
@@ -37,6 +40,8 @@ SELECT
   _pit_hook__bridge::BLOB,
   _pit_hook__ship_method::BLOB,
   _hook__ship_method::BLOB,
+  _hook__epoch__date::BLOB,
+  measure__ship_methods_modified::INT,
   bridge__record_loaded_at::TIMESTAMP,
   bridge__record_updated_at::TIMESTAMP,
   bridge__record_valid_from::TIMESTAMP,

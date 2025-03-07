@@ -13,7 +13,8 @@ WITH cte__source AS (
   SELECT
     _pit_hook__reference__special_offer,
     special_offer__start_date,
-    special_offer__end_date
+    special_offer__end_date,
+    special_offer__modified_date
   FROM silver.bag__adventure_works__special_offers
   WHERE 1 = 1
   AND special_offer__record_updated_at BETWEEN @start_ts AND @end_ts
@@ -31,11 +32,19 @@ WITH cte__source AS (
     1 AS measure__special_offers_finished
   FROM cte__source
   WHERE special_offer__end_date IS NOT NULL
+), cte__modified_date AS (
+  SELECT
+    _pit_hook__reference__special_offer,
+    special_offer__modified_date::DATE AS measure_date,
+    1 AS measure__special_offers_modified
+  FROM cte__source
+  WHERE special_offer__modified_date IS NOT NULL
 ), cte__measures AS (
   SELECT
     *
   FROM cte__start_date
   FULL OUTER JOIN cte__end_date USING (_pit_hook__reference__special_offer, measure_date)
+  FULL OUTER JOIN cte__modified_date USING (_pit_hook__reference__special_offer, measure_date)
 ), cte__epoch AS (
   SELECT
     *,
@@ -47,5 +56,6 @@ SELECT
   _pit_hook__reference__special_offer::BLOB,
   _hook__epoch__date::BLOB,
   measure__special_offers_started::INT,
-  measure__special_offers_finished::INT
+  measure__special_offers_finished::INT,
+  measure__special_offers_modified::INT
 FROM cte__epoch

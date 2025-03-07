@@ -15,12 +15,15 @@ WITH cte__bridge AS (
     _pit_hook__business_entity,
     _hook__business_entity,
     _hook__reference__contact_type,
+    _hook__epoch__date,
+    measure__business_entity_contacts_modified,
     business_entity_contact__record_loaded_at AS bridge__record_loaded_at,
     business_entity_contact__record_updated_at AS bridge__record_updated_at,
     business_entity_contact__record_valid_from AS bridge__record_valid_from,
     business_entity_contact__record_valid_to AS bridge__record_valid_to,
     business_entity_contact__is_current_record AS bridge__is_current_record
   FROM silver.bag__adventure_works__business_entity_contacts
+  LEFT JOIN silver.measure__adventure_works__business_entity_contacts USING (_pit_hook__business_entity)
 ),
 cte__pit_lookup AS (
   SELECT
@@ -28,6 +31,8 @@ cte__pit_lookup AS (
     cte__bridge._pit_hook__business_entity,
     uss_bridge__contact_types._pit_hook__reference__contact_type,
     cte__bridge._hook__business_entity,
+    cte__bridge._hook__epoch__date,
+    cte__bridge.measure__business_entity_contacts_modified,
     GREATEST(
         cte__bridge.bridge__record_loaded_at,
         uss_bridge__contact_types.bridge__record_loaded_at
@@ -75,6 +80,8 @@ SELECT
   _pit_hook__business_entity::BLOB,
   _pit_hook__reference__contact_type::BLOB,
   _hook__business_entity::BLOB,
+  _hook__epoch__date::BLOB,
+  measure__business_entity_contacts_modified::INT,
   bridge__record_loaded_at::TIMESTAMP,
   bridge__record_updated_at::TIMESTAMP,
   bridge__record_valid_from::TIMESTAMP,

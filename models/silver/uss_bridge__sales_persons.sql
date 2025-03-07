@@ -15,20 +15,25 @@ WITH cte__bridge AS (
     _pit_hook__person__sales,
     _hook__person__sales,
     _hook__territory__sales,
+    _hook__epoch__date,
+    measure__sales_persons_modified,
     sales_person__record_loaded_at AS bridge__record_loaded_at,
     sales_person__record_updated_at AS bridge__record_updated_at,
     sales_person__record_valid_from AS bridge__record_valid_from,
     sales_person__record_valid_to AS bridge__record_valid_to,
     sales_person__is_current_record AS bridge__is_current_record
   FROM silver.bag__adventure_works__sales_persons
+  LEFT JOIN silver.measure__adventure_works__sales_persons USING (_pit_hook__person__sales)
 ),
 cte__pit_lookup AS (
   SELECT
     cte__bridge.peripheral,
     cte__bridge._pit_hook__person__sales,
-    uss_bridge__sales_territories._pit_hook__territory__sales,
     uss_bridge__sales_territories._pit_hook__reference__country_region,
+    uss_bridge__sales_territories._pit_hook__territory__sales,
     cte__bridge._hook__person__sales,
+    cte__bridge._hook__epoch__date,
+    cte__bridge.measure__sales_persons_modified,
     GREATEST(
         cte__bridge.bridge__record_loaded_at,
         uss_bridge__sales_territories.bridge__record_loaded_at
@@ -78,6 +83,8 @@ SELECT
   _pit_hook__reference__country_region::BLOB,
   _pit_hook__territory__sales::BLOB,
   _hook__person__sales::BLOB,
+  _hook__epoch__date::BLOB,
+  measure__sales_persons_modified::INT,
   bridge__record_loaded_at::TIMESTAMP,
   bridge__record_updated_at::TIMESTAMP,
   bridge__record_valid_from::TIMESTAMP,

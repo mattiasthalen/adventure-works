@@ -17,24 +17,29 @@ WITH cte__bridge AS (
     _hook__product,
     _hook__product,
     _hook__product,
+    _hook__epoch__date,
+    measure__product_inventories_modified,
     product_inventory__record_loaded_at AS bridge__record_loaded_at,
     product_inventory__record_updated_at AS bridge__record_updated_at,
     product_inventory__record_valid_from AS bridge__record_valid_from,
     product_inventory__record_valid_to AS bridge__record_valid_to,
     product_inventory__is_current_record AS bridge__is_current_record
   FROM silver.bag__adventure_works__product_inventories
+  LEFT JOIN silver.measure__adventure_works__product_inventories USING (_pit_hook__reference__location)
 ),
 cte__pit_lookup AS (
   SELECT
     cte__bridge.peripheral,
     cte__bridge._pit_hook__reference__location,
+    uss_bridge__product_cost_histories._pit_hook__product,
+    uss_bridge__product_list_price_histories._pit_hook__product,
     uss_bridge__products._pit_hook__product,
     uss_bridge__products._pit_hook__product_category,
     uss_bridge__products._pit_hook__product_subcategory,
     uss_bridge__products._pit_hook__reference__product_model,
-    uss_bridge__product_cost_histories._pit_hook__product,
-    uss_bridge__product_list_price_histories._pit_hook__product,
     cte__bridge._hook__reference__location,
+    cte__bridge._hook__epoch__date,
+    cte__bridge.measure__product_inventories_modified,
     GREATEST(
         cte__bridge.bridge__record_loaded_at,
         uss_bridge__products.bridge__record_loaded_at,
@@ -106,6 +111,8 @@ SELECT
   _pit_hook__reference__location::BLOB,
   _pit_hook__reference__product_model::BLOB,
   _hook__reference__location::BLOB,
+  _hook__epoch__date::BLOB,
+  measure__product_inventories_modified::INT,
   bridge__record_loaded_at::TIMESTAMP,
   bridge__record_updated_at::TIMESTAMP,
   bridge__record_valid_from::TIMESTAMP,

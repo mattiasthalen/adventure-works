@@ -18,6 +18,7 @@ WITH cte__bridge AS (
     _hook__reference__shift,
     _hook__epoch__date,
     measure__employee_department_histories_started,
+    measure__employee_department_histories_modified,
     measure__employee_department_histories_finished,
     employee_department_history__record_loaded_at AS bridge__record_loaded_at,
     employee_department_history__record_updated_at AS bridge__record_updated_at,
@@ -36,6 +37,7 @@ cte__pit_lookup AS (
     cte__bridge._hook__person__employee,
     cte__bridge._hook__epoch__date,
     cte__bridge.measure__employee_department_histories_started,
+    cte__bridge.measure__employee_department_histories_modified,
     cte__bridge.measure__employee_department_histories_finished,
     GREATEST(
         cte__bridge.bridge__record_loaded_at,
@@ -97,6 +99,7 @@ SELECT
   _hook__person__employee::BLOB,
   _hook__epoch__date::BLOB,
   measure__employee_department_histories_started::INT,
+  measure__employee_department_histories_modified::INT,
   measure__employee_department_histories_finished::INT,
   bridge__record_loaded_at::TIMESTAMP,
   bridge__record_updated_at::TIMESTAMP,

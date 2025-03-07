@@ -16,24 +16,29 @@ WITH cte__bridge AS (
     _hook__customer,
     _hook__store,
     _hook__territory__sales,
+    _hook__epoch__date,
+    measure__customers_modified,
     customer__record_loaded_at AS bridge__record_loaded_at,
     customer__record_updated_at AS bridge__record_updated_at,
     customer__record_valid_from AS bridge__record_valid_from,
     customer__record_valid_to AS bridge__record_valid_to,
     customer__is_current_record AS bridge__is_current_record
   FROM silver.bag__adventure_works__customers
+  LEFT JOIN silver.measure__adventure_works__customers USING (_pit_hook__customer)
 ),
 cte__pit_lookup AS (
   SELECT
     cte__bridge.peripheral,
     cte__bridge._pit_hook__customer,
+    uss_bridge__sales_territories._pit_hook__reference__country_region,
+    uss_bridge__sales_territories._pit_hook__territory__sales,
+    uss_bridge__stores._pit_hook__person__sales,
+    uss_bridge__stores._pit_hook__reference__country_region,
     uss_bridge__stores._pit_hook__store,
     uss_bridge__stores._pit_hook__territory__sales,
-    uss_bridge__stores._pit_hook__reference__country_region,
-    uss_bridge__stores._pit_hook__person__sales,
-    uss_bridge__sales_territories._pit_hook__territory__sales,
-    uss_bridge__sales_territories._pit_hook__reference__country_region,
     cte__bridge._hook__customer,
+    cte__bridge._hook__epoch__date,
+    cte__bridge.measure__customers_modified,
     GREATEST(
         cte__bridge.bridge__record_loaded_at,
         uss_bridge__stores.bridge__record_loaded_at,
@@ -96,6 +101,8 @@ SELECT
   _pit_hook__store::BLOB,
   _pit_hook__territory__sales::BLOB,
   _hook__customer::BLOB,
+  _hook__epoch__date::BLOB,
+  measure__customers_modified::INT,
   bridge__record_loaded_at::TIMESTAMP,
   bridge__record_updated_at::TIMESTAMP,
   bridge__record_valid_from::TIMESTAMP,

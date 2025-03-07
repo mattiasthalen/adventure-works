@@ -14,12 +14,15 @@ WITH cte__bridge AS (
     'contact_types' AS peripheral,
     _pit_hook__reference__contact_type,
     _hook__reference__contact_type,
+    _hook__epoch__date,
+    measure__contact_types_modified,
     contact_type__record_loaded_at AS bridge__record_loaded_at,
     contact_type__record_updated_at AS bridge__record_updated_at,
     contact_type__record_valid_from AS bridge__record_valid_from,
     contact_type__record_valid_to AS bridge__record_valid_to,
     contact_type__is_current_record AS bridge__is_current_record
   FROM silver.bag__adventure_works__contact_types
+  LEFT JOIN silver.measure__adventure_works__contact_types USING (_pit_hook__reference__contact_type)
 ),
 cte__bridge_pit_hook AS (
   SELECT
@@ -37,6 +40,8 @@ SELECT
   _pit_hook__bridge::BLOB,
   _pit_hook__reference__contact_type::BLOB,
   _hook__reference__contact_type::BLOB,
+  _hook__epoch__date::BLOB,
+  measure__contact_types_modified::INT,
   bridge__record_loaded_at::TIMESTAMP,
   bridge__record_updated_at::TIMESTAMP,
   bridge__record_valid_from::TIMESTAMP,

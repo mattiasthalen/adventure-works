@@ -15,12 +15,15 @@ WITH cte__bridge AS (
     _pit_hook__product_subcategory,
     _hook__product_subcategory,
     _hook__product_category,
+    _hook__epoch__date,
+    measure__product_subcategories_modified,
     product_subcategory__record_loaded_at AS bridge__record_loaded_at,
     product_subcategory__record_updated_at AS bridge__record_updated_at,
     product_subcategory__record_valid_from AS bridge__record_valid_from,
     product_subcategory__record_valid_to AS bridge__record_valid_to,
     product_subcategory__is_current_record AS bridge__is_current_record
   FROM silver.bag__adventure_works__product_subcategories
+  LEFT JOIN silver.measure__adventure_works__product_subcategories USING (_pit_hook__product_subcategory)
 ),
 cte__pit_lookup AS (
   SELECT
@@ -28,6 +31,8 @@ cte__pit_lookup AS (
     cte__bridge._pit_hook__product_subcategory,
     uss_bridge__product_categories._pit_hook__product_category,
     cte__bridge._hook__product_subcategory,
+    cte__bridge._hook__epoch__date,
+    cte__bridge.measure__product_subcategories_modified,
     GREATEST(
         cte__bridge.bridge__record_loaded_at,
         uss_bridge__product_categories.bridge__record_loaded_at
@@ -75,6 +80,8 @@ SELECT
   _pit_hook__product_category::BLOB,
   _pit_hook__product_subcategory::BLOB,
   _hook__product_subcategory::BLOB,
+  _hook__epoch__date::BLOB,
+  measure__product_subcategories_modified::INT,
   bridge__record_loaded_at::TIMESTAMP,
   bridge__record_updated_at::TIMESTAMP,
   bridge__record_valid_from::TIMESTAMP,

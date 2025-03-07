@@ -14,7 +14,8 @@ WITH cte__source AS (
     _pit_hook__order__work,
     work_order__start_date,
     work_order__end_date,
-    work_order__due_date
+    work_order__due_date,
+    work_order__modified_date
   FROM silver.bag__adventure_works__work_orders
   WHERE 1 = 1
   AND work_order__record_updated_at BETWEEN @start_ts AND @end_ts
@@ -39,12 +40,20 @@ WITH cte__source AS (
     1 AS measure__work_orders_due
   FROM cte__source
   WHERE work_order__due_date IS NOT NULL
+), cte__modified_date AS (
+  SELECT
+    _pit_hook__order__work,
+    work_order__modified_date::DATE AS measure_date,
+    1 AS measure__work_orders_modified
+  FROM cte__source
+  WHERE work_order__modified_date IS NOT NULL
 ), cte__measures AS (
   SELECT
     *
   FROM cte__start_date
   FULL OUTER JOIN cte__end_date USING (_pit_hook__order__work, measure_date)
   FULL OUTER JOIN cte__due_date USING (_pit_hook__order__work, measure_date)
+  FULL OUTER JOIN cte__modified_date USING (_pit_hook__order__work, measure_date)
 ), cte__epoch AS (
   SELECT
     *,
@@ -57,5 +66,6 @@ SELECT
   _hook__epoch__date::BLOB,
   measure__work_orders_started::INT,
   measure__work_orders_finished::INT,
-  measure__work_orders_due::INT
+  measure__work_orders_due::INT,
+  measure__work_orders_modified::INT
 FROM cte__epoch

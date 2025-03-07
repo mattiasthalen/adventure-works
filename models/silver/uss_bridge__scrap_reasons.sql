@@ -14,12 +14,15 @@ WITH cte__bridge AS (
     'scrap_reasons' AS peripheral,
     _pit_hook__reference__scrap_reason,
     _hook__reference__scrap_reason,
+    _hook__epoch__date,
+    measure__scrap_reasons_modified,
     scrap_reason__record_loaded_at AS bridge__record_loaded_at,
     scrap_reason__record_updated_at AS bridge__record_updated_at,
     scrap_reason__record_valid_from AS bridge__record_valid_from,
     scrap_reason__record_valid_to AS bridge__record_valid_to,
     scrap_reason__is_current_record AS bridge__is_current_record
   FROM silver.bag__adventure_works__scrap_reasons
+  LEFT JOIN silver.measure__adventure_works__scrap_reasons USING (_pit_hook__reference__scrap_reason)
 ),
 cte__bridge_pit_hook AS (
   SELECT
@@ -37,6 +40,8 @@ SELECT
   _pit_hook__bridge::BLOB,
   _pit_hook__reference__scrap_reason::BLOB,
   _hook__reference__scrap_reason::BLOB,
+  _hook__epoch__date::BLOB,
+  measure__scrap_reasons_modified::INT,
   bridge__record_loaded_at::TIMESTAMP,
   bridge__record_updated_at::TIMESTAMP,
   bridge__record_valid_from::TIMESTAMP,

@@ -14,12 +14,15 @@ WITH cte__bridge AS (
     'departments' AS peripheral,
     _pit_hook__department,
     _hook__department,
+    _hook__epoch__date,
+    measure__departments_modified,
     department__record_loaded_at AS bridge__record_loaded_at,
     department__record_updated_at AS bridge__record_updated_at,
     department__record_valid_from AS bridge__record_valid_from,
     department__record_valid_to AS bridge__record_valid_to,
     department__is_current_record AS bridge__is_current_record
   FROM silver.bag__adventure_works__departments
+  LEFT JOIN silver.measure__adventure_works__departments USING (_pit_hook__department)
 ),
 cte__bridge_pit_hook AS (
   SELECT
@@ -37,6 +40,8 @@ SELECT
   _pit_hook__bridge::BLOB,
   _pit_hook__department::BLOB,
   _hook__department::BLOB,
+  _hook__epoch__date::BLOB,
+  measure__departments_modified::INT,
   bridge__record_loaded_at::TIMESTAMP,
   bridge__record_updated_at::TIMESTAMP,
   bridge__record_valid_from::TIMESTAMP,

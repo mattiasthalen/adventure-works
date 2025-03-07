@@ -14,12 +14,15 @@ WITH cte__bridge AS (
     'product_categories' AS peripheral,
     _pit_hook__product_category,
     _hook__product_category,
+    _hook__epoch__date,
+    measure__product_categories_modified,
     product_category__record_loaded_at AS bridge__record_loaded_at,
     product_category__record_updated_at AS bridge__record_updated_at,
     product_category__record_valid_from AS bridge__record_valid_from,
     product_category__record_valid_to AS bridge__record_valid_to,
     product_category__is_current_record AS bridge__is_current_record
   FROM silver.bag__adventure_works__product_categories
+  LEFT JOIN silver.measure__adventure_works__product_categories USING (_pit_hook__product_category)
 ),
 cte__bridge_pit_hook AS (
   SELECT
@@ -37,6 +40,8 @@ SELECT
   _pit_hook__bridge::BLOB,
   _pit_hook__product_category::BLOB,
   _hook__product_category::BLOB,
+  _hook__epoch__date::BLOB,
+  measure__product_categories_modified::INT,
   bridge__record_loaded_at::TIMESTAMP,
   bridge__record_updated_at::TIMESTAMP,
   bridge__record_valid_from::TIMESTAMP,

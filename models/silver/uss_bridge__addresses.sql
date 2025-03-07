@@ -15,21 +15,26 @@ WITH cte__bridge AS (
     _pit_hook__address,
     _hook__address,
     _hook__reference__state_province,
+    _hook__epoch__date,
+    measure__addresses_modified,
     address__record_loaded_at AS bridge__record_loaded_at,
     address__record_updated_at AS bridge__record_updated_at,
     address__record_valid_from AS bridge__record_valid_from,
     address__record_valid_to AS bridge__record_valid_to,
     address__is_current_record AS bridge__is_current_record
   FROM silver.bag__adventure_works__addresses
+  LEFT JOIN silver.measure__adventure_works__addresses USING (_pit_hook__address)
 ),
 cte__pit_lookup AS (
   SELECT
     cte__bridge.peripheral,
     cte__bridge._pit_hook__address,
+    uss_bridge__state_provinces._pit_hook__reference__country_region,
     uss_bridge__state_provinces._pit_hook__reference__state_province,
     uss_bridge__state_provinces._pit_hook__territory__sales,
-    uss_bridge__state_provinces._pit_hook__reference__country_region,
     cte__bridge._hook__address,
+    cte__bridge._hook__epoch__date,
+    cte__bridge.measure__addresses_modified,
     GREATEST(
         cte__bridge.bridge__record_loaded_at,
         uss_bridge__state_provinces.bridge__record_loaded_at
@@ -81,6 +86,8 @@ SELECT
   _pit_hook__reference__state_province::BLOB,
   _pit_hook__territory__sales::BLOB,
   _hook__address::BLOB,
+  _hook__epoch__date::BLOB,
+  measure__addresses_modified::INT,
   bridge__record_loaded_at::TIMESTAMP,
   bridge__record_updated_at::TIMESTAMP,
   bridge__record_valid_from::TIMESTAMP,

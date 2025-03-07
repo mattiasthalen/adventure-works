@@ -229,12 +229,15 @@ def generate_join_fragments(dependencies, all_bag_info):
     return join_fragments
 
 def build_pit_hooks_list(bag_info, all_bag_info):
-    """Build a list of all PIT hooks including those from dependencies"""
+    """Build a list of all PIT hooks with consistent ordering"""
     # Start with primary PIT hook
-    pit_hooks = [f"cte__bridge._pit{bag_info['primary_hook']['name']}"]
+    primary_pit_hook = f"cte__bridge._pit{bag_info['primary_hook']['name']}"
+    
+    # Collect all dependency PIT hooks
+    dependency_pit_hooks = []
     
     # Add PIT hooks from immediate dependencies
-    for dep in bag_info['dependencies']:
+    for dep in sorted(bag_info['dependencies'], key=lambda x: x['bag_name']):
         dep_bag_name = dep['bag_name']
         if dep_bag_name not in all_bag_info:
             continue
@@ -243,14 +246,19 @@ def build_pit_hooks_list(bag_info, all_bag_info):
         dep_hook = dep['hook']
         
         # Add the immediate dependency's PIT hook
-        pit_hooks.append(f"{dep_bridge}._pit{dep_hook['name']}")
+        dep_pit_hook = f"{dep_bridge}._pit{dep_hook['name']}"
+        dependency_pit_hooks.append(dep_pit_hook)
         
-        # Find and add any inherited PIT hooks
-        for pit_hook in all_bag_info[dep_bag_name]['all_pit_hooks']:
+        # Add any inherited PIT hooks
+        for pit_hook in sorted(all_bag_info[dep_bag_name]['all_pit_hooks']):
             if pit_hook != f"_pit{dep_hook['name']}":  # Skip the hook we just added
-                # Extract the hook name from the pit hook
-                #hook_name = pit_hook[4:]  # Remove "_pit" prefix
-                pit_hooks.append(f"{dep_bridge}.{pit_hook}")
+                dependency_pit_hooks.append(f"{dep_bridge}.{pit_hook}")
+    
+    # Sort dependency hooks alphabetically
+    dependency_pit_hooks.sort()
+    
+    # Combine all hooks with primary hook first
+    pit_hooks = [primary_pit_hook] + dependency_pit_hooks
     
     return pit_hooks
 
@@ -474,21 +482,33 @@ def generate_unified_bridge(bag_info, build_order, output_dir):
     # Create list of intermediate bridges to include
     intermediate_bridges = []
     all_pit_hooks = set()
+    all_epoch_date_hooks = set()
+    all_measure_fields = set()
     
     for bag_name in build_order:
         if bag_name in bag_info:
             bridge = f"uss_bridge__{bag_name.replace('bag__adventure_works__', '')}"
             intermediate_bridges.append(bridge)
             all_pit_hooks.update(bag_info[bag_name]['all_pit_hooks'])
+            
+            # Include epoch date field and measures
+            epoch_date_field, measure_fields = get_measure_fields(bag_name)
+            if epoch_date_field:
+                all_epoch_date_hooks.add(epoch_date_field)
+            all_measure_fields.update(measure_fields)
     
     with open(sql_path, 'w') as sql_file:
         # Write MODEL declaration
+        references = ', '.join(sorted(all_pit_hooks))
+        if all_epoch_date_hooks:
+            references += ', ' + ', '.join(sorted(all_epoch_date_hooks))
+        
         sql_file.write(f"""MODEL (
   enabled TRUE,
   kind VIEW,
   tags unified_star_schema,
   grain (_pit_hook__bridge),
-  references ({', '.join(sorted(all_pit_hooks))})
+  references ({references})
 );
 
 """)
@@ -503,14 +523,22 @@ def generate_unified_bridge(bag_info, build_order, output_dir):
                 sql_file.write("\n")
         sql_file.write(")\n")
         
-        # Write final SELECT
+        # Write final SELECT with consistent column order
         sql_file.write("SELECT\n")
         sql_file.write("  peripheral::TEXT,\n")
         sql_file.write("  _pit_hook__bridge::BLOB,\n")
         
-        # Include all PIT hooks
+        # Include all PIT hooks (sorted for consistency)
         for pit_hook in sorted(all_pit_hooks):
             sql_file.write(f"  {pit_hook}::BLOB,\n")
+        
+        # Include epoch date hook if present
+        for epoch_hook in sorted(all_epoch_date_hooks):
+            sql_file.write(f"  {epoch_hook}::BLOB,\n")
+        
+        # Include measure fields
+        for measure in sorted(all_measure_fields):
+            sql_file.write(f"  {measure}::INT,\n")
         
         # Add temporal fields
         sql_file.write("""  bridge__record_loaded_at::TIMESTAMP,

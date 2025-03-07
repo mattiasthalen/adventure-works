@@ -14,12 +14,15 @@ WITH cte__bridge AS (
     'currencies' AS peripheral,
     _pit_hook__currency,
     _hook__currency,
+    _hook__epoch__date,
+    measure__currencies_modified,
     currency__record_loaded_at AS bridge__record_loaded_at,
     currency__record_updated_at AS bridge__record_updated_at,
     currency__record_valid_from AS bridge__record_valid_from,
     currency__record_valid_to AS bridge__record_valid_to,
     currency__is_current_record AS bridge__is_current_record
   FROM silver.bag__adventure_works__currencies
+  LEFT JOIN silver.measure__adventure_works__currencies USING (_pit_hook__currency)
 ),
 cte__bridge_pit_hook AS (
   SELECT
@@ -37,6 +40,8 @@ SELECT
   _pit_hook__bridge::BLOB,
   _pit_hook__currency::BLOB,
   _hook__currency::BLOB,
+  _hook__epoch__date::BLOB,
+  measure__currencies_modified::INT,
   bridge__record_loaded_at::TIMESTAMP,
   bridge__record_updated_at::TIMESTAMP,
   bridge__record_valid_from::TIMESTAMP,

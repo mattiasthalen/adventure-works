@@ -12,7 +12,8 @@ MODEL (
 WITH cte__source AS (
   SELECT
     _pit_hook__currency_rate,
-    currency_rate__currency_rate_date
+    currency_rate__currency_rate_date,
+    currency_rate__modified_date
   FROM silver.bag__adventure_works__currency_rates
   WHERE 1 = 1
   AND currency_rate__record_updated_at BETWEEN @start_ts AND @end_ts
@@ -23,10 +24,18 @@ WITH cte__source AS (
     1 AS measure__currency_rates_currency_rate
   FROM cte__source
   WHERE currency_rate__currency_rate_date IS NOT NULL
+), cte__modified_date AS (
+  SELECT
+    _pit_hook__currency_rate,
+    currency_rate__modified_date::DATE AS measure_date,
+    1 AS measure__currency_rates_modified
+  FROM cte__source
+  WHERE currency_rate__modified_date IS NOT NULL
 ), cte__measures AS (
   SELECT
     *
   FROM cte__currency_rate_date
+  FULL OUTER JOIN cte__modified_date USING (_pit_hook__currency_rate, measure_date)
 ), cte__epoch AS (
   SELECT
     *,
@@ -37,5 +46,6 @@ WITH cte__source AS (
 SELECT
   _pit_hook__currency_rate::BLOB,
   _hook__epoch__date::BLOB,
-  measure__currency_rates_currency_rate::INT
+  measure__currency_rates_currency_rate::INT,
+  measure__currency_rates_modified::INT
 FROM cte__epoch

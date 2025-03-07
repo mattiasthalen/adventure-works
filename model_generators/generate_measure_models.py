@@ -17,7 +17,7 @@ def generate_measure_models():
     print(f"Generated {count} measure models in {output_dir}")
 
 def find_date_fields(bag, schema):
-    """Find date fields in a bag's source table"""
+    """Find date fields in a bag's source table that are truly temporal"""
     source_table = bag['source_table']
     if source_table not in schema['tables']:
         return []
@@ -30,7 +30,15 @@ def find_date_fields(bag, schema):
             continue
         
         data_type = col_info.get('data_type', '').lower()
-        if (data_type in ['date', 'timestamp'] or 'date' in col_name.lower()) and col_name != 'modified_date':
+        col_name_lower = col_name.lower()
+        
+        # Primarily rely on data type
+        is_date_type = data_type in ['date', 'timestamp']
+        
+        # Check for specific temporal suffixes
+        has_date_suffix = col_name_lower.endswith('_date') or col_name_lower.endswith('_at')
+        
+        if is_date_type or has_date_suffix:
             date_fields.append(col_name)
     
     return date_fields

@@ -12,7 +12,8 @@ MODEL (
 WITH cte__source AS (
   SELECT
     _pit_hook__product_review,
-    product_review__review_date
+    product_review__review_date,
+    product_review__modified_date
   FROM silver.bag__adventure_works__product_reviews
   WHERE 1 = 1
   AND product_review__record_updated_at BETWEEN @start_ts AND @end_ts
@@ -23,10 +24,18 @@ WITH cte__source AS (
     1 AS measure__product_reviews_review
   FROM cte__source
   WHERE product_review__review_date IS NOT NULL
+), cte__modified_date AS (
+  SELECT
+    _pit_hook__product_review,
+    product_review__modified_date::DATE AS measure_date,
+    1 AS measure__product_reviews_modified
+  FROM cte__source
+  WHERE product_review__modified_date IS NOT NULL
 ), cte__measures AS (
   SELECT
     *
   FROM cte__review_date
+  FULL OUTER JOIN cte__modified_date USING (_pit_hook__product_review, measure_date)
 ), cte__epoch AS (
   SELECT
     *,
@@ -37,5 +46,6 @@ WITH cte__source AS (
 SELECT
   _pit_hook__product_review::BLOB,
   _hook__epoch__date::BLOB,
-  measure__product_reviews_review::INT
+  measure__product_reviews_review::INT,
+  measure__product_reviews_modified::INT
 FROM cte__epoch
