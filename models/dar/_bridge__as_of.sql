@@ -119,7 +119,7 @@ WITH cte__bridge_union AS (
   UNION ALL BY NAME
   SELECT * FROM dar__staging.uss_bridge__purchase_order_details
   UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__sales_order_headers
+  SELECT * FROM dar__staging.events__sales_order_headers
   UNION ALL BY NAME
   SELECT * FROM dar__staging.uss_bridge__sales_order_details
 )
@@ -172,6 +172,11 @@ SELECT
   _pit_hook__transaction_history::BLOB,
   _pit_hook__transaction_history_archive::BLOB,
   _pit_hook__vendor::BLOB,
+  _hook__epoch__date::BLOB,
+  event__sales_order_placed::INT,
+  event__sales_order_due::INT,
+  event__sales_order_shipped::INT,
+  event__sales_order_modified::INT,
   bridge__record_loaded_at::TIMESTAMP,
   bridge__record_updated_at::TIMESTAMP,
   bridge__record_valid_from::TIMESTAMP,

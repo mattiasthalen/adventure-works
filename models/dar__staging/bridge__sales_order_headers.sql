@@ -5,8 +5,6 @@ MODEL (
     batch_size 288, -- cron every 5m: 24h * 60m / 5m = 288
   ),
   tags bridge,
-  grain (_pit_hook__bridge),
-  references (_pit_hook__credit_card, _pit_hook__currency, _pit_hook__customer, _pit_hook__order__sales, _pit_hook__person__sales, _pit_hook__reference__country_region, _pit_hook__ship_method, _pit_hook__store, _pit_hook__territory__sales)
 );
 
 WITH cte__bridge AS (
@@ -22,18 +20,12 @@ WITH cte__bridge AS (
     _hook__ship_method,
     _hook__credit_card,
     _hook__currency,
-    _hook__epoch__date,
-    measure__sales_order_headers_placed,
-    measure__sales_order_headers_due,
-    measure__sales_order_headers_shipped,
-    measure__sales_order_headers_modified,
     sales_order_header__record_loaded_at AS bridge__record_loaded_at,
     sales_order_header__record_updated_at AS bridge__record_updated_at,
     sales_order_header__record_valid_from AS bridge__record_valid_from,
     sales_order_header__record_valid_to AS bridge__record_valid_to,
     sales_order_header__is_current_record AS bridge__is_current_record
   FROM dab.bag__adventure_works__sales_order_headers
-  LEFT JOIN dar__staging.measure__adventure_works__sales_order_headers USING (_pit_hook__order__sales)
 ),
 cte__pit_lookup AS (
   SELECT
@@ -57,11 +49,6 @@ cte__pit_lookup AS (
     uss_bridge__sales_territory_histories._pit_hook__territory__sales,
     uss_bridge__ship_methods._pit_hook__ship_method,
     cte__bridge._hook__order__sales,
-    cte__bridge._hook__epoch__date,
-    cte__bridge.measure__sales_order_headers_placed,
-    cte__bridge.measure__sales_order_headers_due,
-    cte__bridge.measure__sales_order_headers_shipped,
-    cte__bridge.measure__sales_order_headers_modified,
     GREATEST(
         cte__bridge.bridge__record_loaded_at,
         uss_bridge__customers.bridge__record_loaded_at,
@@ -154,14 +141,13 @@ cte__pit_lookup AS (
   AND cte__bridge.bridge__record_valid_from >= uss_bridge__currencies.bridge__record_valid_from
   AND cte__bridge.bridge__record_valid_to <= uss_bridge__currencies.bridge__record_valid_to
 ),
-cte__bridge_pit_hook AS (
+final AS (
   SELECT
     *,
     CONCAT_WS(
       '~',
       peripheral,
       'epoch__valid_from'||bridge__record_valid_from,
-      _hook__epoch__date::TEXT,
       _pit_hook__credit_card::TEXT,
       _pit_hook__currency::TEXT,
       _pit_hook__customer::TEXT,
@@ -187,16 +173,11 @@ SELECT
   _pit_hook__store::BLOB,
   _pit_hook__territory__sales::BLOB,
   _hook__order__sales::BLOB,
-  _hook__epoch__date::BLOB,
-  measure__sales_order_headers_placed::INT,
-  measure__sales_order_headers_due::INT,
-  measure__sales_order_headers_shipped::INT,
-  measure__sales_order_headers_modified::INT,
   bridge__record_loaded_at::TIMESTAMP,
   bridge__record_updated_at::TIMESTAMP,
   bridge__record_valid_from::TIMESTAMP,
   bridge__record_valid_to::TIMESTAMP,
   bridge__is_current_record::BOOL
-FROM cte__bridge_pit_hook
+FROM final
 WHERE 1 = 1
 AND bridge__record_updated_at BETWEEN @start_ts AND @end_ts
