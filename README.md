@@ -84,6 +84,35 @@ flowchart LR
     legend_dab["DAB = Data According To Business"] ---->
     legend_dar["DAR = Data According To Requirements"]
 ```
+The bridges uses what I call "cascading inheritance", it looks up the foreign pit hook in the primary bridge for that hook, and inherits other foreign pit hooks.
+```mermaid
+flowchart LR
+    classDef silver fill:#C0C0C0,color:black
+
+    subgraph db.dab["db.dab"]
+      bag__adventure_works__product_categories(["bag__adventure_works__product_categories"]):::silver
+      bag__adventure_works__product_models(["bag__adventure_works__product_models"]):::silver
+      bag__adventure_works__product_subcategories(["bag__adventure_works__product_subcategories"]):::silver
+      bag__adventure_works__products(["bag__adventure_works__products"]):::silver
+      bag__adventure_works__sales_order_details(["bag__adventure_works__sales_order_details"]):::silver
+    end
+    subgraph db.dar__staging["db.dar__staging"]
+        direction LR
+        bridge__product_categories(["bridge__product_categories"]):::silver
+        bridge__product_models(["bridge__product_models"]):::silver
+        bridge__product_subcategories(["bridge__product_subcategories"]):::silver
+        bridge__products(["bridge__products"]):::silver
+        bridge__sales_order_details(["bridge__sales_order_details"]):::silver
+        
+    end
+
+    %% db.dar__staging -> db.dar__staging
+    bag__adventure_works__product_categories -->bridge__product_categories --> bridge__product_subcategories
+    bag__adventure_works__product_models --> bridge__product_models --> bridge__products
+    bag__adventure_works__product_subcategories --> bridge__product_subcategories --> bridge__products
+    bag__adventure_works__products --> bridge__products --> bridge__sales_order_details
+    bag__adventure_works__sales_order_details --> bridge__sales_order_details
+```
 
 ## ERDs - Oriented Data Models
 Under construction
