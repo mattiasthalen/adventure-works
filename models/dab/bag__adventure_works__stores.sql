@@ -60,7 +60,7 @@ SELECT
   store__name::TEXT,
   store__sales_person_id::BIGINT,
   store__demographics::TEXT,
-  store__rowguid::UUID,
+  store__rowguid::TEXT,
   store__modified_date::DATE,
   store__record_loaded_at::TIMESTAMP,
   store__record_updated_at::TIMESTAMP,

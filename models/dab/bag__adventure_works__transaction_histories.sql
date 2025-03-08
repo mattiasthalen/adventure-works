@@ -65,7 +65,7 @@ SELECT
   transaction_history__product_id::BIGINT,
   transaction_history__reference_order_id::BIGINT,
   transaction_history__reference_order_line_id::BIGINT,
-  transaction_history__transaction_date::TEXT,
+  transaction_history__transaction_date::DATE,
   transaction_history__transaction_type::TEXT,
   transaction_history__quantity::BIGINT,
   transaction_history__actual_cost::DOUBLE,

@@ -6,7 +6,7 @@ MODEL (
 SELECT
     product_model_id::BIGINT,
     name::TEXT,
-    rowguid::UUID,
+    rowguid::TEXT,
     modified_date::DATE,
     _dlt_load_id::TEXT,
     catalog_description::TEXT,

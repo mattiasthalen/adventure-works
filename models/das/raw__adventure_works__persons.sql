@@ -12,7 +12,7 @@ SELECT
     last_name::TEXT,
     email_promotion::BIGINT,
     demographics::TEXT,
-    rowguid::UUID,
+    rowguid::TEXT,
     modified_date::DATE,
     _dlt_load_id::TEXT,
     title::TEXT,

@@ -61,7 +61,7 @@ SELECT
   product_review__product_review_id::BIGINT,
   product_review__product_id::BIGINT,
   product_review__reviewer_name::TEXT,
-  product_review__review_date::TEXT,
+  product_review__review_date::DATE,
   product_review__email_address::TEXT,
   product_review__rating::BIGINT,
   product_review__comments::TEXT,

@@ -65,7 +65,7 @@ SELECT
   _hook__product::BLOB,
   purchase_order_detail__purchase_order_id::BIGINT,
   purchase_order_detail__purchase_order_detail_id::BIGINT,
-  purchase_order_detail__due_date::TEXT,
+  purchase_order_detail__due_date::DATE,
   purchase_order_detail__order_qty::BIGINT,
   purchase_order_detail__product_id::BIGINT,
   purchase_order_detail__unit_price::DOUBLE,

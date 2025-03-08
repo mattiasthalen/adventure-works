@@ -63,7 +63,7 @@ SELECT
   address__city::TEXT,
   address__state_province_id::BIGINT,
   address__postal_code::TEXT,
-  address__rowguid::UUID,
+  address__rowguid::TEXT,
   address__address_line2::TEXT,
   address__modified_date::DATE,
   address__record_loaded_at::TIMESTAMP,

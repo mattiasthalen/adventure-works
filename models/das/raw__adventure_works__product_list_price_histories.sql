@@ -5,8 +5,8 @@ MODEL (
 
 SELECT
     product_id::BIGINT,
-    start_date::TIMESTAMP,
-    end_date::TEXT,
+    start_date::DATE,
+    end_date::DATE,
     list_price::DOUBLE,
     modified_date::DATE,
     _dlt_load_id::TEXT

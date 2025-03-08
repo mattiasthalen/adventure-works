@@ -5,7 +5,7 @@ MODEL (
 
 SELECT
     currency_rate_id::BIGINT,
-    currency_rate_date::TEXT,
+    currency_rate_date::DATE,
     from_currency_code::TEXT,
     to_currency_code::TEXT,
     average_rate::DOUBLE,

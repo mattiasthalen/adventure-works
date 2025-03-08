@@ -60,7 +60,7 @@ SELECT
   _hook__currency__to::BLOB,
   _hook__currency_rate::BLOB,
   currency_rate__currency_rate_id::BIGINT,
-  currency_rate__currency_rate_date::TEXT,
+  currency_rate__currency_rate_date::DATE,
   currency_rate__from_currency_code::TEXT,
   currency_rate__to_currency_code::TEXT,
   currency_rate__average_rate::DOUBLE,

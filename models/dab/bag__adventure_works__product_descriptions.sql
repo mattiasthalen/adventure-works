@@ -53,7 +53,7 @@ SELECT
   _hook__reference__product_description::BLOB,
   product_description__product_description_id::BIGINT,
   product_description__description::TEXT,
-  product_description__rowguid::UUID,
+  product_description__rowguid::TEXT,
   product_description__modified_date::DATE,
   product_description__record_loaded_at::TIMESTAMP,
   product_description__record_updated_at::TIMESTAMP,

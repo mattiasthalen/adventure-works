@@ -12,7 +12,7 @@ SELECT
     sales_last_year::DOUBLE,
     cost_ytd::DOUBLE,
     cost_last_year::DOUBLE,
-    rowguid::UUID,
+    rowguid::TEXT,
     modified_date::DATE,
     _dlt_load_id::TEXT
 FROM ICEBERG_SCAN(

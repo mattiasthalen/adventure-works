@@ -62,7 +62,7 @@ SELECT
   sales_tax_rate__tax_type::BIGINT,
   sales_tax_rate__tax_rate::DOUBLE,
   sales_tax_rate__name::TEXT,
-  sales_tax_rate__rowguid::UUID,
+  sales_tax_rate__rowguid::TEXT,
   sales_tax_rate__modified_date::DATE,
   sales_tax_rate__record_loaded_at::TIMESTAMP,
   sales_tax_rate__record_updated_at::TIMESTAMP,

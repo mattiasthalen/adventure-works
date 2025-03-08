@@ -64,7 +64,7 @@ SELECT
   sales_person__commission_pct::DOUBLE,
   sales_person__sales_ytd::DOUBLE,
   sales_person__sales_last_year::DOUBLE,
-  sales_person__rowguid::UUID,
+  sales_person__rowguid::TEXT,
   sales_person__territory_id::BIGINT,
   sales_person__sales_quota::DOUBLE,
   sales_person__modified_date::DATE,

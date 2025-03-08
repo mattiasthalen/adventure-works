@@ -9,7 +9,7 @@ SELECT
     commission_pct::DOUBLE,
     sales_ytd::DOUBLE,
     sales_last_year::DOUBLE,
-    rowguid::UUID,
+    rowguid::TEXT,
     modified_date::DATE,
     _dlt_load_id::TEXT,
     territory_id::BIGINT,

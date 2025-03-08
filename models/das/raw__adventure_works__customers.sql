@@ -8,7 +8,7 @@ SELECT
     store_id::BIGINT,
     territory_id::BIGINT,
     account_number::TEXT,
-    rowguid::UUID,
+    rowguid::TEXT,
     modified_date::DATE,
     _dlt_load_id::TEXT,
     person_id::BIGINT

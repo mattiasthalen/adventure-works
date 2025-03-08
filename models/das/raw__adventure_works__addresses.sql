@@ -9,7 +9,7 @@ SELECT
     city::TEXT,
     state_province_id::BIGINT,
     postal_code::TEXT,
-    rowguid::UUID,
+    rowguid::TEXT,
     modified_date::DATE,
     _dlt_load_id::TEXT,
     address_line2::TEXT

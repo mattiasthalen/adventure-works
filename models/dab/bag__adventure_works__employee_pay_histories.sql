@@ -53,7 +53,7 @@ SELECT
   _pit_hook__person__employee::BLOB,
   _hook__person__employee::BLOB,
   employee_pay_history__business_entity_id::BIGINT,
-  employee_pay_history__rate_change_date::TIMESTAMP,
+  employee_pay_history__rate_change_date::DATE,
   employee_pay_history__rate::DOUBLE,
   employee_pay_history__pay_frequency::BIGINT,
   employee_pay_history__modified_date::DATE,

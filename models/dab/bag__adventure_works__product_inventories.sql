@@ -62,7 +62,7 @@ SELECT
   product_inventory__shelf::TEXT,
   product_inventory__bin::BIGINT,
   product_inventory__quantity::BIGINT,
-  product_inventory__rowguid::UUID,
+  product_inventory__rowguid::TEXT,
   product_inventory__modified_date::DATE,
   product_inventory__record_loaded_at::TIMESTAMP,
   product_inventory__record_updated_at::TIMESTAMP,

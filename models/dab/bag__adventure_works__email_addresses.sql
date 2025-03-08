@@ -58,7 +58,7 @@ SELECT
   email_address__business_entity_id::BIGINT,
   email_address__email_address_id::BIGINT,
   email_address__email::TEXT,
-  email_address__rowguid::UUID,
+  email_address__rowguid::TEXT,
   email_address__modified_date::DATE,
   email_address__record_loaded_at::TIMESTAMP,
   email_address__record_updated_at::TIMESTAMP,

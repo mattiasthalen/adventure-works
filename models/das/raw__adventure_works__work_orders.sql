@@ -9,9 +9,9 @@ SELECT
     order_qty::BIGINT,
     stocked_qty::BIGINT,
     scrapped_qty::BIGINT,
-    start_date::TEXT,
-    end_date::TEXT,
-    due_date::TEXT,
+    start_date::DATE,
+    end_date::DATE,
+    due_date::DATE,
     modified_date::DATE,
     _dlt_load_id::TEXT,
     scrap_reason_id::BIGINT

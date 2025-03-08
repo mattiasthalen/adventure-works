@@ -5,9 +5,9 @@ MODEL (
 
 SELECT
     business_entity_id::BIGINT,
-    quota_date::TEXT,
+    quota_date::DATE,
     sales_quota::DOUBLE,
-    rowguid::UUID,
+    rowguid::TEXT,
     modified_date::DATE,
     _dlt_load_id::TEXT
 FROM ICEBERG_SCAN(

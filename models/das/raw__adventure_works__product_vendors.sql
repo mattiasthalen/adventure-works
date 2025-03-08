@@ -9,7 +9,7 @@ SELECT
     average_lead_time::BIGINT,
     standard_price::DOUBLE,
     last_receipt_cost::DOUBLE,
-    last_receipt_date::TEXT,
+    last_receipt_date::DATE,
     min_order_qty::BIGINT,
     max_order_qty::BIGINT,
     unit_measure_code::TEXT,

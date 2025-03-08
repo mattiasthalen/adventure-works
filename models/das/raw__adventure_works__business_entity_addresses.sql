@@ -7,7 +7,7 @@ SELECT
     business_entity_id::BIGINT,
     address_id::BIGINT,
     address_type_id::BIGINT,
-    rowguid::UUID,
+    rowguid::TEXT,
     modified_date::DATE,
     _dlt_load_id::TEXT
 FROM ICEBERG_SCAN(

@@ -13,7 +13,7 @@ SELECT
     unit_price::DOUBLE,
     unit_price_discount::DOUBLE,
     line_total::DOUBLE,
-    rowguid::UUID,
+    rowguid::TEXT,
     modified_date::DATE,
     _dlt_load_id::TEXT
 FROM ICEBERG_SCAN(

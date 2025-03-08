@@ -6,9 +6,9 @@ MODEL (
 SELECT
     sales_order_id::BIGINT,
     revision_number::BIGINT,
-    order_date::TEXT,
-    due_date::TEXT,
-    ship_date::TEXT,
+    order_date::DATE,
+    due_date::DATE,
+    ship_date::DATE,
     status::BIGINT,
     online_order_flag::BOOLEAN,
     sales_order_number::TEXT,
@@ -26,7 +26,7 @@ SELECT
     tax_amt::DOUBLE,
     freight::DOUBLE,
     total_due::DOUBLE,
-    rowguid::UUID,
+    rowguid::TEXT,
     modified_date::DATE,
     _dlt_load_id::TEXT,
     currency_rate_id::BIGINT

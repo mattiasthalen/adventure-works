@@ -5,7 +5,7 @@ MODEL (
 
 SELECT
     business_entity_id::BIGINT,
-    rate_change_date::TIMESTAMP,
+    rate_change_date::DATE,
     rate::DOUBLE,
     pay_frequency::BIGINT,
     modified_date::DATE,

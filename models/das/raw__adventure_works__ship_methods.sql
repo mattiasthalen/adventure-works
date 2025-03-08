@@ -8,7 +8,7 @@ SELECT
     name::TEXT,
     ship_base::DOUBLE,
     ship_rate::DOUBLE,
-    rowguid::UUID,
+    rowguid::TEXT,
     modified_date::DATE,
     _dlt_load_id::TEXT
 FROM ICEBERG_SCAN(

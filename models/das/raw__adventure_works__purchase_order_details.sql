@@ -6,7 +6,7 @@ MODEL (
 SELECT
     purchase_order_id::BIGINT,
     purchase_order_detail_id::BIGINT,
-    due_date::TEXT,
+    due_date::DATE,
     order_qty::BIGINT,
     product_id::BIGINT,
     unit_price::DOUBLE,

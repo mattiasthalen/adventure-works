@@ -65,7 +65,7 @@ SELECT
   customer__store_id::BIGINT,
   customer__territory_id::BIGINT,
   customer__account_number::TEXT,
-  customer__rowguid::UUID,
+  customer__rowguid::TEXT,
   customer__person_id::BIGINT,
   customer__modified_date::DATE,
   customer__record_loaded_at::TIMESTAMP,

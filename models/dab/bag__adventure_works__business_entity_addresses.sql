@@ -60,7 +60,7 @@ SELECT
   business_entity_address__business_entity_id::BIGINT,
   business_entity_address__address_id::BIGINT,
   business_entity_address__address_type_id::BIGINT,
-  business_entity_address__rowguid::UUID,
+  business_entity_address__rowguid::TEXT,
   business_entity_address__modified_date::DATE,
   business_entity_address__record_loaded_at::TIMESTAMP,
   business_entity_address__record_updated_at::TIMESTAMP,

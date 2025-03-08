@@ -10,7 +10,7 @@ SELECT
     is_only_state_province_flag::BOOLEAN,
     name::TEXT,
     territory_id::BIGINT,
-    rowguid::UUID,
+    rowguid::TEXT,
     modified_date::DATE,
     _dlt_load_id::TEXT
 FROM ICEBERG_SCAN(

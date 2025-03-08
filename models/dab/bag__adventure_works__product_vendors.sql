@@ -68,7 +68,7 @@ SELECT
   product_vendor__average_lead_time::BIGINT,
   product_vendor__standard_price::DOUBLE,
   product_vendor__last_receipt_cost::DOUBLE,
-  product_vendor__last_receipt_date::TEXT,
+  product_vendor__last_receipt_date::DATE,
   product_vendor__min_order_qty::BIGINT,
   product_vendor__max_order_qty::BIGINT,
   product_vendor__unit_measure_code::TEXT,

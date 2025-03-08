@@ -29,9 +29,7 @@ def map_data_type(data_type, column_name=None):
     data_type = data_type.lower()
     
     # Special handling for specific fields
-    if column_name == 'rowguid':
-        return 'UUID'
-    elif column_name == 'modified_date':
+    if column_name.endswith('_date'):
         return 'DATE'
     
     # Standard type mapping

@@ -58,7 +58,7 @@ SELECT
   product_subcategory__product_subcategory_id::BIGINT,
   product_subcategory__product_category_id::BIGINT,
   product_subcategory__name::TEXT,
-  product_subcategory__rowguid::UUID,
+  product_subcategory__rowguid::TEXT,
   product_subcategory__modified_date::DATE,
   product_subcategory__record_loaded_at::TIMESTAMP,
   product_subcategory__record_updated_at::TIMESTAMP,

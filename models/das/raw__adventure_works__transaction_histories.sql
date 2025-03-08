@@ -8,7 +8,7 @@ SELECT
     product_id::BIGINT,
     reference_order_id::BIGINT,
     reference_order_line_id::BIGINT,
-    transaction_date::TEXT,
+    transaction_date::DATE,
     transaction_type::TEXT,
     quantity::BIGINT,
     actual_cost::DOUBLE,

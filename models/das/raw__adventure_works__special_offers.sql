@@ -9,10 +9,10 @@ SELECT
     discount_percentage::DOUBLE,
     type::TEXT,
     category::TEXT,
-    start_date::TEXT,
-    end_date::TEXT,
+    start_date::DATE,
+    end_date::DATE,
     minimum_quantity::BIGINT,
-    rowguid::UUID,
+    rowguid::TEXT,
     modified_date::DATE,
     _dlt_load_id::TEXT,
     maximum_quantity::BIGINT

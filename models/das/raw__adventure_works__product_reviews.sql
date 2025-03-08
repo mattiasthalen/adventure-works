@@ -7,7 +7,7 @@ SELECT
     product_review_id::BIGINT,
     product_id::BIGINT,
     reviewer_name::TEXT,
-    review_date::TEXT,
+    review_date::DATE,
     email_address::TEXT,
     rating::BIGINT,
     comments::TEXT,

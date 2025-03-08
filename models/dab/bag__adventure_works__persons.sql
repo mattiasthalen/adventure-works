@@ -67,7 +67,7 @@ SELECT
   person__last_name::TEXT,
   person__email_promotion::BIGINT,
   person__demographics::TEXT,
-  person__rowguid::UUID,
+  person__rowguid::TEXT,
   person__title::TEXT,
   person__suffix::TEXT,
   person__modified_date::DATE,
