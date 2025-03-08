@@ -70,10 +70,10 @@ SELECT
   work_order_routing__product_id::BIGINT,
   work_order_routing__operation_sequence::BIGINT,
   work_order_routing__location_id::BIGINT,
-  work_order_routing__scheduled_start_date::TEXT,
-  work_order_routing__scheduled_end_date::TEXT,
-  work_order_routing__actual_start_date::TEXT,
-  work_order_routing__actual_end_date::TEXT,
+  work_order_routing__scheduled_start_date::DATE,
+  work_order_routing__scheduled_end_date::DATE,
+  work_order_routing__actual_start_date::DATE,
+  work_order_routing__actual_end_date::DATE,
   work_order_routing__actual_resource_hrs::DOUBLE,
   work_order_routing__planned_cost::DOUBLE,
   work_order_routing__actual_cost::DOUBLE,
@@ -83,7 +83,7 @@ SELECT
   work_order_routing__record_version::TEXT,
   work_order_routing__record_valid_from::TIMESTAMP,
   work_order_routing__record_valid_to::TIMESTAMP,
-  work_order_routing__is_current_record::TEXT
+  work_order_routing__is_current_record::BOOL
 FROM hooks
 WHERE 1 = 1
 AND work_order_routing__record_updated_at BETWEEN @start_ts AND @end_ts

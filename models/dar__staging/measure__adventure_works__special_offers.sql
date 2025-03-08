@@ -21,21 +21,21 @@ WITH cte__source AS (
 ), cte__start_date AS (
   SELECT
     _pit_hook__reference__special_offer,
-    special_offer__start_date::DATE AS measure_date,
+    special_offer__start_date AS measure_date,
     1 AS measure__special_offers_started
   FROM cte__source
   WHERE special_offer__start_date IS NOT NULL
 ), cte__end_date AS (
   SELECT
     _pit_hook__reference__special_offer,
-    special_offer__end_date::DATE AS measure_date,
+    special_offer__end_date AS measure_date,
     1 AS measure__special_offers_finished
   FROM cte__source
   WHERE special_offer__end_date IS NOT NULL
 ), cte__modified_date AS (
   SELECT
     _pit_hook__reference__special_offer,
-    special_offer__modified_date::DATE AS measure_date,
+    special_offer__modified_date AS measure_date,
     1 AS measure__special_offers_modified
   FROM cte__source
   WHERE special_offer__modified_date IS NOT NULL

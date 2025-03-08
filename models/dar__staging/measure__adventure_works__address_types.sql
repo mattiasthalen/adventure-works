@@ -19,7 +19,7 @@ WITH cte__source AS (
 ), cte__modified_date AS (
   SELECT
     _pit_hook__reference__address_type,
-    address_type__modified_date::DATE AS measure_date,
+    address_type__modified_date AS measure_date,
     1 AS measure__address_types_modified
   FROM cte__source
   WHERE address_type__modified_date IS NOT NULL

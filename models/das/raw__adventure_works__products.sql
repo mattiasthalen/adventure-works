@@ -14,8 +14,8 @@ SELECT
     standard_cost::DOUBLE,
     list_price::DOUBLE,
     days_to_manufacture::BIGINT,
-    sell_start_date::TEXT,
-    rowguid::UUID,
+    sell_start_date::DATE,
+    rowguid::TEXT,
     modified_date::DATE,
     _dlt_load_id::TEXT,
     color::TEXT,
@@ -28,8 +28,8 @@ SELECT
     style::TEXT,
     product_subcategory_id::BIGINT,
     product_model_id::BIGINT,
-    sell_end_date::TEXT
+    sell_end_date::DATE
 FROM ICEBERG_SCAN(
-  "file://" || @project_path || "/lakehouse/bronze/raw__adventure_works__products"
+  "file://" || @project_path || "/lakehouse/das/raw__adventure_works__products"
 )
 ;

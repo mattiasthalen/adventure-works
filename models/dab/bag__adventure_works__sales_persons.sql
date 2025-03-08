@@ -64,7 +64,7 @@ SELECT
   sales_person__commission_pct::DOUBLE,
   sales_person__sales_ytd::DOUBLE,
   sales_person__sales_last_year::DOUBLE,
-  sales_person__rowguid::UUID,
+  sales_person__rowguid::TEXT,
   sales_person__territory_id::BIGINT,
   sales_person__sales_quota::DOUBLE,
   sales_person__modified_date::DATE,
@@ -73,7 +73,7 @@ SELECT
   sales_person__record_version::TEXT,
   sales_person__record_valid_from::TIMESTAMP,
   sales_person__record_valid_to::TIMESTAMP,
-  sales_person__is_current_record::TEXT
+  sales_person__is_current_record::BOOL
 FROM hooks
 WHERE 1 = 1
 AND sales_person__record_updated_at BETWEEN @start_ts AND @end_ts

@@ -60,7 +60,7 @@ SELECT
   department__record_version::TEXT,
   department__record_valid_from::TIMESTAMP,
   department__record_valid_to::TIMESTAMP,
-  department__is_current_record::TEXT
+  department__is_current_record::BOOL
 FROM hooks
 WHERE 1 = 1
 AND department__record_updated_at BETWEEN @start_ts AND @end_ts

@@ -65,7 +65,7 @@ SELECT
   _hook__product::BLOB,
   purchase_order_detail__purchase_order_id::BIGINT,
   purchase_order_detail__purchase_order_detail_id::BIGINT,
-  purchase_order_detail__due_date::TEXT,
+  purchase_order_detail__due_date::DATE,
   purchase_order_detail__order_qty::BIGINT,
   purchase_order_detail__product_id::BIGINT,
   purchase_order_detail__unit_price::DOUBLE,
@@ -79,7 +79,7 @@ SELECT
   purchase_order_detail__record_version::TEXT,
   purchase_order_detail__record_valid_from::TIMESTAMP,
   purchase_order_detail__record_valid_to::TIMESTAMP,
-  purchase_order_detail__is_current_record::TEXT
+  purchase_order_detail__is_current_record::BOOL
 FROM hooks
 WHERE 1 = 1
 AND purchase_order_detail__record_updated_at BETWEEN @start_ts AND @end_ts

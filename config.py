@@ -53,7 +53,7 @@ config = Config(
     default_gateway="duckdb",
     model_defaults=ModelDefaultsConfig(
         dialect="duckdb,normalization_strategy=case_sensitive",
-        start="2025-01-01",
+        start="2025-03-01",
         cron="*/5 * * * *"
     ),
     model_naming=NameInferenceConfig(

@@ -60,14 +60,14 @@ SELECT
   store__name::TEXT,
   store__sales_person_id::BIGINT,
   store__demographics::TEXT,
-  store__rowguid::UUID,
+  store__rowguid::TEXT,
   store__modified_date::DATE,
   store__record_loaded_at::TIMESTAMP,
   store__record_updated_at::TIMESTAMP,
   store__record_version::TEXT,
   store__record_valid_from::TIMESTAMP,
   store__record_valid_to::TIMESTAMP,
-  store__is_current_record::TEXT
+  store__is_current_record::BOOL
 FROM hooks
 WHERE 1 = 1
 AND store__record_updated_at BETWEEN @start_ts AND @end_ts

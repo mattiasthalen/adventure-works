@@ -53,8 +53,8 @@ SELECT
   _pit_hook__product::BLOB,
   _hook__product::BLOB,
   product_cost_history__product_id::BIGINT,
-  product_cost_history__start_date::TIMESTAMP,
-  product_cost_history__end_date::TEXT,
+  product_cost_history__start_date::DATE,
+  product_cost_history__end_date::DATE,
   product_cost_history__standard_cost::DOUBLE,
   product_cost_history__modified_date::DATE,
   product_cost_history__record_loaded_at::TIMESTAMP,
@@ -62,7 +62,7 @@ SELECT
   product_cost_history__record_version::TEXT,
   product_cost_history__record_valid_from::TIMESTAMP,
   product_cost_history__record_valid_to::TIMESTAMP,
-  product_cost_history__is_current_record::TEXT
+  product_cost_history__is_current_record::BOOL
 FROM hooks
 WHERE 1 = 1
 AND product_cost_history__record_updated_at BETWEEN @start_ts AND @end_ts

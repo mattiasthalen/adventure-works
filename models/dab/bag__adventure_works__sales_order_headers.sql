@@ -91,9 +91,9 @@ SELECT
   _hook__currency::BLOB,
   sales_order_header__sales_order_id::BIGINT,
   sales_order_header__revision_number::BIGINT,
-  sales_order_header__order_date::TEXT,
-  sales_order_header__due_date::TEXT,
-  sales_order_header__ship_date::TEXT,
+  sales_order_header__order_date::DATE,
+  sales_order_header__due_date::DATE,
+  sales_order_header__ship_date::DATE,
   sales_order_header__status::BIGINT,
   sales_order_header__online_order_flag::BOOLEAN,
   sales_order_header__sales_order_number::TEXT,
@@ -111,7 +111,7 @@ SELECT
   sales_order_header__tax_amt::DOUBLE,
   sales_order_header__freight::DOUBLE,
   sales_order_header__total_due::DOUBLE,
-  sales_order_header__rowguid::UUID,
+  sales_order_header__rowguid::TEXT,
   sales_order_header__currency_rate_id::BIGINT,
   sales_order_header__modified_date::DATE,
   sales_order_header__record_loaded_at::TIMESTAMP,
@@ -119,7 +119,7 @@ SELECT
   sales_order_header__record_version::TEXT,
   sales_order_header__record_valid_from::TIMESTAMP,
   sales_order_header__record_valid_to::TIMESTAMP,
-  sales_order_header__is_current_record::TEXT
+  sales_order_header__is_current_record::BOOL
 FROM hooks
 WHERE 1 = 1
 AND sales_order_header__record_updated_at BETWEEN @start_ts AND @end_ts

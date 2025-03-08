@@ -53,16 +53,16 @@ SELECT
   _pit_hook__person__sales::BLOB,
   _hook__person__sales::BLOB,
   sales_person_quota_history__business_entity_id::BIGINT,
-  sales_person_quota_history__quota_date::TEXT,
+  sales_person_quota_history__quota_date::DATE,
   sales_person_quota_history__sales_quota::DOUBLE,
-  sales_person_quota_history__rowguid::UUID,
+  sales_person_quota_history__rowguid::TEXT,
   sales_person_quota_history__modified_date::DATE,
   sales_person_quota_history__record_loaded_at::TIMESTAMP,
   sales_person_quota_history__record_updated_at::TIMESTAMP,
   sales_person_quota_history__record_version::TEXT,
   sales_person_quota_history__record_valid_from::TIMESTAMP,
   sales_person_quota_history__record_valid_to::TIMESTAMP,
-  sales_person_quota_history__is_current_record::TEXT
+  sales_person_quota_history__is_current_record::BOOL
 FROM hooks
 WHERE 1 = 1
 AND sales_person_quota_history__record_updated_at BETWEEN @start_ts AND @end_ts

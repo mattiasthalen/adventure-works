@@ -53,7 +53,7 @@ SELECT
   _pit_hook__person__employee::BLOB,
   _hook__person__employee::BLOB,
   employee_pay_history__business_entity_id::BIGINT,
-  employee_pay_history__rate_change_date::TIMESTAMP,
+  employee_pay_history__rate_change_date::DATE,
   employee_pay_history__rate::DOUBLE,
   employee_pay_history__pay_frequency::BIGINT,
   employee_pay_history__modified_date::DATE,
@@ -62,7 +62,7 @@ SELECT
   employee_pay_history__record_version::TEXT,
   employee_pay_history__record_valid_from::TIMESTAMP,
   employee_pay_history__record_valid_to::TIMESTAMP,
-  employee_pay_history__is_current_record::TEXT
+  employee_pay_history__is_current_record::BOOL
 FROM hooks
 WHERE 1 = 1
 AND employee_pay_history__record_updated_at BETWEEN @start_ts AND @end_ts

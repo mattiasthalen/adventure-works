@@ -21,21 +21,21 @@ WITH cte__source AS (
 ), cte__sell_start_date AS (
   SELECT
     _pit_hook__product,
-    product__sell_start_date::DATE AS measure_date,
+    product__sell_start_date AS measure_date,
     1 AS measure__products_sell_start
   FROM cte__source
   WHERE product__sell_start_date IS NOT NULL
 ), cte__modified_date AS (
   SELECT
     _pit_hook__product,
-    product__modified_date::DATE AS measure_date,
+    product__modified_date AS measure_date,
     1 AS measure__products_modified
   FROM cte__source
   WHERE product__modified_date IS NOT NULL
 ), cte__sell_end_date AS (
   SELECT
     _pit_hook__product,
-    product__sell_end_date::DATE AS measure_date,
+    product__sell_end_date AS measure_date,
     1 AS measure__products_sell_end
   FROM cte__source
   WHERE product__sell_end_date IS NOT NULL

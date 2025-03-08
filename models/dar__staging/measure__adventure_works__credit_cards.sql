@@ -19,7 +19,7 @@ WITH cte__source AS (
 ), cte__modified_date AS (
   SELECT
     _pit_hook__credit_card,
-    credit_card__modified_date::DATE AS measure_date,
+    credit_card__modified_date AS measure_date,
     1 AS measure__credit_cards_modified
   FROM cte__source
   WHERE credit_card__modified_date IS NOT NULL

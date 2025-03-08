@@ -66,15 +66,15 @@ SELECT
   employee__national_idnumber::TEXT,
   employee__login_id::TEXT,
   employee__job_title::TEXT,
-  employee__birth_date::TEXT,
+  employee__birth_date::DATE,
   employee__marital_status::TEXT,
   employee__gender::TEXT,
-  employee__hire_date::TEXT,
+  employee__hire_date::DATE,
   employee__salaried_flag::BOOLEAN,
   employee__vacation_hours::BIGINT,
   employee__sick_leave_hours::BIGINT,
   employee__current_flag::BOOLEAN,
-  employee__rowguid::UUID,
+  employee__rowguid::TEXT,
   employee__organization_level::BIGINT,
   employee__modified_date::DATE,
   employee__record_loaded_at::TIMESTAMP,
@@ -82,7 +82,7 @@ SELECT
   employee__record_version::TEXT,
   employee__record_valid_from::TIMESTAMP,
   employee__record_valid_to::TIMESTAMP,
-  employee__is_current_record::TEXT
+  employee__is_current_record::BOOL
 FROM hooks
 WHERE 1 = 1
 AND employee__record_updated_at BETWEEN @start_ts AND @end_ts

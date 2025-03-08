@@ -6,7 +6,7 @@ MODEL (
 SELECT
     purchase_order_id::BIGINT,
     purchase_order_detail_id::BIGINT,
-    due_date::TEXT,
+    due_date::DATE,
     order_qty::BIGINT,
     product_id::BIGINT,
     unit_price::DOUBLE,
@@ -17,6 +17,6 @@ SELECT
     modified_date::DATE,
     _dlt_load_id::TEXT
 FROM ICEBERG_SCAN(
-  "file://" || @project_path || "/lakehouse/bronze/raw__adventure_works__purchase_order_details"
+  "file://" || @project_path || "/lakehouse/das/raw__adventure_works__purchase_order_details"
 )
 ;

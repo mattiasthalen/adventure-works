@@ -63,7 +63,7 @@ SELECT
   address__city::TEXT,
   address__state_province_id::BIGINT,
   address__postal_code::TEXT,
-  address__rowguid::UUID,
+  address__rowguid::TEXT,
   address__address_line2::TEXT,
   address__modified_date::DATE,
   address__record_loaded_at::TIMESTAMP,
@@ -71,7 +71,7 @@ SELECT
   address__record_version::TEXT,
   address__record_valid_from::TIMESTAMP,
   address__record_valid_to::TIMESTAMP,
-  address__is_current_record::TEXT
+  address__is_current_record::BOOL
 FROM hooks
 WHERE 1 = 1
 AND address__record_updated_at BETWEEN @start_ts AND @end_ts

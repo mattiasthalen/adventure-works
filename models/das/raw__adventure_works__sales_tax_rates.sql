@@ -9,10 +9,10 @@ SELECT
     tax_type::BIGINT,
     tax_rate::DOUBLE,
     name::TEXT,
-    rowguid::UUID,
+    rowguid::TEXT,
     modified_date::DATE,
     _dlt_load_id::TEXT
 FROM ICEBERG_SCAN(
-  "file://" || @project_path || "/lakehouse/bronze/raw__adventure_works__sales_tax_rates"
+  "file://" || @project_path || "/lakehouse/das/raw__adventure_works__sales_tax_rates"
 )
 ;

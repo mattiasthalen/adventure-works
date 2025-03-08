@@ -19,7 +19,7 @@ WITH cte__source AS (
 ), cte__modified_date AS (
   SELECT
     _pit_hook__reference__scrap_reason,
-    scrap_reason__modified_date::DATE AS measure_date,
+    scrap_reason__modified_date AS measure_date,
     1 AS measure__scrap_reasons_modified
   FROM cte__source
   WHERE scrap_reason__modified_date IS NOT NULL

@@ -5,7 +5,7 @@ MODEL (
 
 SELECT
     currency_rate_id::BIGINT,
-    currency_rate_date::TEXT,
+    currency_rate_date::DATE,
     from_currency_code::TEXT,
     to_currency_code::TEXT,
     average_rate::DOUBLE,
@@ -13,6 +13,6 @@ SELECT
     modified_date::DATE,
     _dlt_load_id::TEXT
 FROM ICEBERG_SCAN(
-  "file://" || @project_path || "/lakehouse/bronze/raw__adventure_works__currency_rates"
+  "file://" || @project_path || "/lakehouse/das/raw__adventure_works__currency_rates"
 )
 ;

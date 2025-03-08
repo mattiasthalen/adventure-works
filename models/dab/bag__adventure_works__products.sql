@@ -86,8 +86,8 @@ SELECT
   product__standard_cost::DOUBLE,
   product__list_price::DOUBLE,
   product__days_to_manufacture::BIGINT,
-  product__sell_start_date::TEXT,
-  product__rowguid::UUID,
+  product__sell_start_date::DATE,
+  product__rowguid::TEXT,
   product__color::TEXT,
   product__class::TEXT,
   product__weight_unit_measure_code::TEXT,
@@ -98,14 +98,14 @@ SELECT
   product__style::TEXT,
   product__product_subcategory_id::BIGINT,
   product__product_model_id::BIGINT,
-  product__sell_end_date::TEXT,
+  product__sell_end_date::DATE,
   product__modified_date::DATE,
   product__record_loaded_at::TIMESTAMP,
   product__record_updated_at::TIMESTAMP,
   product__record_version::TEXT,
   product__record_valid_from::TIMESTAMP,
   product__record_valid_to::TIMESTAMP,
-  product__is_current_record::TEXT
+  product__is_current_record::BOOL
 FROM hooks
 WHERE 1 = 1
 AND product__record_updated_at BETWEEN @start_ts AND @end_ts

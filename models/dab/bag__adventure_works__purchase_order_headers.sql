@@ -73,8 +73,8 @@ SELECT
   purchase_order_header__employee_id::BIGINT,
   purchase_order_header__vendor_id::BIGINT,
   purchase_order_header__ship_method_id::BIGINT,
-  purchase_order_header__order_date::TEXT,
-  purchase_order_header__ship_date::TEXT,
+  purchase_order_header__order_date::DATE,
+  purchase_order_header__ship_date::DATE,
   purchase_order_header__sub_total::DOUBLE,
   purchase_order_header__tax_amt::DOUBLE,
   purchase_order_header__freight::DOUBLE,
@@ -85,7 +85,7 @@ SELECT
   purchase_order_header__record_version::TEXT,
   purchase_order_header__record_valid_from::TIMESTAMP,
   purchase_order_header__record_valid_to::TIMESTAMP,
-  purchase_order_header__is_current_record::TEXT
+  purchase_order_header__is_current_record::BOOL
 FROM hooks
 WHERE 1 = 1
 AND purchase_order_header__record_updated_at BETWEEN @start_ts AND @end_ts

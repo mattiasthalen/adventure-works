@@ -19,7 +19,7 @@ WITH cte__source AS (
 ), cte__modified_date AS (
   SELECT
     _pit_hook__currency,
-    currency__modified_date::DATE AS measure_date,
+    currency__modified_date AS measure_date,
     1 AS measure__currencies_modified
   FROM cte__source
   WHERE currency__modified_date IS NOT NULL

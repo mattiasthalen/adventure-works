@@ -10,6 +10,6 @@ SELECT
     _dlt_load_id::TEXT,
     business_entity_id::BIGINT
 FROM ICEBERG_SCAN(
-  "file://" || @project_path || "/lakehouse/bronze/raw__adventure_works__job_candidates"
+  "file://" || @project_path || "/lakehouse/das/raw__adventure_works__job_candidates"
 )
 ;

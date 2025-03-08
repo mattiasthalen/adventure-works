@@ -58,14 +58,14 @@ SELECT
   product_subcategory__product_subcategory_id::BIGINT,
   product_subcategory__product_category_id::BIGINT,
   product_subcategory__name::TEXT,
-  product_subcategory__rowguid::UUID,
+  product_subcategory__rowguid::TEXT,
   product_subcategory__modified_date::DATE,
   product_subcategory__record_loaded_at::TIMESTAMP,
   product_subcategory__record_updated_at::TIMESTAMP,
   product_subcategory__record_version::TEXT,
   product_subcategory__record_valid_from::TIMESTAMP,
   product_subcategory__record_valid_to::TIMESTAMP,
-  product_subcategory__is_current_record::TEXT
+  product_subcategory__is_current_record::BOOL
 FROM hooks
 WHERE 1 = 1
 AND product_subcategory__record_updated_at BETWEEN @start_ts AND @end_ts

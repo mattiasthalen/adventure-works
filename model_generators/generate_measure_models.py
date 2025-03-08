@@ -134,7 +134,7 @@ WITH cte__source AS (
             sql_file.write(f""", {cte_name} AS (
   SELECT
     _pit{primary_hook_name},
-    {column_prefix}__{field}::DATE AS measure_date,
+    {column_prefix}__{field} AS measure_date,
     1 AS {measure_name}
   FROM cte__source
   WHERE {column_prefix}__{field} IS NOT NULL
@@ -174,6 +174,3 @@ SELECT
         sql_file.write("\nFROM cte__epoch")
     
     return True
-
-if __name__ == "__main__":
-    generate_measure_models("./models/silver/", "silver")

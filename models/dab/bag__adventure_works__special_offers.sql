@@ -63,10 +63,10 @@ SELECT
   special_offer__discount_percentage::DOUBLE,
   special_offer__type::TEXT,
   special_offer__category::TEXT,
-  special_offer__start_date::TEXT,
-  special_offer__end_date::TEXT,
+  special_offer__start_date::DATE,
+  special_offer__end_date::DATE,
   special_offer__minimum_quantity::BIGINT,
-  special_offer__rowguid::UUID,
+  special_offer__rowguid::TEXT,
   special_offer__maximum_quantity::BIGINT,
   special_offer__modified_date::DATE,
   special_offer__record_loaded_at::TIMESTAMP,
@@ -74,7 +74,7 @@ SELECT
   special_offer__record_version::TEXT,
   special_offer__record_valid_from::TIMESTAMP,
   special_offer__record_valid_to::TIMESTAMP,
-  special_offer__is_current_record::TEXT
+  special_offer__is_current_record::BOOL
 FROM hooks
 WHERE 1 = 1
 AND special_offer__record_updated_at BETWEEN @start_ts AND @end_ts

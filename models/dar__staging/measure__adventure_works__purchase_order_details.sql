@@ -20,14 +20,14 @@ WITH cte__source AS (
 ), cte__due_date AS (
   SELECT
     _pit_hook__order_line__purchase,
-    purchase_order_detail__due_date::DATE AS measure_date,
+    purchase_order_detail__due_date AS measure_date,
     1 AS measure__purchase_order_details_due
   FROM cte__source
   WHERE purchase_order_detail__due_date IS NOT NULL
 ), cte__modified_date AS (
   SELECT
     _pit_hook__order_line__purchase,
-    purchase_order_detail__modified_date::DATE AS measure_date,
+    purchase_order_detail__modified_date AS measure_date,
     1 AS measure__purchase_order_details_modified
   FROM cte__source
   WHERE purchase_order_detail__modified_date IS NOT NULL

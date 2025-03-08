@@ -66,18 +66,18 @@ SELECT
   bill_of_material__bill_of_materials_id::BIGINT,
   bill_of_material__product_assembly_id::BIGINT,
   bill_of_material__component_id::BIGINT,
-  bill_of_material__start_date::TEXT,
+  bill_of_material__start_date::DATE,
   bill_of_material__unit_measure_code::TEXT,
   bill_of_material__bomlevel::BIGINT,
   bill_of_material__per_assembly_qty::DOUBLE,
-  bill_of_material__end_date::TEXT,
+  bill_of_material__end_date::DATE,
   bill_of_material__modified_date::DATE,
   bill_of_material__record_loaded_at::TIMESTAMP,
   bill_of_material__record_updated_at::TIMESTAMP,
   bill_of_material__record_version::TEXT,
   bill_of_material__record_valid_from::TIMESTAMP,
   bill_of_material__record_valid_to::TIMESTAMP,
-  bill_of_material__is_current_record::TEXT
+  bill_of_material__is_current_record::BOOL
 FROM hooks
 WHERE 1 = 1
 AND bill_of_material__record_updated_at BETWEEN @start_ts AND @end_ts

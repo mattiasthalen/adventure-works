@@ -19,7 +19,7 @@ WITH cte__source AS (
 ), cte__modified_date AS (
   SELECT
     _pit_hook__business_entity,
-    business_entity_contact__modified_date::DATE AS measure_date,
+    business_entity_contact__modified_date AS measure_date,
     1 AS measure__business_entity_contacts_modified
   FROM cte__source
   WHERE business_entity_contact__modified_date IS NOT NULL

@@ -58,16 +58,16 @@ SELECT
   _hook__territory__sales::BLOB,
   sales_territory_history__business_entity_id::BIGINT,
   sales_territory_history__territory_id::BIGINT,
-  sales_territory_history__start_date::TEXT,
-  sales_territory_history__rowguid::UUID,
-  sales_territory_history__end_date::TEXT,
+  sales_territory_history__start_date::DATE,
+  sales_territory_history__rowguid::TEXT,
+  sales_territory_history__end_date::DATE,
   sales_territory_history__modified_date::DATE,
   sales_territory_history__record_loaded_at::TIMESTAMP,
   sales_territory_history__record_updated_at::TIMESTAMP,
   sales_territory_history__record_version::TEXT,
   sales_territory_history__record_valid_from::TIMESTAMP,
   sales_territory_history__record_valid_to::TIMESTAMP,
-  sales_territory_history__is_current_record::TEXT
+  sales_territory_history__is_current_record::BOOL
 FROM hooks
 WHERE 1 = 1
 AND sales_territory_history__record_updated_at BETWEEN @start_ts AND @end_ts

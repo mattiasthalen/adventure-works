@@ -10,8 +10,8 @@ SELECT
     employee_id::BIGINT,
     vendor_id::BIGINT,
     ship_method_id::BIGINT,
-    order_date::TEXT,
-    ship_date::TEXT,
+    order_date::DATE,
+    ship_date::DATE,
     sub_total::DOUBLE,
     tax_amt::DOUBLE,
     freight::DOUBLE,
@@ -19,6 +19,6 @@ SELECT
     modified_date::DATE,
     _dlt_load_id::TEXT
 FROM ICEBERG_SCAN(
-  "file://" || @project_path || "/lakehouse/bronze/raw__adventure_works__purchase_order_headers"
+  "file://" || @project_path || "/lakehouse/das/raw__adventure_works__purchase_order_headers"
 )
 ;

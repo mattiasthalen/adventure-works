@@ -19,7 +19,7 @@ WITH cte__source AS (
 ), cte__modified_date AS (
   SELECT
     _pit_hook__reference__country_region,
-    country_region__modified_date::DATE AS measure_date,
+    country_region__modified_date AS measure_date,
     1 AS measure__country_regions_modified
   FROM cte__source
   WHERE country_region__modified_date IS NOT NULL

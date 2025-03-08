@@ -62,14 +62,14 @@ SELECT
   product_inventory__shelf::TEXT,
   product_inventory__bin::BIGINT,
   product_inventory__quantity::BIGINT,
-  product_inventory__rowguid::UUID,
+  product_inventory__rowguid::TEXT,
   product_inventory__modified_date::DATE,
   product_inventory__record_loaded_at::TIMESTAMP,
   product_inventory__record_updated_at::TIMESTAMP,
   product_inventory__record_version::TEXT,
   product_inventory__record_valid_from::TIMESTAMP,
   product_inventory__record_valid_to::TIMESTAMP,
-  product_inventory__is_current_record::TEXT
+  product_inventory__is_current_record::BOOL
 FROM hooks
 WHERE 1 = 1
 AND product_inventory__record_updated_at BETWEEN @start_ts AND @end_ts

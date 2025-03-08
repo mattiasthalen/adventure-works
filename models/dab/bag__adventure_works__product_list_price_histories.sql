@@ -53,8 +53,8 @@ SELECT
   _pit_hook__product::BLOB,
   _hook__product::BLOB,
   product_list_price_history__product_id::BIGINT,
-  product_list_price_history__start_date::TIMESTAMP,
-  product_list_price_history__end_date::TEXT,
+  product_list_price_history__start_date::DATE,
+  product_list_price_history__end_date::DATE,
   product_list_price_history__list_price::DOUBLE,
   product_list_price_history__modified_date::DATE,
   product_list_price_history__record_loaded_at::TIMESTAMP,
@@ -62,7 +62,7 @@ SELECT
   product_list_price_history__record_version::TEXT,
   product_list_price_history__record_valid_from::TIMESTAMP,
   product_list_price_history__record_valid_to::TIMESTAMP,
-  product_list_price_history__is_current_record::TEXT
+  product_list_price_history__is_current_record::BOOL
 FROM hooks
 WHERE 1 = 1
 AND product_list_price_history__record_updated_at BETWEEN @start_ts AND @end_ts

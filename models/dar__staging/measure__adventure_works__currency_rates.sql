@@ -20,14 +20,14 @@ WITH cte__source AS (
 ), cte__currency_rate_date AS (
   SELECT
     _pit_hook__currency_rate,
-    currency_rate__currency_rate_date::DATE AS measure_date,
+    currency_rate__currency_rate_date AS measure_date,
     1 AS measure__currency_rates_currency_rate
   FROM cte__source
   WHERE currency_rate__currency_rate_date IS NOT NULL
 ), cte__modified_date AS (
   SELECT
     _pit_hook__currency_rate,
-    currency_rate__modified_date::DATE AS measure_date,
+    currency_rate__modified_date AS measure_date,
     1 AS measure__currency_rates_modified
   FROM cte__source
   WHERE currency_rate__modified_date IS NOT NULL

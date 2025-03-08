@@ -53,14 +53,14 @@ SELECT
   _hook__reference__address_type::BLOB,
   address_type__address_type_id::BIGINT,
   address_type__name::TEXT,
-  address_type__rowguid::UUID,
+  address_type__rowguid::TEXT,
   address_type__modified_date::DATE,
   address_type__record_loaded_at::TIMESTAMP,
   address_type__record_updated_at::TIMESTAMP,
   address_type__record_version::TEXT,
   address_type__record_valid_from::TIMESTAMP,
   address_type__record_valid_to::TIMESTAMP,
-  address_type__is_current_record::TEXT
+  address_type__is_current_record::BOOL
 FROM hooks
 WHERE 1 = 1
 AND address_type__record_updated_at BETWEEN @start_ts AND @end_ts

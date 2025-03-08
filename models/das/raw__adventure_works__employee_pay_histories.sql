@@ -5,12 +5,12 @@ MODEL (
 
 SELECT
     business_entity_id::BIGINT,
-    rate_change_date::TIMESTAMP,
+    rate_change_date::DATE,
     rate::DOUBLE,
     pay_frequency::BIGINT,
     modified_date::DATE,
     _dlt_load_id::TEXT
 FROM ICEBERG_SCAN(
-  "file://" || @project_path || "/lakehouse/bronze/raw__adventure_works__employee_pay_histories"
+  "file://" || @project_path || "/lakehouse/das/raw__adventure_works__employee_pay_histories"
 )
 ;

@@ -66,14 +66,14 @@ SELECT
   state_province__is_only_state_province_flag::BOOLEAN,
   state_province__name::TEXT,
   state_province__territory_id::BIGINT,
-  state_province__rowguid::UUID,
+  state_province__rowguid::TEXT,
   state_province__modified_date::DATE,
   state_province__record_loaded_at::TIMESTAMP,
   state_province__record_updated_at::TIMESTAMP,
   state_province__record_version::TEXT,
   state_province__record_valid_from::TIMESTAMP,
   state_province__record_valid_to::TIMESTAMP,
-  state_province__is_current_record::TEXT
+  state_province__is_current_record::BOOL
 FROM hooks
 WHERE 1 = 1
 AND state_province__record_updated_at BETWEEN @start_ts AND @end_ts

@@ -21,21 +21,21 @@ WITH cte__source AS (
 ), cte__start_date AS (
   SELECT
     _pit_hook__person__employee,
-    employee_department_history__start_date::DATE AS measure_date,
+    employee_department_history__start_date AS measure_date,
     1 AS measure__employee_department_histories_started
   FROM cte__source
   WHERE employee_department_history__start_date IS NOT NULL
 ), cte__modified_date AS (
   SELECT
     _pit_hook__person__employee,
-    employee_department_history__modified_date::DATE AS measure_date,
+    employee_department_history__modified_date AS measure_date,
     1 AS measure__employee_department_histories_modified
   FROM cte__source
   WHERE employee_department_history__modified_date IS NOT NULL
 ), cte__end_date AS (
   SELECT
     _pit_hook__person__employee,
-    employee_department_history__end_date::DATE AS measure_date,
+    employee_department_history__end_date AS measure_date,
     1 AS measure__employee_department_histories_finished
   FROM cte__source
   WHERE employee_department_history__end_date IS NOT NULL

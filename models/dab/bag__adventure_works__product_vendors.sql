@@ -68,7 +68,7 @@ SELECT
   product_vendor__average_lead_time::BIGINT,
   product_vendor__standard_price::DOUBLE,
   product_vendor__last_receipt_cost::DOUBLE,
-  product_vendor__last_receipt_date::TEXT,
+  product_vendor__last_receipt_date::DATE,
   product_vendor__min_order_qty::BIGINT,
   product_vendor__max_order_qty::BIGINT,
   product_vendor__unit_measure_code::TEXT,
@@ -79,7 +79,7 @@ SELECT
   product_vendor__record_version::TEXT,
   product_vendor__record_valid_from::TIMESTAMP,
   product_vendor__record_valid_to::TIMESTAMP,
-  product_vendor__is_current_record::TEXT
+  product_vendor__is_current_record::BOOL
 FROM hooks
 WHERE 1 = 1
 AND product_vendor__record_updated_at BETWEEN @start_ts AND @end_ts

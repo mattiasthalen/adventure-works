@@ -20,14 +20,14 @@ WITH cte__source AS (
 ), cte__rate_change_date AS (
   SELECT
     _pit_hook__person__employee,
-    employee_pay_history__rate_change_date::DATE AS measure_date,
+    employee_pay_history__rate_change_date AS measure_date,
     1 AS measure__employee_pay_histories_rate_change
   FROM cte__source
   WHERE employee_pay_history__rate_change_date IS NOT NULL
 ), cte__modified_date AS (
   SELECT
     _pit_hook__person__employee,
-    employee_pay_history__modified_date::DATE AS measure_date,
+    employee_pay_history__modified_date AS measure_date,
     1 AS measure__employee_pay_histories_modified
   FROM cte__source
   WHERE employee_pay_history__modified_date IS NOT NULL

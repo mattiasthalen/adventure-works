@@ -79,11 +79,11 @@ cte__pit_lookup AS (
     LIST_HAS_ALL(
       ARRAY[True],
         ARRAY[
-          cte__bridge.bridge__is_current_record::BOOL,
-          uss_bridge__products.bridge__is_current_record::BOOL,
-          uss_bridge__product_cost_histories.bridge__is_current_record::BOOL,
-          uss_bridge__product_list_price_histories.bridge__is_current_record::BOOL,
-          uss_bridge__scrap_reasons.bridge__is_current_record::BOOL
+          cte__bridge.bridge__is_current_record,
+          uss_bridge__products.bridge__is_current_record,
+          uss_bridge__product_cost_histories.bridge__is_current_record,
+          uss_bridge__product_list_price_histories.bridge__is_current_record,
+          uss_bridge__scrap_reasons.bridge__is_current_record
         ]
     ) AS bridge__is_current_record
   FROM cte__bridge

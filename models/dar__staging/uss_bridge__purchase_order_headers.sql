@@ -93,13 +93,13 @@ cte__pit_lookup AS (
     LIST_HAS_ALL(
       ARRAY[True],
         ARRAY[
-          cte__bridge.bridge__is_current_record::BOOL,
-          uss_bridge__employees.bridge__is_current_record::BOOL,
-          uss_bridge__employee_pay_histories.bridge__is_current_record::BOOL,
-          uss_bridge__employee_department_histories.bridge__is_current_record::BOOL,
-          uss_bridge__vendors.bridge__is_current_record::BOOL,
-          uss_bridge__product_vendors.bridge__is_current_record::BOOL,
-          uss_bridge__ship_methods.bridge__is_current_record::BOOL
+          cte__bridge.bridge__is_current_record,
+          uss_bridge__employees.bridge__is_current_record,
+          uss_bridge__employee_pay_histories.bridge__is_current_record,
+          uss_bridge__employee_department_histories.bridge__is_current_record,
+          uss_bridge__vendors.bridge__is_current_record,
+          uss_bridge__product_vendors.bridge__is_current_record,
+          uss_bridge__ship_methods.bridge__is_current_record
         ]
     ) AS bridge__is_current_record
   FROM cte__bridge

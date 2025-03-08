@@ -67,7 +67,7 @@ SELECT
   shopping_cart_item__record_version::TEXT,
   shopping_cart_item__record_valid_from::TIMESTAMP,
   shopping_cart_item__record_valid_to::TIMESTAMP,
-  shopping_cart_item__is_current_record::TEXT
+  shopping_cart_item__is_current_record::BOOL
 FROM hooks
 WHERE 1 = 1
 AND shopping_cart_item__record_updated_at BETWEEN @start_ts AND @end_ts

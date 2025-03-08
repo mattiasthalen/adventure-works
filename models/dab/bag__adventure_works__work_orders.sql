@@ -67,9 +67,9 @@ SELECT
   work_order__order_qty::BIGINT,
   work_order__stocked_qty::BIGINT,
   work_order__scrapped_qty::BIGINT,
-  work_order__start_date::TEXT,
-  work_order__end_date::TEXT,
-  work_order__due_date::TEXT,
+  work_order__start_date::DATE,
+  work_order__end_date::DATE,
+  work_order__due_date::DATE,
   work_order__scrap_reason_id::BIGINT,
   work_order__modified_date::DATE,
   work_order__record_loaded_at::TIMESTAMP,
@@ -77,7 +77,7 @@ SELECT
   work_order__record_version::TEXT,
   work_order__record_valid_from::TIMESTAMP,
   work_order__record_valid_to::TIMESTAMP,
-  work_order__is_current_record::TEXT
+  work_order__is_current_record::BOOL
 FROM hooks
 WHERE 1 = 1
 AND work_order__record_updated_at BETWEEN @start_ts AND @end_ts

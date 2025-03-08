@@ -63,7 +63,7 @@ SELECT
   job_candidate__record_version::TEXT,
   job_candidate__record_valid_from::TIMESTAMP,
   job_candidate__record_valid_to::TIMESTAMP,
-  job_candidate__is_current_record::TEXT
+  job_candidate__is_current_record::BOOL
 FROM hooks
 WHERE 1 = 1
 AND job_candidate__record_updated_at BETWEEN @start_ts AND @end_ts

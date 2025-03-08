@@ -318,9 +318,9 @@ def generate_temporal_calculations(dependencies, all_bag_info):
     sql += "    LIST_HAS_ALL(\n"
     sql += "      ARRAY[True],\n"
     sql += "        ARRAY[\n"
-    sql += "          cte__bridge.bridge__is_current_record::BOOL"
+    sql += "          cte__bridge.bridge__is_current_record"
     for bridge_name in bridge_names:
-        sql += f",\n          {bridge_name}.bridge__is_current_record::BOOL"
+        sql += f",\n          {bridge_name}.bridge__is_current_record"
     sql += "\n        ]\n    ) AS bridge__is_current_record"
     
     return sql
@@ -579,12 +579,3 @@ def generate_unified_bridge(bag_info, build_order, output_dir, bridge_schema):
 FROM cte__bridge_union""")
     
     return True
-
-if __name__ == "__main__":
-    generate_bridges(
-        "./models/silver/", 
-        "./models/gold/",
-        "silver",
-        "silver",
-        "silver"
-    )

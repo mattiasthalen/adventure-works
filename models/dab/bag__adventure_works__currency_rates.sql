@@ -60,7 +60,7 @@ SELECT
   _hook__currency__to::BLOB,
   _hook__currency_rate::BLOB,
   currency_rate__currency_rate_id::BIGINT,
-  currency_rate__currency_rate_date::TEXT,
+  currency_rate__currency_rate_date::DATE,
   currency_rate__from_currency_code::TEXT,
   currency_rate__to_currency_code::TEXT,
   currency_rate__average_rate::DOUBLE,
@@ -71,7 +71,7 @@ SELECT
   currency_rate__record_version::TEXT,
   currency_rate__record_valid_from::TIMESTAMP,
   currency_rate__record_valid_to::TIMESTAMP,
-  currency_rate__is_current_record::TEXT
+  currency_rate__is_current_record::BOOL
 FROM hooks
 WHERE 1 = 1
 AND currency_rate__record_updated_at BETWEEN @start_ts AND @end_ts
