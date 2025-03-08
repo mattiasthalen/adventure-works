@@ -4,21 +4,21 @@ flowchart LR
     classDef gold fill:#FFD700,color:black
 
     subgraph das["db.das"]
-        raw(["Raw Tables"]):::bronze
+        raw(["Raw Tables [58]"]):::bronze
     end
 
     subgraph dab["db.dab"]
-        hook(["HOOK Bags"]):::silver
+        hook(["HOOK Bags [58]"]):::silver
     end
 
     subgraph dar_stg["db.dar__staging"]
-        bridges(["Puppini Bridges"]):::silver
-        event_bridges(["Event Bridges"]):::silver
+        bridges(["Puppini Bridges [58]"]):::silver
+        event_bridges(["Event Bridges [58]"]):::silver
     end
 
     subgraph dar["db.dar"]
-        bridge_union(["Puppini Bridge Union"]):::gold
-        peripheral(["Peripheral Tables"]):::gold
+        bridge_union(["Puppini Bridge Union [1]"]):::gold
+        peripheral(["Peripheral Tables [58]"]):::gold
     end
 
     raw --> hook --> bridges --> event_bridges --> bridge_union
