@@ -22,28 +22,28 @@ WITH cte__source AS (
 ), cte__start_date AS (
   SELECT
     _pit_hook__order__work,
-    work_order__start_date::DATE AS measure_date,
+    work_order__start_date AS measure_date,
     1 AS measure__work_orders_started
   FROM cte__source
   WHERE work_order__start_date IS NOT NULL
 ), cte__end_date AS (
   SELECT
     _pit_hook__order__work,
-    work_order__end_date::DATE AS measure_date,
+    work_order__end_date AS measure_date,
     1 AS measure__work_orders_finished
   FROM cte__source
   WHERE work_order__end_date IS NOT NULL
 ), cte__due_date AS (
   SELECT
     _pit_hook__order__work,
-    work_order__due_date::DATE AS measure_date,
+    work_order__due_date AS measure_date,
     1 AS measure__work_orders_due
   FROM cte__source
   WHERE work_order__due_date IS NOT NULL
 ), cte__modified_date AS (
   SELECT
     _pit_hook__order__work,
-    work_order__modified_date::DATE AS measure_date,
+    work_order__modified_date AS measure_date,
     1 AS measure__work_orders_modified
   FROM cte__source
   WHERE work_order__modified_date IS NOT NULL

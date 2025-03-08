@@ -20,14 +20,14 @@ WITH cte__source AS (
 ), cte__quota_date AS (
   SELECT
     _pit_hook__person__sales,
-    sales_person_quota_history__quota_date::DATE AS measure_date,
+    sales_person_quota_history__quota_date AS measure_date,
     1 AS measure__sales_person_quota_histories_quota
   FROM cte__source
   WHERE sales_person_quota_history__quota_date IS NOT NULL
 ), cte__modified_date AS (
   SELECT
     _pit_hook__person__sales,
-    sales_person_quota_history__modified_date::DATE AS measure_date,
+    sales_person_quota_history__modified_date AS measure_date,
     1 AS measure__sales_person_quota_histories_modified
   FROM cte__source
   WHERE sales_person_quota_history__modified_date IS NOT NULL

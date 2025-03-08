@@ -19,7 +19,7 @@ WITH cte__source AS (
 ), cte__modified_date AS (
   SELECT
     _pit_hook__territory__sales,
-    sales_territory__modified_date::DATE AS measure_date,
+    sales_territory__modified_date AS measure_date,
     1 AS measure__sales_territories_modified
   FROM cte__source
   WHERE sales_territory__modified_date IS NOT NULL

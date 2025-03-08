@@ -19,7 +19,7 @@ WITH cte__source AS (
 ), cte__modified_date AS (
   SELECT
     _pit_hook__job_candidate,
-    job_candidate__modified_date::DATE AS measure_date,
+    job_candidate__modified_date AS measure_date,
     1 AS measure__job_candidates_modified
   FROM cte__source
   WHERE job_candidate__modified_date IS NOT NULL

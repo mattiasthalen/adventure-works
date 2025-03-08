@@ -17,6 +17,6 @@ SELECT
     _dlt_load_id::TEXT,
     on_order_qty::BIGINT
 FROM ICEBERG_SCAN(
-  "file://" || @project_path || "/lakehouse/bronze/raw__adventure_works__product_vendors"
+  "file://" || @project_path || "/lakehouse/das/raw__adventure_works__product_vendors"
 )
 ;

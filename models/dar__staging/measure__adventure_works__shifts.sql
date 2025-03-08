@@ -19,7 +19,7 @@ WITH cte__source AS (
 ), cte__modified_date AS (
   SELECT
     _pit_hook__reference__shift,
-    shift__modified_date::DATE AS measure_date,
+    shift__modified_date AS measure_date,
     1 AS measure__shifts_modified
   FROM cte__source
   WHERE shift__modified_date IS NOT NULL

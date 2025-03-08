@@ -21,21 +21,21 @@ WITH cte__source AS (
 ), cte__order_date AS (
   SELECT
     _pit_hook__order__purchase,
-    purchase_order_header__order_date::DATE AS measure_date,
+    purchase_order_header__order_date AS measure_date,
     1 AS measure__purchase_order_headers_placed
   FROM cte__source
   WHERE purchase_order_header__order_date IS NOT NULL
 ), cte__ship_date AS (
   SELECT
     _pit_hook__order__purchase,
-    purchase_order_header__ship_date::DATE AS measure_date,
+    purchase_order_header__ship_date AS measure_date,
     1 AS measure__purchase_order_headers_shipped
   FROM cte__source
   WHERE purchase_order_header__ship_date IS NOT NULL
 ), cte__modified_date AS (
   SELECT
     _pit_hook__order__purchase,
-    purchase_order_header__modified_date::DATE AS measure_date,
+    purchase_order_header__modified_date AS measure_date,
     1 AS measure__purchase_order_headers_modified
   FROM cte__source
   WHERE purchase_order_header__modified_date IS NOT NULL

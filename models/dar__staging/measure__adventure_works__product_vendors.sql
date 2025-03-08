@@ -20,14 +20,14 @@ WITH cte__source AS (
 ), cte__last_receipt_date AS (
   SELECT
     _pit_hook__vendor,
-    product_vendor__last_receipt_date::DATE AS measure_date,
+    product_vendor__last_receipt_date AS measure_date,
     1 AS measure__product_vendors_last_receipt
   FROM cte__source
   WHERE product_vendor__last_receipt_date IS NOT NULL
 ), cte__modified_date AS (
   SELECT
     _pit_hook__vendor,
-    product_vendor__modified_date::DATE AS measure_date,
+    product_vendor__modified_date AS measure_date,
     1 AS measure__product_vendors_modified
   FROM cte__source
   WHERE product_vendor__modified_date IS NOT NULL

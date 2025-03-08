@@ -58,7 +58,7 @@ SELECT
   country_region__record_version::TEXT,
   country_region__record_valid_from::TIMESTAMP,
   country_region__record_valid_to::TIMESTAMP,
-  country_region__is_current_record::TEXT
+  country_region__is_current_record::BOOL
 FROM hooks
 WHERE 1 = 1
 AND country_region__record_updated_at BETWEEN @start_ts AND @end_ts

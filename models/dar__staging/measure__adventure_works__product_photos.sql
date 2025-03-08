@@ -19,7 +19,7 @@ WITH cte__source AS (
 ), cte__modified_date AS (
   SELECT
     _pit_hook__reference__product_photo,
-    product_photo__modified_date::DATE AS measure_date,
+    product_photo__modified_date AS measure_date,
     1 AS measure__product_photos_modified
   FROM cte__source
   WHERE product_photo__modified_date IS NOT NULL

@@ -19,7 +19,7 @@ WITH cte__source AS (
 ), cte__modified_date AS (
   SELECT
     _pit_hook__reference__sales_tax_rate,
-    sales_tax_rate__modified_date::DATE AS measure_date,
+    sales_tax_rate__modified_date AS measure_date,
     1 AS measure__sales_tax_rates_modified
   FROM cte__source
   WHERE sales_tax_rate__modified_date IS NOT NULL

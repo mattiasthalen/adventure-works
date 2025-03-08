@@ -20,14 +20,14 @@ WITH cte__source AS (
 ), cte__review_date AS (
   SELECT
     _pit_hook__product_review,
-    product_review__review_date::DATE AS measure_date,
+    product_review__review_date AS measure_date,
     1 AS measure__product_reviews_review
   FROM cte__source
   WHERE product_review__review_date IS NOT NULL
 ), cte__modified_date AS (
   SELECT
     _pit_hook__product_review,
-    product_review__modified_date::DATE AS measure_date,
+    product_review__modified_date AS measure_date,
     1 AS measure__product_reviews_modified
   FROM cte__source
   WHERE product_review__modified_date IS NOT NULL

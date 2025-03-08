@@ -57,6 +57,3 @@ FROM {hook_schema}.{bag_name}"""
         file.write(sql)
     
     return True
-
-if __name__ == "__main__":
-    generate_peripherals("./models/gold/", "silver")

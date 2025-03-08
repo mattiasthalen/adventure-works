@@ -75,7 +75,7 @@ SELECT
   sales_territory__record_version::TEXT,
   sales_territory__record_valid_from::TIMESTAMP,
   sales_territory__record_valid_to::TIMESTAMP,
-  sales_territory__is_current_record::TEXT
+  sales_territory__is_current_record::BOOL
 FROM hooks
 WHERE 1 = 1
 AND sales_territory__record_updated_at BETWEEN @start_ts AND @end_ts

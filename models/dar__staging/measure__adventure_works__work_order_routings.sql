@@ -23,35 +23,35 @@ WITH cte__source AS (
 ), cte__scheduled_start_date AS (
   SELECT
     _pit_hook__order_line__work,
-    work_order_routing__scheduled_start_date::DATE AS measure_date,
+    work_order_routing__scheduled_start_date AS measure_date,
     1 AS measure__work_order_routings_scheduled_start
   FROM cte__source
   WHERE work_order_routing__scheduled_start_date IS NOT NULL
 ), cte__scheduled_end_date AS (
   SELECT
     _pit_hook__order_line__work,
-    work_order_routing__scheduled_end_date::DATE AS measure_date,
+    work_order_routing__scheduled_end_date AS measure_date,
     1 AS measure__work_order_routings_scheduled_end
   FROM cte__source
   WHERE work_order_routing__scheduled_end_date IS NOT NULL
 ), cte__actual_start_date AS (
   SELECT
     _pit_hook__order_line__work,
-    work_order_routing__actual_start_date::DATE AS measure_date,
+    work_order_routing__actual_start_date AS measure_date,
     1 AS measure__work_order_routings_actual_start
   FROM cte__source
   WHERE work_order_routing__actual_start_date IS NOT NULL
 ), cte__actual_end_date AS (
   SELECT
     _pit_hook__order_line__work,
-    work_order_routing__actual_end_date::DATE AS measure_date,
+    work_order_routing__actual_end_date AS measure_date,
     1 AS measure__work_order_routings_actual_end
   FROM cte__source
   WHERE work_order_routing__actual_end_date IS NOT NULL
 ), cte__modified_date AS (
   SELECT
     _pit_hook__order_line__work,
-    work_order_routing__modified_date::DATE AS measure_date,
+    work_order_routing__modified_date AS measure_date,
     1 AS measure__work_order_routings_modified
   FROM cte__source
   WHERE work_order_routing__modified_date IS NOT NULL

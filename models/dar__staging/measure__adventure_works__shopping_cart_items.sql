@@ -19,7 +19,7 @@ WITH cte__source AS (
 ), cte__modified_date AS (
   SELECT
     _pit_hook__shopping_cart_item,
-    shopping_cart_item__modified_date::DATE AS measure_date,
+    shopping_cart_item__modified_date AS measure_date,
     1 AS measure__shopping_cart_items_modified
   FROM cte__source
   WHERE shopping_cart_item__modified_date IS NOT NULL

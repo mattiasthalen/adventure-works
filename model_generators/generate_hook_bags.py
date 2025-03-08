@@ -150,12 +150,9 @@ def generate_hook_model_for_bag(bag, schema, output_dir, raw_schema):
   {column_prefix}__record_version::TEXT,
   {column_prefix}__record_valid_from::TIMESTAMP,
   {column_prefix}__record_valid_to::TIMESTAMP,
-  {column_prefix}__is_current_record::TEXT
+  {column_prefix}__is_current_record::BOOL
 FROM hooks
 WHERE 1 = 1
 AND {column_prefix}__record_updated_at BETWEEN @start_ts AND @end_ts""")
     
     return True
-
-if __name__ == "__main__":
-    generate_hook_bags("./models/silver/", "bronze")

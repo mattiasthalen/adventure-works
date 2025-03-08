@@ -73,7 +73,7 @@ SELECT
   customer__record_version::TEXT,
   customer__record_valid_from::TIMESTAMP,
   customer__record_valid_to::TIMESTAMP,
-  customer__is_current_record::TEXT
+  customer__is_current_record::BOOL
 FROM hooks
 WHERE 1 = 1
 AND customer__record_updated_at BETWEEN @start_ts AND @end_ts

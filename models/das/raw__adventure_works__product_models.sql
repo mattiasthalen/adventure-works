@@ -12,6 +12,6 @@ SELECT
     catalog_description::TEXT,
     instructions::TEXT
 FROM ICEBERG_SCAN(
-  "file://" || @project_path || "/lakehouse/bronze/raw__adventure_works__product_models"
+  "file://" || @project_path || "/lakehouse/das/raw__adventure_works__product_models"
 )
 ;

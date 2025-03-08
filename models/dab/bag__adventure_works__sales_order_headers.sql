@@ -119,7 +119,7 @@ SELECT
   sales_order_header__record_version::TEXT,
   sales_order_header__record_valid_from::TIMESTAMP,
   sales_order_header__record_valid_to::TIMESTAMP,
-  sales_order_header__is_current_record::TEXT
+  sales_order_header__is_current_record::BOOL
 FROM hooks
 WHERE 1 = 1
 AND sales_order_header__record_updated_at BETWEEN @start_ts AND @end_ts

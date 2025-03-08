@@ -20,14 +20,14 @@ WITH cte__source AS (
 ), cte__transaction_date AS (
   SELECT
     _pit_hook__transaction_history_archive,
-    transaction_history_archive__transaction_date::DATE AS measure_date,
+    transaction_history_archive__transaction_date AS measure_date,
     1 AS measure__transaction_history_archives_transaction
   FROM cte__source
   WHERE transaction_history_archive__transaction_date IS NOT NULL
 ), cte__modified_date AS (
   SELECT
     _pit_hook__transaction_history_archive,
-    transaction_history_archive__modified_date::DATE AS measure_date,
+    transaction_history_archive__modified_date AS measure_date,
     1 AS measure__transaction_history_archives_modified
   FROM cte__source
   WHERE transaction_history_archive__modified_date IS NOT NULL

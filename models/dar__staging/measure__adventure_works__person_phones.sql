@@ -19,7 +19,7 @@ WITH cte__source AS (
 ), cte__modified_date AS (
   SELECT
     _pit_hook__person__individual,
-    person_phone__modified_date::DATE AS measure_date,
+    person_phone__modified_date AS measure_date,
     1 AS measure__person_phones_modified
   FROM cte__source
   WHERE person_phone__modified_date IS NOT NULL

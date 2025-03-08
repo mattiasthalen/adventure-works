@@ -18,6 +18,6 @@ SELECT
     title::TEXT,
     suffix::TEXT
 FROM ICEBERG_SCAN(
-  "file://" || @project_path || "/lakehouse/bronze/raw__adventure_works__persons"
+  "file://" || @project_path || "/lakehouse/das/raw__adventure_works__persons"
 )
 ;

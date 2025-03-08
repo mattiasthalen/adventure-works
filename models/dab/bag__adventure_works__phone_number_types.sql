@@ -58,7 +58,7 @@ SELECT
   phone_number_type__record_version::TEXT,
   phone_number_type__record_valid_from::TIMESTAMP,
   phone_number_type__record_valid_to::TIMESTAMP,
-  phone_number_type__is_current_record::TEXT
+  phone_number_type__is_current_record::BOOL
 FROM hooks
 WHERE 1 = 1
 AND phone_number_type__record_updated_at BETWEEN @start_ts AND @end_ts

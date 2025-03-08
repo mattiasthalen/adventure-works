@@ -58,9 +58,6 @@ def generate_sql_for_table(table_name, table_info):
     sql += ",\n".join(column_statements)
     
     # Add FROM clause with Iceberg scan
-    sql += f"\nFROM ICEBERG_SCAN(\n  \"file://\" || @project_path || \"/lakehouse/bronze/{table_name}\"\n)\n;"
+    sql += f"\nFROM ICEBERG_SCAN(\n  \"file://\" || @project_path || \"/lakehouse/das/{table_name}\"\n)\n;"
     
     return sql
-
-if __name__ == "__main__":
-    generate_raw_views("./models/bronze/")

@@ -30,6 +30,6 @@ SELECT
     product_model_id::BIGINT,
     sell_end_date::DATE
 FROM ICEBERG_SCAN(
-  "file://" || @project_path || "/lakehouse/bronze/raw__adventure_works__products"
+  "file://" || @project_path || "/lakehouse/das/raw__adventure_works__products"
 )
 ;

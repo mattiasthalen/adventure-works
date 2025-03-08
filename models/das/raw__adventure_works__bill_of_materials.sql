@@ -15,6 +15,6 @@ SELECT
     _dlt_load_id::TEXT,
     end_date::DATE
 FROM ICEBERG_SCAN(
-  "file://" || @project_path || "/lakehouse/bronze/raw__adventure_works__bill_of_materials"
+  "file://" || @project_path || "/lakehouse/das/raw__adventure_works__bill_of_materials"
 )
 ;

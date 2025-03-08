@@ -22,28 +22,28 @@ WITH cte__source AS (
 ), cte__order_date AS (
   SELECT
     _pit_hook__order__sales,
-    sales_order_header__order_date::DATE AS measure_date,
+    sales_order_header__order_date AS measure_date,
     1 AS measure__sales_order_headers_placed
   FROM cte__source
   WHERE sales_order_header__order_date IS NOT NULL
 ), cte__due_date AS (
   SELECT
     _pit_hook__order__sales,
-    sales_order_header__due_date::DATE AS measure_date,
+    sales_order_header__due_date AS measure_date,
     1 AS measure__sales_order_headers_due
   FROM cte__source
   WHERE sales_order_header__due_date IS NOT NULL
 ), cte__ship_date AS (
   SELECT
     _pit_hook__order__sales,
-    sales_order_header__ship_date::DATE AS measure_date,
+    sales_order_header__ship_date AS measure_date,
     1 AS measure__sales_order_headers_shipped
   FROM cte__source
   WHERE sales_order_header__ship_date IS NOT NULL
 ), cte__modified_date AS (
   SELECT
     _pit_hook__order__sales,
-    sales_order_header__modified_date::DATE AS measure_date,
+    sales_order_header__modified_date AS measure_date,
     1 AS measure__sales_order_headers_modified
   FROM cte__source
   WHERE sales_order_header__modified_date IS NOT NULL

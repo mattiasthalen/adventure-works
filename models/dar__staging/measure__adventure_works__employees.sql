@@ -21,21 +21,21 @@ WITH cte__source AS (
 ), cte__birth_date AS (
   SELECT
     _pit_hook__person__employee,
-    employee__birth_date::DATE AS measure_date,
+    employee__birth_date AS measure_date,
     1 AS measure__employees_birth
   FROM cte__source
   WHERE employee__birth_date IS NOT NULL
 ), cte__hire_date AS (
   SELECT
     _pit_hook__person__employee,
-    employee__hire_date::DATE AS measure_date,
+    employee__hire_date AS measure_date,
     1 AS measure__employees_hire
   FROM cte__source
   WHERE employee__hire_date IS NOT NULL
 ), cte__modified_date AS (
   SELECT
     _pit_hook__person__employee,
-    employee__modified_date::DATE AS measure_date,
+    employee__modified_date AS measure_date,
     1 AS measure__employees_modified
   FROM cte__source
   WHERE employee__modified_date IS NOT NULL
