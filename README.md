@@ -67,17 +67,17 @@ flowchart LR
     end
 
     subgraph dar_stg["db.dar__staging"]
-        measures(["Measures"]):::silver
-        bridge_staging(["Bridge Staging"]):::silver
+        bridge_staging(["Puppini Bridges"]):::silver
+        events(["Events"]):::silver
     end
 
     subgraph dar["db.dar"]
-        bridge(["Puppini Bridges"]):::gold
+        unified_bridge(["Unified Puppini Bridge"]):::gold
         peripheral(["Peripheral Tables"]):::gold
     end
 
-    raw -- "1:1" --> hook -- "1:1" --> measures -- "1:1" --> bridge_staging -- "M:1" --> bridge
-    hook -- "1:1" --> bridge_staging
+    raw -- "1:1" --> hook -- "1:1" --> bridge_staging -- "1:1" --> events -- "M:1" --> unified_bridge
+    hook -- "1:1" --> events
     hook -- "1:1" --> peripheral
 
     legend_das["DAS = Data According To System"] -->
@@ -86,44 +86,4 @@ flowchart LR
 ```
 
 ## ERDs - Oriented Data Models
-### Bronze
-```mermaid
-flowchart LR
-    raw__adventure_works__sales_order_details --> raw__adventure_works__products
-    raw__adventure_works__sales_order_details --> raw__adventure_works__sales_order_headers
-    raw__adventure_works__sales_order_details --> raw__adventure_works__special_offers
-    
-    raw__adventure_works__products --> raw__adventure_works__product_subcategories
-    raw__adventure_works__product_subcategories --> raw__adventure_works__product_categories
-
-    raw__adventure_works__sales_order_headers --> raw__adventure_works__addresses
-    raw__adventure_works__sales_order_headers --> raw__adventure_works__credit_cards
-    raw__adventure_works__sales_order_headers --> raw__adventure_works__currency_rates
-    raw__adventure_works__sales_order_headers --> raw__adventure_works__customers
-    raw__adventure_works__sales_order_headers --> raw__adventure_works__persons
-    raw__adventure_works__sales_order_headers --> raw__adventure_works__ship_methods
-    raw__adventure_works__customers --> raw__adventure_works__sales_territories
-    raw__adventure_works__sales_order_headers --> raw__adventure_works__sales_territories
-    
-    raw__adventure_works__customers --> raw__adventure_works__persons
-    raw__adventure_works__customers --> raw__adventure_works__stores
-    
-    raw__adventure_works__sales_territories --> raw__adventure_works__state_provinces
-    
-    raw__adventure_works__stores --> raw__adventure_works__persons
-```
-
-### Silver
 Under construction
-
-### Gold
-```mermaid
-flowchart LR
-    _bridge --> customers
-    _bridge --> products
-    _bridge --> sales_order_details
-    _bridge --> sales_order_headers
-    _bridge --> sales_persons
-    _bridge --> sales_territories
-    _bridge --> stores
-```

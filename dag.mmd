@@ -12,17 +12,17 @@ flowchart LR
     end
 
     subgraph dar_stg["db.dar__staging"]
-        measures(["Measures"]):::silver
-        bridge_staging(["Bridge Staging"]):::silver
+        bridge_staging(["Puppini Bridges"]):::silver
+        events(["Events"]):::silver
     end
 
     subgraph dar["db.dar"]
-        bridge(["Puppini Bridges"]):::gold
+        unified_bridge(["Unified Puppini Bridge"]):::gold
         peripheral(["Peripheral Tables"]):::gold
     end
 
-    raw -- "1:1" --> hook -- "1:1" --> measures -- "1:1" --> bridge_staging -- "M:1" --> bridge
-    hook -- "1:1" --> bridge_staging
+    raw -- "1:1" --> hook -- "1:1" --> bridge_staging -- "1:1" --> events -- "M:1" --> unified_bridge
+    hook -- "1:1" --> events
     hook -- "1:1" --> peripheral
 
     legend_das["DAS = Data According To System"] -->
