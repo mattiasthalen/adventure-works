@@ -73,11 +73,11 @@ if __name__ == "__main__":
     
     # Default behavior: load both schemas if no argument provided
     if len(sys.argv) == 1:
-        load_schema("silver")
-        load_schema("gold")
+        load_schema("dab")
+        load_schema("dar")
         
     # Load specific schema if provided as argument
-    elif len(sys.argv) == 2 and sys.argv[1].lower() in ["silver", "gold"]:
+    elif len(sys.argv) == 2 and sys.argv[1].lower() in ["dab", "dar"]:
         load_schema(sys.argv[1].lower())
     else:
-        print("Usage: python duckdb_to_iceberg.py [silver|gold]")
+        print("Usage: python duckdb_to_iceberg.py [dab|dar]")

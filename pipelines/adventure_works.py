@@ -595,7 +595,7 @@ def load_adventure_works(env) -> None:
     pipeline = dlt.pipeline(
         pipeline_name="adventure_works",
         destination=dlt.destinations.filesystem("./lakehouse"),
-        dataset_name="bronze",
+        dataset_name="das",
         progress="enlighten",
         export_schema_path="./pipelines/schemas/export",
         import_schema_path="./pipelines/schemas/import",
