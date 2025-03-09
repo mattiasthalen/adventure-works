@@ -59,71 +59,78 @@ flowchart LR
     classDef gold fill:#FFD700,color:black
 
     subgraph das["db.das"]
-        raw(["Raw Views"]):::bronze
+        raw(["Raw Tables [58]"]):::bronze
     end
 
     subgraph dab["db.dab"]
-        hook(["HOOK Bags"]):::silver
+        hook(["HOOK Bags [58]"]):::silver
     end
 
     subgraph dar_stg["db.dar__staging"]
-        measures(["Measures"]):::silver
-        bridge_staging(["Bridge Staging"]):::silver
+        bridges(["Puppini Bridges [58]"]):::silver
+        event_bridges(["Event Bridges [58]"]):::silver
     end
 
     subgraph dar["db.dar"]
-        bridge(["Puppini Bridges"]):::gold
-        peripheral(["Peripheral Tables"]):::gold
+        bridge_union(["Puppini Bridge Union [1]"]):::gold
+        peripheral(["Peripheral Tables [58]"]):::gold
     end
 
-    raw -- "1:1" --> hook -- "1:1" --> measures -- "1:1" --> bridge_staging -- "M:1" --> bridge
-    hook -- "1:1" --> bridge_staging
-    hook -- "1:1" --> peripheral
+    raw --> hook --> bridges --> event_bridges --> bridge_union
+    hook --> event_bridges
+    hook --> peripheral
 
     legend_das["DAS = Data According To System"] -->
     legend_dab["DAB = Data According To Business"] ---->
     legend_dar["DAR = Data According To Requirements"]
 ```
+The bridges in `db.dar__staging`uses what I call "cascading inheritance", it looks up the foreign pit hook in the primary bridge for that hook, and inherits other foreign pit hooks.
+```mermaid
+flowchart LR
+    classDef bronze fill:#CD7F32,color:black
+    classDef silver fill:#C0C0C0,color:black
+    classDef gold fill:#FFD700,color:black
+
+    subgraph db.das["db.das"]
+        raw__adventure_works__product_categories(["raw__adventure_works__product_categories"]):::bronze
+        raw__adventure_works__product_subcategories(["raw__adventure_works__product_subcategories"]):::bronze
+        raw__adventure_works__products(["raw__adventure_works__products"]):::bronze
+        raw__adventure_works__sales_order_details(["raw__adventure_works__sales_order_details"]):::bronze
+    end
+    
+    subgraph db.dab["db.dab"]
+        bag__adventure_works__product_categories(["bag__adventure_works__product_categories"]):::silver
+        bag__adventure_works__product_subcategories(["bag__adventure_works__product_subcategories"]):::silver
+        bag__adventure_works__products(["bag__adventure_works__products"]):::silver
+        bag__adventure_works__sales_order_details(["bag__adventure_works__sales_order_details"]):::silver
+    end
+    
+    subgraph db.dar__staging["db.dar__staging"]
+        bridge__product_categories(["bridge__product_categories"]):::silver
+        bridge__product_subcategories(["bridge__product_subcategories"]):::silver
+        bridge__products(["bridge__products"]):::silver
+        bridge__sales_order_details(["bridge__sales_order_details"]):::silver
+        
+        events__product_categories(["events__product_categories"]):::silver
+        events__product_subcategories(["events__product_subcategories"]):::silver
+        events__products(["events__products"]):::silver
+        events__sales_order_details(["events__sales_order_details"]):::silver
+    end
+
+    subgraph db.dar["db.dar"]
+        unified_bridge(["_bridge__as_of"]):::gold
+    end
+
+    raw__adventure_works__product_categories --> bag__adventure_works__product_categories --> bridge__product_categories --> bridge__product_subcategories --> bridge__products --> bridge__sales_order_details
+    raw__adventure_works__product_subcategories --> bag__adventure_works__product_subcategories --> bridge__product_subcategories
+    raw__adventure_works__products --> bag__adventure_works__products --> bridge__products
+    raw__adventure_works__sales_order_details --> bag__adventure_works__sales_order_details --> bridge__sales_order_details
+
+    bridge__product_categories -----> events__product_categories --> unified_bridge
+    bridge__product_subcategories ----> events__product_subcategories --> unified_bridge
+    bridge__products ---> events__products --> unified_bridge
+    bridge__sales_order_details --> events__sales_order_details --> unified_bridge
+```
 
 ## ERDs - Oriented Data Models
-### Bronze
-```mermaid
-flowchart LR
-    raw__adventure_works__sales_order_details --> raw__adventure_works__products
-    raw__adventure_works__sales_order_details --> raw__adventure_works__sales_order_headers
-    raw__adventure_works__sales_order_details --> raw__adventure_works__special_offers
-    
-    raw__adventure_works__products --> raw__adventure_works__product_subcategories
-    raw__adventure_works__product_subcategories --> raw__adventure_works__product_categories
-
-    raw__adventure_works__sales_order_headers --> raw__adventure_works__addresses
-    raw__adventure_works__sales_order_headers --> raw__adventure_works__credit_cards
-    raw__adventure_works__sales_order_headers --> raw__adventure_works__currency_rates
-    raw__adventure_works__sales_order_headers --> raw__adventure_works__customers
-    raw__adventure_works__sales_order_headers --> raw__adventure_works__persons
-    raw__adventure_works__sales_order_headers --> raw__adventure_works__ship_methods
-    raw__adventure_works__customers --> raw__adventure_works__sales_territories
-    raw__adventure_works__sales_order_headers --> raw__adventure_works__sales_territories
-    
-    raw__adventure_works__customers --> raw__adventure_works__persons
-    raw__adventure_works__customers --> raw__adventure_works__stores
-    
-    raw__adventure_works__sales_territories --> raw__adventure_works__state_provinces
-    
-    raw__adventure_works__stores --> raw__adventure_works__persons
-```
-
-### Silver
 Under construction
-
-### Gold
-```mermaid
-flowchart LR
-    _bridge --> customers
-    _bridge --> products
-    _bridge --> sales_order_details
-    _bridge --> sales_order_headers
-    _bridge --> sales_persons
-    _bridge --> sales_territories
-    _bridge --> stores
-```

@@ -4,15 +4,12 @@ from parse_yaml import load_bags_config, ensure_directory_exists
 
 def generate_bridges(
     output_dir,
-    secondary_output_dir,
     hook_schema,
-    measure_schema,
     bridge_schema
 ):
     """Generate bridge model SQL files based on bags configuration"""
     # Ensure output directories exist
     ensure_directory_exists(output_dir)
-    ensure_directory_exists(secondary_output_dir)
     
     # Load YAML files
     bags_config = load_bags_config()
@@ -27,7 +24,7 @@ def generate_bridges(
     build_order = list(nx.topological_sort(hook_graph))
     
     # Generate intermediate bridges for each bag
-    intermediate_count = 0
+    count = 0
     for bag_name in build_order:
         if bag_name in bag_info:
             success = generate_intermediate_bridge(
@@ -37,59 +34,14 @@ def generate_bridges(
                 bag_info, 
                 output_dir,
                 hook_schema,
-                measure_schema,
                 bridge_schema
             )
             if success:
-                intermediate_count += 1
+                count += 1
     
-    # Generate unified bridge for all intermediate bridges
-    success = generate_unified_bridge(
-        bag_info, 
-        build_order, 
-        secondary_output_dir,
-        bridge_schema
-    )
-    unified_count = 1 if success else 0
+    print(f"Generated {count} intermediate bridges in {output_dir}")
     
-    print(f"Generated {intermediate_count} intermediate bridges in {output_dir}")
-    print(f"Generated {unified_count} unified bridge in {secondary_output_dir}")
-    
-    return intermediate_count, unified_count
-
-def find_measure_model(bag_name, measure_schema):
-    """Check if a measure model exists for the given bag"""
-    table_name = bag_name.replace('bag__adventure_works__', '')
-    measure_model_path = f'./models/{measure_schema}/measure__adventure_works__{table_name}.sql'
-    return os.path.exists(measure_model_path)
-
-def get_measure_fields(bag_name, measure_schema):
-    """Extract measure fields from measure model file"""
-    table_name = bag_name.replace('bag__adventure_works__', '')
-    measure_model_path = f'./models/{measure_schema}/measure__adventure_works__{table_name}.sql'
-    
-    if not os.path.exists(measure_model_path):
-        return None, []
-    
-    with open(measure_model_path, 'r') as f:
-        content = f.read()
-    
-    # Find the final SELECT section
-    select_section = content.split('FROM cte__epoch')[0].split('SELECT')[-1]
-    
-    # Extract measure fields and epoch hook
-    measure_fields = []
-    epoch_date_field = None
-    
-    for line in select_section.split('\n'):
-        line = line.strip()
-        if '_hook__epoch__date' in line:
-            epoch_date_field = '_hook__epoch__date'
-        elif line.startswith('measure__'):
-            field_name = line.split('::')[0].strip()
-            measure_fields.append(field_name)
-    
-    return epoch_date_field, measure_fields
+    return count
 
 def build_hook_dependency_graph(bags_config):
     """Build a directed graph representing hook dependencies between bags"""
@@ -172,14 +124,12 @@ def build_references_list(bag_info):
     """Build list of PIT hooks to reference in the model"""
     return sorted(list(bag_info['all_pit_hooks']))
 
-def generate_base_cte(bridge_name, primary_hook, dependencies, column_prefix, bag_name, hook_schema, measure_schema):
-    """Generate the base CTE that selects from the bag including measures"""
-    # Check for measures
-    epoch_date_field, measure_fields = get_measure_fields(bag_name, measure_schema)
-    
+def generate_base_cte(bridge_name, primary_hook, dependencies, column_prefix, bag_name, hook_schema):
+    """Generate the base CTE that selects from the bag """
+ 
     sql = f"""WITH cte__bridge AS (
   SELECT
-    '{bridge_name.replace("uss_bridge__", "")}' AS peripheral,
+    '{bridge_name.replace("bridge__", "")}' AS peripheral,
     _pit{primary_hook['name']},
     {primary_hook['name']},
 """
@@ -188,14 +138,6 @@ def generate_base_cte(bridge_name, primary_hook, dependencies, column_prefix, ba
     for dep in dependencies:
         sql += f"    {dep['hook']['name']},\n"
     
-    # Add epoch date field if present
-    if epoch_date_field:
-        sql += f"    {epoch_date_field},\n"
-    
-    # Add measure fields if present
-    for field in measure_fields:
-        sql += f"    {field},\n"
-    
     # Add system fields
     sql += f"""    {column_prefix}__record_loaded_at AS bridge__record_loaded_at,
     {column_prefix}__record_updated_at AS bridge__record_updated_at,
@@ -203,13 +145,6 @@ def generate_base_cte(bridge_name, primary_hook, dependencies, column_prefix, ba
     {column_prefix}__record_valid_to AS bridge__record_valid_to,
     {column_prefix}__is_current_record AS bridge__is_current_record
   FROM {hook_schema}.{bag_name}"""
-    
-    # Add LEFT JOIN to measure model if needed
-    if measure_fields and epoch_date_field:
-        table_name = bag_name.replace('bag__adventure_works__', '')
-        measure_model = f"measure__adventure_works__{table_name}"
-        sql += f"""
-  LEFT JOIN {measure_schema}.{measure_model} USING (_pit{primary_hook['name']})"""
     
     sql += "\n)"
     
@@ -224,7 +159,7 @@ def generate_join_fragments(dependencies, all_bag_info, bridge_schema):
         if not dep_bag:
             continue
             
-        dep_bridge = f"uss_bridge__{dep['bag_name'].replace('bag__adventure_works__', '')}"
+        dep_bridge = f"bridge__{dep['bag_name'].replace('bag__adventure_works__', '')}"
         dep_hook = dep['hook']
         
         join_fragment = f"""  LEFT JOIN {bridge_schema}.{dep_bridge}
@@ -254,7 +189,7 @@ def build_pit_hooks_list(bag_info, all_bag_info):
         if dep_bag_name not in all_bag_info:
             continue
             
-        dep_bridge = f"uss_bridge__{dep_bag_name.replace('bag__adventure_works__', '')}"
+        dep_bridge = f"bridge__{dep_bag_name.replace('bag__adventure_works__', '')}"
         dep_hook = dep['hook']
         
         # Add the immediate dependency's PIT hook
@@ -283,7 +218,7 @@ def generate_temporal_calculations(dependencies, all_bag_info):
     for dep in dependencies:
         dep_bag_name = dep['bag_name']
         if dep_bag_name in all_bag_info:
-            bridge_name = f"uss_bridge__{dep_bag_name.replace('bag__adventure_works__', '')}"
+            bridge_name = f"bridge__{dep_bag_name.replace('bag__adventure_works__', '')}"
             bridge_names.append(bridge_name)
     
     # Generate GREATEST for record_loaded_at
@@ -325,11 +260,9 @@ def generate_temporal_calculations(dependencies, all_bag_info):
     
     return sql
 
-def generate_pit_lookup_cte(bag_info, dependencies, all_bag_info, join_fragments, bag_name, measure_schema):
-    """Generate PIT lookup CTE with joins and measures"""
-    # Get measure fields
-    epoch_date_field, measure_fields = get_measure_fields(bag_name, measure_schema)
-    
+def generate_pit_lookup_cte(bag_info, dependencies, all_bag_info, join_fragments, bag_name):
+    """Generate PIT lookup CTE with joins """
+
     sql = "cte__pit_lookup AS (\n"
     sql += "  SELECT\n"
     sql += "    cte__bridge.peripheral,\n"
@@ -341,14 +274,6 @@ def generate_pit_lookup_cte(bag_info, dependencies, all_bag_info, join_fragments
     
     # Add primary hook
     sql += f"    cte__bridge.{bag_info['primary_hook']['name']},\n"
-    
-    # Add epoch date hook if present
-    if epoch_date_field:
-        sql += f"    cte__bridge.{epoch_date_field},\n"
-    
-    # Add measure fields if present
-    for field in measure_fields:
-        sql += f"    cte__bridge.{field},\n"
     
     # Add temporal calculations
     sql += generate_temporal_calculations(dependencies, all_bag_info)
@@ -362,7 +287,7 @@ def generate_pit_lookup_cte(bag_info, dependencies, all_bag_info, join_fragments
     
     return sql
 
-def generate_pit_hook_cte(bag_info, all_bag_info, epoch_date_field=None, join_fragments=None):
+def generate_pit_hook_cte(bag_info, all_bag_info, join_fragments=None):
     """Generate CTE that creates the bridge PIT hook"""
     
     sql = "cte__bridge_pit_hook AS (\n"
@@ -372,10 +297,6 @@ def generate_pit_hook_cte(bag_info, all_bag_info, epoch_date_field=None, join_fr
     sql += "      '~',\n"
     sql += "      peripheral,\n"
     sql += "      'epoch__valid_from'||bridge__record_valid_from"
-    
-    # Include the epoch date hook if it exists
-    if epoch_date_field:
-        sql += f",\n      {epoch_date_field}::TEXT"
     
     # Add all PIT hooks to the concatenation
     for pit_hook in sorted(bag_info['all_pit_hooks']):
@@ -392,10 +313,8 @@ def generate_pit_hook_cte(bag_info, all_bag_info, epoch_date_field=None, join_fr
     
     return sql
 
-def generate_final_select(bag_info, bag_name, measure_schema):
-    """Generate the final SELECT statement with measures"""
-    # Get measure fields
-    epoch_date_field, measure_fields = get_measure_fields(bag_name, measure_schema)
+def generate_final_select(bag_info, bag_name):
+    """Generate the final SELECT statement"""
     
     sql = "SELECT\n"
     sql += "  peripheral::TEXT,\n"
@@ -407,14 +326,6 @@ def generate_final_select(bag_info, bag_name, measure_schema):
     
     # Add primary hook
     sql += f"  {bag_info['primary_hook']['name']}::BLOB,\n"
-    
-    # Add epoch date hook if present
-    if epoch_date_field:
-        sql += f"  {epoch_date_field}::BLOB,\n"
-    
-    # Add measure fields if present
-    for field in measure_fields:
-        sql += f"  {field}::INT,\n"
     
     # Add temporal fields
     sql += """  bridge__record_loaded_at::TIMESTAMP,
@@ -435,7 +346,6 @@ def generate_intermediate_bridge(
     all_bag_info, 
     output_dir,
     hook_schema,
-    measure_schema,
     bridge_schema
 ):
     """Generate SQL for an intermediate bridge model"""
@@ -449,16 +359,13 @@ def generate_intermediate_bridge(
         return False  # Invalid hook name format
     
     # Create file path for bridge model
-    bridge_name = f"uss_bridge__{bag_name.replace('bag__adventure_works__', '')}"
+    bridge_name = f"bridge__{bag_name.replace('bag__adventure_works__', '')}"
     sql_path = os.path.join(output_dir, f"{bridge_name}.sql")
     
     # Build components of the SQL
     references = build_references_list(bag_info)
-    base_cte = generate_base_cte(bridge_name, primary_hook, dependencies, column_prefix, bag_name, hook_schema, measure_schema)
+    base_cte = generate_base_cte(bridge_name, primary_hook, dependencies, column_prefix, bag_name, hook_schema)
     join_fragments = generate_join_fragments(dependencies, all_bag_info, bridge_schema)
-    
-    # Get measure fields including epoch date field
-    epoch_date_field, measure_fields = get_measure_fields(bag_name, measure_schema)
     
     with open(sql_path, 'w') as sql_file:
         # Write MODEL declaration
@@ -481,7 +388,7 @@ def generate_intermediate_bridge(
         # If we have dependencies, add join logic
         if dependencies:
             sql_file.write(",\n")
-            pit_lookup_cte = generate_pit_lookup_cte(bag_info, dependencies, all_bag_info, join_fragments, bag_name, measure_schema)
+            pit_lookup_cte = generate_pit_lookup_cte(bag_info, dependencies, all_bag_info, join_fragments, bag_name)
             sql_file.write(pit_lookup_cte)
             sql_file.write(",\n")
         else:
@@ -490,8 +397,7 @@ def generate_intermediate_bridge(
         # Add PIT hook generation
         pit_hook_cte = generate_pit_hook_cte(
             bag_info, 
-            all_bag_info, 
-            epoch_date_field=epoch_date_field,
+            all_bag_info,
             join_fragments=join_fragments if dependencies else None
         )
         sql_file.write(pit_hook_cte)
@@ -499,83 +405,7 @@ def generate_intermediate_bridge(
         sql_file.write("\n")
         
         # Write final SELECT statement
-        final_select = generate_final_select(bag_info, bag_name, measure_schema)
+        final_select = generate_final_select(bag_info, bag_name)
         sql_file.write(final_select)
-    
-    return True
-
-def generate_unified_bridge(bag_info, build_order, output_dir, bridge_schema):
-    """Generate a unified bridge that contains all intermediate bridges"""
-    bridge_name = "_bridge__as_of"
-    sql_path = os.path.join(output_dir, f"{bridge_name}.sql")
-    
-    # Create list of intermediate bridges to include
-    intermediate_bridges = []
-    all_pit_hooks = set()
-    all_epoch_date_hooks = set()
-    all_measure_fields = set()
-    
-    for bag_name in build_order:
-        if bag_name in bag_info:
-            bridge = f"uss_bridge__{bag_name.replace('bag__adventure_works__', '')}"
-            intermediate_bridges.append(bridge)
-            all_pit_hooks.update(bag_info[bag_name]['all_pit_hooks'])
-            
-            # Include epoch date field and measures
-            epoch_date_field, measure_fields = get_measure_fields(bag_name, "silver")  # Default to silver for backward compatibility
-            if epoch_date_field:
-                all_epoch_date_hooks.add(epoch_date_field)
-            all_measure_fields.update(measure_fields)
-    
-    with open(sql_path, 'w') as sql_file:
-        # Write MODEL declaration
-        references = ', '.join(sorted(all_pit_hooks))
-        if all_epoch_date_hooks:
-            references += ', ' + ', '.join(sorted(all_epoch_date_hooks))
-        
-        sql_file.write(f"""MODEL (
-  enabled TRUE,
-  kind VIEW,
-  tags unified_star_schema,
-  grain (_pit_hook__bridge),
-  references ({references})
-);
-
-""")
-        
-        # Write UNION query
-        sql_file.write("WITH cte__bridge_union AS (\n")
-        for i, bridge in enumerate(intermediate_bridges):
-            sql_file.write(f"  SELECT * FROM {bridge_schema}.{bridge}")
-            if i < len(intermediate_bridges) - 1:
-                sql_file.write("\n  UNION ALL BY NAME\n")
-            else:
-                sql_file.write("\n")
-        sql_file.write(")\n")
-        
-        # Write final SELECT with consistent column order
-        sql_file.write("SELECT\n")
-        sql_file.write("  peripheral::TEXT,\n")
-        sql_file.write("  _pit_hook__bridge::BLOB,\n")
-        
-        # Include all PIT hooks (sorted for consistency)
-        for pit_hook in sorted(all_pit_hooks):
-            sql_file.write(f"  {pit_hook}::BLOB,\n")
-        
-        # Include epoch date hook if present
-        for epoch_hook in sorted(all_epoch_date_hooks):
-            sql_file.write(f"  {epoch_hook}::BLOB,\n")
-        
-        # Include measure fields
-        for measure in sorted(all_measure_fields):
-            sql_file.write(f"  {measure}::INT,\n")
-        
-        # Add temporal fields
-        sql_file.write("""  bridge__record_loaded_at::TIMESTAMP,
-  bridge__record_updated_at::TIMESTAMP,
-  bridge__record_valid_from::TIMESTAMP,
-  bridge__record_valid_to::TIMESTAMP,
-  bridge__is_current_record::BOOL
-FROM cte__bridge_union""")
     
     return True

@@ -4,26 +4,26 @@ flowchart LR
     classDef gold fill:#FFD700,color:black
 
     subgraph das["db.das"]
-        raw(["Raw Views"]):::bronze
+        raw(["Raw Tables [58]"]):::bronze
     end
 
     subgraph dab["db.dab"]
-        hook(["HOOK Bags"]):::silver
+        hook(["HOOK Bags [58]"]):::silver
     end
 
     subgraph dar_stg["db.dar__staging"]
-        measures(["Measures"]):::silver
-        bridge_staging(["Bridge Staging"]):::silver
+        bridges(["Puppini Bridges [58]"]):::silver
+        event_bridges(["Event Bridges [58]"]):::silver
     end
 
     subgraph dar["db.dar"]
-        bridge(["Puppini Bridges"]):::gold
-        peripheral(["Peripheral Tables"]):::gold
+        bridge_union(["Puppini Bridge Union [1]"]):::gold
+        peripheral(["Peripheral Tables [58]"]):::gold
     end
 
-    raw -- "1:1" --> hook -- "1:1" --> measures -- "1:1" --> bridge_staging -- "M:1" --> bridge
-    hook -- "1:1" --> bridge_staging
-    hook -- "1:1" --> peripheral
+    raw --> hook --> bridges --> event_bridges --> bridge_union
+    hook --> event_bridges
+    hook --> peripheral
 
     legend_das["DAS = Data According To System"] -->
     legend_dab["DAB = Data According To Business"] ---->
