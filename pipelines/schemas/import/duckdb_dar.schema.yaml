@@ -1,0 +1,393 @@
+version: 1
+version_hash: ek7waLBztHfLgsBGPzkKz5PbYJRzCPYF35rsL65XNTA=
+engine_version: 11
+name: duckdb_dar
+tables:
+  _dlt_version:
+    columns:
+      version:
+        data_type: bigint
+        nullable: false
+      engine_version:
+        data_type: bigint
+        nullable: false
+      inserted_at:
+        data_type: timestamp
+        nullable: false
+      schema_name:
+        data_type: text
+        nullable: false
+      version_hash:
+        data_type: text
+        nullable: false
+      schema:
+        data_type: text
+        nullable: false
+    write_disposition: skip
+    resource: _dlt_version
+    description: Created by DLT. Tracks schema updates
+  _dlt_loads:
+    columns:
+      load_id:
+        data_type: text
+        nullable: false
+      schema_name:
+        data_type: text
+        nullable: true
+      status:
+        data_type: bigint
+        nullable: false
+      inserted_at:
+        data_type: timestamp
+        nullable: false
+      schema_version_hash:
+        data_type: text
+        nullable: true
+    write_disposition: skip
+    resource: _dlt_loads
+    description: Created by DLT. Tracks completed loads
+  addresses:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: addresses
+  address_types:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: address_types
+  bill_of_materials:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: bill_of_materials
+  business_entity_addresses:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: business_entity_addresses
+  business_entity_contacts:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: business_entity_contacts
+  contact_types:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: contact_types
+  country_regions:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: country_regions
+  credit_cards:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: credit_cards
+  cultures:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: cultures
+  currencies:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: currencies
+  currency_rates:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: currency_rates
+  customers:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: customers
+  departments:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: departments
+  email_addresses:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: email_addresses
+  employees:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: employees
+  employee_department_histories:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: employee_department_histories
+  employee_pay_histories:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: employee_pay_histories
+  illustrations:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: illustrations
+  job_candidates:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: job_candidates
+  locations:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: locations
+  persons:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: persons
+  person_phones:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: person_phones
+  phone_number_types:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: phone_number_types
+  products:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: products
+  product_categories:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: product_categories
+  product_cost_histories:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: product_cost_histories
+  product_descriptions:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: product_descriptions
+  product_inventories:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: product_inventories
+  product_list_price_histories:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: product_list_price_histories
+  product_models:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: product_models
+  product_model_illustrations:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: product_model_illustrations
+  product_photos:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: product_photos
+  product_reviews:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: product_reviews
+  product_subcategories:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: product_subcategories
+  product_vendors:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: product_vendors
+  purchase_order_details:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: purchase_order_details
+  purchase_order_headers:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: purchase_order_headers
+  sales_order_details:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: sales_order_details
+  sales_order_headers:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: sales_order_headers
+  sales_persons:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: sales_persons
+  sales_person_quota_histories:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: sales_person_quota_histories
+  sales_reasons:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: sales_reasons
+  sales_tax_rates:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: sales_tax_rates
+  sales_territories:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: sales_territories
+  sales_territory_histories:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: sales_territory_histories
+  scrap_reasons:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: scrap_reasons
+  shifts:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: shifts
+  ship_methods:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: ship_methods
+  shopping_cart_items:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: shopping_cart_items
+  special_offers:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: special_offers
+  state_provinces:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: state_provinces
+  stores:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: stores
+  transaction_histories:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: transaction_histories
+  transaction_history_archives:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: transaction_history_archives
+  unit_measures:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: unit_measures
+  vendors:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: vendors
+  work_orders:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: work_orders
+  work_order_routings:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: work_order_routings
+  _bridge__as_of:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: _bridge__as_of
+  _dlt_pipeline_state:
+    columns:
+      version:
+        data_type: bigint
+        nullable: false
+      engine_version:
+        data_type: bigint
+        nullable: false
+      pipeline_name:
+        data_type: text
+        nullable: false
+      state:
+        data_type: text
+        nullable: false
+      created_at:
+        data_type: timestamp
+        nullable: false
+      version_hash:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+    write_disposition: append
+    file_format: preferred
+    resource: _dlt_pipeline_state
+settings:
+  detections:
+  - iso_timestamp
+  default_hints:
+    not_null:
+    - _dlt_id
+    - _dlt_root_id
+    - _dlt_parent_id
+    - _dlt_list_idx
+    - _dlt_load_id
+    parent_key:
+    - _dlt_parent_id
+    root_key:
+    - _dlt_root_id
+    unique:
+    - _dlt_id
+    row_key:
+    - _dlt_id
+normalizers:
+  names: snake_case
+  json:
+    module: dlt.common.normalizers.json.relational
+previous_hashes:
+- C4U3fkUTtWhIQ9Jzu0YkToPogUpAohe5eR3nDAELo+U=

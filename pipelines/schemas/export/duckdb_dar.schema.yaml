@@ -1,0 +1,3886 @@
+version: 2
+version_hash: FtizGifSjTAI/w9HWB4oPEMPW8HC6Tf/ca9c+iUA9cA=
+engine_version: 11
+name: duckdb_dar
+tables:
+  _dlt_version:
+    columns:
+      version:
+        data_type: bigint
+        nullable: false
+      engine_version:
+        data_type: bigint
+        nullable: false
+      inserted_at:
+        data_type: timestamp
+        nullable: false
+      schema_name:
+        data_type: text
+        nullable: false
+      version_hash:
+        data_type: text
+        nullable: false
+      schema:
+        data_type: text
+        nullable: false
+    write_disposition: skip
+    resource: _dlt_version
+    description: Created by DLT. Tracks schema updates
+  _dlt_loads:
+    columns:
+      load_id:
+        data_type: text
+        nullable: false
+      schema_name:
+        data_type: text
+        nullable: true
+      status:
+        data_type: bigint
+        nullable: false
+      inserted_at:
+        data_type: timestamp
+        nullable: false
+      schema_version_hash:
+        data_type: text
+        nullable: true
+    write_disposition: skip
+    resource: _dlt_loads
+    description: Created by DLT. Tracks completed loads
+  addresses:
+    columns:
+      _pit_hook__address:
+        data_type: text
+        nullable: true
+      address__address_id:
+        data_type: bigint
+        nullable: true
+      address__address_line1:
+        data_type: text
+        nullable: true
+      address__city:
+        data_type: text
+        nullable: true
+      address__state_province_id:
+        data_type: bigint
+        nullable: true
+      address__postal_code:
+        data_type: text
+        nullable: true
+      address__rowguid:
+        data_type: text
+        nullable: true
+      address__modified_date:
+        data_type: timestamp
+        nullable: true
+      address__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      address__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      address__record_version:
+        data_type: text
+        nullable: true
+      address__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      address__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      address__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      address__address_line2:
+        data_type: text
+        nullable: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: addresses
+    x-normalizer:
+      seen-data: true
+  address_types:
+    columns:
+      _pit_hook__reference__address_type:
+        data_type: text
+        nullable: true
+      address_type__address_type_id:
+        data_type: bigint
+        nullable: true
+      address_type__name:
+        data_type: text
+        nullable: true
+      address_type__rowguid:
+        data_type: text
+        nullable: true
+      address_type__modified_date:
+        data_type: timestamp
+        nullable: true
+      address_type__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      address_type__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      address_type__record_version:
+        data_type: text
+        nullable: true
+      address_type__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      address_type__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      address_type__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: address_types
+    x-normalizer:
+      seen-data: true
+  bill_of_materials:
+    columns:
+      _pit_hook__bill_of_materials:
+        data_type: text
+        nullable: true
+      bill_of_material__bill_of_materials_id:
+        data_type: bigint
+        nullable: true
+      bill_of_material__product_assembly_id:
+        data_type: bigint
+        nullable: true
+      bill_of_material__component_id:
+        data_type: bigint
+        nullable: true
+      bill_of_material__start_date:
+        data_type: timestamp
+        nullable: true
+      bill_of_material__unit_measure_code:
+        data_type: text
+        nullable: true
+      bill_of_material__bomlevel:
+        data_type: bigint
+        nullable: true
+      bill_of_material__per_assembly_qty:
+        data_type: double
+        nullable: true
+      bill_of_material__modified_date:
+        data_type: timestamp
+        nullable: true
+      bill_of_material__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      bill_of_material__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      bill_of_material__record_version:
+        data_type: text
+        nullable: true
+      bill_of_material__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      bill_of_material__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      bill_of_material__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      bill_of_material__end_date:
+        data_type: timestamp
+        nullable: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: bill_of_materials
+    x-normalizer:
+      seen-data: true
+  business_entity_addresses:
+    columns:
+      _pit_hook__address:
+        data_type: text
+        nullable: true
+      business_entity_address__business_entity_id:
+        data_type: bigint
+        nullable: true
+      business_entity_address__address_id:
+        data_type: bigint
+        nullable: true
+      business_entity_address__address_type_id:
+        data_type: bigint
+        nullable: true
+      business_entity_address__rowguid:
+        data_type: text
+        nullable: true
+      business_entity_address__modified_date:
+        data_type: timestamp
+        nullable: true
+      business_entity_address__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      business_entity_address__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      business_entity_address__record_version:
+        data_type: text
+        nullable: true
+      business_entity_address__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      business_entity_address__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      business_entity_address__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: business_entity_addresses
+    x-normalizer:
+      seen-data: true
+  business_entity_contacts:
+    columns:
+      _pit_hook__business_entity:
+        data_type: text
+        nullable: true
+      business_entity_contact__business_entity_id:
+        data_type: bigint
+        nullable: true
+      business_entity_contact__person_id:
+        data_type: bigint
+        nullable: true
+      business_entity_contact__contact_type_id:
+        data_type: bigint
+        nullable: true
+      business_entity_contact__rowguid:
+        data_type: text
+        nullable: true
+      business_entity_contact__modified_date:
+        data_type: timestamp
+        nullable: true
+      business_entity_contact__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      business_entity_contact__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      business_entity_contact__record_version:
+        data_type: text
+        nullable: true
+      business_entity_contact__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      business_entity_contact__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      business_entity_contact__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: business_entity_contacts
+    x-normalizer:
+      seen-data: true
+  contact_types:
+    columns:
+      _pit_hook__reference__contact_type:
+        data_type: text
+        nullable: true
+      contact_type__contact_type_id:
+        data_type: bigint
+        nullable: true
+      contact_type__name:
+        data_type: text
+        nullable: true
+      contact_type__modified_date:
+        data_type: timestamp
+        nullable: true
+      contact_type__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      contact_type__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      contact_type__record_version:
+        data_type: text
+        nullable: true
+      contact_type__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      contact_type__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      contact_type__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: contact_types
+    x-normalizer:
+      seen-data: true
+  country_regions:
+    columns:
+      _pit_hook__reference__country_region:
+        data_type: text
+        nullable: true
+      country_region__country_region_code:
+        data_type: text
+        nullable: true
+      country_region__name:
+        data_type: text
+        nullable: true
+      country_region__modified_date:
+        data_type: timestamp
+        nullable: true
+      country_region__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      country_region__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      country_region__record_version:
+        data_type: text
+        nullable: true
+      country_region__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      country_region__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      country_region__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: country_regions
+    x-normalizer:
+      seen-data: true
+  credit_cards:
+    columns:
+      _pit_hook__credit_card:
+        data_type: text
+        nullable: true
+      credit_card__credit_card_id:
+        data_type: bigint
+        nullable: true
+      credit_card__card_type:
+        data_type: text
+        nullable: true
+      credit_card__card_number:
+        data_type: text
+        nullable: true
+      credit_card__exp_month:
+        data_type: bigint
+        nullable: true
+      credit_card__exp_year:
+        data_type: bigint
+        nullable: true
+      credit_card__modified_date:
+        data_type: timestamp
+        nullable: true
+      credit_card__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      credit_card__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      credit_card__record_version:
+        data_type: text
+        nullable: true
+      credit_card__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      credit_card__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      credit_card__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: credit_cards
+    x-normalizer:
+      seen-data: true
+  cultures:
+    columns:
+      _pit_hook__reference__culture:
+        data_type: text
+        nullable: true
+      culture__culture_id:
+        data_type: text
+        nullable: true
+      culture__name:
+        data_type: text
+        nullable: true
+      culture__modified_date:
+        data_type: timestamp
+        nullable: true
+      culture__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      culture__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      culture__record_version:
+        data_type: text
+        nullable: true
+      culture__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      culture__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      culture__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: cultures
+    x-normalizer:
+      seen-data: true
+  currencies:
+    columns:
+      _pit_hook__currency:
+        data_type: text
+        nullable: true
+      currency__currency_code:
+        data_type: text
+        nullable: true
+      currency__name:
+        data_type: text
+        nullable: true
+      currency__modified_date:
+        data_type: timestamp
+        nullable: true
+      currency__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      currency__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      currency__record_version:
+        data_type: text
+        nullable: true
+      currency__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      currency__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      currency__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: currencies
+    x-normalizer:
+      seen-data: true
+  currency_rates:
+    columns:
+      _pit_hook__currency_rate:
+        data_type: text
+        nullable: true
+      currency_rate__currency_rate_id:
+        data_type: bigint
+        nullable: true
+      currency_rate__currency_rate_date:
+        data_type: timestamp
+        nullable: true
+      currency_rate__from_currency_code:
+        data_type: text
+        nullable: true
+      currency_rate__to_currency_code:
+        data_type: text
+        nullable: true
+      currency_rate__average_rate:
+        data_type: double
+        nullable: true
+      currency_rate__end_of_day_rate:
+        data_type: double
+        nullable: true
+      currency_rate__modified_date:
+        data_type: timestamp
+        nullable: true
+      currency_rate__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      currency_rate__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      currency_rate__record_version:
+        data_type: text
+        nullable: true
+      currency_rate__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      currency_rate__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      currency_rate__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: currency_rates
+    x-normalizer:
+      seen-data: true
+  customers:
+    columns:
+      _pit_hook__customer:
+        data_type: text
+        nullable: true
+      customer__customer_id:
+        data_type: bigint
+        nullable: true
+      customer__store_id:
+        data_type: bigint
+        nullable: true
+      customer__territory_id:
+        data_type: bigint
+        nullable: true
+      customer__account_number:
+        data_type: text
+        nullable: true
+      customer__rowguid:
+        data_type: text
+        nullable: true
+      customer__modified_date:
+        data_type: timestamp
+        nullable: true
+      customer__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      customer__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      customer__record_version:
+        data_type: text
+        nullable: true
+      customer__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      customer__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      customer__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      customer__person_id:
+        data_type: bigint
+        nullable: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: customers
+    x-normalizer:
+      seen-data: true
+  departments:
+    columns:
+      _pit_hook__department:
+        data_type: text
+        nullable: true
+      department__department_id:
+        data_type: bigint
+        nullable: true
+      department__name:
+        data_type: text
+        nullable: true
+      department__group_name:
+        data_type: text
+        nullable: true
+      department__modified_date:
+        data_type: timestamp
+        nullable: true
+      department__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      department__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      department__record_version:
+        data_type: text
+        nullable: true
+      department__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      department__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      department__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: departments
+    x-normalizer:
+      seen-data: true
+  email_addresses:
+    columns:
+      _pit_hook__person__individual:
+        data_type: text
+        nullable: true
+      email_address__business_entity_id:
+        data_type: bigint
+        nullable: true
+      email_address__email_address_id:
+        data_type: bigint
+        nullable: true
+      email_address__email:
+        data_type: text
+        nullable: true
+      email_address__rowguid:
+        data_type: text
+        nullable: true
+      email_address__modified_date:
+        data_type: timestamp
+        nullable: true
+      email_address__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      email_address__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      email_address__record_version:
+        data_type: text
+        nullable: true
+      email_address__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      email_address__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      email_address__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: email_addresses
+    x-normalizer:
+      seen-data: true
+  employees:
+    columns:
+      _pit_hook__person__employee:
+        data_type: text
+        nullable: true
+      employee__business_entity_id:
+        data_type: bigint
+        nullable: true
+      employee__national_idnumber:
+        data_type: text
+        nullable: true
+      employee__login_id:
+        data_type: text
+        nullable: true
+      employee__job_title:
+        data_type: text
+        nullable: true
+      employee__birth_date:
+        data_type: timestamp
+        nullable: true
+      employee__marital_status:
+        data_type: text
+        nullable: true
+      employee__gender:
+        data_type: text
+        nullable: true
+      employee__hire_date:
+        data_type: timestamp
+        nullable: true
+      employee__salaried_flag:
+        data_type: bool
+        nullable: true
+      employee__vacation_hours:
+        data_type: bigint
+        nullable: true
+      employee__sick_leave_hours:
+        data_type: bigint
+        nullable: true
+      employee__current_flag:
+        data_type: bool
+        nullable: true
+      employee__rowguid:
+        data_type: text
+        nullable: true
+      employee__organization_level:
+        data_type: bigint
+        nullable: true
+      employee__modified_date:
+        data_type: timestamp
+        nullable: true
+      employee__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      employee__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      employee__record_version:
+        data_type: text
+        nullable: true
+      employee__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      employee__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      employee__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: employees
+    x-normalizer:
+      seen-data: true
+  employee_department_histories:
+    columns:
+      _pit_hook__person__employee:
+        data_type: text
+        nullable: true
+      employee_department_history__business_entity_id:
+        data_type: bigint
+        nullable: true
+      employee_department_history__department_id:
+        data_type: bigint
+        nullable: true
+      employee_department_history__shift_id:
+        data_type: bigint
+        nullable: true
+      employee_department_history__start_date:
+        data_type: timestamp
+        nullable: true
+      employee_department_history__modified_date:
+        data_type: timestamp
+        nullable: true
+      employee_department_history__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      employee_department_history__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      employee_department_history__record_version:
+        data_type: text
+        nullable: true
+      employee_department_history__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      employee_department_history__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      employee_department_history__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      employee_department_history__end_date:
+        data_type: timestamp
+        nullable: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: employee_department_histories
+    x-normalizer:
+      seen-data: true
+  employee_pay_histories:
+    columns:
+      _pit_hook__person__employee:
+        data_type: text
+        nullable: true
+      employee_pay_history__business_entity_id:
+        data_type: bigint
+        nullable: true
+      employee_pay_history__rate_change_date:
+        data_type: timestamp
+        nullable: true
+      employee_pay_history__rate:
+        data_type: double
+        nullable: true
+      employee_pay_history__pay_frequency:
+        data_type: bigint
+        nullable: true
+      employee_pay_history__modified_date:
+        data_type: timestamp
+        nullable: true
+      employee_pay_history__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      employee_pay_history__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      employee_pay_history__record_version:
+        data_type: text
+        nullable: true
+      employee_pay_history__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      employee_pay_history__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      employee_pay_history__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: employee_pay_histories
+    x-normalizer:
+      seen-data: true
+  illustrations:
+    columns:
+      _pit_hook__reference__illustration:
+        data_type: text
+        nullable: true
+      illustration__illustration_id:
+        data_type: bigint
+        nullable: true
+      illustration__diagram:
+        data_type: text
+        nullable: true
+      illustration__modified_date:
+        data_type: timestamp
+        nullable: true
+      illustration__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      illustration__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      illustration__record_version:
+        data_type: text
+        nullable: true
+      illustration__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      illustration__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      illustration__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: illustrations
+    x-normalizer:
+      seen-data: true
+  job_candidates:
+    columns:
+      _pit_hook__job_candidate:
+        data_type: text
+        nullable: true
+      job_candidate__job_candidate_id:
+        data_type: bigint
+        nullable: true
+      job_candidate__resume:
+        data_type: text
+        nullable: true
+      job_candidate__modified_date:
+        data_type: timestamp
+        nullable: true
+      job_candidate__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      job_candidate__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      job_candidate__record_version:
+        data_type: text
+        nullable: true
+      job_candidate__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      job_candidate__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      job_candidate__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      job_candidate__business_entity_id:
+        data_type: bigint
+        nullable: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: job_candidates
+    x-normalizer:
+      seen-data: true
+  locations:
+    columns:
+      _pit_hook__reference__location:
+        data_type: text
+        nullable: true
+      location__location_id:
+        data_type: bigint
+        nullable: true
+      location__name:
+        data_type: text
+        nullable: true
+      location__cost_rate:
+        data_type: double
+        nullable: true
+      location__availability:
+        data_type: double
+        nullable: true
+      location__modified_date:
+        data_type: timestamp
+        nullable: true
+      location__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      location__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      location__record_version:
+        data_type: text
+        nullable: true
+      location__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      location__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      location__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: locations
+    x-normalizer:
+      seen-data: true
+  persons:
+    columns:
+      _pit_hook__person__individual:
+        data_type: text
+        nullable: true
+      person__business_entity_id:
+        data_type: bigint
+        nullable: true
+      person__person_type:
+        data_type: text
+        nullable: true
+      person__name_style:
+        data_type: bool
+        nullable: true
+      person__first_name:
+        data_type: text
+        nullable: true
+      person__middle_name:
+        data_type: text
+        nullable: true
+      person__last_name:
+        data_type: text
+        nullable: true
+      person__email_promotion:
+        data_type: bigint
+        nullable: true
+      person__demographics:
+        data_type: text
+        nullable: true
+      person__rowguid:
+        data_type: text
+        nullable: true
+      person__modified_date:
+        data_type: timestamp
+        nullable: true
+      person__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      person__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      person__record_version:
+        data_type: text
+        nullable: true
+      person__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      person__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      person__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      person__title:
+        data_type: text
+        nullable: true
+      person__suffix:
+        data_type: text
+        nullable: true
+      person__additional_contact_info:
+        data_type: text
+        nullable: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: persons
+    x-normalizer:
+      seen-data: true
+  person_phones:
+    columns:
+      _pit_hook__person__individual:
+        data_type: text
+        nullable: true
+      person_phone__business_entity_id:
+        data_type: bigint
+        nullable: true
+      person_phone__phone_number:
+        data_type: text
+        nullable: true
+      person_phone__phone_number_type_id:
+        data_type: bigint
+        nullable: true
+      person_phone__modified_date:
+        data_type: timestamp
+        nullable: true
+      person_phone__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      person_phone__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      person_phone__record_version:
+        data_type: text
+        nullable: true
+      person_phone__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      person_phone__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      person_phone__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: person_phones
+    x-normalizer:
+      seen-data: true
+  phone_number_types:
+    columns:
+      _pit_hook__reference__phone_number_type:
+        data_type: text
+        nullable: true
+      phone_number_type__phone_number_type_id:
+        data_type: bigint
+        nullable: true
+      phone_number_type__name:
+        data_type: text
+        nullable: true
+      phone_number_type__modified_date:
+        data_type: timestamp
+        nullable: true
+      phone_number_type__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      phone_number_type__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      phone_number_type__record_version:
+        data_type: text
+        nullable: true
+      phone_number_type__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      phone_number_type__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      phone_number_type__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: phone_number_types
+    x-normalizer:
+      seen-data: true
+  products:
+    columns:
+      _pit_hook__product:
+        data_type: text
+        nullable: true
+      product__product_id:
+        data_type: bigint
+        nullable: true
+      product__name:
+        data_type: text
+        nullable: true
+      product__product_number:
+        data_type: text
+        nullable: true
+      product__make_flag:
+        data_type: bool
+        nullable: true
+      product__finished_goods_flag:
+        data_type: bool
+        nullable: true
+      product__safety_stock_level:
+        data_type: bigint
+        nullable: true
+      product__reorder_point:
+        data_type: bigint
+        nullable: true
+      product__standard_cost:
+        data_type: double
+        nullable: true
+      product__list_price:
+        data_type: double
+        nullable: true
+      product__days_to_manufacture:
+        data_type: bigint
+        nullable: true
+      product__sell_start_date:
+        data_type: timestamp
+        nullable: true
+      product__rowguid:
+        data_type: text
+        nullable: true
+      product__color:
+        data_type: text
+        nullable: true
+      product__modified_date:
+        data_type: timestamp
+        nullable: true
+      product__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      product__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      product__record_version:
+        data_type: text
+        nullable: true
+      product__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      product__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      product__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      product__weight_unit_measure_code:
+        data_type: text
+        nullable: true
+      product__weight:
+        data_type: double
+        nullable: true
+      product__class:
+        data_type: text
+        nullable: true
+      product__size:
+        data_type: text
+        nullable: true
+      product__size_unit_measure_code:
+        data_type: text
+        nullable: true
+      product__product_line:
+        data_type: text
+        nullable: true
+      product__style:
+        data_type: text
+        nullable: true
+      product__product_subcategory_id:
+        data_type: bigint
+        nullable: true
+      product__product_model_id:
+        data_type: bigint
+        nullable: true
+      product__sell_end_date:
+        data_type: timestamp
+        nullable: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: products
+    x-normalizer:
+      seen-data: true
+  product_categories:
+    columns:
+      _pit_hook__product_category:
+        data_type: text
+        nullable: true
+      product_category__product_category_id:
+        data_type: bigint
+        nullable: true
+      product_category__name:
+        data_type: text
+        nullable: true
+      product_category__rowguid:
+        data_type: text
+        nullable: true
+      product_category__modified_date:
+        data_type: timestamp
+        nullable: true
+      product_category__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      product_category__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      product_category__record_version:
+        data_type: text
+        nullable: true
+      product_category__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      product_category__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      product_category__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: product_categories
+    x-normalizer:
+      seen-data: true
+  product_cost_histories:
+    columns:
+      _pit_hook__product:
+        data_type: text
+        nullable: true
+      product_cost_history__product_id:
+        data_type: bigint
+        nullable: true
+      product_cost_history__start_date:
+        data_type: timestamp
+        nullable: true
+      product_cost_history__end_date:
+        data_type: timestamp
+        nullable: true
+      product_cost_history__standard_cost:
+        data_type: double
+        nullable: true
+      product_cost_history__modified_date:
+        data_type: timestamp
+        nullable: true
+      product_cost_history__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      product_cost_history__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      product_cost_history__record_version:
+        data_type: text
+        nullable: true
+      product_cost_history__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      product_cost_history__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      product_cost_history__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: product_cost_histories
+    x-normalizer:
+      seen-data: true
+  product_descriptions:
+    columns:
+      _pit_hook__reference__product_description:
+        data_type: text
+        nullable: true
+      product_description__product_description_id:
+        data_type: bigint
+        nullable: true
+      product_description__description:
+        data_type: text
+        nullable: true
+      product_description__rowguid:
+        data_type: text
+        nullable: true
+      product_description__modified_date:
+        data_type: timestamp
+        nullable: true
+      product_description__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      product_description__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      product_description__record_version:
+        data_type: text
+        nullable: true
+      product_description__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      product_description__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      product_description__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: product_descriptions
+    x-normalizer:
+      seen-data: true
+  product_inventories:
+    columns:
+      _pit_hook__reference__location:
+        data_type: text
+        nullable: true
+      product_inventory__product_id:
+        data_type: bigint
+        nullable: true
+      product_inventory__location_id:
+        data_type: bigint
+        nullable: true
+      product_inventory__shelf:
+        data_type: text
+        nullable: true
+      product_inventory__bin:
+        data_type: bigint
+        nullable: true
+      product_inventory__quantity:
+        data_type: bigint
+        nullable: true
+      product_inventory__rowguid:
+        data_type: text
+        nullable: true
+      product_inventory__modified_date:
+        data_type: timestamp
+        nullable: true
+      product_inventory__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      product_inventory__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      product_inventory__record_version:
+        data_type: text
+        nullable: true
+      product_inventory__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      product_inventory__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      product_inventory__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: product_inventories
+    x-normalizer:
+      seen-data: true
+  product_list_price_histories:
+    columns:
+      _pit_hook__product:
+        data_type: text
+        nullable: true
+      product_list_price_history__product_id:
+        data_type: bigint
+        nullable: true
+      product_list_price_history__start_date:
+        data_type: timestamp
+        nullable: true
+      product_list_price_history__end_date:
+        data_type: timestamp
+        nullable: true
+      product_list_price_history__list_price:
+        data_type: double
+        nullable: true
+      product_list_price_history__modified_date:
+        data_type: timestamp
+        nullable: true
+      product_list_price_history__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      product_list_price_history__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      product_list_price_history__record_version:
+        data_type: text
+        nullable: true
+      product_list_price_history__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      product_list_price_history__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      product_list_price_history__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: product_list_price_histories
+    x-normalizer:
+      seen-data: true
+  product_models:
+    columns:
+      _pit_hook__reference__product_model:
+        data_type: text
+        nullable: true
+      product_model__product_model_id:
+        data_type: bigint
+        nullable: true
+      product_model__name:
+        data_type: text
+        nullable: true
+      product_model__rowguid:
+        data_type: text
+        nullable: true
+      product_model__modified_date:
+        data_type: timestamp
+        nullable: true
+      product_model__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      product_model__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      product_model__record_version:
+        data_type: text
+        nullable: true
+      product_model__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      product_model__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      product_model__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      product_model__instructions:
+        data_type: text
+        nullable: true
+      product_model__catalog_description:
+        data_type: text
+        nullable: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: product_models
+    x-normalizer:
+      seen-data: true
+  product_model_illustrations:
+    columns:
+      _pit_hook__reference__illustration:
+        data_type: text
+        nullable: true
+      product_model_illustration__product_model_id:
+        data_type: bigint
+        nullable: true
+      product_model_illustration__illustration_id:
+        data_type: bigint
+        nullable: true
+      product_model_illustration__modified_date:
+        data_type: timestamp
+        nullable: true
+      product_model_illustration__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      product_model_illustration__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      product_model_illustration__record_version:
+        data_type: text
+        nullable: true
+      product_model_illustration__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      product_model_illustration__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      product_model_illustration__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: product_model_illustrations
+    x-normalizer:
+      seen-data: true
+  product_photos:
+    columns:
+      _pit_hook__reference__product_photo:
+        data_type: text
+        nullable: true
+      product_photo__product_photo_id:
+        data_type: bigint
+        nullable: true
+      product_photo__thumb_nail_photo:
+        data_type: text
+        nullable: true
+      product_photo__thumbnail_photo_file_name:
+        data_type: text
+        nullable: true
+      product_photo__large_photo:
+        data_type: text
+        nullable: true
+      product_photo__large_photo_file_name:
+        data_type: text
+        nullable: true
+      product_photo__modified_date:
+        data_type: timestamp
+        nullable: true
+      product_photo__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      product_photo__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      product_photo__record_version:
+        data_type: text
+        nullable: true
+      product_photo__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      product_photo__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      product_photo__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: product_photos
+    x-normalizer:
+      seen-data: true
+  product_reviews:
+    columns:
+      _pit_hook__product_review:
+        data_type: text
+        nullable: true
+      product_review__product_review_id:
+        data_type: bigint
+        nullable: true
+      product_review__product_id:
+        data_type: bigint
+        nullable: true
+      product_review__reviewer_name:
+        data_type: text
+        nullable: true
+      product_review__review_date:
+        data_type: timestamp
+        nullable: true
+      product_review__email_address:
+        data_type: text
+        nullable: true
+      product_review__rating:
+        data_type: bigint
+        nullable: true
+      product_review__comments:
+        data_type: text
+        nullable: true
+      product_review__modified_date:
+        data_type: timestamp
+        nullable: true
+      product_review__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      product_review__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      product_review__record_version:
+        data_type: text
+        nullable: true
+      product_review__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      product_review__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      product_review__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: product_reviews
+    x-normalizer:
+      seen-data: true
+  product_subcategories:
+    columns:
+      _pit_hook__product_subcategory:
+        data_type: text
+        nullable: true
+      product_subcategory__product_subcategory_id:
+        data_type: bigint
+        nullable: true
+      product_subcategory__product_category_id:
+        data_type: bigint
+        nullable: true
+      product_subcategory__name:
+        data_type: text
+        nullable: true
+      product_subcategory__rowguid:
+        data_type: text
+        nullable: true
+      product_subcategory__modified_date:
+        data_type: timestamp
+        nullable: true
+      product_subcategory__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      product_subcategory__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      product_subcategory__record_version:
+        data_type: text
+        nullable: true
+      product_subcategory__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      product_subcategory__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      product_subcategory__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: product_subcategories
+    x-normalizer:
+      seen-data: true
+  product_vendors:
+    columns:
+      _pit_hook__vendor:
+        data_type: text
+        nullable: true
+      product_vendor__product_id:
+        data_type: bigint
+        nullable: true
+      product_vendor__business_entity_id:
+        data_type: bigint
+        nullable: true
+      product_vendor__average_lead_time:
+        data_type: bigint
+        nullable: true
+      product_vendor__standard_price:
+        data_type: double
+        nullable: true
+      product_vendor__last_receipt_cost:
+        data_type: double
+        nullable: true
+      product_vendor__last_receipt_date:
+        data_type: timestamp
+        nullable: true
+      product_vendor__min_order_qty:
+        data_type: bigint
+        nullable: true
+      product_vendor__max_order_qty:
+        data_type: bigint
+        nullable: true
+      product_vendor__unit_measure_code:
+        data_type: text
+        nullable: true
+      product_vendor__on_order_qty:
+        data_type: bigint
+        nullable: true
+      product_vendor__modified_date:
+        data_type: timestamp
+        nullable: true
+      product_vendor__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      product_vendor__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      product_vendor__record_version:
+        data_type: text
+        nullable: true
+      product_vendor__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      product_vendor__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      product_vendor__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: product_vendors
+    x-normalizer:
+      seen-data: true
+  purchase_order_details:
+    columns:
+      _pit_hook__order_line__purchase:
+        data_type: text
+        nullable: true
+      purchase_order_detail__purchase_order_id:
+        data_type: bigint
+        nullable: true
+      purchase_order_detail__purchase_order_detail_id:
+        data_type: bigint
+        nullable: true
+      purchase_order_detail__due_date:
+        data_type: timestamp
+        nullable: true
+      purchase_order_detail__order_qty:
+        data_type: bigint
+        nullable: true
+      purchase_order_detail__product_id:
+        data_type: bigint
+        nullable: true
+      purchase_order_detail__unit_price:
+        data_type: double
+        nullable: true
+      purchase_order_detail__line_total:
+        data_type: double
+        nullable: true
+      purchase_order_detail__received_qty:
+        data_type: double
+        nullable: true
+      purchase_order_detail__rejected_qty:
+        data_type: double
+        nullable: true
+      purchase_order_detail__stocked_qty:
+        data_type: double
+        nullable: true
+      purchase_order_detail__modified_date:
+        data_type: timestamp
+        nullable: true
+      purchase_order_detail__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      purchase_order_detail__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      purchase_order_detail__record_version:
+        data_type: text
+        nullable: true
+      purchase_order_detail__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      purchase_order_detail__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      purchase_order_detail__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: purchase_order_details
+    x-normalizer:
+      seen-data: true
+  purchase_order_headers:
+    columns:
+      _pit_hook__order__purchase:
+        data_type: text
+        nullable: true
+      purchase_order_header__purchase_order_id:
+        data_type: bigint
+        nullable: true
+      purchase_order_header__revision_number:
+        data_type: bigint
+        nullable: true
+      purchase_order_header__status:
+        data_type: bigint
+        nullable: true
+      purchase_order_header__employee_id:
+        data_type: bigint
+        nullable: true
+      purchase_order_header__vendor_id:
+        data_type: bigint
+        nullable: true
+      purchase_order_header__ship_method_id:
+        data_type: bigint
+        nullable: true
+      purchase_order_header__order_date:
+        data_type: timestamp
+        nullable: true
+      purchase_order_header__ship_date:
+        data_type: timestamp
+        nullable: true
+      purchase_order_header__sub_total:
+        data_type: double
+        nullable: true
+      purchase_order_header__tax_amt:
+        data_type: double
+        nullable: true
+      purchase_order_header__freight:
+        data_type: double
+        nullable: true
+      purchase_order_header__total_due:
+        data_type: double
+        nullable: true
+      purchase_order_header__modified_date:
+        data_type: timestamp
+        nullable: true
+      purchase_order_header__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      purchase_order_header__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      purchase_order_header__record_version:
+        data_type: text
+        nullable: true
+      purchase_order_header__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      purchase_order_header__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      purchase_order_header__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: purchase_order_headers
+    x-normalizer:
+      seen-data: true
+  sales_order_details:
+    columns:
+      _pit_hook__order_line__sales:
+        data_type: text
+        nullable: true
+      sales_order_detail__sales_order_id:
+        data_type: bigint
+        nullable: true
+      sales_order_detail__sales_order_detail_id:
+        data_type: bigint
+        nullable: true
+      sales_order_detail__order_qty:
+        data_type: bigint
+        nullable: true
+      sales_order_detail__product_id:
+        data_type: bigint
+        nullable: true
+      sales_order_detail__special_offer_id:
+        data_type: bigint
+        nullable: true
+      sales_order_detail__unit_price:
+        data_type: double
+        nullable: true
+      sales_order_detail__unit_price_discount:
+        data_type: double
+        nullable: true
+      sales_order_detail__line_total:
+        data_type: double
+        nullable: true
+      sales_order_detail__rowguid:
+        data_type: text
+        nullable: true
+      sales_order_detail__modified_date:
+        data_type: timestamp
+        nullable: true
+      sales_order_detail__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      sales_order_detail__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      sales_order_detail__record_version:
+        data_type: text
+        nullable: true
+      sales_order_detail__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      sales_order_detail__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      sales_order_detail__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      sales_order_detail__carrier_tracking_number:
+        data_type: text
+        nullable: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: sales_order_details
+    x-normalizer:
+      seen-data: true
+  sales_order_headers:
+    columns:
+      _pit_hook__order__sales:
+        data_type: text
+        nullable: true
+      sales_order_header__sales_order_id:
+        data_type: bigint
+        nullable: true
+      sales_order_header__revision_number:
+        data_type: bigint
+        nullable: true
+      sales_order_header__order_date:
+        data_type: timestamp
+        nullable: true
+      sales_order_header__due_date:
+        data_type: timestamp
+        nullable: true
+      sales_order_header__ship_date:
+        data_type: timestamp
+        nullable: true
+      sales_order_header__status:
+        data_type: bigint
+        nullable: true
+      sales_order_header__online_order_flag:
+        data_type: bool
+        nullable: true
+      sales_order_header__sales_order_number:
+        data_type: text
+        nullable: true
+      sales_order_header__purchase_order_number:
+        data_type: text
+        nullable: true
+      sales_order_header__account_number:
+        data_type: text
+        nullable: true
+      sales_order_header__customer_id:
+        data_type: bigint
+        nullable: true
+      sales_order_header__sales_person_id:
+        data_type: bigint
+        nullable: true
+      sales_order_header__territory_id:
+        data_type: bigint
+        nullable: true
+      sales_order_header__bill_to_address_id:
+        data_type: bigint
+        nullable: true
+      sales_order_header__ship_to_address_id:
+        data_type: bigint
+        nullable: true
+      sales_order_header__ship_method_id:
+        data_type: bigint
+        nullable: true
+      sales_order_header__credit_card_id:
+        data_type: bigint
+        nullable: true
+      sales_order_header__credit_card_approval_code:
+        data_type: text
+        nullable: true
+      sales_order_header__sub_total:
+        data_type: double
+        nullable: true
+      sales_order_header__tax_amt:
+        data_type: double
+        nullable: true
+      sales_order_header__freight:
+        data_type: double
+        nullable: true
+      sales_order_header__total_due:
+        data_type: double
+        nullable: true
+      sales_order_header__rowguid:
+        data_type: text
+        nullable: true
+      sales_order_header__modified_date:
+        data_type: timestamp
+        nullable: true
+      sales_order_header__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      sales_order_header__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      sales_order_header__record_version:
+        data_type: text
+        nullable: true
+      sales_order_header__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      sales_order_header__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      sales_order_header__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      sales_order_header__currency_rate_id:
+        data_type: bigint
+        nullable: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: sales_order_headers
+    x-normalizer:
+      seen-data: true
+  sales_persons:
+    columns:
+      _pit_hook__person__sales:
+        data_type: text
+        nullable: true
+      sales_person__business_entity_id:
+        data_type: bigint
+        nullable: true
+      sales_person__bonus:
+        data_type: double
+        nullable: true
+      sales_person__commission_pct:
+        data_type: double
+        nullable: true
+      sales_person__sales_ytd:
+        data_type: double
+        nullable: true
+      sales_person__sales_last_year:
+        data_type: double
+        nullable: true
+      sales_person__rowguid:
+        data_type: text
+        nullable: true
+      sales_person__modified_date:
+        data_type: timestamp
+        nullable: true
+      sales_person__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      sales_person__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      sales_person__record_version:
+        data_type: text
+        nullable: true
+      sales_person__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      sales_person__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      sales_person__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      sales_person__territory_id:
+        data_type: bigint
+        nullable: true
+      sales_person__sales_quota:
+        data_type: double
+        nullable: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: sales_persons
+    x-normalizer:
+      seen-data: true
+  sales_person_quota_histories:
+    columns:
+      _pit_hook__person__sales:
+        data_type: text
+        nullable: true
+      sales_person_quota_history__business_entity_id:
+        data_type: bigint
+        nullable: true
+      sales_person_quota_history__quota_date:
+        data_type: timestamp
+        nullable: true
+      sales_person_quota_history__sales_quota:
+        data_type: double
+        nullable: true
+      sales_person_quota_history__rowguid:
+        data_type: text
+        nullable: true
+      sales_person_quota_history__modified_date:
+        data_type: timestamp
+        nullable: true
+      sales_person_quota_history__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      sales_person_quota_history__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      sales_person_quota_history__record_version:
+        data_type: text
+        nullable: true
+      sales_person_quota_history__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      sales_person_quota_history__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      sales_person_quota_history__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: sales_person_quota_histories
+    x-normalizer:
+      seen-data: true
+  sales_reasons:
+    columns:
+      _pit_hook__reference__sales_reason:
+        data_type: text
+        nullable: true
+      sales_reason__sales_reason_id:
+        data_type: bigint
+        nullable: true
+      sales_reason__name:
+        data_type: text
+        nullable: true
+      sales_reason__reason_type:
+        data_type: text
+        nullable: true
+      sales_reason__modified_date:
+        data_type: timestamp
+        nullable: true
+      sales_reason__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      sales_reason__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      sales_reason__record_version:
+        data_type: text
+        nullable: true
+      sales_reason__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      sales_reason__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      sales_reason__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: sales_reasons
+    x-normalizer:
+      seen-data: true
+  sales_tax_rates:
+    columns:
+      _pit_hook__reference__sales_tax_rate:
+        data_type: text
+        nullable: true
+      sales_tax_rate__sales_tax_rate_id:
+        data_type: bigint
+        nullable: true
+      sales_tax_rate__state_province_id:
+        data_type: bigint
+        nullable: true
+      sales_tax_rate__tax_type:
+        data_type: bigint
+        nullable: true
+      sales_tax_rate__tax_rate:
+        data_type: double
+        nullable: true
+      sales_tax_rate__name:
+        data_type: text
+        nullable: true
+      sales_tax_rate__rowguid:
+        data_type: text
+        nullable: true
+      sales_tax_rate__modified_date:
+        data_type: timestamp
+        nullable: true
+      sales_tax_rate__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      sales_tax_rate__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      sales_tax_rate__record_version:
+        data_type: text
+        nullable: true
+      sales_tax_rate__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      sales_tax_rate__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      sales_tax_rate__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: sales_tax_rates
+    x-normalizer:
+      seen-data: true
+  sales_territories:
+    columns:
+      _pit_hook__territory__sales:
+        data_type: text
+        nullable: true
+      sales_territory__territory_id:
+        data_type: bigint
+        nullable: true
+      sales_territory__name:
+        data_type: text
+        nullable: true
+      sales_territory__country_region_code:
+        data_type: text
+        nullable: true
+      sales_territory__group:
+        data_type: text
+        nullable: true
+      sales_territory__sales_ytd:
+        data_type: double
+        nullable: true
+      sales_territory__sales_last_year:
+        data_type: double
+        nullable: true
+      sales_territory__cost_ytd:
+        data_type: double
+        nullable: true
+      sales_territory__cost_last_year:
+        data_type: double
+        nullable: true
+      sales_territory__rowguid:
+        data_type: text
+        nullable: true
+      sales_territory__modified_date:
+        data_type: timestamp
+        nullable: true
+      sales_territory__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      sales_territory__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      sales_territory__record_version:
+        data_type: text
+        nullable: true
+      sales_territory__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      sales_territory__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      sales_territory__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: sales_territories
+    x-normalizer:
+      seen-data: true
+  sales_territory_histories:
+    columns:
+      _pit_hook__person__sales:
+        data_type: text
+        nullable: true
+      sales_territory_history__business_entity_id:
+        data_type: bigint
+        nullable: true
+      sales_territory_history__territory_id:
+        data_type: bigint
+        nullable: true
+      sales_territory_history__start_date:
+        data_type: timestamp
+        nullable: true
+      sales_territory_history__rowguid:
+        data_type: text
+        nullable: true
+      sales_territory_history__modified_date:
+        data_type: timestamp
+        nullable: true
+      sales_territory_history__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      sales_territory_history__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      sales_territory_history__record_version:
+        data_type: text
+        nullable: true
+      sales_territory_history__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      sales_territory_history__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      sales_territory_history__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      sales_territory_history__end_date:
+        data_type: timestamp
+        nullable: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: sales_territory_histories
+    x-normalizer:
+      seen-data: true
+  scrap_reasons:
+    columns:
+      _pit_hook__reference__scrap_reason:
+        data_type: text
+        nullable: true
+      scrap_reason__scrap_reason_id:
+        data_type: bigint
+        nullable: true
+      scrap_reason__name:
+        data_type: text
+        nullable: true
+      scrap_reason__modified_date:
+        data_type: timestamp
+        nullable: true
+      scrap_reason__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      scrap_reason__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      scrap_reason__record_version:
+        data_type: text
+        nullable: true
+      scrap_reason__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      scrap_reason__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      scrap_reason__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: scrap_reasons
+    x-normalizer:
+      seen-data: true
+  shifts:
+    columns:
+      _pit_hook__reference__shift:
+        data_type: text
+        nullable: true
+      shift__shift_id:
+        data_type: bigint
+        nullable: true
+      shift__name:
+        data_type: text
+        nullable: true
+      shift__start_time:
+        data_type: text
+        nullable: true
+      shift__end_time:
+        data_type: text
+        nullable: true
+      shift__modified_date:
+        data_type: timestamp
+        nullable: true
+      shift__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      shift__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      shift__record_version:
+        data_type: text
+        nullable: true
+      shift__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      shift__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      shift__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: shifts
+    x-normalizer:
+      seen-data: true
+  ship_methods:
+    columns:
+      _pit_hook__ship_method:
+        data_type: text
+        nullable: true
+      ship_method__ship_method_id:
+        data_type: bigint
+        nullable: true
+      ship_method__name:
+        data_type: text
+        nullable: true
+      ship_method__ship_base:
+        data_type: double
+        nullable: true
+      ship_method__ship_rate:
+        data_type: double
+        nullable: true
+      ship_method__rowguid:
+        data_type: text
+        nullable: true
+      ship_method__modified_date:
+        data_type: timestamp
+        nullable: true
+      ship_method__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      ship_method__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      ship_method__record_version:
+        data_type: text
+        nullable: true
+      ship_method__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      ship_method__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      ship_method__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: ship_methods
+    x-normalizer:
+      seen-data: true
+  shopping_cart_items:
+    columns:
+      _pit_hook__shopping_cart_item:
+        data_type: text
+        nullable: true
+      shopping_cart_item__shopping_cart_item_id:
+        data_type: bigint
+        nullable: true
+      shopping_cart_item__shopping_cart_id:
+        data_type: text
+        nullable: true
+      shopping_cart_item__quantity:
+        data_type: bigint
+        nullable: true
+      shopping_cart_item__product_id:
+        data_type: bigint
+        nullable: true
+      shopping_cart_item__date_created:
+        data_type: text
+        nullable: true
+      shopping_cart_item__modified_date:
+        data_type: timestamp
+        nullable: true
+      shopping_cart_item__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      shopping_cart_item__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      shopping_cart_item__record_version:
+        data_type: text
+        nullable: true
+      shopping_cart_item__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      shopping_cart_item__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      shopping_cart_item__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: shopping_cart_items
+    x-normalizer:
+      seen-data: true
+  special_offers:
+    columns:
+      _pit_hook__reference__special_offer:
+        data_type: text
+        nullable: true
+      special_offer__special_offer_id:
+        data_type: bigint
+        nullable: true
+      special_offer__description:
+        data_type: text
+        nullable: true
+      special_offer__discount_percentage:
+        data_type: double
+        nullable: true
+      special_offer__type:
+        data_type: text
+        nullable: true
+      special_offer__category:
+        data_type: text
+        nullable: true
+      special_offer__start_date:
+        data_type: timestamp
+        nullable: true
+      special_offer__end_date:
+        data_type: timestamp
+        nullable: true
+      special_offer__minimum_quantity:
+        data_type: bigint
+        nullable: true
+      special_offer__rowguid:
+        data_type: text
+        nullable: true
+      special_offer__modified_date:
+        data_type: timestamp
+        nullable: true
+      special_offer__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      special_offer__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      special_offer__record_version:
+        data_type: text
+        nullable: true
+      special_offer__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      special_offer__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      special_offer__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      special_offer__maximum_quantity:
+        data_type: bigint
+        nullable: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: special_offers
+    x-normalizer:
+      seen-data: true
+  state_provinces:
+    columns:
+      _pit_hook__reference__state_province:
+        data_type: text
+        nullable: true
+      state_province__state_province_id:
+        data_type: bigint
+        nullable: true
+      state_province__state_province_code:
+        data_type: text
+        nullable: true
+      state_province__country_region_code:
+        data_type: text
+        nullable: true
+      state_province__is_only_state_province_flag:
+        data_type: bool
+        nullable: true
+      state_province__name:
+        data_type: text
+        nullable: true
+      state_province__territory_id:
+        data_type: bigint
+        nullable: true
+      state_province__rowguid:
+        data_type: text
+        nullable: true
+      state_province__modified_date:
+        data_type: timestamp
+        nullable: true
+      state_province__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      state_province__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      state_province__record_version:
+        data_type: text
+        nullable: true
+      state_province__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      state_province__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      state_province__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: state_provinces
+    x-normalizer:
+      seen-data: true
+  stores:
+    columns:
+      _pit_hook__store:
+        data_type: text
+        nullable: true
+      store__business_entity_id:
+        data_type: bigint
+        nullable: true
+      store__name:
+        data_type: text
+        nullable: true
+      store__sales_person_id:
+        data_type: bigint
+        nullable: true
+      store__demographics:
+        data_type: text
+        nullable: true
+      store__rowguid:
+        data_type: text
+        nullable: true
+      store__modified_date:
+        data_type: timestamp
+        nullable: true
+      store__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      store__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      store__record_version:
+        data_type: text
+        nullable: true
+      store__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      store__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      store__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: stores
+    x-normalizer:
+      seen-data: true
+  transaction_histories:
+    columns:
+      _pit_hook__transaction_history:
+        data_type: text
+        nullable: true
+      transaction_history__transaction_id:
+        data_type: bigint
+        nullable: true
+      transaction_history__product_id:
+        data_type: bigint
+        nullable: true
+      transaction_history__reference_order_id:
+        data_type: bigint
+        nullable: true
+      transaction_history__reference_order_line_id:
+        data_type: bigint
+        nullable: true
+      transaction_history__transaction_date:
+        data_type: timestamp
+        nullable: true
+      transaction_history__transaction_type:
+        data_type: text
+        nullable: true
+      transaction_history__quantity:
+        data_type: bigint
+        nullable: true
+      transaction_history__actual_cost:
+        data_type: double
+        nullable: true
+      transaction_history__modified_date:
+        data_type: timestamp
+        nullable: true
+      transaction_history__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      transaction_history__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      transaction_history__record_version:
+        data_type: text
+        nullable: true
+      transaction_history__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      transaction_history__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      transaction_history__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: transaction_histories
+    x-normalizer:
+      seen-data: true
+  transaction_history_archives:
+    columns:
+      _pit_hook__transaction_history_archive:
+        data_type: text
+        nullable: true
+      transaction_history_archive__transaction_id:
+        data_type: bigint
+        nullable: true
+      transaction_history_archive__product_id:
+        data_type: bigint
+        nullable: true
+      transaction_history_archive__reference_order_id:
+        data_type: bigint
+        nullable: true
+      transaction_history_archive__reference_order_line_id:
+        data_type: bigint
+        nullable: true
+      transaction_history_archive__transaction_date:
+        data_type: timestamp
+        nullable: true
+      transaction_history_archive__transaction_type:
+        data_type: text
+        nullable: true
+      transaction_history_archive__quantity:
+        data_type: bigint
+        nullable: true
+      transaction_history_archive__actual_cost:
+        data_type: double
+        nullable: true
+      transaction_history_archive__modified_date:
+        data_type: timestamp
+        nullable: true
+      transaction_history_archive__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      transaction_history_archive__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      transaction_history_archive__record_version:
+        data_type: text
+        nullable: true
+      transaction_history_archive__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      transaction_history_archive__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      transaction_history_archive__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: transaction_history_archives
+    x-normalizer:
+      seen-data: true
+  unit_measures:
+    columns:
+      _pit_hook__reference__unit_measure:
+        data_type: text
+        nullable: true
+      unit_measure__unit_measure_code:
+        data_type: text
+        nullable: true
+      unit_measure__name:
+        data_type: text
+        nullable: true
+      unit_measure__modified_date:
+        data_type: timestamp
+        nullable: true
+      unit_measure__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      unit_measure__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      unit_measure__record_version:
+        data_type: text
+        nullable: true
+      unit_measure__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      unit_measure__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      unit_measure__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: unit_measures
+    x-normalizer:
+      seen-data: true
+  vendors:
+    columns:
+      _pit_hook__vendor:
+        data_type: text
+        nullable: true
+      vendor__business_entity_id:
+        data_type: bigint
+        nullable: true
+      vendor__account_number:
+        data_type: text
+        nullable: true
+      vendor__name:
+        data_type: text
+        nullable: true
+      vendor__credit_rating:
+        data_type: bigint
+        nullable: true
+      vendor__preferred_vendor_status:
+        data_type: bool
+        nullable: true
+      vendor__active_flag:
+        data_type: bool
+        nullable: true
+      vendor__modified_date:
+        data_type: timestamp
+        nullable: true
+      vendor__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      vendor__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      vendor__record_version:
+        data_type: text
+        nullable: true
+      vendor__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      vendor__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      vendor__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      vendor__purchasing_web_service_url:
+        data_type: text
+        nullable: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: vendors
+    x-normalizer:
+      seen-data: true
+  work_orders:
+    columns:
+      _pit_hook__order__work:
+        data_type: text
+        nullable: true
+      work_order__work_order_id:
+        data_type: bigint
+        nullable: true
+      work_order__product_id:
+        data_type: bigint
+        nullable: true
+      work_order__order_qty:
+        data_type: bigint
+        nullable: true
+      work_order__stocked_qty:
+        data_type: bigint
+        nullable: true
+      work_order__scrapped_qty:
+        data_type: bigint
+        nullable: true
+      work_order__start_date:
+        data_type: timestamp
+        nullable: true
+      work_order__end_date:
+        data_type: timestamp
+        nullable: true
+      work_order__due_date:
+        data_type: timestamp
+        nullable: true
+      work_order__modified_date:
+        data_type: timestamp
+        nullable: true
+      work_order__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      work_order__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      work_order__record_version:
+        data_type: text
+        nullable: true
+      work_order__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      work_order__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      work_order__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      work_order__scrap_reason_id:
+        data_type: bigint
+        nullable: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: work_orders
+    x-normalizer:
+      seen-data: true
+  work_order_routings:
+    columns:
+      _pit_hook__order_line__work:
+        data_type: text
+        nullable: true
+      work_order_routing__work_order_id:
+        data_type: bigint
+        nullable: true
+      work_order_routing__product_id:
+        data_type: bigint
+        nullable: true
+      work_order_routing__operation_sequence:
+        data_type: bigint
+        nullable: true
+      work_order_routing__location_id:
+        data_type: bigint
+        nullable: true
+      work_order_routing__scheduled_start_date:
+        data_type: timestamp
+        nullable: true
+      work_order_routing__scheduled_end_date:
+        data_type: timestamp
+        nullable: true
+      work_order_routing__actual_start_date:
+        data_type: timestamp
+        nullable: true
+      work_order_routing__actual_end_date:
+        data_type: timestamp
+        nullable: true
+      work_order_routing__actual_resource_hrs:
+        data_type: double
+        nullable: true
+      work_order_routing__planned_cost:
+        data_type: double
+        nullable: true
+      work_order_routing__actual_cost:
+        data_type: double
+        nullable: true
+      work_order_routing__modified_date:
+        data_type: timestamp
+        nullable: true
+      work_order_routing__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      work_order_routing__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      work_order_routing__record_version:
+        data_type: text
+        nullable: true
+      work_order_routing__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      work_order_routing__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      work_order_routing__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: work_order_routings
+    x-normalizer:
+      seen-data: true
+  _bridge__as_of:
+    columns:
+      peripheral:
+        data_type: text
+        nullable: true
+      _pit_hook__bridge:
+        data_type: text
+        nullable: true
+      _pit_hook__reference__address_type:
+        data_type: text
+        nullable: true
+      _hook__epoch__date:
+        data_type: text
+        nullable: true
+      event__address_types_modified:
+        data_type: bigint
+        nullable: true
+      bridge__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      bridge__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      bridge__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      bridge__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      bridge__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      _pit_hook__address:
+        data_type: text
+        nullable: true
+      _pit_hook__reference__country_region:
+        data_type: text
+        nullable: true
+      _pit_hook__reference__state_province:
+        data_type: text
+        nullable: true
+      _pit_hook__territory__sales:
+        data_type: text
+        nullable: true
+      event__addresses_modified:
+        data_type: bigint
+        nullable: true
+      _pit_hook__bill_of_materials:
+        data_type: text
+        nullable: true
+      _pit_hook__reference__unit_measure:
+        data_type: text
+        nullable: true
+      event__bill_of_materials_started:
+        data_type: bigint
+        nullable: true
+      event__bill_of_materials_modified:
+        data_type: bigint
+        nullable: true
+      event__bill_of_materials_ended:
+        data_type: bigint
+        nullable: true
+      _pit_hook__business_entity:
+        data_type: text
+        nullable: true
+      _pit_hook__reference__contact_type:
+        data_type: text
+        nullable: true
+      event__business_entity_addresses_modified:
+        data_type: bigint
+        nullable: true
+      event__business_entity_contacts_modified:
+        data_type: bigint
+        nullable: true
+      event__contact_types_modified:
+        data_type: bigint
+        nullable: true
+      event__country_regions_modified:
+        data_type: bigint
+        nullable: true
+      _pit_hook__credit_card:
+        data_type: text
+        nullable: true
+      event__credit_cards_modified:
+        data_type: bigint
+        nullable: true
+      _pit_hook__reference__culture:
+        data_type: text
+        nullable: true
+      event__cultures_modified:
+        data_type: bigint
+        nullable: true
+      _pit_hook__currency:
+        data_type: text
+        nullable: true
+      event__currencies_modified:
+        data_type: bigint
+        nullable: true
+      _pit_hook__currency_rate:
+        data_type: text
+        nullable: true
+      event__currency_rates_currency_rate:
+        data_type: bigint
+        nullable: true
+      event__currency_rates_modified:
+        data_type: bigint
+        nullable: true
+      _pit_hook__customer:
+        data_type: text
+        nullable: true
+      _pit_hook__store:
+        data_type: text
+        nullable: true
+      event__customers_modified:
+        data_type: bigint
+        nullable: true
+      _pit_hook__department:
+        data_type: text
+        nullable: true
+      event__departments_modified:
+        data_type: bigint
+        nullable: true
+      _pit_hook__person__individual:
+        data_type: text
+        nullable: true
+      event__email_addresses_modified:
+        data_type: bigint
+        nullable: true
+      _pit_hook__person__employee:
+        data_type: text
+        nullable: true
+      _pit_hook__reference__shift:
+        data_type: text
+        nullable: true
+      event__employee_department_histories_started:
+        data_type: bigint
+        nullable: true
+      event__employee_department_histories_ended:
+        data_type: bigint
+        nullable: true
+      event__employee_department_histories_modified:
+        data_type: bigint
+        nullable: true
+      event__employee_pay_histories_modified:
+        data_type: bigint
+        nullable: true
+      event__employee_pay_histories_rate_change:
+        data_type: bigint
+        nullable: true
+      event__employees_modified:
+        data_type: bigint
+        nullable: true
+      _pit_hook__reference__illustration:
+        data_type: text
+        nullable: true
+      event__illustrations_modified:
+        data_type: bigint
+        nullable: true
+      _pit_hook__job_candidate:
+        data_type: text
+        nullable: true
+      event__job_candidates_modified:
+        data_type: bigint
+        nullable: true
+      _pit_hook__reference__location:
+        data_type: text
+        nullable: true
+      event__locations_modified:
+        data_type: bigint
+        nullable: true
+      _pit_hook__reference__phone_number_type:
+        data_type: text
+        nullable: true
+      event__person_phones_modified:
+        data_type: bigint
+        nullable: true
+      event__persons_modified:
+        data_type: bigint
+        nullable: true
+      event__phone_number_types_modified:
+        data_type: bigint
+        nullable: true
+      _pit_hook__product_category:
+        data_type: text
+        nullable: true
+      event__product_categories_modified:
+        data_type: bigint
+        nullable: true
+      _pit_hook__product:
+        data_type: text
+        nullable: true
+      event__product_cost_histories_ended:
+        data_type: bigint
+        nullable: true
+      event__product_cost_histories_modified:
+        data_type: bigint
+        nullable: true
+      event__product_cost_histories_started:
+        data_type: bigint
+        nullable: true
+      _pit_hook__reference__product_description:
+        data_type: text
+        nullable: true
+      event__product_descriptions_modified:
+        data_type: bigint
+        nullable: true
+      event__product_inventories_modified:
+        data_type: bigint
+        nullable: true
+      _pit_hook__product_subcategory:
+        data_type: text
+        nullable: true
+      _pit_hook__reference__product_model:
+        data_type: text
+        nullable: true
+      event__product_list_price_histories_started:
+        data_type: bigint
+        nullable: true
+      event__product_list_price_histories_ended:
+        data_type: bigint
+        nullable: true
+      event__product_list_price_histories_modified:
+        data_type: bigint
+        nullable: true
+      event__product_model_illustrations_modified:
+        data_type: bigint
+        nullable: true
+      event__product_models_modified:
+        data_type: bigint
+        nullable: true
+      _pit_hook__reference__product_photo:
+        data_type: text
+        nullable: true
+      event__product_photos_modified:
+        data_type: bigint
+        nullable: true
+      _pit_hook__product_review:
+        data_type: text
+        nullable: true
+      event__product_reviews_modified:
+        data_type: bigint
+        nullable: true
+      event__product_reviews_review:
+        data_type: bigint
+        nullable: true
+      event__product_subcategories_modified:
+        data_type: bigint
+        nullable: true
+      _pit_hook__vendor:
+        data_type: text
+        nullable: true
+      event__product_vendors_last_receipt:
+        data_type: bigint
+        nullable: true
+      event__product_vendors_modified:
+        data_type: bigint
+        nullable: true
+      event__products_ended:
+        data_type: bigint
+        nullable: true
+      event__products_modified:
+        data_type: bigint
+        nullable: true
+      event__products_started:
+        data_type: bigint
+        nullable: true
+      _pit_hook__order__purchase:
+        data_type: text
+        nullable: true
+      _pit_hook__order_line__purchase:
+        data_type: text
+        nullable: true
+      _pit_hook__ship_method:
+        data_type: text
+        nullable: true
+      event__purchase_order_details_due:
+        data_type: bigint
+        nullable: true
+      event__purchase_order_details_modified:
+        data_type: bigint
+        nullable: true
+      event__purchase_order_headers_modified:
+        data_type: bigint
+        nullable: true
+      event__purchase_order_headers_shipped:
+        data_type: bigint
+        nullable: true
+      event__purchase_order_headers_placed:
+        data_type: bigint
+        nullable: true
+      _pit_hook__order__sales:
+        data_type: text
+        nullable: true
+      _pit_hook__order_line__sales:
+        data_type: text
+        nullable: true
+      _pit_hook__reference__special_offer:
+        data_type: text
+        nullable: true
+      event__sales_order_details_modified:
+        data_type: bigint
+        nullable: true
+      event__sales_order_headers_due:
+        data_type: bigint
+        nullable: true
+      event__sales_order_headers_placed:
+        data_type: bigint
+        nullable: true
+      event__sales_order_headers_modified:
+        data_type: bigint
+        nullable: true
+      event__sales_order_headers_shipped:
+        data_type: bigint
+        nullable: true
+      _pit_hook__person__sales:
+        data_type: text
+        nullable: true
+      event__sales_person_quota_histories_modified:
+        data_type: bigint
+        nullable: true
+      event__sales_person_quota_histories_quota:
+        data_type: bigint
+        nullable: true
+      event__sales_persons_modified:
+        data_type: bigint
+        nullable: true
+      _pit_hook__reference__sales_reason:
+        data_type: text
+        nullable: true
+      event__sales_reasons_modified:
+        data_type: bigint
+        nullable: true
+      _pit_hook__reference__sales_tax_rate:
+        data_type: text
+        nullable: true
+      event__sales_tax_rates_modified:
+        data_type: bigint
+        nullable: true
+      event__sales_territories_modified:
+        data_type: bigint
+        nullable: true
+      event__sales_territory_histories_modified:
+        data_type: bigint
+        nullable: true
+      event__sales_territory_histories_started:
+        data_type: bigint
+        nullable: true
+      event__sales_territory_histories_ended:
+        data_type: bigint
+        nullable: true
+      _pit_hook__reference__scrap_reason:
+        data_type: text
+        nullable: true
+      event__scrap_reasons_modified:
+        data_type: bigint
+        nullable: true
+      event__shifts_modified:
+        data_type: bigint
+        nullable: true
+      event__ship_methods_modified:
+        data_type: bigint
+        nullable: true
+      _pit_hook__shopping_cart_item:
+        data_type: text
+        nullable: true
+      event__shopping_cart_items_modified:
+        data_type: bigint
+        nullable: true
+      event__special_offers_ended:
+        data_type: bigint
+        nullable: true
+      event__special_offers_modified:
+        data_type: bigint
+        nullable: true
+      event__special_offers_started:
+        data_type: bigint
+        nullable: true
+      event__state_provinces_modified:
+        data_type: bigint
+        nullable: true
+      event__stores_modified:
+        data_type: bigint
+        nullable: true
+      _pit_hook__transaction_history:
+        data_type: text
+        nullable: true
+      event__transaction_histories_modified:
+        data_type: bigint
+        nullable: true
+      event__transaction_histories_transaction:
+        data_type: bigint
+        nullable: true
+      _pit_hook__transaction_history_archive:
+        data_type: text
+        nullable: true
+      event__transaction_history_archives_modified:
+        data_type: bigint
+        nullable: true
+      event__transaction_history_archives_transaction:
+        data_type: bigint
+        nullable: true
+      event__unit_measures_modified:
+        data_type: bigint
+        nullable: true
+      event__vendors_modified:
+        data_type: bigint
+        nullable: true
+      _pit_hook__order__work:
+        data_type: text
+        nullable: true
+      _pit_hook__order_line__work:
+        data_type: text
+        nullable: true
+      event__work_order_routings_actual_ended:
+        data_type: bigint
+        nullable: true
+      event__work_order_routings_modified:
+        data_type: bigint
+        nullable: true
+      event__work_order_routings_scheduled_ended:
+        data_type: bigint
+        nullable: true
+      event__work_orders_ended:
+        data_type: bigint
+        nullable: true
+      event__work_orders_modified:
+        data_type: bigint
+        nullable: true
+      event__work_orders_due:
+        data_type: bigint
+        nullable: true
+      event__work_orders_started:
+        data_type: bigint
+        nullable: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: _bridge__as_of
+    x-normalizer:
+      seen-data: true
+  _dlt_pipeline_state:
+    columns:
+      version:
+        data_type: bigint
+        nullable: false
+      engine_version:
+        data_type: bigint
+        nullable: false
+      pipeline_name:
+        data_type: text
+        nullable: false
+      state:
+        data_type: text
+        nullable: false
+      created_at:
+        data_type: timestamp
+        nullable: false
+      version_hash:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: append
+    file_format: preferred
+    resource: _dlt_pipeline_state
+    x-normalizer:
+      seen-data: true
+settings:
+  detections:
+  - iso_timestamp
+  default_hints:
+    not_null:
+    - _dlt_id
+    - _dlt_root_id
+    - _dlt_parent_id
+    - _dlt_list_idx
+    - _dlt_load_id
+    parent_key:
+    - _dlt_parent_id
+    root_key:
+    - _dlt_root_id
+    unique:
+    - _dlt_id
+    row_key:
+    - _dlt_id
+normalizers:
+  names: snake_case
+  json:
+    module: dlt.common.normalizers.json.relational
+previous_hashes:
+- ek7waLBztHfLgsBGPzkKz5PbYJRzCPYF35rsL65XNTA=
+- C4U3fkUTtWhIQ9Jzu0YkToPogUpAohe5eR3nDAELo+U=
