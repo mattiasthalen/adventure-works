@@ -21,6 +21,7 @@ WITH staging AS (
     rowguid AS person__rowguid,
     title AS person__title,
     suffix AS person__suffix,
+    additional_contact_info AS person__additional_contact_info,
     modified_date AS person__modified_date,
     TO_TIMESTAMP(_dlt_load_id::DOUBLE) AS person__record_loaded_at
   FROM das.raw__adventure_works__persons
@@ -70,6 +71,7 @@ SELECT
   person__rowguid::TEXT,
   person__title::TEXT,
   person__suffix::TEXT,
+  person__additional_contact_info::TEXT,
   person__modified_date::DATE,
   person__record_loaded_at::TIMESTAMP,
   person__record_updated_at::TIMESTAMP,

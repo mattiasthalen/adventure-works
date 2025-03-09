@@ -3,125 +3,125 @@ MODEL (
   kind VIEW,
   tags unified_star_schema,
   grain (_pit_hook__bridge),
-  references (_pit_hook__address, _pit_hook__bill_of_materials, _pit_hook__business_entity, _pit_hook__credit_card, _pit_hook__currency, _pit_hook__currency_rate, _pit_hook__customer, _pit_hook__department, _pit_hook__job_candidate, _pit_hook__order__purchase, _pit_hook__order__sales, _pit_hook__order__work, _pit_hook__order_line__purchase, _pit_hook__order_line__sales, _pit_hook__order_line__work, _pit_hook__person__employee, _pit_hook__person__individual, _pit_hook__person__sales, _pit_hook__product, _pit_hook__product_category, _pit_hook__product_review, _pit_hook__product_subcategory, _pit_hook__reference__address_type, _pit_hook__reference__contact_type, _pit_hook__reference__country_region, _pit_hook__reference__culture, _pit_hook__reference__illustration, _pit_hook__reference__location, _pit_hook__reference__phone_number_type, _pit_hook__reference__product_description, _pit_hook__reference__product_model, _pit_hook__reference__product_photo, _pit_hook__reference__sales_reason, _pit_hook__reference__sales_tax_rate, _pit_hook__reference__scrap_reason, _pit_hook__reference__shift, _pit_hook__reference__special_offer, _pit_hook__reference__state_province, _pit_hook__reference__unit_measure, _pit_hook__ship_method, _pit_hook__shopping_cart_item, _pit_hook__store, _pit_hook__territory__sales, _pit_hook__transaction_history, _pit_hook__transaction_history_archive, _pit_hook__vendor)
+  references (_pit_hook__address, _pit_hook__bill_of_materials, _pit_hook__business_entity, _pit_hook__credit_card, _pit_hook__currency, _pit_hook__currency_rate, _pit_hook__customer, _pit_hook__department, _pit_hook__job_candidate, _pit_hook__order__purchase, _pit_hook__order__sales, _pit_hook__order__work, _pit_hook__order_line__purchase, _pit_hook__order_line__sales, _pit_hook__order_line__work, _pit_hook__person__employee, _pit_hook__person__individual, _pit_hook__person__sales, _pit_hook__product, _pit_hook__product_category, _pit_hook__product_review, _pit_hook__product_subcategory, _pit_hook__reference__address_type, _pit_hook__reference__contact_type, _pit_hook__reference__country_region, _pit_hook__reference__culture, _pit_hook__reference__illustration, _pit_hook__reference__location, _pit_hook__reference__phone_number_type, _pit_hook__reference__product_description, _pit_hook__reference__product_model, _pit_hook__reference__product_photo, _pit_hook__reference__sales_reason, _pit_hook__reference__sales_tax_rate, _pit_hook__reference__scrap_reason, _pit_hook__reference__shift, _pit_hook__reference__special_offer, _pit_hook__reference__state_province, _pit_hook__reference__unit_measure, _pit_hook__ship_method, _pit_hook__shopping_cart_item, _pit_hook__store, _pit_hook__territory__sales, _pit_hook__transaction_history, _pit_hook__transaction_history_archive, _pit_hook__vendor, _hook__epoch__date)
 );
 
 WITH cte__bridge_union AS (
-  SELECT * FROM dar__staging.uss_bridge__persons
+  SELECT * FROM dar__staging.events__address_types
   UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__employees
+  SELECT * FROM dar__staging.events__addresses
   UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__departments
+  SELECT * FROM dar__staging.events__bill_of_materials
   UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__vendors
+  SELECT * FROM dar__staging.events__business_entity_addresses
   UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__credit_cards
+  SELECT * FROM dar__staging.events__business_entity_contacts
   UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__ship_methods
+  SELECT * FROM dar__staging.events__contact_types
   UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__product_categories
+  SELECT * FROM dar__staging.events__country_regions
   UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__currencies
+  SELECT * FROM dar__staging.events__credit_cards
   UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__currency_rates
+  SELECT * FROM dar__staging.events__cultures
   UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__employee_pay_histories
+  SELECT * FROM dar__staging.events__currencies
   UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__shifts
+  SELECT * FROM dar__staging.events__currency_rates
   UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__address_types
+  SELECT * FROM dar__staging.events__customers
   UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__contact_types
+  SELECT * FROM dar__staging.events__departments
   UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__country_regions
+  SELECT * FROM dar__staging.events__email_addresses
   UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__email_addresses
+  SELECT * FROM dar__staging.events__employee_department_histories
   UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__phone_number_types
+  SELECT * FROM dar__staging.events__employee_pay_histories
   UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__cultures
+  SELECT * FROM dar__staging.events__employees
   UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__illustrations
+  SELECT * FROM dar__staging.events__illustrations
   UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__locations
+  SELECT * FROM dar__staging.events__job_candidates
   UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__product_cost_histories
+  SELECT * FROM dar__staging.events__locations
   UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__product_descriptions
+  SELECT * FROM dar__staging.events__person_phones
   UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__product_list_price_histories
+  SELECT * FROM dar__staging.events__persons
   UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__product_models
+  SELECT * FROM dar__staging.events__phone_number_types
   UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__product_photos
+  SELECT * FROM dar__staging.events__product_categories
   UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__scrap_reasons
+  SELECT * FROM dar__staging.events__product_cost_histories
   UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__unit_measures
+  SELECT * FROM dar__staging.events__product_descriptions
   UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__special_offers
+  SELECT * FROM dar__staging.events__product_inventories
   UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__sales_person_quota_histories
+  SELECT * FROM dar__staging.events__product_list_price_histories
   UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__sales_reasons
+  SELECT * FROM dar__staging.events__product_model_illustrations
   UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__product_subcategories
+  SELECT * FROM dar__staging.events__product_models
   UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__employee_department_histories
+  SELECT * FROM dar__staging.events__product_photos
   UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__business_entity_contacts
+  SELECT * FROM dar__staging.events__product_reviews
   UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__sales_territories
+  SELECT * FROM dar__staging.events__product_subcategories
   UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__person_phones
+  SELECT * FROM dar__staging.events__product_vendors
   UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__product_model_illustrations
+  SELECT * FROM dar__staging.events__products
   UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__bill_of_materials
+  SELECT * FROM dar__staging.events__purchase_order_details
   UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__products
+  SELECT * FROM dar__staging.events__purchase_order_headers
   UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__job_candidates
-  UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__business_entity_addresses
-  UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__sales_persons
-  UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__sales_territory_histories
-  UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__state_provinces
-  UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__work_orders
-  UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__product_inventories
-  UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__product_reviews
-  UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__transaction_histories
-  UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__transaction_history_archives
-  UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__product_vendors
-  UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__shopping_cart_items
-  UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__stores
-  UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__addresses
-  UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__sales_tax_rates
-  UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__work_order_routings
-  UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__purchase_order_headers
-  UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__customers
-  UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__purchase_order_details
+  SELECT * FROM dar__staging.events__sales_order_details
   UNION ALL BY NAME
   SELECT * FROM dar__staging.events__sales_order_headers
   UNION ALL BY NAME
-  SELECT * FROM dar__staging.uss_bridge__sales_order_details
+  SELECT * FROM dar__staging.events__sales_person_quota_histories
+  UNION ALL BY NAME
+  SELECT * FROM dar__staging.events__sales_persons
+  UNION ALL BY NAME
+  SELECT * FROM dar__staging.events__sales_reasons
+  UNION ALL BY NAME
+  SELECT * FROM dar__staging.events__sales_tax_rates
+  UNION ALL BY NAME
+  SELECT * FROM dar__staging.events__sales_territories
+  UNION ALL BY NAME
+  SELECT * FROM dar__staging.events__sales_territory_histories
+  UNION ALL BY NAME
+  SELECT * FROM dar__staging.events__scrap_reasons
+  UNION ALL BY NAME
+  SELECT * FROM dar__staging.events__shifts
+  UNION ALL BY NAME
+  SELECT * FROM dar__staging.events__ship_methods
+  UNION ALL BY NAME
+  SELECT * FROM dar__staging.events__shopping_cart_items
+  UNION ALL BY NAME
+  SELECT * FROM dar__staging.events__special_offers
+  UNION ALL BY NAME
+  SELECT * FROM dar__staging.events__state_provinces
+  UNION ALL BY NAME
+  SELECT * FROM dar__staging.events__stores
+  UNION ALL BY NAME
+  SELECT * FROM dar__staging.events__transaction_histories
+  UNION ALL BY NAME
+  SELECT * FROM dar__staging.events__transaction_history_archives
+  UNION ALL BY NAME
+  SELECT * FROM dar__staging.events__unit_measures
+  UNION ALL BY NAME
+  SELECT * FROM dar__staging.events__vendors
+  UNION ALL BY NAME
+  SELECT * FROM dar__staging.events__work_order_routings
+  UNION ALL BY NAME
+  SELECT * FROM dar__staging.events__work_orders
 )
 SELECT
   peripheral::TEXT,
@@ -173,10 +173,100 @@ SELECT
   _pit_hook__transaction_history_archive::BLOB,
   _pit_hook__vendor::BLOB,
   _hook__epoch__date::BLOB,
-  event__sales_order_placed::INT,
-  event__sales_order_due::INT,
-  event__sales_order_shipped::INT,
-  event__sales_order_modified::INT,
+  event__address_types_modified::INT,
+  event__addresses_modified::INT,
+  event__bill_of_materials_ended::INT,
+  event__bill_of_materials_modified::INT,
+  event__bill_of_materials_started::INT,
+  event__business_entity_addresses_modified::INT,
+  event__business_entity_contacts_modified::INT,
+  event__contact_types_modified::INT,
+  event__country_regions_modified::INT,
+  event__credit_cards_modified::INT,
+  event__cultures_modified::INT,
+  event__currencies_modified::INT,
+  event__currency_rates_currency_rate::INT,
+  event__currency_rates_modified::INT,
+  event__customers_modified::INT,
+  event__departments_modified::INT,
+  event__email_addresses_modified::INT,
+  event__employee_department_histories_ended::INT,
+  event__employee_department_histories_modified::INT,
+  event__employee_department_histories_started::INT,
+  event__employee_pay_histories_modified::INT,
+  event__employee_pay_histories_rate_change::INT,
+  event__employees_birth::INT,
+  event__employees_hire::INT,
+  event__employees_modified::INT,
+  event__illustrations_modified::INT,
+  event__job_candidates_modified::INT,
+  event__locations_modified::INT,
+  event__person_phones_modified::INT,
+  event__persons_modified::INT,
+  event__phone_number_types_modified::INT,
+  event__product_categories_modified::INT,
+  event__product_cost_histories_ended::INT,
+  event__product_cost_histories_modified::INT,
+  event__product_cost_histories_started::INT,
+  event__product_descriptions_modified::INT,
+  event__product_inventories_modified::INT,
+  event__product_list_price_histories_ended::INT,
+  event__product_list_price_histories_modified::INT,
+  event__product_list_price_histories_started::INT,
+  event__product_model_illustrations_modified::INT,
+  event__product_models_modified::INT,
+  event__product_photos_modified::INT,
+  event__product_reviews_modified::INT,
+  event__product_reviews_review::INT,
+  event__product_subcategories_modified::INT,
+  event__product_vendors_last_receipt::INT,
+  event__product_vendors_modified::INT,
+  event__products_ended::INT,
+  event__products_modified::INT,
+  event__products_started::INT,
+  event__purchase_order_details_due::INT,
+  event__purchase_order_details_modified::INT,
+  event__purchase_order_headers_modified::INT,
+  event__purchase_order_headers_placed::INT,
+  event__purchase_order_headers_shipped::INT,
+  event__sales_order_details_modified::INT,
+  event__sales_order_headers_due::INT,
+  event__sales_order_headers_modified::INT,
+  event__sales_order_headers_placed::INT,
+  event__sales_order_headers_shipped::INT,
+  event__sales_person_quota_histories_modified::INT,
+  event__sales_person_quota_histories_quota::INT,
+  event__sales_persons_modified::INT,
+  event__sales_reasons_modified::INT,
+  event__sales_tax_rates_modified::INT,
+  event__sales_territories_modified::INT,
+  event__sales_territory_histories_ended::INT,
+  event__sales_territory_histories_modified::INT,
+  event__sales_territory_histories_started::INT,
+  event__scrap_reasons_modified::INT,
+  event__shifts_modified::INT,
+  event__ship_methods_modified::INT,
+  event__shopping_cart_items_modified::INT,
+  event__special_offers_ended::INT,
+  event__special_offers_modified::INT,
+  event__special_offers_started::INT,
+  event__state_provinces_modified::INT,
+  event__stores_modified::INT,
+  event__transaction_histories_modified::INT,
+  event__transaction_histories_transaction::INT,
+  event__transaction_history_archives_modified::INT,
+  event__transaction_history_archives_transaction::INT,
+  event__unit_measures_modified::INT,
+  event__vendors_modified::INT,
+  event__work_order_routings_actual_ended::INT,
+  event__work_order_routings_actual_started::INT,
+  event__work_order_routings_modified::INT,
+  event__work_order_routings_scheduled_ended::INT,
+  event__work_order_routings_scheduled_started::INT,
+  event__work_orders_due::INT,
+  event__work_orders_ended::INT,
+  event__work_orders_modified::INT,
+  event__work_orders_started::INT,
   bridge__record_loaded_at::TIMESTAMP,
   bridge__record_updated_at::TIMESTAMP,
   bridge__record_valid_from::TIMESTAMP,

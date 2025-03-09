@@ -6,7 +6,18 @@ MODEL (
   ),
   tags event,
   grain (_pit_hook__bridge),
-  references (_pit_hook__credit_card, _pit_hook__currency, _pit_hook__customer, _pit_hook__order__sales, _pit_hook__person__sales, _pit_hook__reference__country_region, _pit_hook__ship_method, _pit_hook__store, _pit_hook__territory__sales, _hook__epoch__date)
+  references (
+    _pit_hook__credit_card,
+    _pit_hook__currency,
+    _pit_hook__customer,
+    _pit_hook__order__sales,
+    _pit_hook__person__sales,
+    _pit_hook__reference__country_region,
+    _pit_hook__ship_method,
+    _pit_hook__store,
+    _pit_hook__territory__sales,
+    _hook__epoch__date
+  )
 );
 
 WITH cte__bridge AS (
@@ -33,10 +44,10 @@ cte__events AS (
   SELECT
     pivot__events._pit_hook__order__sales,
     CONCAT('epoch__date|', pivot__events.event_date) AS _hook__epoch__date,
-    MAX(CASE WHEN pivot__events.event = 'sales_order_header__order_date' THEN 1 END) AS event__sales_order_placed,
-    MAX(CASE WHEN pivot__events.event = 'sales_order_header__due_date' THEN 1 END) AS event__sales_order_due,
-    MAX(CASE WHEN pivot__events.event = 'sales_order_header__ship_date' THEN 1 END) AS event__sales_order_shipped,
-    MAX(CASE WHEN pivot__events.event = 'sales_order_header__modified_date' THEN 1 END) AS event__sales_order_modified
+    MAX(CASE WHEN pivot__events.event = 'sales_order_header__order_date' THEN 1 END) AS event__sales_order_headers_placed,
+    MAX(CASE WHEN pivot__events.event = 'sales_order_header__due_date' THEN 1 END) AS event__sales_order_headers_due,
+    MAX(CASE WHEN pivot__events.event = 'sales_order_header__ship_date' THEN 1 END) AS event__sales_order_headers_shipped,
+    MAX(CASE WHEN pivot__events.event = 'sales_order_header__modified_date' THEN 1 END) AS event__sales_order_headers_modified
   FROM dab.bag__adventure_works__sales_order_headers
   UNPIVOT (
     event_date FOR event IN (
@@ -73,10 +84,10 @@ SELECT
   _pit_hook__store::BLOB,
   _pit_hook__territory__sales::BLOB,
   _hook__epoch__date::BLOB,
-  event__sales_order_placed::INT,
-  event__sales_order_due::INT,
-  event__sales_order_shipped::INT,
-  event__sales_order_modified::INT,
+  event__sales_order_headers_placed::INT,
+  event__sales_order_headers_due::INT,
+  event__sales_order_headers_shipped::INT,
+  event__sales_order_headers_modified::INT,
   bridge__record_loaded_at::TIMESTAMP,
   bridge__record_updated_at::TIMESTAMP,
   bridge__record_valid_from::TIMESTAMP,

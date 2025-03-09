@@ -16,7 +16,8 @@ SELECT
     modified_date::DATE,
     _dlt_load_id::TEXT,
     title::TEXT,
-    suffix::TEXT
+    suffix::TEXT,
+    additional_contact_info::TEXT
 FROM ICEBERG_SCAN(
   "file://" || @project_path || "/lakehouse/das/raw__adventure_works__persons"
 )
