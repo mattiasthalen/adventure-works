@@ -1,5 +1,5 @@
-version: 2
-version_hash: FtizGifSjTAI/w9HWB4oPEMPW8HC6Tf/ca9c+iUA9cA=
+version: 3
+version_hash: JKtnsjRIT+aMsYxsHkW1swLsM2xua83bmXV4BJw9JWU=
 engine_version: 11
 name: duckdb_dar
 tables:
@@ -3821,6 +3821,18 @@ tables:
       event__work_orders_started:
         data_type: bigint
         nullable: true
+      event__employees_hire:
+        data_type: bigint
+        nullable: true
+      event__employees_birth:
+        data_type: bigint
+        nullable: true
+      event__work_order_routings_actual_started:
+        data_type: bigint
+        nullable: true
+      event__work_order_routings_scheduled_started:
+        data_type: bigint
+        nullable: true
     write_disposition: replace
     table_format: iceberg
     resource: _bridge__as_of
@@ -3882,5 +3894,6 @@ normalizers:
   json:
     module: dlt.common.normalizers.json.relational
 previous_hashes:
+- FtizGifSjTAI/w9HWB4oPEMPW8HC6Tf/ca9c+iUA9cA=
 - ek7waLBztHfLgsBGPzkKz5PbYJRzCPYF35rsL65XNTA=
 - C4U3fkUTtWhIQ9Jzu0YkToPogUpAohe5eR3nDAELo+U=
