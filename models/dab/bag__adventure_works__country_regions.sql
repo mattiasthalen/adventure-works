@@ -40,7 +40,7 @@ WITH staging AS (
     CONCAT(
       'reference__country_region__adventure_works|',
       country_region__country_region_code,
-      '~epoch|valid_from|',
+      '~epoch__valid_from|',
       country_region__record_valid_from
     )::BLOB AS _pit_hook__reference__country_region,
     CONCAT('reference__country_region__adventure_works|', country_region__country_region_code) AS _hook__reference__country_region,

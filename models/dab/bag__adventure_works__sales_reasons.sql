@@ -41,7 +41,7 @@ WITH staging AS (
     CONCAT(
       'reference__sales_reason__adventure_works|',
       sales_reason__sales_reason_id,
-      '~epoch|valid_from|',
+      '~epoch__valid_from|',
       sales_reason__record_valid_from
     )::BLOB AS _pit_hook__reference__sales_reason,
     CONCAT('reference__sales_reason__adventure_works|', sales_reason__sales_reason_id) AS _hook__reference__sales_reason,

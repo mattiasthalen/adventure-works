@@ -48,7 +48,7 @@ WITH staging AS (
     CONCAT(
       'reference__special_offer__adventure_works|',
       special_offer__special_offer_id,
-      '~epoch|valid_from|',
+      '~epoch__valid_from|',
       special_offer__record_valid_from
     )::BLOB AS _pit_hook__reference__special_offer,
     CONCAT('reference__special_offer__adventure_works|', special_offer__special_offer_id) AS _hook__reference__special_offer,

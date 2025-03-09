@@ -45,7 +45,7 @@ WITH staging AS (
     CONCAT(
       'reference__sales_tax_rate__adventure_works|',
       sales_tax_rate__sales_tax_rate_id,
-      '~epoch|valid_from|',
+      '~epoch__valid_from|',
       sales_tax_rate__record_valid_from
     )::BLOB AS _pit_hook__reference__sales_tax_rate,
     CONCAT('reference__sales_tax_rate__adventure_works|', sales_tax_rate__sales_tax_rate_id) AS _hook__reference__sales_tax_rate,

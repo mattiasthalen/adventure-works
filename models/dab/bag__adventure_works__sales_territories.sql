@@ -48,7 +48,7 @@ WITH staging AS (
     CONCAT(
       'territory__sales__adventure_works|',
       sales_territory__territory_id,
-      '~epoch|valid_from|',
+      '~epoch__valid_from|',
       sales_territory__record_valid_from
     )::BLOB AS _pit_hook__territory__sales,
     CONCAT('territory__sales__adventure_works|', sales_territory__territory_id) AS _hook__territory__sales,

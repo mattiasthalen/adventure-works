@@ -43,7 +43,7 @@ WITH staging AS (
     CONCAT(
       'ship_method__adventure_works|',
       ship_method__ship_method_id,
-      '~epoch|valid_from|',
+      '~epoch__valid_from|',
       ship_method__record_valid_from
     )::BLOB AS _pit_hook__ship_method,
     CONCAT('ship_method__adventure_works|', ship_method__ship_method_id) AS _hook__ship_method,

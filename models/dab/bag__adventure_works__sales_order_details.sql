@@ -49,7 +49,7 @@ WITH staging AS (
     CONCAT(
       'order_line__sales__adventure_works|',
       sales_order_detail__sales_order_detail_id,
-      '~epoch|valid_from|',
+      '~epoch__valid_from|',
       sales_order_detail__record_valid_from
     )::BLOB AS _pit_hook__order_line__sales,
     CONCAT('order_line__sales__adventure_works|', sales_order_detail__sales_order_detail_id) AS _hook__order_line__sales,

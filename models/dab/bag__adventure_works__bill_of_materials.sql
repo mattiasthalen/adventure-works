@@ -47,7 +47,7 @@ WITH staging AS (
     CONCAT(
       'product__adventure_works|',
       bill_of_material__bill_of_materials_id,
-      '~epoch|valid_from|',
+      '~epoch__valid_from|',
       bill_of_material__record_valid_from
     )::BLOB AS _pit_hook__bill_of_materials,
     CONCAT('product__adventure_works|', bill_of_material__bill_of_materials_id) AS _hook__bill_of_materials,

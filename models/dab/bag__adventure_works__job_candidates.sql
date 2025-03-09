@@ -42,7 +42,7 @@ WITH staging AS (
     CONCAT(
       'person__adventure_works|',
       job_candidate__job_candidate_id,
-      '~epoch|valid_from|',
+      '~epoch__valid_from|',
       job_candidate__record_valid_from
     )::BLOB AS _pit_hook__job_candidate,
     CONCAT('person__adventure_works|', job_candidate__job_candidate_id) AS _hook__job_candidate,

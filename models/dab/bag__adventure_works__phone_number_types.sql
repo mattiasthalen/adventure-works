@@ -40,7 +40,7 @@ WITH staging AS (
     CONCAT(
       'reference__phone_number_type__adventure_works|',
       phone_number_type__phone_number_type_id,
-      '~epoch|valid_from|',
+      '~epoch__valid_from|',
       phone_number_type__record_valid_from
     )::BLOB AS _pit_hook__reference__phone_number_type,
     CONCAT('reference__phone_number_type__adventure_works|', phone_number_type__phone_number_type_id) AS _hook__reference__phone_number_type,

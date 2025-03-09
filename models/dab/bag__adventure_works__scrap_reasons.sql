@@ -40,7 +40,7 @@ WITH staging AS (
     CONCAT(
       'reference__scrap_reason__adventure_works|',
       scrap_reason__scrap_reason_id,
-      '~epoch|valid_from|',
+      '~epoch__valid_from|',
       scrap_reason__record_valid_from
     )::BLOB AS _pit_hook__reference__scrap_reason,
     CONCAT('reference__scrap_reason__adventure_works|', scrap_reason__scrap_reason_id) AS _hook__reference__scrap_reason,

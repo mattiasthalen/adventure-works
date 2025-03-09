@@ -63,7 +63,7 @@ cte__bridge_pit_hook AS (
     CONCAT_WS(
       '~',
       peripheral,
-      'epoch__valid_from'||bridge__record_valid_from,
+      'epoch__valid_from|'||bridge__record_valid_from,
       _pit_hook__business_entity::TEXT,
       _pit_hook__reference__contact_type::TEXT
     ) AS _pit_hook__bridge

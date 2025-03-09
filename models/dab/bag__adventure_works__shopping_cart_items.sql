@@ -44,7 +44,7 @@ WITH staging AS (
     CONCAT(
       'reference__adventure_works|',
       shopping_cart_item__shopping_cart_item_id,
-      '~epoch|valid_from|',
+      '~epoch__valid_from|',
       shopping_cart_item__record_valid_from
     )::BLOB AS _pit_hook__shopping_cart_item,
     CONCAT('reference__adventure_works|', shopping_cart_item__shopping_cart_item_id) AS _hook__shopping_cart_item,

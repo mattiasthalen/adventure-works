@@ -119,7 +119,7 @@ def generate_hook_model_for_bag(bag, schema, output_dir, raw_schema):
                 sql_file.write(f"""    CONCAT(
       '{keyset}|',
       {column_prefix}__{business_key_field},
-      '~epoch|valid_from|',
+      '~epoch__valid_from|',
       {column_prefix}__record_valid_from
     )::BLOB AS _pit{hook_name},\n""")
             

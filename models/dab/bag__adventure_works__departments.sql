@@ -41,7 +41,7 @@ WITH staging AS (
     CONCAT(
       'department__adventure_works|',
       department__department_id,
-      '~epoch|valid_from|',
+      '~epoch__valid_from|',
       department__record_valid_from
     )::BLOB AS _pit_hook__department,
     CONCAT('department__adventure_works|', department__department_id) AS _hook__department,

@@ -46,7 +46,7 @@ WITH staging AS (
     CONCAT(
       'address__adventure_works|',
       address__address_id,
-      '~epoch|valid_from|',
+      '~epoch__valid_from|',
       address__record_valid_from
     )::BLOB AS _pit_hook__address,
     CONCAT('address__adventure_works|', address__address_id) AS _hook__address,

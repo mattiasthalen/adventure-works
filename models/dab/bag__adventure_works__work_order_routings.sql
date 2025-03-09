@@ -50,7 +50,7 @@ WITH staging AS (
     CONCAT(
       'order_line__work__adventure_works|',
       work_order_routing__operation_sequence,
-      '~epoch|valid_from|',
+      '~epoch__valid_from|',
       work_order_routing__record_valid_from
     )::BLOB AS _pit_hook__order_line__work,
     CONCAT('order_line__work__adventure_works|', work_order_routing__operation_sequence) AS _hook__order_line__work,

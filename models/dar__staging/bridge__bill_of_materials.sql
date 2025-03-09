@@ -63,7 +63,7 @@ cte__bridge_pit_hook AS (
     CONCAT_WS(
       '~',
       peripheral,
-      'epoch__valid_from'||bridge__record_valid_from,
+      'epoch__valid_from|'||bridge__record_valid_from,
       _pit_hook__bill_of_materials::TEXT,
       _pit_hook__reference__unit_measure::TEXT
     ) AS _pit_hook__bridge

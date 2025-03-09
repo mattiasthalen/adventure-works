@@ -41,7 +41,7 @@ WITH staging AS (
     CONCAT(
       'reference__illustration__adventure_works|',
       product_model_illustration__illustration_id,
-      '~epoch|valid_from|',
+      '~epoch__valid_from|',
       product_model_illustration__record_valid_from
     )::BLOB AS _pit_hook__reference__illustration,
     CONCAT('reference__illustration__adventure_works|', product_model_illustration__illustration_id) AS _hook__reference__illustration,

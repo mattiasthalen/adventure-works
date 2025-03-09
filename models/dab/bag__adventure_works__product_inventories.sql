@@ -45,7 +45,7 @@ WITH staging AS (
     CONCAT(
       'reference__location__adventure_works|',
       product_inventory__location_id,
-      '~epoch|valid_from|',
+      '~epoch__valid_from|',
       product_inventory__record_valid_from
     )::BLOB AS _pit_hook__reference__location,
     CONCAT('reference__location__adventure_works|', product_inventory__location_id) AS _hook__reference__location,

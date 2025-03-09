@@ -43,7 +43,7 @@ WITH staging AS (
     CONCAT(
       'reference__product_model__adventure_works|',
       product_model__product_model_id,
-      '~epoch|valid_from|',
+      '~epoch__valid_from|',
       product_model__record_valid_from
     )::BLOB AS _pit_hook__reference__product_model,
     CONCAT('reference__product_model__adventure_works|', product_model__product_model_id) AS _hook__reference__product_model,

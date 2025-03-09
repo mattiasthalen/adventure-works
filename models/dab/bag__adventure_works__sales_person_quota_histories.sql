@@ -42,7 +42,7 @@ WITH staging AS (
     CONCAT(
       'person__sales__adventure_works|',
       sales_person_quota_history__business_entity_id,
-      '~epoch|valid_from|',
+      '~epoch__valid_from|',
       sales_person_quota_history__record_valid_from
     )::BLOB AS _pit_hook__person__sales,
     CONCAT('person__sales__adventure_works|', sales_person_quota_history__business_entity_id) AS _hook__person__sales,

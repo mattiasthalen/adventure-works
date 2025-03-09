@@ -296,7 +296,7 @@ def generate_pit_hook_cte(bag_info, all_bag_info, join_fragments=None):
     sql += "    CONCAT_WS(\n"
     sql += "      '~',\n"
     sql += "      peripheral,\n"
-    sql += "      'epoch__valid_from'||bridge__record_valid_from"
+    sql += "      'epoch__valid_from|'||bridge__record_valid_from"
     
     # Add all PIT hooks to the concatenation
     for pit_hook in sorted(bag_info['all_pit_hooks']):

@@ -46,7 +46,7 @@ WITH staging AS (
     CONCAT(
       'reference__state_province__adventure_works|',
       state_province__state_province_id,
-      '~epoch|valid_from|',
+      '~epoch__valid_from|',
       state_province__record_valid_from
     )::BLOB AS _pit_hook__reference__state_province,
     CONCAT('reference__state_province__adventure_works|', state_province__state_province_id) AS _hook__reference__state_province,

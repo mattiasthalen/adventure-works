@@ -45,7 +45,7 @@ WITH staging AS (
     CONCAT(
       'customer__adventure_works|',
       customer__customer_id,
-      '~epoch|valid_from|',
+      '~epoch__valid_from|',
       customer__record_valid_from
     )::BLOB AS _pit_hook__customer,
     CONCAT('customer__adventure_works|', customer__customer_id) AS _hook__customer,

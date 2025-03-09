@@ -44,7 +44,7 @@ WITH staging AS (
     CONCAT(
       'store__adventure_works|',
       store__business_entity_id,
-      '~epoch|valid_from|',
+      '~epoch__valid_from|',
       store__record_valid_from
     )::BLOB AS _pit_hook__store,
     CONCAT('store__adventure_works|', store__business_entity_id) AS _hook__store,
