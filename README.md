@@ -19,35 +19,35 @@ architecture-beta
     service api(cloud)[Adventure Works API]
     service extract(server)[dlt]
     service load(server)[SQLMesh]
-    service export_silver(server)[dlt]
-    service export_gold(server)[dlt]
+    service export_dab(server)[dlt]
+    service export_dar(server)[dlt]
     service consumption(cloud)[BI]
 
     group storage(cloud)[Storage]
-        service bronze(disk)[Bronze] in storage
-        service silver(disk)[Silver] in storage
-        service gold(disk)[Gold] in storage
+        service das(disk)[DAS] in storage
+        service dab(disk)[DAB] in storage
+        service dar(disk)[DAR] in storage
 
     group engine(database)[DuckDB]
-        service bronze_view(database)[Bronze] in engine
+        service das_view(database)[DAS] in engine
         service l1_transform(server)[SQLMesh] in engine
-        service silver_view(database)[Silver] in engine
+        service dab_view(database)[DAB] in engine
         service l2_transform(server)[SQLMesh] in engine
-        service gold_view(database)[Gold] in engine
+        service dar_view(database)[DAR] in engine
 
     api:R -- L:extract
-    extract:R -- L:bronze
-    bronze:T -- B:load
-    load:T -- B:bronze_view
-    bronze_view:R -- L:l1_transform
-    l1_transform:R -- L:silver_view
-    silver_view:R -- L:l2_transform
-    l2_transform:R -- L:gold_view
-    silver_view:B -- T:export_silver
-    export_silver:B -- T:silver
-    gold_view:B -- T:export_gold
-    export_gold:B -- T:gold
-    gold:R -- L:consumption
+    extract:R -- L:das
+    das:T -- B:load
+    load:T -- B:das_view
+    das_view:R -- L:l1_transform
+    l1_transform:R -- L:dab_view
+    dab_view:R -- L:l2_transform
+    l2_transform:R -- L:dar_view
+    dab_view:B -- T:export_dab
+    export_dab:B -- T:dab
+    dar_view:B -- T:export_dar
+    export_dar:B -- T:dar
+    dar:R -- L:consumption
 ```
 
 ## Lineage / DAG
