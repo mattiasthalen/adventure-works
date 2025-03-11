@@ -1,12 +1,12 @@
 MODEL (
   enabled TRUE,
   kind INCREMENTAL_BY_UNIQUE_KEY(
-    unique_key _pit_hook__bridge,
-    batch_size 288, -- cron every 5m: 24h * 60m / 5m = 288
+    unique_key _pit_hook__bridge
   ),
   tags event,
   grain (_pit_hook__bridge),
   references (
+    _pit_hook__employee_pay_history,
     _pit_hook__person__employee,
     _hook__epoch__date
   )
@@ -16,6 +16,7 @@ WITH cte__bridge AS (
   SELECT
     peripheral,
     _pit_hook__bridge,
+    _pit_hook__employee_pay_history,
     _pit_hook__person__employee,
     bridge__record_loaded_at,
     bridge__record_updated_at,
@@ -26,7 +27,7 @@ WITH cte__bridge AS (
 ),
 cte__events AS (
   SELECT
-    pivot__events._pit_hook__person__employee,
+    pivot__events._pit_hook__employee_pay_history,
     CONCAT('epoch__date|', pivot__events.event_date) AS _hook__epoch__date,
     MAX(CASE WHEN pivot__events.event = 'employee_pay_history__rate_change_date' THEN 1 END) AS event__employee_pay_histories_rate_change,
     MAX(CASE WHEN pivot__events.event = 'employee_pay_history__modified_date' THEN 1 END) AS event__employee_pay_histories_modified
@@ -49,11 +50,12 @@ final AS (
       _hook__epoch__date::TEXT
     ) AS _pit_hook__bridge
   FROM cte__bridge
-  LEFT JOIN cte__events USING(_pit_hook__person__employee)
+  LEFT JOIN cte__events USING(_pit_hook__employee_pay_history)
 )
 SELECT
   peripheral::TEXT,
   _pit_hook__bridge::BLOB,
+  _pit_hook__employee_pay_history::BLOB,
   _pit_hook__person__employee::BLOB,
   _hook__epoch__date::BLOB,
   event__employee_pay_histories_rate_change::INT,

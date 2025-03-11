@@ -1,16 +1,13 @@
 MODEL (
   enabled TRUE,
   kind INCREMENTAL_BY_UNIQUE_KEY(
-    unique_key _pit_hook__bridge,
-    batch_size 288, -- cron every 5m: 24h * 60m / 5m = 288
+    unique_key _pit_hook__bridge
   ),
   tags event,
   grain (_pit_hook__bridge),
   references (
-    _pit_hook__department,
     _pit_hook__job_candidate,
     _pit_hook__person__employee,
-    _pit_hook__reference__shift,
     _hook__epoch__date
   )
 );
@@ -19,10 +16,8 @@ WITH cte__bridge AS (
   SELECT
     peripheral,
     _pit_hook__bridge,
-    _pit_hook__department,
     _pit_hook__job_candidate,
     _pit_hook__person__employee,
-    _pit_hook__reference__shift,
     bridge__record_loaded_at,
     bridge__record_updated_at,
     bridge__record_valid_from,
@@ -58,10 +53,8 @@ final AS (
 SELECT
   peripheral::TEXT,
   _pit_hook__bridge::BLOB,
-  _pit_hook__department::BLOB,
   _pit_hook__job_candidate::BLOB,
   _pit_hook__person__employee::BLOB,
-  _pit_hook__reference__shift::BLOB,
   _hook__epoch__date::BLOB,
   event__job_candidates_modified::INT,
   bridge__record_loaded_at::TIMESTAMP,

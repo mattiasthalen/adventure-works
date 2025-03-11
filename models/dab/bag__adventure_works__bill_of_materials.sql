@@ -1,8 +1,7 @@
 MODEL (
   enabled TRUE,
   kind INCREMENTAL_BY_UNIQUE_KEY(
-    unique_key _pit_hook__bill_of_materials,
-    batch_size 288, -- cron every 5m: 24h * 60m / 5m = 288
+    unique_key _pit_hook__bill_of_materials
   ),
   tags hook,
   grain (_pit_hook__bill_of_materials, _hook__bill_of_materials),
@@ -44,16 +43,14 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
-    CONCAT(
-      'product__adventure_works|',
-      bill_of_material__bill_of_materials_id,
-      '~epoch__valid_from|',
-      bill_of_material__record_valid_from
-    )::BLOB AS _pit_hook__bill_of_materials,
     CONCAT('product__adventure_works|', bill_of_material__bill_of_materials_id) AS _hook__bill_of_materials,
     CONCAT('product__adventure_works|', bill_of_material__product_assembly_id) AS _hook__product__assembly,
     CONCAT('product__adventure_works|', bill_of_material__component_id) AS _hook__product__component,
     CONCAT('reference__unit_measure__adventure_works|', bill_of_material__unit_measure_code) AS _hook__reference__unit_measure,
+    CONCAT_WS('~',
+      _hook__bill_of_materials,
+      'epoch__valid_from|'||bill_of_material__record_valid_from
+    ) AS _pit_hook__bill_of_materials,
     *
   FROM validity
 )

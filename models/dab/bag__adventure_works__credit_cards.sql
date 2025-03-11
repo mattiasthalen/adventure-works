@@ -1,8 +1,7 @@
 MODEL (
   enabled TRUE,
   kind INCREMENTAL_BY_UNIQUE_KEY(
-    unique_key _pit_hook__credit_card,
-    batch_size 288, -- cron every 5m: 24h * 60m / 5m = 288
+    unique_key _pit_hook__credit_card
   ),
   tags hook,
   grain (_pit_hook__credit_card, _hook__credit_card)
@@ -40,13 +39,11 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
-    CONCAT(
-      'credit_card__adventure_works|',
-      credit_card__credit_card_id,
-      '~epoch__valid_from|',
-      credit_card__record_valid_from
-    )::BLOB AS _pit_hook__credit_card,
     CONCAT('credit_card__adventure_works|', credit_card__credit_card_id) AS _hook__credit_card,
+    CONCAT_WS('~',
+      _hook__credit_card,
+      'epoch__valid_from|'||credit_card__record_valid_from
+    ) AS _pit_hook__credit_card,
     *
   FROM validity
 )

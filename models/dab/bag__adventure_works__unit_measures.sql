@@ -1,8 +1,7 @@
 MODEL (
   enabled TRUE,
   kind INCREMENTAL_BY_UNIQUE_KEY(
-    unique_key _pit_hook__reference__unit_measure,
-    batch_size 288, -- cron every 5m: 24h * 60m / 5m = 288
+    unique_key _pit_hook__reference__unit_measure
   ),
   tags hook,
   grain (_pit_hook__reference__unit_measure, _hook__reference__unit_measure)
@@ -37,13 +36,11 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
-    CONCAT(
-      'reference__unit_measure__adventure_works|',
-      unit_measure__unit_measure_code,
-      '~epoch__valid_from|',
-      unit_measure__record_valid_from
-    )::BLOB AS _pit_hook__reference__unit_measure,
     CONCAT('reference__unit_measure__adventure_works|', unit_measure__unit_measure_code) AS _hook__reference__unit_measure,
+    CONCAT_WS('~',
+      _hook__reference__unit_measure,
+      'epoch__valid_from|'||unit_measure__record_valid_from
+    ) AS _pit_hook__reference__unit_measure,
     *
   FROM validity
 )

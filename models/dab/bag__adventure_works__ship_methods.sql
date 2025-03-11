@@ -1,8 +1,7 @@
 MODEL (
   enabled TRUE,
   kind INCREMENTAL_BY_UNIQUE_KEY(
-    unique_key _pit_hook__ship_method,
-    batch_size 288, -- cron every 5m: 24h * 60m / 5m = 288
+    unique_key _pit_hook__ship_method
   ),
   tags hook,
   grain (_pit_hook__ship_method, _hook__ship_method)
@@ -40,13 +39,11 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
-    CONCAT(
-      'ship_method__adventure_works|',
-      ship_method__ship_method_id,
-      '~epoch__valid_from|',
-      ship_method__record_valid_from
-    )::BLOB AS _pit_hook__ship_method,
     CONCAT('ship_method__adventure_works|', ship_method__ship_method_id) AS _hook__ship_method,
+    CONCAT_WS('~',
+      _hook__ship_method,
+      'epoch__valid_from|'||ship_method__record_valid_from
+    ) AS _pit_hook__ship_method,
     *
   FROM validity
 )

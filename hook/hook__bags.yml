@@ -505,8 +505,8 @@ bags:
       - name: "_hook__product_model_illustration"
         primary: true
         composite_key:
-          - "product_model_id"
-          - "illustration_id"
+          - "_hook__reference__product_model"
+          - "_hook__reference__illustration"
       - name: "_hook__reference__illustration"
         keyset: "reference__illustration__adventure_works"
         business_key_field: "illustration_id"
@@ -527,15 +527,8 @@ bags:
     source_table: "raw__adventure_works__product_photos"
     column_prefix: "product_photo"
     hooks:
-      - name: "_hook__product_photo"
-        primary: true
-        composite:
-          - "_hook__product"
-          - "_hook__reference__product_model"
-      - name: "_hook__product"
-        keyset: "product__adventure_works"
-        business_key_field: "product_id"
       - name: "_hook__reference__product_photo"
+        primary: true
         keyset: "reference__product_photo__adventure_works"
         business_key_field: "product_photo_id"
 

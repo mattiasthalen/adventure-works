@@ -1,8 +1,7 @@
 MODEL (
   enabled TRUE,
   kind INCREMENTAL_BY_UNIQUE_KEY(
-    unique_key _pit_hook__reference__sales_tax_rate,
-    batch_size 288, -- cron every 5m: 24h * 60m / 5m = 288
+    unique_key _pit_hook__reference__sales_tax_rate
   ),
   tags hook,
   grain (_pit_hook__reference__sales_tax_rate, _hook__reference__sales_tax_rate),
@@ -42,14 +41,12 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
-    CONCAT(
-      'reference__sales_tax_rate__adventure_works|',
-      sales_tax_rate__sales_tax_rate_id,
-      '~epoch__valid_from|',
-      sales_tax_rate__record_valid_from
-    )::BLOB AS _pit_hook__reference__sales_tax_rate,
     CONCAT('reference__sales_tax_rate__adventure_works|', sales_tax_rate__sales_tax_rate_id) AS _hook__reference__sales_tax_rate,
     CONCAT('reference__state_province__adventure_works|', sales_tax_rate__state_province_id) AS _hook__reference__state_province,
+    CONCAT_WS('~',
+      _hook__reference__sales_tax_rate,
+      'epoch__valid_from|'||sales_tax_rate__record_valid_from
+    ) AS _pit_hook__reference__sales_tax_rate,
     *
   FROM validity
 )

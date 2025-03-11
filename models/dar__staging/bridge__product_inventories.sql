@@ -1,21 +1,19 @@
 MODEL (
   enabled TRUE,
   kind INCREMENTAL_BY_UNIQUE_KEY(
-    unique_key _pit_hook__bridge,
-    batch_size 288, -- cron every 5m: 24h * 60m / 5m = 288
+    unique_key _pit_hook__bridge
   ),
   tags bridge,
   grain (_pit_hook__bridge),
-  references (_pit_hook__product, _pit_hook__product_category, _pit_hook__product_subcategory, _pit_hook__reference__location, _pit_hook__reference__product_model)
+  references (_pit_hook__product, _pit_hook__product_category, _pit_hook__product_subcategory, _pit_hook__reference__location, _pit_hook__reference__product_location, _pit_hook__reference__product_model)
 );
 
 WITH cte__bridge AS (
   SELECT
     'product_inventories' AS peripheral,
-    _pit_hook__reference__location,
+    _pit_hook__reference__product_location,
+    _hook__reference__product_location,
     _hook__reference__location,
-    _hook__product,
-    _hook__product,
     _hook__product,
     product_inventory__record_loaded_at AS bridge__record_loaded_at,
     product_inventory__record_updated_at AS bridge__record_updated_at,
@@ -27,60 +25,50 @@ WITH cte__bridge AS (
 cte__pit_lookup AS (
   SELECT
     cte__bridge.peripheral,
-    cte__bridge._pit_hook__reference__location,
-    bridge__product_cost_histories._pit_hook__product,
-    bridge__product_list_price_histories._pit_hook__product,
+    cte__bridge._pit_hook__reference__product_location,
+    bridge__locations._pit_hook__reference__location,
     bridge__products._pit_hook__product,
     bridge__products._pit_hook__product_category,
     bridge__products._pit_hook__product_subcategory,
     bridge__products._pit_hook__reference__product_model,
-    cte__bridge._hook__reference__location,
+    cte__bridge._hook__reference__product_location,
     GREATEST(
         cte__bridge.bridge__record_loaded_at,
-        bridge__products.bridge__record_loaded_at,
-        bridge__product_cost_histories.bridge__record_loaded_at,
-        bridge__product_list_price_histories.bridge__record_loaded_at
+        bridge__locations.bridge__record_loaded_at,
+        bridge__products.bridge__record_loaded_at
     ) AS bridge__record_loaded_at,
     GREATEST(
         cte__bridge.bridge__record_updated_at,
-        bridge__products.bridge__record_updated_at,
-        bridge__product_cost_histories.bridge__record_updated_at,
-        bridge__product_list_price_histories.bridge__record_updated_at
+        bridge__locations.bridge__record_updated_at,
+        bridge__products.bridge__record_updated_at
     ) AS bridge__record_updated_at,
     GREATEST(
         cte__bridge.bridge__record_valid_from,
-        bridge__products.bridge__record_valid_from,
-        bridge__product_cost_histories.bridge__record_valid_from,
-        bridge__product_list_price_histories.bridge__record_valid_from
+        bridge__locations.bridge__record_valid_from,
+        bridge__products.bridge__record_valid_from
     ) AS bridge__record_valid_from,
     LEAST(
         cte__bridge.bridge__record_valid_to,
-        bridge__products.bridge__record_valid_to,
-        bridge__product_cost_histories.bridge__record_valid_to,
-        bridge__product_list_price_histories.bridge__record_valid_to
+        bridge__locations.bridge__record_valid_to,
+        bridge__products.bridge__record_valid_to
     ) AS bridge__record_valid_to,
     LIST_HAS_ALL(
       ARRAY[True],
         ARRAY[
           cte__bridge.bridge__is_current_record,
-          bridge__products.bridge__is_current_record,
-          bridge__product_cost_histories.bridge__is_current_record,
-          bridge__product_list_price_histories.bridge__is_current_record
+          bridge__locations.bridge__is_current_record,
+          bridge__products.bridge__is_current_record
         ]
     ) AS bridge__is_current_record
   FROM cte__bridge
+  LEFT JOIN dar__staging.bridge__locations
+  ON cte__bridge._hook__reference__location = bridge__locations._hook__reference__location
+  AND cte__bridge.bridge__record_valid_from >= bridge__locations.bridge__record_valid_from
+  AND cte__bridge.bridge__record_valid_to <= bridge__locations.bridge__record_valid_to
   LEFT JOIN dar__staging.bridge__products
   ON cte__bridge._hook__product = bridge__products._hook__product
   AND cte__bridge.bridge__record_valid_from >= bridge__products.bridge__record_valid_from
   AND cte__bridge.bridge__record_valid_to <= bridge__products.bridge__record_valid_to
-  LEFT JOIN dar__staging.bridge__product_cost_histories
-  ON cte__bridge._hook__product = bridge__product_cost_histories._hook__product
-  AND cte__bridge.bridge__record_valid_from >= bridge__product_cost_histories.bridge__record_valid_from
-  AND cte__bridge.bridge__record_valid_to <= bridge__product_cost_histories.bridge__record_valid_to
-  LEFT JOIN dar__staging.bridge__product_list_price_histories
-  ON cte__bridge._hook__product = bridge__product_list_price_histories._hook__product
-  AND cte__bridge.bridge__record_valid_from >= bridge__product_list_price_histories.bridge__record_valid_from
-  AND cte__bridge.bridge__record_valid_to <= bridge__product_list_price_histories.bridge__record_valid_to
 ),
 cte__bridge_pit_hook AS (
   SELECT
@@ -93,6 +81,7 @@ cte__bridge_pit_hook AS (
       _pit_hook__product_category::TEXT,
       _pit_hook__product_subcategory::TEXT,
       _pit_hook__reference__location::TEXT,
+      _pit_hook__reference__product_location::TEXT,
       _pit_hook__reference__product_model::TEXT
     ) AS _pit_hook__bridge
   FROM cte__pit_lookup
@@ -104,8 +93,9 @@ SELECT
   _pit_hook__product_category::BLOB,
   _pit_hook__product_subcategory::BLOB,
   _pit_hook__reference__location::BLOB,
+  _pit_hook__reference__product_location::BLOB,
   _pit_hook__reference__product_model::BLOB,
-  _hook__reference__location::BLOB,
+  _hook__reference__product_location::BLOB,
   bridge__record_loaded_at::TIMESTAMP,
   bridge__record_updated_at::TIMESTAMP,
   bridge__record_valid_from::TIMESTAMP,

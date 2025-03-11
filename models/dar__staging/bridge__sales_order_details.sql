@@ -1,8 +1,7 @@
 MODEL (
   enabled TRUE,
   kind INCREMENTAL_BY_UNIQUE_KEY(
-    unique_key _pit_hook__bridge,
-    batch_size 288, -- cron every 5m: 24h * 60m / 5m = 288
+    unique_key _pit_hook__bridge
   ),
   tags bridge,
   grain (_pit_hook__bridge),
@@ -16,8 +15,6 @@ WITH cte__bridge AS (
     _hook__order_line__sales,
     _hook__order__sales,
     _hook__product,
-    _hook__product,
-    _hook__product,
     _hook__reference__special_offer,
     sales_order_detail__record_loaded_at AS bridge__record_loaded_at,
     sales_order_detail__record_updated_at AS bridge__record_updated_at,
@@ -30,8 +27,6 @@ cte__pit_lookup AS (
   SELECT
     cte__bridge.peripheral,
     cte__bridge._pit_hook__order_line__sales,
-    bridge__product_cost_histories._pit_hook__product,
-    bridge__product_list_price_histories._pit_hook__product,
     bridge__products._pit_hook__product,
     bridge__products._pit_hook__product_category,
     bridge__products._pit_hook__product_subcategory,
@@ -51,32 +46,24 @@ cte__pit_lookup AS (
         cte__bridge.bridge__record_loaded_at,
         bridge__sales_order_headers.bridge__record_loaded_at,
         bridge__products.bridge__record_loaded_at,
-        bridge__product_cost_histories.bridge__record_loaded_at,
-        bridge__product_list_price_histories.bridge__record_loaded_at,
         bridge__special_offers.bridge__record_loaded_at
     ) AS bridge__record_loaded_at,
     GREATEST(
         cte__bridge.bridge__record_updated_at,
         bridge__sales_order_headers.bridge__record_updated_at,
         bridge__products.bridge__record_updated_at,
-        bridge__product_cost_histories.bridge__record_updated_at,
-        bridge__product_list_price_histories.bridge__record_updated_at,
         bridge__special_offers.bridge__record_updated_at
     ) AS bridge__record_updated_at,
     GREATEST(
         cte__bridge.bridge__record_valid_from,
         bridge__sales_order_headers.bridge__record_valid_from,
         bridge__products.bridge__record_valid_from,
-        bridge__product_cost_histories.bridge__record_valid_from,
-        bridge__product_list_price_histories.bridge__record_valid_from,
         bridge__special_offers.bridge__record_valid_from
     ) AS bridge__record_valid_from,
     LEAST(
         cte__bridge.bridge__record_valid_to,
         bridge__sales_order_headers.bridge__record_valid_to,
         bridge__products.bridge__record_valid_to,
-        bridge__product_cost_histories.bridge__record_valid_to,
-        bridge__product_list_price_histories.bridge__record_valid_to,
         bridge__special_offers.bridge__record_valid_to
     ) AS bridge__record_valid_to,
     LIST_HAS_ALL(
@@ -85,8 +72,6 @@ cte__pit_lookup AS (
           cte__bridge.bridge__is_current_record,
           bridge__sales_order_headers.bridge__is_current_record,
           bridge__products.bridge__is_current_record,
-          bridge__product_cost_histories.bridge__is_current_record,
-          bridge__product_list_price_histories.bridge__is_current_record,
           bridge__special_offers.bridge__is_current_record
         ]
     ) AS bridge__is_current_record
@@ -99,14 +84,6 @@ cte__pit_lookup AS (
   ON cte__bridge._hook__product = bridge__products._hook__product
   AND cte__bridge.bridge__record_valid_from >= bridge__products.bridge__record_valid_from
   AND cte__bridge.bridge__record_valid_to <= bridge__products.bridge__record_valid_to
-  LEFT JOIN dar__staging.bridge__product_cost_histories
-  ON cte__bridge._hook__product = bridge__product_cost_histories._hook__product
-  AND cte__bridge.bridge__record_valid_from >= bridge__product_cost_histories.bridge__record_valid_from
-  AND cte__bridge.bridge__record_valid_to <= bridge__product_cost_histories.bridge__record_valid_to
-  LEFT JOIN dar__staging.bridge__product_list_price_histories
-  ON cte__bridge._hook__product = bridge__product_list_price_histories._hook__product
-  AND cte__bridge.bridge__record_valid_from >= bridge__product_list_price_histories.bridge__record_valid_from
-  AND cte__bridge.bridge__record_valid_to <= bridge__product_list_price_histories.bridge__record_valid_to
   LEFT JOIN dar__staging.bridge__special_offers
   ON cte__bridge._hook__reference__special_offer = bridge__special_offers._hook__reference__special_offer
   AND cte__bridge.bridge__record_valid_from >= bridge__special_offers.bridge__record_valid_from

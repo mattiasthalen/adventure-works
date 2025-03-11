@@ -1,8 +1,7 @@
 MODEL (
   enabled TRUE,
   kind INCREMENTAL_BY_UNIQUE_KEY(
-    unique_key _pit_hook__transaction_history_archive,
-    batch_size 288, -- cron every 5m: 24h * 60m / 5m = 288
+    unique_key _pit_hook__transaction_history_archive
   ),
   tags hook,
   grain (_pit_hook__transaction_history_archive, _hook__transaction_history_archive),
@@ -44,15 +43,13 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
-    CONCAT(
-      'product__adventure_works|',
-      transaction_history_archive__transaction_id,
-      '~epoch__valid_from|',
-      transaction_history_archive__record_valid_from
-    )::BLOB AS _pit_hook__transaction_history_archive,
     CONCAT('product__adventure_works|', transaction_history_archive__transaction_id) AS _hook__transaction_history_archive,
     CONCAT('product__adventure_works|', transaction_history_archive__product_id) AS _hook__product,
     CONCAT('order__adventure_works|', transaction_history_archive__reference_order_id) AS _hook__order__reference,
+    CONCAT_WS('~',
+      _hook__transaction_history_archive,
+      'epoch__valid_from|'||transaction_history_archive__record_valid_from
+    ) AS _pit_hook__transaction_history_archive,
     *
   FROM validity
 )

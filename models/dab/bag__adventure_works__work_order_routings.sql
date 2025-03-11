@@ -1,12 +1,11 @@
 MODEL (
   enabled TRUE,
   kind INCREMENTAL_BY_UNIQUE_KEY(
-    unique_key _pit_hook__order_line__work,
-    batch_size 288, -- cron every 5m: 24h * 60m / 5m = 288
+    unique_key _pit_hook__work_order_routing
   ),
   tags hook,
-  grain (_pit_hook__order_line__work, _hook__order_line__work),
-  references (_hook__order__work, _hook__product, _hook__reference__location)
+  grain (_pit_hook__work_order_routing, _hook__work_order_routing),
+  references (_hook__order_line__work, _hook__order__work, _hook__product, _hook__reference__location)
 );
 
 WITH staging AS (
@@ -28,14 +27,14 @@ WITH staging AS (
 ), validity AS (
   SELECT
     *,
-    ROW_NUMBER() OVER (PARTITION BY work_order_routing__operation_sequence ORDER BY work_order_routing__record_loaded_at) AS work_order_routing__record_version,
+    ROW_NUMBER() OVER (PARTITION BY work_order_routing__operation_sequence, work_order_routing__product_id, work_order_routing__work_order_id ORDER BY work_order_routing__record_loaded_at) AS work_order_routing__record_version,
     CASE
       WHEN work_order_routing__record_version = 1
       THEN '1970-01-01 00:00:00'::TIMESTAMP
       ELSE work_order_routing__record_loaded_at
     END AS work_order_routing__record_valid_from,
     COALESCE(
-      LEAD(work_order_routing__record_loaded_at) OVER (PARTITION BY work_order_routing__operation_sequence ORDER BY work_order_routing__record_loaded_at),
+      LEAD(work_order_routing__record_loaded_at) OVER (PARTITION BY work_order_routing__operation_sequence, work_order_routing__product_id, work_order_routing__work_order_id ORDER BY work_order_routing__record_loaded_at),
       '9999-12-31 23:59:59'::TIMESTAMP
     ) AS work_order_routing__record_valid_to,
     work_order_routing__record_valid_to = '9999-12-31 23:59:59'::TIMESTAMP AS work_order_routing__is_current_record,
@@ -47,21 +46,21 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
-    CONCAT(
-      'order_line__work__adventure_works|',
-      work_order_routing__operation_sequence,
-      '~epoch__valid_from|',
-      work_order_routing__record_valid_from
-    )::BLOB AS _pit_hook__order_line__work,
     CONCAT('order_line__work__adventure_works|', work_order_routing__operation_sequence) AS _hook__order_line__work,
     CONCAT('order__work__adventure_works|', work_order_routing__work_order_id) AS _hook__order__work,
     CONCAT('product__adventure_works|', work_order_routing__product_id) AS _hook__product,
     CONCAT('reference__location__adventure_works|', work_order_routing__location_id) AS _hook__reference__location,
+    CONCAT_WS('~', _hook__order_line__work, _hook__product, _hook__order__work) AS _hook__work_order_routing,
+    CONCAT_WS('~',
+      _hook__work_order_routing,
+      'epoch__valid_from|'||work_order_routing__record_valid_from
+    ) AS _pit_hook__work_order_routing,
     *
   FROM validity
 )
 SELECT
-  _pit_hook__order_line__work::BLOB,
+  _pit_hook__work_order_routing::BLOB,
+  _hook__work_order_routing::BLOB,
   _hook__order_line__work::BLOB,
   _hook__order__work::BLOB,
   _hook__product::BLOB,

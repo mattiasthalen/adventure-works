@@ -372,8 +372,7 @@ def generate_intermediate_bridge(
         sql_file.write(f"""MODEL (
   enabled TRUE,
   kind INCREMENTAL_BY_UNIQUE_KEY(
-    unique_key _pit_hook__bridge,
-    batch_size 288, -- cron every 5m: 24h * 60m / 5m = 288
+    unique_key _pit_hook__bridge
   ),
   tags bridge,
   grain (_pit_hook__bridge),

@@ -1,8 +1,7 @@
 MODEL (
   enabled TRUE,
   kind INCREMENTAL_BY_UNIQUE_KEY(
-    unique_key _pit_hook__reference__phone_number_type,
-    batch_size 288, -- cron every 5m: 24h * 60m / 5m = 288
+    unique_key _pit_hook__reference__phone_number_type
   ),
   tags hook,
   grain (_pit_hook__reference__phone_number_type, _hook__reference__phone_number_type)
@@ -37,13 +36,11 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
-    CONCAT(
-      'reference__phone_number_type__adventure_works|',
-      phone_number_type__phone_number_type_id,
-      '~epoch__valid_from|',
-      phone_number_type__record_valid_from
-    )::BLOB AS _pit_hook__reference__phone_number_type,
     CONCAT('reference__phone_number_type__adventure_works|', phone_number_type__phone_number_type_id) AS _hook__reference__phone_number_type,
+    CONCAT_WS('~',
+      _hook__reference__phone_number_type,
+      'epoch__valid_from|'||phone_number_type__record_valid_from
+    ) AS _pit_hook__reference__phone_number_type,
     *
   FROM validity
 )
