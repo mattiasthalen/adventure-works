@@ -72,7 +72,7 @@ cte__bridge_pit_hook AS (
     *,
     CONCAT_WS(
       '~',
-      peripheral,
+      'peripheral|'||peripheral,
       'epoch__valid_from|'||bridge__record_valid_from,
       _pit_hook__product_model_illustration::TEXT,
       _pit_hook__reference__illustration::TEXT,
