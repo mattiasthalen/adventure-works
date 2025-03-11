@@ -1,8 +1,7 @@
 MODEL (
   enabled TRUE,
   kind INCREMENTAL_BY_UNIQUE_KEY(
-    unique_key _pit_hook__reference__location,
-    batch_size 288, -- cron every 5m: 24h * 60m / 5m = 288
+    unique_key _pit_hook__reference__location
   ),
   tags hook,
   grain (_pit_hook__reference__location, _hook__reference__location)
@@ -39,13 +38,11 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
-    CONCAT(
-      'reference__location__adventure_works|',
-      location__location_id,
-      '~epoch__valid_from|',
-      location__record_valid_from
-    )::BLOB AS _pit_hook__reference__location,
     CONCAT('reference__location__adventure_works|', location__location_id) AS _hook__reference__location,
+    CONCAT_WS('~',
+      _hook__reference__location,
+      'epoch__valid_from|'||location__record_valid_from
+    ) AS _pit_hook__reference__location,
     *
   FROM validity
 )

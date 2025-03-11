@@ -249,25 +249,41 @@ bags:
     source_table: "raw__adventure_works__employee_pay_histories"
     column_prefix: "employee_pay_history"
     hooks:
+      - name: "_hook__employee_pay_history"
+        primary: true
+        composite_key:
+          - _hook__person__employee
+          - _hook__epoch__rate_change_date
       - name: "_hook__person__employee"
         keyset: "person__employee__adventure_works"
         business_key_field: "business_entity_id"
-        primary: true
+      - name: "_hook__epoch__rate_change_date"
+        keyset: "epoch__date"
+        business_key_field: "rate_change_date"
 
   - name: "bag__adventure_works__employee_department_histories"
     source_table: "raw__adventure_works__employee_department_histories"
     column_prefix: "employee_department_history"
     hooks:
+      - name: "_hook__employee_department_history"
+        primary: true
+        composite_key:
+          - _hook__person__employee
+          - _hook__department
+          - _hook__reference__shift
+          - _hook__epoch__start_date
       - name: "_hook__person__employee"
         keyset: "person__employee__adventure_works"
         business_key_field: "business_entity_id"
-        primary: true
       - name: "_hook__department"
         keyset: "department__adventure_works"
         business_key_field: "department_id"
       - name: "_hook__reference__shift"
         keyset: "reference__shift__adventure_works"
         business_key_field: "shift_id"
+      - name: "_hook__epoch__start_date"
+        keyset: "epoch__date"
+        business_key_field: "start_date"
 
   - name: "bag__adventure_works__job_candidates"
     source_table: "raw__adventure_works__job_candidates"
@@ -429,10 +445,17 @@ bags:
     source_table: "raw__adventure_works__product_cost_histories"
     column_prefix: "product_cost_history"
     hooks:
+      - name: "_hook__product_cost_history"
+        primary: true
+        composite_key:
+          - "_hook__product"
+          - "_hook__epoch__start_date"
       - name: "_hook__product"
         keyset: "product__adventure_works"
         business_key_field: "product_id"
-        primary: true
+      - name: "_hook__epoch__start_date"
+        keyset: "epoch__date"
+        business_key_field: "start_date"
 
   - name: "bag__adventure_works__product_descriptions"
     source_table: "raw__adventure_works__product_descriptions"
@@ -447,10 +470,14 @@ bags:
     source_table: "raw__adventure_works__product_inventories"
     column_prefix: "product_inventory"
     hooks:
+      - name: "_hook__reference__product_location"
+        primary: true
+        composite:
+          - _hook__reference__location
+          - _hook__product
       - name: "_hook__reference__location"
         keyset: "reference__location__adventure_works"
         business_key_field: "location_id"
-        primary: true
       - name: "_hook__product"
         keyset: "product__adventure_works"
         business_key_field: "product_id"
@@ -459,19 +486,30 @@ bags:
     source_table: "raw__adventure_works__product_list_price_histories"
     column_prefix: "product_list_price_history"
     hooks:
+      - name: "_hook__product_list_price_history"
+        primary: true
+        composite_key:
+          - "_hook__product"
+          - "_hook__epoch__start_date"
       - name: "_hook__product"
         keyset: "product__adventure_works"
         business_key_field: "product_id"
-        primary: true
+      - name: "_hook__epoch__start_date"
+        keyset: "epoch__date"
+        business_key_field: "start_date"
 
   - name: "bag__adventure_works__product_model_illustrations"
     source_table: "raw__adventure_works__product_model_illustrations"
     column_prefix: "product_model_illustration"
     hooks:
+      - name: "_hook__product_model_illustration"
+        primary: true
+        composite_key:
+          - "_hook__reference__product_model"
+          - "_hook__reference__illustration"
       - name: "_hook__reference__illustration"
         keyset: "reference__illustration__adventure_works"
         business_key_field: "illustration_id"
-        primary: true
       - name: "_hook__reference__product_model"
         keyset: "reference__product_model__adventure_works"
         business_key_field: "product_model_id"
@@ -490,9 +528,9 @@ bags:
     column_prefix: "product_photo"
     hooks:
       - name: "_hook__reference__product_photo"
+        primary: true
         keyset: "reference__product_photo__adventure_works"
         business_key_field: "product_photo_id"
-        primary: true
 
   - name: "bag__adventure_works__product_reviews"
     source_table: "raw__adventure_works__product_reviews"
@@ -558,10 +596,15 @@ bags:
     source_table: "raw__adventure_works__work_order_routings"
     column_prefix: "work_order_routing"
     hooks:
+      - name: "_hook__work_order_routing"
+        primary: true
+        composite_key:
+          - "_hook__order_line__work"
+          - "_hook__product"
+          - "_hook__order__work"
       - name: "_hook__order_line__work"
         keyset: "order_line__work__adventure_works"
         business_key_field: "operation_sequence"
-        primary: true
       - name: "_hook__order__work"
         keyset: "order__work__adventure_works"
         business_key_field: "work_order_id"
@@ -576,10 +619,14 @@ bags:
     source_table: "raw__adventure_works__product_vendors"
     column_prefix: "product_vendor"
     hooks:
+      - name: "_hook__product_vendor"
+        primary: true
+        composite_key_fields:
+          - "_hook__vendor"
+          - "_hook__product"
       - name: "_hook__vendor"
         keyset: "vendor__adventure_works"
         business_key_field: "business_entity_id"
-        primary: true
       - name: "_hook__product"
         keyset: "product__adventure_works"
         business_key_field: "product_id"

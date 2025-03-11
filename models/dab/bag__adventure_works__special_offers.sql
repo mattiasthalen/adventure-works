@@ -1,8 +1,7 @@
 MODEL (
   enabled TRUE,
   kind INCREMENTAL_BY_UNIQUE_KEY(
-    unique_key _pit_hook__reference__special_offer,
-    batch_size 288, -- cron every 5m: 24h * 60m / 5m = 288
+    unique_key _pit_hook__reference__special_offer
   ),
   tags hook,
   grain (_pit_hook__reference__special_offer, _hook__reference__special_offer)
@@ -45,13 +44,11 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
-    CONCAT(
-      'reference__special_offer__adventure_works|',
-      special_offer__special_offer_id,
-      '~epoch__valid_from|',
-      special_offer__record_valid_from
-    )::BLOB AS _pit_hook__reference__special_offer,
     CONCAT('reference__special_offer__adventure_works|', special_offer__special_offer_id) AS _hook__reference__special_offer,
+    CONCAT_WS('~',
+      _hook__reference__special_offer,
+      'epoch__valid_from|'||special_offer__record_valid_from
+    ) AS _pit_hook__reference__special_offer,
     *
   FROM validity
 )

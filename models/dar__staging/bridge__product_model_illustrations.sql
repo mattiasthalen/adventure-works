@@ -1,18 +1,18 @@
 MODEL (
   enabled TRUE,
   kind INCREMENTAL_BY_UNIQUE_KEY(
-    unique_key _pit_hook__bridge,
-    batch_size 288, -- cron every 5m: 24h * 60m / 5m = 288
+    unique_key _pit_hook__bridge
   ),
   tags bridge,
   grain (_pit_hook__bridge),
-  references (_pit_hook__reference__illustration, _pit_hook__reference__product_model)
+  references (_pit_hook__product_model_illustration, _pit_hook__reference__illustration, _pit_hook__reference__product_model)
 );
 
 WITH cte__bridge AS (
   SELECT
     'product_model_illustrations' AS peripheral,
-    _pit_hook__reference__illustration,
+    _pit_hook__product_model_illustration,
+    _hook__product_model_illustration,
     _hook__reference__illustration,
     _hook__reference__product_model,
     product_model_illustration__record_loaded_at AS bridge__record_loaded_at,
@@ -25,33 +25,43 @@ WITH cte__bridge AS (
 cte__pit_lookup AS (
   SELECT
     cte__bridge.peripheral,
-    cte__bridge._pit_hook__reference__illustration,
+    cte__bridge._pit_hook__product_model_illustration,
+    bridge__illustrations._pit_hook__reference__illustration,
     bridge__product_models._pit_hook__reference__product_model,
-    cte__bridge._hook__reference__illustration,
+    cte__bridge._hook__product_model_illustration,
     GREATEST(
         cte__bridge.bridge__record_loaded_at,
+        bridge__illustrations.bridge__record_loaded_at,
         bridge__product_models.bridge__record_loaded_at
     ) AS bridge__record_loaded_at,
     GREATEST(
         cte__bridge.bridge__record_updated_at,
+        bridge__illustrations.bridge__record_updated_at,
         bridge__product_models.bridge__record_updated_at
     ) AS bridge__record_updated_at,
     GREATEST(
         cte__bridge.bridge__record_valid_from,
+        bridge__illustrations.bridge__record_valid_from,
         bridge__product_models.bridge__record_valid_from
     ) AS bridge__record_valid_from,
     LEAST(
         cte__bridge.bridge__record_valid_to,
+        bridge__illustrations.bridge__record_valid_to,
         bridge__product_models.bridge__record_valid_to
     ) AS bridge__record_valid_to,
     LIST_HAS_ALL(
       ARRAY[True],
         ARRAY[
           cte__bridge.bridge__is_current_record,
+          bridge__illustrations.bridge__is_current_record,
           bridge__product_models.bridge__is_current_record
         ]
     ) AS bridge__is_current_record
   FROM cte__bridge
+  LEFT JOIN dar__staging.bridge__illustrations
+  ON cte__bridge._hook__reference__illustration = bridge__illustrations._hook__reference__illustration
+  AND cte__bridge.bridge__record_valid_from >= bridge__illustrations.bridge__record_valid_from
+  AND cte__bridge.bridge__record_valid_to <= bridge__illustrations.bridge__record_valid_to
   LEFT JOIN dar__staging.bridge__product_models
   ON cte__bridge._hook__reference__product_model = bridge__product_models._hook__reference__product_model
   AND cte__bridge.bridge__record_valid_from >= bridge__product_models.bridge__record_valid_from
@@ -64,6 +74,7 @@ cte__bridge_pit_hook AS (
       '~',
       peripheral,
       'epoch__valid_from|'||bridge__record_valid_from,
+      _pit_hook__product_model_illustration::TEXT,
       _pit_hook__reference__illustration::TEXT,
       _pit_hook__reference__product_model::TEXT
     ) AS _pit_hook__bridge
@@ -72,9 +83,10 @@ cte__bridge_pit_hook AS (
 SELECT
   peripheral::TEXT,
   _pit_hook__bridge::BLOB,
+  _pit_hook__product_model_illustration::BLOB,
   _pit_hook__reference__illustration::BLOB,
   _pit_hook__reference__product_model::BLOB,
-  _hook__reference__illustration::BLOB,
+  _hook__product_model_illustration::BLOB,
   bridge__record_loaded_at::TIMESTAMP,
   bridge__record_updated_at::TIMESTAMP,
   bridge__record_valid_from::TIMESTAMP,

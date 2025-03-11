@@ -1,8 +1,7 @@
 MODEL (
   enabled TRUE,
   kind INCREMENTAL_BY_UNIQUE_KEY(
-    unique_key _pit_hook__bridge,
-    batch_size 288, -- cron every 5m: 24h * 60m / 5m = 288
+    unique_key _pit_hook__bridge
   ),
   tags event,
   grain (_pit_hook__bridge),
@@ -10,6 +9,7 @@ MODEL (
     _pit_hook__product,
     _pit_hook__product_category,
     _pit_hook__product_subcategory,
+    _pit_hook__product_vendor,
     _pit_hook__reference__product_model,
     _pit_hook__reference__unit_measure,
     _pit_hook__vendor,
@@ -24,6 +24,7 @@ WITH cte__bridge AS (
     _pit_hook__product,
     _pit_hook__product_category,
     _pit_hook__product_subcategory,
+    _pit_hook__product_vendor,
     _pit_hook__reference__product_model,
     _pit_hook__reference__unit_measure,
     _pit_hook__vendor,
@@ -36,7 +37,7 @@ WITH cte__bridge AS (
 ),
 cte__events AS (
   SELECT
-    pivot__events._pit_hook__vendor,
+    pivot__events._pit_hook__product_vendor,
     CONCAT('epoch__date|', pivot__events.event_date) AS _hook__epoch__date,
     MAX(CASE WHEN pivot__events.event = 'product_vendor__last_receipt_date' THEN 1 END) AS event__product_vendors_last_receipt,
     MAX(CASE WHEN pivot__events.event = 'product_vendor__modified_date' THEN 1 END) AS event__product_vendors_modified
@@ -59,7 +60,7 @@ final AS (
       _hook__epoch__date::TEXT
     ) AS _pit_hook__bridge
   FROM cte__bridge
-  LEFT JOIN cte__events USING(_pit_hook__vendor)
+  LEFT JOIN cte__events USING(_pit_hook__product_vendor)
 )
 SELECT
   peripheral::TEXT,
@@ -67,6 +68,7 @@ SELECT
   _pit_hook__product::BLOB,
   _pit_hook__product_category::BLOB,
   _pit_hook__product_subcategory::BLOB,
+  _pit_hook__product_vendor::BLOB,
   _pit_hook__reference__product_model::BLOB,
   _pit_hook__reference__unit_measure::BLOB,
   _pit_hook__vendor::BLOB,

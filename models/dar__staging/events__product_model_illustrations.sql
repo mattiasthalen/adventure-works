@@ -1,12 +1,12 @@
 MODEL (
   enabled TRUE,
   kind INCREMENTAL_BY_UNIQUE_KEY(
-    unique_key _pit_hook__bridge,
-    batch_size 288, -- cron every 5m: 24h * 60m / 5m = 288
+    unique_key _pit_hook__bridge
   ),
   tags event,
   grain (_pit_hook__bridge),
   references (
+    _pit_hook__product_model_illustration,
     _pit_hook__reference__illustration,
     _pit_hook__reference__product_model,
     _hook__epoch__date
@@ -17,6 +17,7 @@ WITH cte__bridge AS (
   SELECT
     peripheral,
     _pit_hook__bridge,
+    _pit_hook__product_model_illustration,
     _pit_hook__reference__illustration,
     _pit_hook__reference__product_model,
     bridge__record_loaded_at,
@@ -28,7 +29,7 @@ WITH cte__bridge AS (
 ),
 cte__events AS (
   SELECT
-    pivot__events._pit_hook__reference__illustration,
+    pivot__events._pit_hook__product_model_illustration,
     CONCAT('epoch__date|', pivot__events.event_date) AS _hook__epoch__date,
     MAX(CASE WHEN pivot__events.event = 'product_model_illustration__modified_date' THEN 1 END) AS event__product_model_illustrations_modified
   FROM dab.bag__adventure_works__product_model_illustrations
@@ -49,11 +50,12 @@ final AS (
       _hook__epoch__date::TEXT
     ) AS _pit_hook__bridge
   FROM cte__bridge
-  LEFT JOIN cte__events USING(_pit_hook__reference__illustration)
+  LEFT JOIN cte__events USING(_pit_hook__product_model_illustration)
 )
 SELECT
   peripheral::TEXT,
   _pit_hook__bridge::BLOB,
+  _pit_hook__product_model_illustration::BLOB,
   _pit_hook__reference__illustration::BLOB,
   _pit_hook__reference__product_model::BLOB,
   _hook__epoch__date::BLOB,

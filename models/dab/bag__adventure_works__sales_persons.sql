@@ -1,8 +1,7 @@
 MODEL (
   enabled TRUE,
   kind INCREMENTAL_BY_UNIQUE_KEY(
-    unique_key _pit_hook__person__sales,
-    batch_size 288, -- cron every 5m: 24h * 60m / 5m = 288
+    unique_key _pit_hook__person__sales
   ),
   tags hook,
   grain (_pit_hook__person__sales, _hook__person__sales),
@@ -44,14 +43,12 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
-    CONCAT(
-      'person__sales__adventure_works|',
-      sales_person__business_entity_id,
-      '~epoch__valid_from|',
-      sales_person__record_valid_from
-    )::BLOB AS _pit_hook__person__sales,
     CONCAT('person__sales__adventure_works|', sales_person__business_entity_id) AS _hook__person__sales,
     CONCAT('territory__sales__adventure_works|', sales_person__territory_id) AS _hook__territory__sales,
+    CONCAT_WS('~',
+      _hook__person__sales,
+      'epoch__valid_from|'||sales_person__record_valid_from
+    ) AS _pit_hook__person__sales,
     *
   FROM validity
 )

@@ -1,8 +1,7 @@
 MODEL (
   enabled TRUE,
   kind INCREMENTAL_BY_UNIQUE_KEY(
-    unique_key _pit_hook__reference__culture,
-    batch_size 288, -- cron every 5m: 24h * 60m / 5m = 288
+    unique_key _pit_hook__reference__culture
   ),
   tags hook,
   grain (_pit_hook__reference__culture, _hook__reference__culture)
@@ -37,13 +36,11 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
-    CONCAT(
-      'reference__culture__adventure_works|',
-      culture__culture_id,
-      '~epoch__valid_from|',
-      culture__record_valid_from
-    )::BLOB AS _pit_hook__reference__culture,
     CONCAT('reference__culture__adventure_works|', culture__culture_id) AS _hook__reference__culture,
+    CONCAT_WS('~',
+      _hook__reference__culture,
+      'epoch__valid_from|'||culture__record_valid_from
+    ) AS _pit_hook__reference__culture,
     *
   FROM validity
 )

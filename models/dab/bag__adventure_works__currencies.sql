@@ -1,8 +1,7 @@
 MODEL (
   enabled TRUE,
   kind INCREMENTAL_BY_UNIQUE_KEY(
-    unique_key _pit_hook__currency,
-    batch_size 288, -- cron every 5m: 24h * 60m / 5m = 288
+    unique_key _pit_hook__currency
   ),
   tags hook,
   grain (_pit_hook__currency, _hook__currency)
@@ -37,13 +36,11 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
-    CONCAT(
-      'currency__adventure_works|',
-      currency__currency_code,
-      '~epoch__valid_from|',
-      currency__record_valid_from
-    )::BLOB AS _pit_hook__currency,
     CONCAT('currency__adventure_works|', currency__currency_code) AS _hook__currency,
+    CONCAT_WS('~',
+      _hook__currency,
+      'epoch__valid_from|'||currency__record_valid_from
+    ) AS _pit_hook__currency,
     *
   FROM validity
 )

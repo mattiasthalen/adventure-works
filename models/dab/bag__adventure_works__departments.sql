@@ -1,8 +1,7 @@
 MODEL (
   enabled TRUE,
   kind INCREMENTAL_BY_UNIQUE_KEY(
-    unique_key _pit_hook__department,
-    batch_size 288, -- cron every 5m: 24h * 60m / 5m = 288
+    unique_key _pit_hook__department
   ),
   tags hook,
   grain (_pit_hook__department, _hook__department)
@@ -38,13 +37,11 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
-    CONCAT(
-      'department__adventure_works|',
-      department__department_id,
-      '~epoch__valid_from|',
-      department__record_valid_from
-    )::BLOB AS _pit_hook__department,
     CONCAT('department__adventure_works|', department__department_id) AS _hook__department,
+    CONCAT_WS('~',
+      _hook__department,
+      'epoch__valid_from|'||department__record_valid_from
+    ) AS _pit_hook__department,
     *
   FROM validity
 )

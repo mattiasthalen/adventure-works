@@ -1,21 +1,13 @@
 MODEL (
   enabled TRUE,
   kind INCREMENTAL_BY_UNIQUE_KEY(
-    unique_key _pit_hook__bridge,
-    batch_size 288, -- cron every 5m: 24h * 60m / 5m = 288
+    unique_key _pit_hook__bridge
   ),
   tags event,
   grain (_pit_hook__bridge),
   references (
-    _pit_hook__department,
     _pit_hook__order__purchase,
     _pit_hook__person__employee,
-    _pit_hook__product,
-    _pit_hook__product_category,
-    _pit_hook__product_subcategory,
-    _pit_hook__reference__product_model,
-    _pit_hook__reference__shift,
-    _pit_hook__reference__unit_measure,
     _pit_hook__ship_method,
     _pit_hook__vendor,
     _hook__epoch__date
@@ -26,15 +18,8 @@ WITH cte__bridge AS (
   SELECT
     peripheral,
     _pit_hook__bridge,
-    _pit_hook__department,
     _pit_hook__order__purchase,
     _pit_hook__person__employee,
-    _pit_hook__product,
-    _pit_hook__product_category,
-    _pit_hook__product_subcategory,
-    _pit_hook__reference__product_model,
-    _pit_hook__reference__shift,
-    _pit_hook__reference__unit_measure,
     _pit_hook__ship_method,
     _pit_hook__vendor,
     bridge__record_loaded_at,
@@ -76,15 +61,8 @@ final AS (
 SELECT
   peripheral::TEXT,
   _pit_hook__bridge::BLOB,
-  _pit_hook__department::BLOB,
   _pit_hook__order__purchase::BLOB,
   _pit_hook__person__employee::BLOB,
-  _pit_hook__product::BLOB,
-  _pit_hook__product_category::BLOB,
-  _pit_hook__product_subcategory::BLOB,
-  _pit_hook__reference__product_model::BLOB,
-  _pit_hook__reference__shift::BLOB,
-  _pit_hook__reference__unit_measure::BLOB,
   _pit_hook__ship_method::BLOB,
   _pit_hook__vendor::BLOB,
   _hook__epoch__date::BLOB,

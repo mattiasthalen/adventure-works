@@ -1,8 +1,7 @@
 MODEL (
   enabled TRUE,
   kind INCREMENTAL_BY_UNIQUE_KEY(
-    unique_key _pit_hook__reference__country_region,
-    batch_size 288, -- cron every 5m: 24h * 60m / 5m = 288
+    unique_key _pit_hook__reference__country_region
   ),
   tags hook,
   grain (_pit_hook__reference__country_region, _hook__reference__country_region)
@@ -37,13 +36,11 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
-    CONCAT(
-      'reference__country_region__adventure_works|',
-      country_region__country_region_code,
-      '~epoch__valid_from|',
-      country_region__record_valid_from
-    )::BLOB AS _pit_hook__reference__country_region,
     CONCAT('reference__country_region__adventure_works|', country_region__country_region_code) AS _hook__reference__country_region,
+    CONCAT_WS('~',
+      _hook__reference__country_region,
+      'epoch__valid_from|'||country_region__record_valid_from
+    ) AS _pit_hook__reference__country_region,
     *
   FROM validity
 )

@@ -1,8 +1,7 @@
 MODEL (
   enabled TRUE,
   kind INCREMENTAL_BY_UNIQUE_KEY(
-    unique_key _pit_hook__reference__product_description,
-    batch_size 288, -- cron every 5m: 24h * 60m / 5m = 288
+    unique_key _pit_hook__reference__product_description
   ),
   tags hook,
   grain (_pit_hook__reference__product_description, _hook__reference__product_description)
@@ -38,13 +37,11 @@ WITH staging AS (
   FROM staging
 ), hooks AS (
   SELECT
-    CONCAT(
-      'reference__product_description__adventure_works|',
-      product_description__product_description_id,
-      '~epoch__valid_from|',
-      product_description__record_valid_from
-    )::BLOB AS _pit_hook__reference__product_description,
     CONCAT('reference__product_description__adventure_works|', product_description__product_description_id) AS _hook__reference__product_description,
+    CONCAT_WS('~',
+      _hook__reference__product_description,
+      'epoch__valid_from|'||product_description__record_valid_from
+    ) AS _pit_hook__reference__product_description,
     *
   FROM validity
 )
