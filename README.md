@@ -1,4 +1,5 @@
 # Serverless Lakehouse
+<img src="https://cdn.sanity.io/images/nsq559ov/production/7f85e56e715b847c5519848b7198db73f793448d-82x25.svg?w=2000&auto=format" height="30" alt="dltHub" style="vertical-align: middle"> <img src="https://py.iceberg.apache.org/assets/images/iceberg-logo-icon.png" height="30" alt="iceberg" style="vertical-align: middle"> <img src="https://duckdb.org/images/logo-dl/DuckDB_Logo-horizontal.svg" height="30" alt="DuckDB" style="vertical-align: middle"> <img src="https://github.com/TobikoData/sqlmesh/blob/main/docs/readme/sqlmesh.png?raw=true" height="30" alt="SQLmesh" style="vertical-align: middle"> <img src="https://docs.streamlit.io/logo.svg" height="30" alt="Streamlit" style="vertical-align: middle">
 
 This project utilizes dlt, DuckDB, and SQLMesh, to create a serverless lakehouse by:
 1. Extracting data from source via dlt.
