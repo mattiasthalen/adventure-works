@@ -1,70 +1,80 @@
+from pandas.core.ops import common
 import plotly.graph_objects as go
 import numpy as np
 import polars as pl
 import streamlit as st
+from turtledemo.forest import start
 
+def get_latest_metadata(iceberg_path):
+    import os
+    import glob
+
+    metadata_dir = os.path.join(iceberg_path, "metadata")
+    json_files = glob.glob(os.path.join(metadata_dir, "*.json"))
+    json_files.sort(reverse=True)
+
+    if json_files:
+        return json_files[0]
+    else:
+        raise FileNotFoundError(f"No JSON metadata files found in {metadata_dir}")
+
+peripherals = ['calendar', 'sales_order_headers', 'sales_territories']
 n_weeks = 52
-gold_path = "./lakehouse/gold"
 
-bridge_df = pl.read_delta(f"{gold_path}/_bridge__as_of_event")
-address_df = pl.read_delta(f"{gold_path}/addresses")
-customers_df = pl.read_delta(f"{gold_path}/customers")
-sales_order_headers_df = pl.read_delta(f"{gold_path}/sales_order_headers")
-sales_territory_df = pl.read_delta(f"{gold_path}/sales_territories")
-state_province_df = pl.read_delta(f"{gold_path}/state_provinces")
-ship_method_df = pl.read_delta(f"{gold_path}/ship_methods")
-calendar_df = pl.read_delta(f"{gold_path}/calendar")
+dar_path = "./lakehouse/dar"
 
-uss_df = bridge_df.join(
-    address_df,
-        on="_pit_hook__address",
-        how="left"
-    ).join(
-        sales_order_headers_df,
-        on="_pit_hook__sales_order",
-        how="left"
-    ).join(
-        customers_df,
-        on="_pit_hook__customer",
-        how="left"
-    ).join(
-        ship_method_df,
-        on="_pit_hook__ship_method",
-        how="left"
-    ).join(
-        sales_territory_df,
-        on="_pit_hook__territory",
-        how="left"
-    ).join(
-        state_province_df,
-        on="_pit_hook__state_province",
-        how="left"
-    ).join(
-        calendar_df,
-        on="_hook__calendar__date",
-        how="left"
-    ).filter(
-        pl.col("date") < pl.date(pl.col("year").max(), 12, 1)
-    ).filter(
-        pl.col("date") >= pl.col("date").max() - pl.duration(days=n_weeks*7)
+# Load the bridge
+bridge_df = pl.scan_iceberg(
+    get_latest_metadata(f"{dar_path}/_bridge__as_of")
+).collect().filter(
+    pl.col("bridge__is_current_record") == True,
+    pl.col("peripheral").is_in(peripherals)
+)
+
+# Define the OBT
+obt_df = bridge_df.select(
+    [
+        col for col in bridge_df.columns 
+        if not bridge_df.get_column(col).is_null().all()
+    ]
+)
+
+# Add the peripheral tables
+for peripheral in peripherals:
+    peripheral_df = pl.scan_iceberg(
+        get_latest_metadata(f"{dar_path}/{peripheral}")
+    ).collect().select(
+        pl.exclude([col for col in obt_df.columns if col.startswith("_dlt_")])
+    )
+    
+    common_columns = [set(obt_df.columns).intersection(set(peripheral_df.columns))][0]
+    
+    obt_df = obt_df.join(
+        peripheral_df,
+        on=list(common_columns),
+        how="left",
+        validate="m:1"
     )
 
+# Filter out date range
+obt_df = obt_df.filter(
+    pl.col("date").cast(pl.Date) < pl.date(2014, 1, 1)
+).filter(
+    pl.col("date").cast(pl.Date) >= pl.col("date").cast(pl.Date).max() - pl.duration(days=n_weeks*7)
+)
+
+min_date = obt_df.select(pl.col("date").min()).item()
+max_date = obt_df.select(pl.col("date").max()).item()
+
+# Create a metric cube
 def create_metric_summary(df, group_by_col=None, sort_by=None): 
     sort_by = sort_by or group_by_col
     
     aggregation = [
-        pl.col("measure__is_returning_customer").sum().alias("orders_from_returning_customers"),
-        pl.col("measure__sales_order_detail__placed").sum().alias("sales_order_details_placed"),
-        pl.col("measure__sales_order_detail__has_special_offer").sum().alias("sales_order_lines_with_special_offer"),
-        pl.col("measure__sales_order_detail__discount_price").sum().alias("total_sales_order_discount_price"),
-        pl.col("measure__sales_order_detail__price").sum().alias("total_sales_order_price"),
-        pl.col("measure__sales_order_detail__discount").sum().alias("total_sales_order_discount"),
-        pl.col("measure__sales_order_placed").sum().alias("sales_orders_placed"),
-        pl.col("measure__sales_order_due_lead_time").mean().alias("mean_sales_order_due_lead_time"),
-        pl.col("measure__sales_order_shipping_lead_time").mean().alias("mean_sales_order_shipping_lead_time"),
-        pl.col("measure__sales_order_due").sum().alias("sales_orders_due"),
-        pl.col("measure__sales_order_shipped_on_time").sum().alias("sales_order_shipped_on_time"),
-        pl.col("measure__sales_order_shipped").sum().alias("sales_orders_shipped"),
+        pl.col("event__sales_order_headers_placed").sum().alias("metric__sales_order_headers_placed"),
+        pl.col("event__sales_order_headers_due").sum().alias("metric__sales_order_headers_due"),
+        pl.col("event__sales_order_headers_shipped").sum().alias("metric__sales_order_headers_shipped"),
+        pl.col("event__sales_order_headers_modified").sum().alias("metric__sales_order_headers_modified"),
     ]
     
     metric_df = df.select(aggregation)
@@ -72,22 +82,17 @@ def create_metric_summary(df, group_by_col=None, sort_by=None):
     if group_by_col:
         metric_df = df.group_by(group_by_col).agg(aggregation)
         
-    derived_metrics = metric_df.with_columns(
-        (pl.col("sales_order_lines_with_special_offer")/pl.col("sales_order_details_placed")*100).alias("percentage_of_order_details_with_special_offer"),
-        (pl.col("total_sales_order_discount")/pl.col("total_sales_order_price")*100).alias("percentage_of_sales_order_discount"),
-        (pl.col("orders_from_returning_customers")/pl.col("sales_orders_placed")*100).alias("percentage_of_orders_from_returning_customers")
-    ).sort(
+    metric_df = metric_df.sort(
         sort_by,
         descending=True
     )
     
-    return derived_metrics
+    return metric_df
 
-uss__global_df = create_metric_summary(uss_df)
-uss__date_df = create_metric_summary(uss_df, "date", "date")
-uss__year_week_day_df = create_metric_summary(uss_df, ["year_week", "weekday__name", "date"], "date")
-uss__weekday_df = create_metric_summary(uss_df, "weekday__name")
-uss__territory_df = create_metric_summary(uss_df, "territory__name")
+metric__global_df = create_metric_summary(obt_df)
+metric__date_df = create_metric_summary(obt_df, "date", "date")
+metric__year_week_day_df = create_metric_summary(obt_df, ["year_week", "weekday__name", "date"], "date")
+metric__territory_df = create_metric_summary(obt_df, "sales_territory__name")
 
 def calculate_control_limits(df: pl.DataFrame, measure_col: str, calc_window: int = 20, long_run: int = 8, short_run: int = 4):
     total_rows = df.height
@@ -189,11 +194,16 @@ def calculate_control_limits(df: pl.DataFrame, measure_col: str, calc_window: in
 st.set_page_config(layout="wide")
 
 # Render visualizations
-metrics = ["sales_order_lines_with_special_offer", "total_sales_order_discount", "percentage_of_orders_from_returning_customers"]
+metrics = [
+    "metric__sales_order_headers_placed",
+    "metric__sales_order_headers_due",
+    "metric__sales_order_headers_shipped",
+    "metric__sales_order_headers_modified",
+]
 dashboard_columns = len(metrics)
 
-st.title("Adventure Works")
-#st.subheader("Leading Measures")
+st.title(f"Adventure Works")
+st.subheader(f"{min_date} - {max_date}")
 
 neutral_color = lambda x: f"rgba(90, 90, 160, {x})"
 good_color = lambda x: f"rgba(100, 170, 90, {x})"
@@ -269,7 +279,7 @@ for idx, col in enumerate(columns):
     metric_name = metrics[idx]
     metric_title = metric_name.replace("_", " ").title()
     
-    measures_df = uss__year_week_day_df.select(
+    measures_df = metric__year_week_day_df.select(
         "year_week", "weekday__name", "date", metric_name
     ).sort(
         "date"
@@ -333,7 +343,7 @@ for idx, col in enumerate(columns):
         # Card 3 - Control Chart
         with st.expander("Process Control Chart", expanded=True):
             process_control_df = control_data_df.select(
-                pl.col("date").dt.strftime("%Y-%m-%d").alias("date"),
+                pl.col("date"),
                 pl.col(metric_name),
                 pl.col("central_line"),
                 pl.col("upper_control_limit"),
@@ -396,13 +406,13 @@ for idx, col in enumerate(columns):
             )
     
             # Display in Streamlit
-            st.write(fig)
+            st.plotly_chart(fig, key=f"process_control_chart__{metric_name}")
 
         # Card 4 - Pareto
         with st.expander("Pareto", expanded=True):
-            pareto_dimension = "territory__name"
+            pareto_dimension = "sales_territory__name"
             pareto_dimension_title = pareto_dimension.replace("__", " - ").replace("_", " ").title()
-            full_pareto_df = uss__territory_df.select(
+            full_pareto_df = metric__territory_df.select(
                 pl.col(pareto_dimension),
                 pl.col(metric_name)
             ).sort(
