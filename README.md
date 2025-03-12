@@ -12,7 +12,7 @@ This project utilizes dlt, DuckDB, and SQLMesh, to create a serverless lakehouse
 It does this locally into `./lakehouse`, which could be replaced by a S3 bucket.
 
 ## Streamlit Dashboard
-<img width="1440" alt="image" src="https://github.com/user-attachments/assets/61f70e7b-6f0d-46a3-ba14-2f516dae9575" />
+<img width="1370" alt="image" src="https://github.com/user-attachments/assets/55a0215c-c1ed-4e04-85fc-bec0a5c5ba8a" />
 
 ## Design Overview
 The lakehouse follows the design pattern called ["Analytical Data Storage System", by Patrik Lager](https://www.linkedin.com/pulse/analytical-data-storage-system-fundamental-design-principles-lager-ojt0f), that consists of three layers:
