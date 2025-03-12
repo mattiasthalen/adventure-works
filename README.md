@@ -14,6 +14,24 @@ It does this locally into `./lakehouse`, which could be replaced by a S3 bucket.
 ## Streamlit Dashboard
 <img width="1440" alt="image" src="https://github.com/user-attachments/assets/61f70e7b-6f0d-46a3-ba14-2f516dae9575" />
 
+## Design Overview
+The lakehouse follows the design pattern called ["Analytical Data Storage System", by Patrik Lager](https://www.linkedin.com/pulse/analytical-data-storage-system-fundamental-design-principles-lager-ojt0f), that consists of three layers:
+1. DAS - Data According To System (Unaltered data)
+1. DAB - Data According To Business (Transformed to fit with how the business sees the data)
+1. DAR - Data According To Requirements (Transformed into a model that BI tools can use)
+
+The reason for this is that I find it much clearer than the medallion architecture.
+
+For `DAB` I choose the [HOOK method, by Andrew Foad](https://hookcookbook.substack.com/). A simple explanation is that you define hooks for each table, and each hook is tied to a core business concept (CBC), e.g., sales order.
+
+For `DAR` I choose the [Unified Star Schema, by Fransesco Puppini](https://www.amazon.com/Unified-Star-Schema-Resilient-Warehouse/dp/163462887X). It's a star schema without facts and dimensions. Instead there is a bridge that holds all the relations and then the peripheral table, which can be used & seen as being both fact & dimension at the same time.
+
+Both of these modelling techniques are both simple and fast to create, and can be rebuilt anytime you want. They could even be views on top of `DAS`.
+In my case, I wrote a yaml containing the CBCs and what hooks are in each bag. I then used python scripts to generate all the model definitions (~300).
+
+I've also extended the *Puppini Bridge* with events. So for each bag, there is at least one date field. What this allows me to do is connect each row to a canonical calendar.
+From my POV each measure & metric must have a temporal anchor of some sort. E.g., `invoice amount` should be more explicitly defined: `invoice due amount`, `invoice paid amount`.
+
 ## Architecture
 ```mermaid
 architecture-beta
