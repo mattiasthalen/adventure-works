@@ -186,3 +186,8 @@ The entire model structure is generated programmatically using Python scripts th
 2. **Maintainability**: Changes to modeling approach can be applied across all models simultaneously
 3. **Extensibility**: New source systems can be integrated by simply updating the configuration
 4. **Documentation**: Model relationships and dependencies are explicitly defined and easily visualized
+
+## How To
+1. Clone the project
+2. Run `uv run task init` the first time. When done, the streamlit app will launch.
+3. Following that, use `uv run task elt` instead. The main difference between them is that the first runs `sqlmesh plan prod` and the other `sqlmesh run prod`.
