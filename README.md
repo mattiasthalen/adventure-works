@@ -1,39 +1,59 @@
 # Serverless Lakehouse
 <img src="https://cdn.sanity.io/images/nsq559ov/production/7f85e56e715b847c5519848b7198db73f793448d-82x25.svg?w=2000&auto=format" height="30" alt="dltHub" style="vertical-align: middle"> <img src="https://py.iceberg.apache.org/assets/images/iceberg-logo-icon.png" height="30" alt="iceberg" style="vertical-align: middle"> <img src="https://duckdb.org/images/logo-dl/DuckDB_Logo-horizontal.svg" height="30" alt="DuckDB" style="vertical-align: middle"> <img src="https://github.com/TobikoData/sqlmesh/blob/main/docs/readme/sqlmesh.png?raw=true" height="30" alt="SQLmesh" style="vertical-align: middle"> <img src="https://docs.streamlit.io/logo.svg" height="30" alt="Streamlit" style="vertical-align: middle">
 
-This project utilizes dlt, DuckDB, and SQLMesh, to create a serverless lakehouse by:
-1. Extracting data from source via dlt.
-2. Loading the data to iceberg tables.
-3. Reading DAS using DuckDB.
-4. Transforming the data using SQLMesh.
-5. Extracting DAB & DAR from DuckDB with dlt.
-6. Loading DAB & DAR to iceberg tables.
+## Overview
 
-It does this locally into `./lakehouse`, which could be replaced by a S3 bucket.
+This project demonstrates a modern, serverless approach to data warehousing that combines the simplicity of local file storage with the power of cloud-native architectures. It implements a three-layer data architecture using innovative modeling techniques that prioritize business alignment and analytical flexibility.
+
+The solution:
+1. Extracts data from source systems via dlt
+2. Loads raw data to Iceberg tables (DAS layer)
+3. Transforms data into a business-aligned model using HOOK methodology (DAB layer)
+4. Creates a unified analytical structure using Puppini Bridges (DAR layer)
+5. Provides visualization through Streamlit dashboards
+
+All data is stored locally in `./lakehouse` (which could be replaced by a cloud storage bucket in production).
 
 ## Streamlit Dashboard
 <img width="1440" alt="image" src="https://github.com/user-attachments/assets/90b0fef0-ed39-4c76-98e4-c6d04a59695f" />
 <img width="1440" alt="image" src="https://github.com/user-attachments/assets/f858d2ba-1a52-4a99-a6b4-fdbca07a828c" />
 
-## Design Overview
-The lakehouse follows the design pattern called ["Analytical Data Storage System", by Patrik Lager](https://www.linkedin.com/pulse/analytical-data-storage-system-fundamental-design-principles-lager-ojt0f), that consists of three layers:
-1. DAS - Data According To System (Unaltered data)
-1. DAB - Data According To Business (Transformed to fit with how the business sees the data)
-1. DAR - Data According To Requirements (Transformed into a model that BI tools can use)
+## Architecture Principles
 
-The reason for this is that I find it much clearer than the medallion architecture.
+This lakehouse follows the ["Analytical Data Storage System" design pattern by Patrik Lager](https://www.linkedin.com/pulse/analytical-data-storage-system-fundamental-design-principles-lager-ojt0f), consisting of three distinct layers:
 
-For `DAB` I choose the [HOOK method, by Andrew Foad](https://hookcookbook.substack.com/). A simple explanation is that you define hooks for each table, and each hook is tied to a core business concept (CBC), e.g., sales order.
+1. **DAS - Data According To System**: Raw, unaltered data ingested from source systems with minimal transformation. This layer preserves the original data structure and serves as a foundation for auditing and lineage.
 
-For `DAR` I choose the [Unified Star Schema, by Fransesco Puppini](https://www.amazon.com/Unified-Star-Schema-Resilient-Warehouse/dp/163462887X). It's a star schema without facts and dimensions. Instead there is a bridge that holds all the relations and then the peripheral table, which can be used & seen as being both fact & dimension at the same time.
+2. **DAB - Data According To Business**: Data transformed and aligned with business concepts using the HOOK methodology. This layer bridges technical implementation with business understanding.
 
-Both of these modelling techniques are both simple and fast to create, and can be rebuilt anytime you want. They could even be views on top of `DAS`.
-In my case, I wrote a yaml containing the CBCs and what hooks are in each bag. I then used python scripts to generate all the model definitions (~300).
+3. **DAR - Data According To Requirements**: Data structured to support specific analytical needs using the Unified Star Schema pattern. This layer optimizes for query performance and dimensional analysis.
 
-I've also extended the *Puppini Bridge* with events. So for each bag, there is at least one date field. What this allows me to do is connect each row to a canonical calendar.
-From my POV each measure & metric must have a temporal anchor of some sort. E.g., `invoice amount` should be more explicitly defined: `invoice due amount`, `invoice paid amount`.
+This architecture provides greater clarity and simplicity compared to traditional medallion architecture approaches.
 
-## Architecture
+## Modeling Approaches
+
+### HOOK Methodology for DAB Layer
+
+The DAB layer implements the [HOOK methodology](https://hookcookbook.substack.com/), which provides a lightweight and flexible approach to data modeling:
+
+- **Core Business Concepts (CBCs)**: Define the fundamental entities that the business cares about
+- **Hooks**: Provide integration points aligned with business concepts
+- **Bags**: Contain source-aligned data with references to hooks
+- **KeySets**: Qualify business keys to prevent collisions between sources
+
+This approach allows source data to remain unchanged while providing clear business alignment through the hook layer. This significantly simplifies data transformation and governance.
+
+### Unified Star Schema for DAR Layer
+
+The DAR layer uses the [Unified Star Schema (USS) by Francesco Puppini](https://www.amazon.com/Unified-Star-Schema-Resilient-Warehouse/dp/163462887X), which offers several advantages:
+
+- Eliminates the traditional fact/dimension divide, allowing each table to serve both analytical roles
+- Centers on a bridge table that manages relationships between peripheral tables
+- Simplifies query patterns and improves maintenance compared to traditional star schemas
+
+I've extended the Puppini Bridge with event functionality, connecting each row to a canonical calendar and providing explicit temporal anchors for all metrics and measures.
+
+## Technical Architecture
 ```mermaid
 architecture-beta
     service api(cloud)[Adventure Works API]
@@ -70,8 +90,10 @@ architecture-beta
     dar:R -- L:consumption
 ```
 
-## Lineage / DAG
-*Simplified since there are 200+ models in total.*
+## Data Flow and Lineage
+
+The project contains over 200 models organized in a logical flow from source to consumption. Here's a simplified view of the data lineage:
+
 ```mermaid
 flowchart LR
     classDef bronze fill:#CD7F32,color:black
@@ -104,7 +126,11 @@ flowchart LR
     legend_dab["DAB = Data According To Business"] ---->
     legend_dar["DAR = Data According To Requirements"]
 ```
-The bridges in `db.dar__staging`uses what I call "cascading inheritance", it looks up the foreign pit hook in the primary bridge for that hook, and inherits other foreign pit hooks.
+
+### Cascading PIT Hook Inheritance
+
+A key innovation in this architecture is the "cascading inheritance" pattern used in bridges. Each bridge inherits PIT (Point-in-Time) hooks from its parent bridges, allowing for consistent temporal alignment throughout the model hierarchy:
+
 ```mermaid
 flowchart LR
     classDef bronze fill:#CD7F32,color:black
@@ -152,5 +178,11 @@ flowchart LR
     bridge__sales_order_details --> events__sales_order_details --> unified_bridge
 ```
 
-## ERDs - Oriented Data Models
-Under construction
+## Implementation Approach
+
+The entire model structure is generated programmatically using Python scripts that interpret YAML configuration files. This approach provides several advantages:
+
+1. **Consistency**: All models follow consistent naming and structural patterns
+2. **Maintainability**: Changes to modeling approach can be applied across all models simultaneously
+3. **Extensibility**: New source systems can be integrated by simply updating the configuration
+4. **Documentation**: Model relationships and dependencies are explicitly defined and easily visualized
