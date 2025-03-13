@@ -18,4 +18,15 @@ dependencies = [
     "sqlmesh[github,web]>=0.162.2",
     "streamlit>=1.42.1",
     "streamlit-extras>=0.5.5",
+    "watchdog>=6.0.0",
+    "taskipy>=1.14.1"
 ]
+
+[tool.taskipy.tasks]
+adventure-works = "python ./pipelines/adventure_works.py prod"
+sqlmesh-run = "sqlmesh run prod"
+sqlmesh-plan = "sqlmesh plan prod" 
+duckdb-to-iceberg = "python ./pipelines/duckdb_to_iceberg.py"
+dashboard = "streamlit run ./streamlit/dashboard.py"
+init = { cmd = "task adventure-works && task sqlmesh-plan && task duckdb-to-iceberg && task dashboard" }
+elt = { cmd = "task adventure-works && task sqlmesh-run && task duckdb-to-iceberg && task dashboard" }

@@ -1,5 +1,5 @@
 version: 2
-version_hash: mAIIHa7NwGXH0YutgkeC4I4NifTFJjFeXx3hDZOetHM=
+version_hash: 26ZtB4EaitMbhDx4ij/rDTlczOfBi6b1q3DCAszCAiQ=
 engine_version: 11
 name: duckdb_dab
 tables:
@@ -183,9 +183,6 @@ tables:
       bill_of_material__bill_of_materials_id:
         data_type: bigint
         nullable: true
-      bill_of_material__product_assembly_id:
-        data_type: bigint
-        nullable: true
       bill_of_material__component_id:
         data_type: bigint
         nullable: true
@@ -230,6 +227,9 @@ tables:
         nullable: false
         unique: true
         row_key: true
+      bill_of_material__product_assembly_id:
+        data_type: bigint
+        nullable: true
       bill_of_material__end_date:
         data_type: timestamp
         nullable: true
@@ -936,7 +936,10 @@ tables:
       seen-data: true
   bag__adventure_works__employee_department_histories:
     columns:
-      _pit_hook__person__employee:
+      _pit_hook__employee_department_history:
+        data_type: text
+        nullable: true
+      _hook__employee_department_history:
         data_type: text
         nullable: true
       _hook__person__employee:
@@ -946,6 +949,9 @@ tables:
         data_type: text
         nullable: true
       _hook__reference__shift:
+        data_type: text
+        nullable: true
+      _hook__epoch__start_date:
         data_type: text
         nullable: true
       employee_department_history__business_entity_id:
@@ -958,6 +964,9 @@ tables:
         data_type: bigint
         nullable: true
       employee_department_history__start_date:
+        data_type: timestamp
+        nullable: true
+      employee_department_history__end_date:
         data_type: timestamp
         nullable: true
       employee_department_history__modified_date:
@@ -989,9 +998,6 @@ tables:
         nullable: false
         unique: true
         row_key: true
-      employee_department_history__end_date:
-        data_type: timestamp
-        nullable: true
     write_disposition: replace
     table_format: iceberg
     resource: bag__adventure_works__employee_department_histories
@@ -999,10 +1005,16 @@ tables:
       seen-data: true
   bag__adventure_works__employee_pay_histories:
     columns:
-      _pit_hook__person__employee:
+      _pit_hook__employee_pay_history:
+        data_type: text
+        nullable: true
+      _hook__employee_pay_history:
         data_type: text
         nullable: true
       _hook__person__employee:
+        data_type: text
+        nullable: true
+      _hook__epoch__rate_change_date:
         data_type: text
         nullable: true
       employee_pay_history__business_entity_id:
@@ -1116,6 +1128,9 @@ tables:
       job_candidate__resume:
         data_type: text
         nullable: true
+      job_candidate__business_entity_id:
+        data_type: bigint
+        nullable: true
       job_candidate__modified_date:
         data_type: timestamp
         nullable: true
@@ -1145,9 +1160,6 @@ tables:
         nullable: false
         unique: true
         row_key: true
-      job_candidate__business_entity_id:
-        data_type: bigint
-        nullable: true
     write_disposition: replace
     table_format: iceberg
     resource: bag__adventure_works__job_candidates
@@ -1271,10 +1283,10 @@ tables:
         nullable: false
         unique: true
         row_key: true
-      person__title:
+      person__suffix:
         data_type: text
         nullable: true
-      person__suffix:
+      person__title:
         data_type: text
         nullable: true
       person__additional_contact_info:
@@ -1437,9 +1449,6 @@ tables:
       product__rowguid:
         data_type: text
         nullable: true
-      product__color:
-        data_type: text
-        nullable: true
       product__modified_date:
         data_type: timestamp
         nullable: true
@@ -1469,19 +1478,19 @@ tables:
         nullable: false
         unique: true
         row_key: true
+      product__class:
+        data_type: text
+        nullable: true
       product__weight_unit_measure_code:
         data_type: text
         nullable: true
       product__weight:
         data_type: double
         nullable: true
-      product__class:
+      product__color:
         data_type: text
         nullable: true
       product__size:
-        data_type: text
-        nullable: true
-      product__size_unit_measure_code:
         data_type: text
         nullable: true
       product__product_line:
@@ -1498,6 +1507,9 @@ tables:
         nullable: true
       product__sell_end_date:
         data_type: timestamp
+        nullable: true
+      product__size_unit_measure_code:
+        data_type: text
         nullable: true
     write_disposition: replace
     table_format: iceberg
@@ -1557,19 +1569,22 @@ tables:
       seen-data: true
   bag__adventure_works__product_cost_histories:
     columns:
-      _pit_hook__product:
+      _pit_hook__product_cost_history:
+        data_type: text
+        nullable: true
+      _hook__product_cost_history:
         data_type: text
         nullable: true
       _hook__product:
+        data_type: text
+        nullable: true
+      _hook__epoch__start_date:
         data_type: text
         nullable: true
       product_cost_history__product_id:
         data_type: bigint
         nullable: true
       product_cost_history__start_date:
-        data_type: timestamp
-        nullable: true
-      product_cost_history__end_date:
         data_type: timestamp
         nullable: true
       product_cost_history__standard_cost:
@@ -1604,6 +1619,9 @@ tables:
         nullable: false
         unique: true
         row_key: true
+      product_cost_history__end_date:
+        data_type: timestamp
+        nullable: true
     write_disposition: replace
     table_format: iceberg
     resource: bag__adventure_works__product_cost_histories
@@ -1662,7 +1680,10 @@ tables:
       seen-data: true
   bag__adventure_works__product_inventories:
     columns:
-      _pit_hook__reference__location:
+      _pit_hook__reference__product_location:
+        data_type: text
+        nullable: true
+      _hook__reference__product_location:
         data_type: text
         nullable: true
       _hook__reference__location:
@@ -1725,19 +1746,22 @@ tables:
       seen-data: true
   bag__adventure_works__product_list_price_histories:
     columns:
-      _pit_hook__product:
+      _pit_hook__product_list_price_history:
+        data_type: text
+        nullable: true
+      _hook__product_list_price_history:
         data_type: text
         nullable: true
       _hook__product:
+        data_type: text
+        nullable: true
+      _hook__epoch__start_date:
         data_type: text
         nullable: true
       product_list_price_history__product_id:
         data_type: bigint
         nullable: true
       product_list_price_history__start_date:
-        data_type: timestamp
-        nullable: true
-      product_list_price_history__end_date:
         data_type: timestamp
         nullable: true
       product_list_price_history__list_price:
@@ -1772,6 +1796,9 @@ tables:
         nullable: false
         unique: true
         row_key: true
+      product_list_price_history__end_date:
+        data_type: timestamp
+        nullable: true
     write_disposition: replace
     table_format: iceberg
     resource: bag__adventure_works__product_list_price_histories
@@ -1792,6 +1819,9 @@ tables:
         data_type: text
         nullable: true
       product_model__rowguid:
+        data_type: text
+        nullable: true
+      product_model__instructions:
         data_type: text
         nullable: true
       product_model__modified_date:
@@ -1823,9 +1853,6 @@ tables:
         nullable: false
         unique: true
         row_key: true
-      product_model__instructions:
-        data_type: text
-        nullable: true
       product_model__catalog_description:
         data_type: text
         nullable: true
@@ -1836,7 +1863,10 @@ tables:
       seen-data: true
   bag__adventure_works__product_model_illustrations:
     columns:
-      _pit_hook__reference__illustration:
+      _pit_hook__product_model_illustration:
+        data_type: text
+        nullable: true
+      _hook__product_model_illustration:
         data_type: text
         nullable: true
       _hook__reference__illustration:
@@ -2067,7 +2097,10 @@ tables:
       seen-data: true
   bag__adventure_works__product_vendors:
     columns:
-      _pit_hook__vendor:
+      _pit_hook__product_vendor:
+        data_type: text
+        nullable: true
+      _hook__product_vendor:
         data_type: text
         nullable: true
       _hook__vendor:
@@ -2106,9 +2139,6 @@ tables:
       product_vendor__unit_measure_code:
         data_type: text
         nullable: true
-      product_vendor__on_order_qty:
-        data_type: bigint
-        nullable: true
       product_vendor__modified_date:
         data_type: timestamp
         nullable: true
@@ -2138,6 +2168,9 @@ tables:
         nullable: false
         unique: true
         row_key: true
+      product_vendor__on_order_qty:
+        data_type: bigint
+        nullable: true
     write_disposition: replace
     table_format: iceberg
     resource: bag__adventure_works__product_vendors
@@ -3648,7 +3681,10 @@ tables:
       seen-data: true
   bag__adventure_works__work_order_routings:
     columns:
-      _pit_hook__order_line__work:
+      _pit_hook__work_order_routing:
+        data_type: text
+        nullable: true
+      _hook__work_order_routing:
         data_type: text
         nullable: true
       _hook__order_line__work:
