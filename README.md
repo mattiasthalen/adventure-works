@@ -15,8 +15,8 @@ The solution:
 All data is stored locally in `./lakehouse` (which could be replaced by a cloud storage bucket in production).
 
 ## Streamlit Dashboard
-<img width="1440" alt="image" src="https://github.com/user-attachments/assets/90b0fef0-ed39-4c76-98e4-c6d04a59695f" />
-<img width="1440" alt="image" src="https://github.com/user-attachments/assets/f858d2ba-1a52-4a99-a6b4-fdbca07a828c" />
+<img width="1440" alt="image" src="https://github.com/user-attachments/assets/35bbf2de-ef6b-408b-ad03-2b4a886fd49b" />
+<img width="1440" alt="image" src="https://github.com/user-attachments/assets/2ade2a70-4f4e-4626-a992-36fc7acacffd" />
 
 ## Architecture Principles
 
