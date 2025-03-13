@@ -17,4 +17,5 @@ dependencies = [
     "pyarrow>=17.0.0",
     "sqlmesh[github,web]>=0.162.2",
     "streamlit>=1.42.1",
+    "streamlit-extras>=0.5.5",
 ]

@@ -1,5 +1,5 @@
 version: 3
-version_hash: JKtnsjRIT+aMsYxsHkW1swLsM2xua83bmXV4BJw9JWU=
+version_hash: BHzrVV2rSPL327I6UYvxwlj0PYxf9E9T11GFfQp66Wc=
 engine_version: 11
 name: duckdb_dar
 tables:
@@ -162,9 +162,6 @@ tables:
       bill_of_material__bill_of_materials_id:
         data_type: bigint
         nullable: true
-      bill_of_material__product_assembly_id:
-        data_type: bigint
-        nullable: true
       bill_of_material__component_id:
         data_type: bigint
         nullable: true
@@ -209,6 +206,9 @@ tables:
         nullable: false
         unique: true
         row_key: true
+      bill_of_material__product_assembly_id:
+        data_type: bigint
+        nullable: true
       bill_of_material__end_date:
         data_type: timestamp
         nullable: true
@@ -849,7 +849,7 @@ tables:
       seen-data: true
   employee_department_histories:
     columns:
-      _pit_hook__person__employee:
+      _pit_hook__employee_department_history:
         data_type: text
         nullable: true
       employee_department_history__business_entity_id:
@@ -862,6 +862,9 @@ tables:
         data_type: bigint
         nullable: true
       employee_department_history__start_date:
+        data_type: timestamp
+        nullable: true
+      employee_department_history__end_date:
         data_type: timestamp
         nullable: true
       employee_department_history__modified_date:
@@ -893,9 +896,6 @@ tables:
         nullable: false
         unique: true
         row_key: true
-      employee_department_history__end_date:
-        data_type: timestamp
-        nullable: true
     write_disposition: replace
     table_format: iceberg
     resource: employee_department_histories
@@ -903,7 +903,7 @@ tables:
       seen-data: true
   employee_pay_histories:
     columns:
-      _pit_hook__person__employee:
+      _pit_hook__employee_pay_history:
         data_type: text
         nullable: true
       employee_pay_history__business_entity_id:
@@ -1008,6 +1008,9 @@ tables:
       job_candidate__resume:
         data_type: text
         nullable: true
+      job_candidate__business_entity_id:
+        data_type: bigint
+        nullable: true
       job_candidate__modified_date:
         data_type: timestamp
         nullable: true
@@ -1037,9 +1040,6 @@ tables:
         nullable: false
         unique: true
         row_key: true
-      job_candidate__business_entity_id:
-        data_type: bigint
-        nullable: true
     write_disposition: replace
     table_format: iceberg
     resource: job_candidates
@@ -1157,10 +1157,10 @@ tables:
         nullable: false
         unique: true
         row_key: true
-      person__title:
+      person__suffix:
         data_type: text
         nullable: true
-      person__suffix:
+      person__title:
         data_type: text
         nullable: true
       person__additional_contact_info:
@@ -1305,9 +1305,6 @@ tables:
       product__rowguid:
         data_type: text
         nullable: true
-      product__color:
-        data_type: text
-        nullable: true
       product__modified_date:
         data_type: timestamp
         nullable: true
@@ -1337,19 +1334,19 @@ tables:
         nullable: false
         unique: true
         row_key: true
+      product__class:
+        data_type: text
+        nullable: true
       product__weight_unit_measure_code:
         data_type: text
         nullable: true
       product__weight:
         data_type: double
         nullable: true
-      product__class:
+      product__color:
         data_type: text
         nullable: true
       product__size:
-        data_type: text
-        nullable: true
-      product__size_unit_measure_code:
         data_type: text
         nullable: true
       product__product_line:
@@ -1366,6 +1363,9 @@ tables:
         nullable: true
       product__sell_end_date:
         data_type: timestamp
+        nullable: true
+      product__size_unit_measure_code:
+        data_type: text
         nullable: true
     write_disposition: replace
     table_format: iceberg
@@ -1422,16 +1422,13 @@ tables:
       seen-data: true
   product_cost_histories:
     columns:
-      _pit_hook__product:
+      _pit_hook__product_cost_history:
         data_type: text
         nullable: true
       product_cost_history__product_id:
         data_type: bigint
         nullable: true
       product_cost_history__start_date:
-        data_type: timestamp
-        nullable: true
-      product_cost_history__end_date:
         data_type: timestamp
         nullable: true
       product_cost_history__standard_cost:
@@ -1466,6 +1463,9 @@ tables:
         nullable: false
         unique: true
         row_key: true
+      product_cost_history__end_date:
+        data_type: timestamp
+        nullable: true
     write_disposition: replace
     table_format: iceberg
     resource: product_cost_histories
@@ -1521,7 +1521,7 @@ tables:
       seen-data: true
   product_inventories:
     columns:
-      _pit_hook__reference__location:
+      _pit_hook__reference__product_location:
         data_type: text
         nullable: true
       product_inventory__product_id:
@@ -1578,16 +1578,13 @@ tables:
       seen-data: true
   product_list_price_histories:
     columns:
-      _pit_hook__product:
+      _pit_hook__product_list_price_history:
         data_type: text
         nullable: true
       product_list_price_history__product_id:
         data_type: bigint
         nullable: true
       product_list_price_history__start_date:
-        data_type: timestamp
-        nullable: true
-      product_list_price_history__end_date:
         data_type: timestamp
         nullable: true
       product_list_price_history__list_price:
@@ -1622,6 +1619,9 @@ tables:
         nullable: false
         unique: true
         row_key: true
+      product_list_price_history__end_date:
+        data_type: timestamp
+        nullable: true
     write_disposition: replace
     table_format: iceberg
     resource: product_list_price_histories
@@ -1639,6 +1639,9 @@ tables:
         data_type: text
         nullable: true
       product_model__rowguid:
+        data_type: text
+        nullable: true
+      product_model__instructions:
         data_type: text
         nullable: true
       product_model__modified_date:
@@ -1670,9 +1673,6 @@ tables:
         nullable: false
         unique: true
         row_key: true
-      product_model__instructions:
-        data_type: text
-        nullable: true
       product_model__catalog_description:
         data_type: text
         nullable: true
@@ -1683,7 +1683,7 @@ tables:
       seen-data: true
   product_model_illustrations:
     columns:
-      _pit_hook__reference__illustration:
+      _pit_hook__product_model_illustration:
         data_type: text
         nullable: true
       product_model_illustration__product_model_id:
@@ -1893,7 +1893,7 @@ tables:
       seen-data: true
   product_vendors:
     columns:
-      _pit_hook__vendor:
+      _pit_hook__product_vendor:
         data_type: text
         nullable: true
       product_vendor__product_id:
@@ -1922,9 +1922,6 @@ tables:
         nullable: true
       product_vendor__unit_measure_code:
         data_type: text
-        nullable: true
-      product_vendor__on_order_qty:
-        data_type: bigint
         nullable: true
       product_vendor__modified_date:
         data_type: timestamp
@@ -1955,6 +1952,9 @@ tables:
         nullable: false
         unique: true
         row_key: true
+      product_vendor__on_order_qty:
+        data_type: bigint
+        nullable: true
     write_disposition: replace
     table_format: iceberg
     resource: product_vendors
@@ -3309,7 +3309,7 @@ tables:
       seen-data: true
   work_order_routings:
     columns:
-      _pit_hook__order_line__work:
+      _pit_hook__work_order_routing:
         data_type: text
         nullable: true
       work_order_routing__work_order_id:
@@ -3443,10 +3443,10 @@ tables:
       event__bill_of_materials_started:
         data_type: bigint
         nullable: true
-      event__bill_of_materials_modified:
+      event__bill_of_materials_ended:
         data_type: bigint
         nullable: true
-      event__bill_of_materials_ended:
+      event__bill_of_materials_modified:
         data_type: bigint
         nullable: true
       _pit_hook__business_entity:
@@ -3515,28 +3515,40 @@ tables:
       event__email_addresses_modified:
         data_type: bigint
         nullable: true
+      _pit_hook__employee_department_history:
+        data_type: text
+        nullable: true
       _pit_hook__person__employee:
         data_type: text
         nullable: true
       _pit_hook__reference__shift:
         data_type: text
         nullable: true
-      event__employee_department_histories_started:
+      event__employee_department_histories_ended:
         data_type: bigint
         nullable: true
-      event__employee_department_histories_ended:
+      event__employee_department_histories_started:
         data_type: bigint
         nullable: true
       event__employee_department_histories_modified:
         data_type: bigint
         nullable: true
-      event__employee_pay_histories_modified:
-        data_type: bigint
+      _pit_hook__employee_pay_history:
+        data_type: text
         nullable: true
       event__employee_pay_histories_rate_change:
         data_type: bigint
         nullable: true
+      event__employee_pay_histories_modified:
+        data_type: bigint
+        nullable: true
       event__employees_modified:
+        data_type: bigint
+        nullable: true
+      event__employees_hire:
+        data_type: bigint
+        nullable: true
+      event__employees_birth:
         data_type: bigint
         nullable: true
       _pit_hook__reference__illustration:
@@ -3578,6 +3590,15 @@ tables:
       _pit_hook__product:
         data_type: text
         nullable: true
+      _pit_hook__product_cost_history:
+        data_type: text
+        nullable: true
+      _pit_hook__product_subcategory:
+        data_type: text
+        nullable: true
+      _pit_hook__reference__product_model:
+        data_type: text
+        nullable: true
       event__product_cost_histories_ended:
         data_type: bigint
         nullable: true
@@ -3593,23 +3614,26 @@ tables:
       event__product_descriptions_modified:
         data_type: bigint
         nullable: true
+      _pit_hook__reference__product_location:
+        data_type: text
+        nullable: true
       event__product_inventories_modified:
         data_type: bigint
         nullable: true
-      _pit_hook__product_subcategory:
+      _pit_hook__product_list_price_history:
         data_type: text
-        nullable: true
-      _pit_hook__reference__product_model:
-        data_type: text
-        nullable: true
-      event__product_list_price_histories_started:
-        data_type: bigint
         nullable: true
       event__product_list_price_histories_ended:
         data_type: bigint
         nullable: true
       event__product_list_price_histories_modified:
         data_type: bigint
+        nullable: true
+      event__product_list_price_histories_started:
+        data_type: bigint
+        nullable: true
+      _pit_hook__product_model_illustration:
+        data_type: text
         nullable: true
       event__product_model_illustrations_modified:
         data_type: bigint
@@ -3634,6 +3658,9 @@ tables:
         nullable: true
       event__product_subcategories_modified:
         data_type: bigint
+        nullable: true
+      _pit_hook__product_vendor:
+        data_type: text
         nullable: true
       _pit_hook__vendor:
         data_type: text
@@ -3692,13 +3719,13 @@ tables:
       event__sales_order_headers_due:
         data_type: bigint
         nullable: true
-      event__sales_order_headers_placed:
-        data_type: bigint
-        nullable: true
       event__sales_order_headers_modified:
         data_type: bigint
         nullable: true
       event__sales_order_headers_shipped:
+        data_type: bigint
+        nullable: true
+      event__sales_order_headers_placed:
         data_type: bigint
         nullable: true
       _pit_hook__person__sales:
@@ -3728,13 +3755,13 @@ tables:
       event__sales_territories_modified:
         data_type: bigint
         nullable: true
-      event__sales_territory_histories_modified:
-        data_type: bigint
-        nullable: true
       event__sales_territory_histories_started:
         data_type: bigint
         nullable: true
       event__sales_territory_histories_ended:
+        data_type: bigint
+        nullable: true
+      event__sales_territory_histories_modified:
         data_type: bigint
         nullable: true
       _pit_hook__reference__scrap_reason:
@@ -3758,10 +3785,10 @@ tables:
       event__special_offers_ended:
         data_type: bigint
         nullable: true
-      event__special_offers_modified:
+      event__special_offers_started:
         data_type: bigint
         nullable: true
-      event__special_offers_started:
+      event__special_offers_modified:
         data_type: bigint
         nullable: true
       event__state_provinces_modified:
@@ -3797,7 +3824,7 @@ tables:
       _pit_hook__order__work:
         data_type: text
         nullable: true
-      _pit_hook__order_line__work:
+      _pit_hook__work_order_routing:
         data_type: text
         nullable: true
       event__work_order_routings_actual_ended:
@@ -3807,6 +3834,12 @@ tables:
         data_type: bigint
         nullable: true
       event__work_order_routings_scheduled_ended:
+        data_type: bigint
+        nullable: true
+      event__work_order_routings_scheduled_started:
+        data_type: bigint
+        nullable: true
+      event__work_order_routings_actual_started:
         data_type: bigint
         nullable: true
       event__work_orders_ended:
@@ -3819,18 +3852,6 @@ tables:
         data_type: bigint
         nullable: true
       event__work_orders_started:
-        data_type: bigint
-        nullable: true
-      event__employees_hire:
-        data_type: bigint
-        nullable: true
-      event__employees_birth:
-        data_type: bigint
-        nullable: true
-      event__work_order_routings_actual_started:
-        data_type: bigint
-        nullable: true
-      event__work_order_routings_scheduled_started:
         data_type: bigint
         nullable: true
     write_disposition: replace
@@ -3871,6 +3892,72 @@ tables:
     resource: _dlt_pipeline_state
     x-normalizer:
       seen-data: true
+  calendar:
+    columns:
+      _hook__epoch__date:
+        data_type: text
+        nullable: true
+      date:
+        data_type: text
+        nullable: true
+      year:
+        data_type: bigint
+        nullable: true
+      iso_year:
+        data_type: bigint
+        nullable: true
+      quarter:
+        data_type: bigint
+        nullable: true
+      month:
+        data_type: bigint
+        nullable: true
+      month__name:
+        data_type: text
+        nullable: true
+      week:
+        data_type: bigint
+        nullable: true
+      weekday:
+        data_type: bigint
+        nullable: true
+      weekday__name:
+        data_type: text
+        nullable: true
+      year_quarter:
+        data_type: text
+        nullable: true
+      year_month:
+        data_type: text
+        nullable: true
+      year_month__name:
+        data_type: text
+        nullable: true
+      year_week:
+        data_type: text
+        nullable: true
+      iso_week_date:
+        data_type: text
+        nullable: true
+      ordinal_date:
+        data_type: text
+        nullable: true
+      is_leap_year:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: calendar
+    x-normalizer:
+      seen-data: true
 settings:
   detections:
   - iso_timestamp
@@ -3894,6 +3981,6 @@ normalizers:
   json:
     module: dlt.common.normalizers.json.relational
 previous_hashes:
-- FtizGifSjTAI/w9HWB4oPEMPW8HC6Tf/ca9c+iUA9cA=
+- fLV0evMKNAtLTPKSWJpPa2VwzGRsoLJcFHlP3gYaF9U=
 - ek7waLBztHfLgsBGPzkKz5PbYJRzCPYF35rsL65XNTA=
 - C4U3fkUTtWhIQ9Jzu0YkToPogUpAohe5eR3nDAELo+U=
