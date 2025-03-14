@@ -1,0 +1,2536 @@
+version: 2
+version_hash: dsakCo024SSWdDJDQuBbTotVxTwJ0hztmbrygF2Qd9w=
+engine_version: 11
+name: adventure_works
+tables:
+  raw__adventure_works__addresses:
+    description: "Street address information for customers, employees, and vendors."
+    columns:
+      address_id:
+        description: "Primary key for Address records."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      address_line1:
+        description: "First street address line."
+        data_type: text
+        nullable: true
+      city:
+        description: "Name of the city."
+        data_type: text
+        nullable: true
+      state_province_id:
+        description: "Unique identification number for the state or province. Foreign key to StateProvince table."
+        data_type: bigint
+        nullable: true
+      postal_code:
+        description: "Postal code for the street address."
+        data_type: text
+        nullable: true
+      rowguid:
+        description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
+        data_type: text
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      address_line2:
+        description: "Second street address line."
+        data_type: text
+        nullable: true
+  raw__adventure_works__address_types:
+    description: "Types of addresses stored in the Address table."
+    columns:
+      address_type_id:
+        description: "Primary key for AddressType records."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      name:
+        description: "Address type description. For example, Billing, Home, or Shipping."
+        data_type: text
+        nullable: true
+      rowguid:
+        description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
+        data_type: text
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+  raw__adventure_works__bill_of_materials:
+    description: "Items required to make bicycles and bicycle subassemblies. It identifies the hierarchical relationship between a parent product and its components."
+    columns:
+      bill_of_materials_id:
+        description: "Primary key for BillOfMaterials records."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      product_assembly_id:
+        description: "Parent product identification number. Foreign key to Product.ProductID."
+        data_type: bigint
+        nullable: true
+      component_id:
+        description: "Component identification number. Foreign key to Product.ProductID."
+        data_type: bigint
+        nullable: true
+      start_date:
+        description: "Date the component started being used in the assembly item."
+        data_type: text
+        nullable: true
+      unit_measure_code:
+        description: "Standard code identifying the unit of measure for the quantity."
+        data_type: text
+        nullable: true
+      bomlevel:
+        description: "Indicates the depth the component is from its parent (AssemblyID)."
+        data_type: bigint
+        nullable: true
+      per_assembly_qty:
+        description: "Quantity of the component needed to create the assembly."
+        data_type: double
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      end_date:
+        description: "Date the component stopped being used in the assembly item."
+        data_type: text
+        nullable: true
+  raw__adventure_works__business_entity_addresses:
+    description: "Cross-reference table mapping customers, vendors, and employees to their addresses."
+    columns:
+      business_entity_id:
+        description: "Primary key. Foreign key to BusinessEntity.BusinessEntityID."
+        data_type: bigint
+        nullable: true
+      address_id:
+        description: "Primary key. Foreign key to Address.AddressID."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      address_type_id:
+        description: "Primary key. Foreign key to AddressType.AddressTypeID."
+        data_type: bigint
+        nullable: true
+      rowguid:
+        description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
+        data_type: text
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+  raw__adventure_works__business_entity_contacts:
+    description: "Cross-reference table mapping stores, vendors, and employees to people."
+    columns:
+      business_entity_id:
+        description: "Primary key. Foreign key to BusinessEntity.BusinessEntityID."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      person_id:
+        description: "Primary key. Foreign key to Person.BusinessEntityID."
+        data_type: bigint
+        nullable: true
+      contact_type_id:
+        description: "Primary key. Foreign key to ContactType.ContactTypeID."
+        data_type: bigint
+        nullable: true
+      rowguid:
+        description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
+        data_type: text
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+  raw__adventure_works__contact_types:
+    description: "Lookup table containing the types of business entity contacts."
+    columns:
+      contact_type_id:
+        description: "Primary key for ContactType records."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      name:
+        description: "Contact type description."
+        data_type: text
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+  raw__adventure_works__country_regions:
+    description: "Lookup table containing the ISO standard codes for countries and regions."
+    columns:
+      country_region_code:
+        description: "ISO standard code for countries and regions."
+        nullable: false
+        primary_key: true
+        data_type: text
+      name:
+        description: "Country or region name."
+        data_type: text
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+  raw__adventure_works__credit_cards:
+    description: "Customer credit card information."
+    columns:
+      credit_card_id:
+        description: "Primary key for CreditCard records."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      card_type:
+        description: "Credit card name."
+        data_type: text
+        nullable: true
+      card_number:
+        description: "Credit card number."
+        data_type: text
+        nullable: true
+      exp_month:
+        description: "Credit card expiration month."
+        data_type: bigint
+        nullable: true
+      exp_year:
+        description: "Credit card expiration year."
+        data_type: bigint
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+  raw__adventure_works__cultures:
+    description: "Lookup table containing the languages in which some AdventureWorks data is stored."
+    columns:
+      culture_id:
+        description: "Primary key for Culture records."
+        nullable: false
+        primary_key: true
+        data_type: text
+      name:
+        description: "Culture description."
+        data_type: text
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+  raw__adventure_works__currencies:
+    description: "Lookup table containing standard ISO currencies."
+    columns:
+      currency_code:
+        description: "The ISO code for the Currency."
+        nullable: false
+        primary_key: true
+        data_type: text
+      name:
+        description: "Currency name."
+        data_type: text
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+  raw__adventure_works__currency_rates:
+    description: "Currency exchange rates."
+    columns:
+      currency_rate_id:
+        description: "Primary key for CurrencyRate records."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      currency_rate_date:
+        description: "Date and time the exchange rate was obtained."
+        data_type: text
+        nullable: true
+      from_currency_code:
+        description: "Exchange rate was converted from this currency code."
+        data_type: text
+        nullable: true
+      to_currency_code:
+        description: "Exchange rate was converted to this currency code."
+        data_type: text
+        nullable: true
+      average_rate:
+        description: "Average exchange rate for the day."
+        data_type: double
+        nullable: true
+      end_of_day_rate:
+        description: "Final exchange rate for the day."
+        data_type: double
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+  raw__adventure_works__customers:
+    description: "Current customer information. Also see the Person and Store tables."
+    columns:
+      customer_id:
+        description: "Primary key."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      store_id:
+        description: "Foreign key to Store.BusinessEntityID."
+        data_type: bigint
+        nullable: true
+      territory_id:
+        description: "ID of the territory in which the customer is located. Foreign key to SalesTerritory.SalesTerritoryID."
+        data_type: bigint
+        nullable: true
+      account_number:
+        description: "Unique number identifying the customer assigned by the accounting system."
+        data_type: text
+        nullable: true
+      rowguid:
+        description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
+        data_type: text
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      person_id:
+        description: "Foreign key to Person.BusinessEntityID."
+        data_type: bigint
+        nullable: true
+  raw__adventure_works__departments:
+    description: "Lookup table containing the departments within the Adventure Works Cycles company."
+    columns:
+      department_id:
+        description: "Primary key for Department records."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      name:
+        description: "Name of the department."
+        data_type: text
+        nullable: true
+      group_name:
+        description: "Name of the group to which the department belongs."
+        data_type: text
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+  raw__adventure_works__email_addresses:
+    description: "Where to send a person email."
+    columns:
+      business_entity_id:
+        description: "Primary key. Person associated with this email address. Foreign key to Person.BusinessEntityID."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      email_address_id:
+        description: "Primary key. ID of this email address."
+        data_type: bigint
+        nullable: true
+      email:
+        description: "E-mail address for the person."
+        data_type: text
+        nullable: true
+      rowguid:
+        description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
+        data_type: text
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+  raw__adventure_works__employee_department_histories:
+    description: "Employee department transfers."
+    columns:
+      business_entity_id:
+        description: "Employee identification number. Foreign key to Employee.BusinessEntityID."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      department_id:
+        description: "Department in which the employee worked including currently. Foreign key to Department.DepartmentID."
+        data_type: bigint
+        nullable: true
+      shift_id:
+        description: "Identifies which 8-hour shift the employee works. Foreign key to Shift.Shift.ID."
+        data_type: bigint
+        nullable: true
+      start_date:
+        description: "Date the employee started work in the department."
+        data_type: timestamp
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      end_date:
+        description: "Date the employee left the department. NULL = Current department."
+        data_type: text
+        nullable: true
+  raw__adventure_works__employee_pay_histories:
+    description: "Employee pay history."
+    columns:
+      business_entity_id:
+        description: "Employee identification number. Foreign key to Employee.BusinessEntityID."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      rate_change_date:
+        description: "Date the change in pay is effective."
+        nullable: false
+        primary_key: true
+        data_type: timestamp
+      rate:
+        description: "Salary hourly rate."
+        data_type: double
+        nullable: true
+      pay_frequency:
+        description: "1 = Salary received monthly, 2 = Salary received biweekly."
+        data_type: bigint
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+  raw__adventure_works__employees:
+    description: "Employee information."
+    columns:
+      business_entity_id:
+        description: "Primary key for Employee records. Foreign key to BusinessEntity.BusinessEntityID."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      national_idnumber:
+        description: "Unique national identification number such as a social security number."
+        data_type: text
+        nullable: true
+      login_id:
+        description: "Network login."
+        data_type: text
+        nullable: true
+      job_title:
+        description: "Work title such as Buyer or Sales Representative."
+        data_type: text
+        nullable: true
+      birth_date:
+        description: "Date of birth."
+        data_type: text
+        nullable: true
+      marital_status:
+        description: "M = Married, S = Single."
+        data_type: text
+        nullable: true
+      gender:
+        description: "M = Male, F = Female."
+        data_type: text
+        nullable: true
+      hire_date:
+        description: "Employee hired on this date."
+        data_type: text
+        nullable: true
+      salaried_flag:
+        description: "Job classification. 0 = Hourly, not exempt from collective bargaining. 1 = Salaried, exempt from collective bargaining."
+        data_type: bool
+        nullable: true
+      vacation_hours:
+        description: "Number of available vacation hours."
+        data_type: bigint
+        nullable: true
+      sick_leave_hours:
+        description: "Number of available sick leave hours."
+        data_type: bigint
+        nullable: true
+      current_flag:
+        description: "0 = Inactive, 1 = Active."
+        data_type: bool
+        nullable: true
+      rowguid:
+        description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
+        data_type: text
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      organization_level:
+        description: "The depth of the employee in the corporate hierarchy."
+        data_type: bigint
+        nullable: true
+  raw__adventure_works__illustrations:
+    description: "Bicycle assembly diagrams."
+    columns:
+      illustration_id:
+        description: "Primary key for Illustration records."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      diagram:
+        description: "Illustrations used in manufacturing instructions. Stored as XML."
+        data_type: text
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+  raw__adventure_works__job_candidates:
+    description: "Résumés submitted to Human Resources by job applicants."
+    columns:
+      job_candidate_id:
+        description: "Primary key for JobCandidate records."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      resume:
+        description: "Résumé in XML format."
+        data_type: text
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      business_entity_id:
+        description: "Employee identification number if applicant was hired. Foreign key to Employee.BusinessEntityID."
+        data_type: bigint
+        nullable: true
+  raw__adventure_works__locations:
+    description: "Product inventory and manufacturing locations."
+    columns:
+      location_id:
+        description: "Primary key for Location records."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      name:
+        description: "Location description."
+        data_type: text
+        nullable: true
+      cost_rate:
+        description: "Standard hourly cost of the manufacturing location."
+        data_type: double
+        nullable: true
+      availability:
+        description: "Work capacity (in hours) of the manufacturing location."
+        data_type: double
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+  raw__adventure_works__person_phones:
+    description: "Telephone number and type of a person."
+    columns:
+      business_entity_id:
+        description: "Business entity identification number. Foreign key to Person.BusinessEntityID."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      phone_number:
+        description: "Telephone number identification number."
+        data_type: text
+        nullable: true
+      phone_number_type_id:
+        description: "Kind of phone number. Foreign key to PhoneNumberType.PhoneNumberTypeID."
+        data_type: bigint
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+  raw__adventure_works__persons:
+    description: "Human beings involved with AdventureWorks: employees, customer contacts, and vendor contacts."
+    columns:
+      business_entity_id:
+        description: "Primary key for Person records."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      person_type:
+        description: "Primary type of person: SC = Store Contact, IN = Individual (retail) customer, SP = Sales person, EM = Employee (non-sales), VC = Vendor contact, GC = General contact."
+        data_type: text
+        nullable: true
+      name_style:
+        description: "0 = The data in FirstName and LastName are stored in western style (first name, last name) order. 1 = Eastern style (last name, first name) order."
+        data_type: bool
+        nullable: true
+      first_name:
+        description: "First name of the person."
+        data_type: text
+        nullable: true
+      middle_name:
+        description: "Middle name or middle initial of the person."
+        data_type: text
+        nullable: true
+      last_name:
+        description: "Last name of the person."
+        data_type: text
+        nullable: true
+      email_promotion:
+        description: "0 = Contact does not wish to receive e-mail promotions, 1 = Contact does wish to receive e-mail promotions from AdventureWorks, 2 = Contact does wish to receive e-mail promotions from AdventureWorks and selected partners."
+        data_type: bigint
+        nullable: true
+      demographics:
+        description: "Personal information such as hobbies, and income collected from online shoppers. Used for sales analysis."
+        data_type: text
+        nullable: true
+      rowguid:
+        description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
+        data_type: text
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      title:
+        description: "A courtesy title. For example, Mr. or Ms."
+        data_type: text
+        nullable: true
+      suffix:
+        description: "Surname suffix. For example, Sr. or Jr."
+        data_type: text
+        nullable: true
+      additional_contact_info:
+        description: "Additional contact information about the person stored in xml format."
+        data_type: text
+        nullable: true
+  raw__adventure_works__phone_number_types:
+    description: "Type of phone number of a person."
+    columns:
+      phone_number_type_id:
+        description: "Primary key for telephone number type records."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      name:
+        description: "Name of the telephone number type."
+        data_type: text
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+  raw__adventure_works__product_categories:
+    description: "High-level product categorization."
+    columns:
+      product_category_id:
+        description: "Primary key for ProductCategory records."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      name:
+        description: "Category description."
+        data_type: text
+        nullable: true
+      rowguid:
+        description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
+        data_type: text
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+  raw__adventure_works__product_cost_histories:
+    description: "Changes in the cost of a product over time."
+    columns:
+      product_id:
+        description: "Product identification number. Foreign key to Product.ProductID."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      start_date:
+        description: "Product cost start date."
+        data_type: timestamp
+        nullable: true
+      end_date:
+        description: "Product cost end date."
+        data_type: text
+        nullable: true
+      standard_cost:
+        description: "Standard cost of the product."
+        data_type: double
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+  raw__adventure_works__product_descriptions:
+    description: "Product descriptions in several languages."
+    columns:
+      product_description_id:
+        description: "Primary key for ProductDescription records."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      description:
+        description: "Description of the product."
+        data_type: text
+        nullable: true
+      rowguid:
+        description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
+        data_type: text
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+  raw__adventure_works__product_inventories:
+    description: "Product inventory information."
+    columns:
+      product_id:
+        description: "Product identification number. Foreign key to Product.ProductID."
+        data_type: bigint
+        nullable: true
+      location_id:
+        description: "Inventory location identification number. Foreign key to Location.LocationID."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      shelf:
+        description: "Storage compartment within an inventory location."
+        data_type: text
+        nullable: true
+      bin:
+        description: "Storage container on a shelf in an inventory location."
+        data_type: bigint
+        nullable: true
+      quantity:
+        description: "Quantity of products in the inventory location."
+        data_type: bigint
+        nullable: true
+      rowguid:
+        description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
+        data_type: text
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+  raw__adventure_works__product_list_price_histories:
+    description: "Changes in the list price of a product over time."
+    columns:
+      product_id:
+        description: "Product identification number. Foreign key to Product.ProductID."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      start_date:
+        description: "List price start date."
+        data_type: timestamp
+        nullable: true
+      end_date:
+        description: "List price end date."
+        data_type: text
+        nullable: true
+      list_price:
+        description: "Product list price."
+        data_type: double
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+  raw__adventure_works__product_model_illustrations:
+    description: "Cross-reference table mapping product models and illustrations."
+    columns:
+      product_model_id:
+        description: "Primary key. Foreign key to ProductModel.ProductModelID."
+        data_type: bigint
+        nullable: true
+      illustration_id:
+        description: "Primary key. Foreign key to Illustration.IllustrationID."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+  raw__adventure_works__product_models:
+    description: "Product model classification."
+    columns:
+      product_model_id:
+        description: "Primary key for ProductModel records."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      name:
+        description: "Product model description."
+        data_type: text
+        nullable: true
+      rowguid:
+        description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
+        data_type: text
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      catalog_description:
+        description: "Detailed product catalog information in xml format."
+        data_type: text
+        nullable: true
+      instructions:
+        description: "Manufacturing instructions in xml format."
+        data_type: text
+        nullable: true
+  raw__adventure_works__product_photos:
+    description: "Product images."
+    columns:
+      product_photo_id:
+        description: "Primary key for ProductPhoto records."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      thumb_nail_photo:
+        description: "Small image of the product."
+        data_type: text
+        nullable: true
+      thumbnail_photo_file_name:
+        description: "Small image file name."
+        data_type: text
+        nullable: true
+      large_photo:
+        description: "Large image of the product."
+        data_type: text
+        nullable: true
+      large_photo_file_name:
+        description: "Large image file name."
+        data_type: text
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+  raw__adventure_works__product_reviews:
+    description: "Customer reviews of products they have purchased."
+    columns:
+      product_review_id:
+        description: "Primary key for ProductReview records."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      product_id:
+        description: "Product identification number. Foreign key to Product.ProductID."
+        data_type: bigint
+        nullable: true
+      reviewer_name:
+        description: "Name of the reviewer."
+        data_type: text
+        nullable: true
+      review_date:
+        description: "Date review was submitted."
+        data_type: text
+        nullable: true
+      email_address:
+        description: "Reviewer's e-mail address."
+        data_type: text
+        nullable: true
+      rating:
+        description: "Product rating given by the reviewer. Scale is 1 to 5 with 5 as the highest rating."
+        data_type: bigint
+        nullable: true
+      comments:
+        description: "Reviewer's comments."
+        data_type: text
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+  raw__adventure_works__products:
+    description: "Products sold or used in the manufacturing of sold products."
+    columns:
+      product_id:
+        description: "Primary key for Product records."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      name:
+        description: "Name of the product."
+        data_type: text
+        nullable: true
+      product_number:
+        description: "Unique product identification number."
+        data_type: text
+        nullable: true
+      make_flag:
+        description: "0 = Product is purchased, 1 = Product is manufactured in-house."
+        data_type: bool
+        nullable: true
+      finished_goods_flag:
+        description: "0 = Product is not a salable item. 1 = Product is salable."
+        data_type: bool
+        nullable: true
+      safety_stock_level:
+        description: "Minimum inventory quantity."
+        data_type: bigint
+        nullable: true
+      reorder_point:
+        description: "Inventory level that triggers a purchase order or work order."
+        data_type: bigint
+        nullable: true
+      standard_cost:
+        description: "Standard cost of the product."
+        data_type: double
+        nullable: true
+      list_price:
+        description: "Selling price."
+        data_type: double
+        nullable: true
+      days_to_manufacture:
+        description: "Number of days required to manufacture the product."
+        data_type: bigint
+        nullable: true
+      sell_start_date:
+        description: "Date the product was available for sale."
+        data_type: text
+        nullable: true
+      rowguid:
+        description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
+        data_type: text
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      color:
+        description: "Product color."
+        data_type: text
+        nullable: true
+      class:
+        description: "H = High, M = Medium, L = Low."
+        data_type: text
+        nullable: true
+      weight_unit_measure_code:
+        description: "Unit of measure for Weight column."
+        data_type: text
+        nullable: true
+      weight:
+        description: "Product weight."
+        data_type: double
+        nullable: true
+      size:
+        description: "Product size."
+        data_type: text
+        nullable: true
+      size_unit_measure_code:
+        description: "Unit of measure for Size column."
+        data_type: text
+        nullable: true
+      product_line:
+        description: "R = Road, M = Mountain, T = Touring, S = Standard."
+        data_type: text
+        nullable: true
+      style:
+        description: "W = Womens, M = Mens, U = Universal."
+        data_type: text
+        nullable: true
+      product_subcategory_id:
+        description: "Product is a member of this product subcategory. Foreign key to ProductSubCategory.ProductSubCategoryID."
+        data_type: bigint
+        nullable: true
+      product_model_id:
+        description: "Product is a member of this product model. Foreign key to ProductModel.ProductModelID."
+        data_type: bigint
+        nullable: true
+      sell_end_date:
+        description: "Date the product was no longer available for sale."
+        data_type: text
+        nullable: true
+  raw__adventure_works__product_subcategories:
+    description: "Product subcategories. See ProductCategory table."
+    columns:
+      product_subcategory_id:
+        description: "Primary key for ProductSubcategory records."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      product_category_id:
+        description: "Product category identification number. Foreign key to ProductCategory.ProductCategoryID."
+        data_type: bigint
+        nullable: true
+      name:
+        description: "Subcategory description."
+        data_type: text
+        nullable: true
+      rowguid:
+        description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
+        data_type: text
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+  raw__adventure_works__product_vendors:
+    description: "Cross-reference table mapping vendors with the products they supply."
+    columns:
+      product_id:
+        description: "Primary key. Foreign key to Product.ProductID."
+        data_type: bigint
+        nullable: true
+      business_entity_id:
+        description: "Primary key. Foreign key to Vendor.BusinessEntityID."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      average_lead_time:
+        description: "The average span of time (in days) between placing an order with the vendor and receiving the purchased product."
+        data_type: bigint
+        nullable: true
+      standard_price:
+        description: "The vendor's usual selling price."
+        data_type: double
+        nullable: true
+      last_receipt_cost:
+        description: "The selling price when last purchased."
+        data_type: double
+        nullable: true
+      last_receipt_date:
+        description: "Date the product was last received by the vendor."
+        data_type: text
+        nullable: true
+      min_order_qty:
+        description: "The minimum quantity that should be ordered."
+        data_type: bigint
+        nullable: true
+      max_order_qty:
+        description: "The maximum quantity that should be ordered."
+        data_type: bigint
+        nullable: true
+      unit_measure_code:
+        description: "The product's unit of measure."
+        data_type: text
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      on_order_qty:
+        description: "The quantity currently on order."
+        data_type: bigint
+        nullable: true
+  raw__adventure_works__purchase_order_details:
+    description: "Individual products associated with a specific purchase order. See PurchaseOrderHeader."
+    columns:
+      purchase_order_id:
+        description: "Primary key. Foreign key to PurchaseOrderHeader.PurchaseOrderID."
+        data_type: bigint
+        nullable: true
+      purchase_order_detail_id:
+        description: "Primary key. One line number per purchased product."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      due_date:
+        description: "Date the product is expected to be received."
+        data_type: text
+        nullable: true
+      order_qty:
+        description: "Quantity ordered."
+        data_type: bigint
+        nullable: true
+      product_id:
+        description: "Product identification number. Foreign key to Product.ProductID."
+        data_type: bigint
+        nullable: true
+      unit_price:
+        description: "Vendor's selling price of a single product."
+        data_type: double
+        nullable: true
+      line_total:
+        description: "Per product subtotal. Computed as OrderQty * UnitPrice."
+        data_type: double
+        nullable: true
+      received_qty:
+        description: "Quantity actually received from the vendor."
+        data_type: double
+        nullable: true
+      rejected_qty:
+        description: "Quantity rejected during inspection."
+        data_type: double
+        nullable: true
+      stocked_qty:
+        description: "Quantity accepted into inventory. Computed as ReceivedQty - RejectedQty."
+        data_type: double
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+  raw__adventure_works__purchase_order_headers:
+    description: "General purchase order information. See PurchaseOrderDetail."
+    columns:
+      purchase_order_id:
+        description: "Primary key."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      revision_number:
+        description: "Incremental number to track changes to the purchase order over time."
+        data_type: bigint
+        nullable: true
+      status:
+        description: "Order current status. 1 = Pending; 2 = Approved; 3 = Rejected; 4 = Complete."
+        data_type: bigint
+        nullable: true
+      employee_id:
+        description: "Employee who created the purchase order. Foreign key to Employee.BusinessEntityID."
+        data_type: bigint
+        nullable: true
+      vendor_id:
+        description: "Vendor with whom the purchase order is placed. Foreign key to Vendor.BusinessEntityID."
+        data_type: bigint
+        nullable: true
+      ship_method_id:
+        description: "Shipping method. Foreign key to ShipMethod.ShipMethodID."
+        data_type: bigint
+        nullable: true
+      order_date:
+        description: "Purchase order creation date."
+        data_type: text
+        nullable: true
+      ship_date:
+        description: "Estimated shipment date from the vendor."
+        data_type: text
+        nullable: true
+      sub_total:
+        description: "Purchase order subtotal. Computed as SUM(PurchaseOrderDetail.LineTotal) for the appropriate PurchaseOrderID."
+        data_type: double
+        nullable: true
+      tax_amt:
+        description: "Tax amount."
+        data_type: double
+        nullable: true
+      freight:
+        description: "Shipping cost."
+        data_type: double
+        nullable: true
+      total_due:
+        description: "Total due to vendor. Computed as Subtotal + TaxAmt + Freight."
+        data_type: double
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+  raw__adventure_works__sales_order_details:
+    description: "Individual products associated with a specific sales order. See SalesOrderHeader."
+    columns:
+      sales_order_id:
+        description: "Primary key. Foreign key to SalesOrderHeader.SalesOrderID."
+        data_type: bigint
+        nullable: true
+      sales_order_detail_id:
+        description: "Primary key. One incremental unique number per product sold."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      carrier_tracking_number:
+        description: "Shipment tracking number supplied by the shipper."
+        data_type: text
+        nullable: true
+      order_qty:
+        description: "Quantity ordered per product."
+        data_type: bigint
+        nullable: true
+      product_id:
+        description: "Product sold to customer. Foreign key to Product.ProductID."
+        data_type: bigint
+        nullable: true
+      special_offer_id:
+        description: "Promotional code. Foreign key to SpecialOffer.SpecialOfferID."
+        data_type: bigint
+        nullable: true
+      unit_price:
+        description: "Selling price of a single product."
+        data_type: double
+        nullable: true
+      unit_price_discount:
+        description: "Discount amount."
+        data_type: double
+        nullable: true
+      line_total:
+        description: "Per product subtotal. Computed as UnitPrice * (1 - UnitPriceDiscount) * OrderQty."
+        data_type: double
+        nullable: true
+      rowguid:
+        description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
+        data_type: text
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+  raw__adventure_works__sales_order_headers:
+    description: "General sales order information."
+    columns:
+      sales_order_id:
+        description: "Primary key."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      revision_number:
+        description: "Incremental number to track changes to the sales order over time."
+        data_type: bigint
+        nullable: true
+      order_date:
+        description: "Dates the sales order was created."
+        data_type: text
+        nullable: true
+      due_date:
+        description: "Date the order is due to the customer."
+        data_type: text
+        nullable: true
+      ship_date:
+        description: "Date the order was shipped to the customer."
+        data_type: text
+        nullable: true
+      status:
+        description: "Order current status. 1 = In process; 2 = Approved; 3 = Backordered; 4 = Rejected; 5 = Shipped; 6 = Cancelled."
+        data_type: bigint
+        nullable: true
+      online_order_flag:
+        description: "0 = Order placed by sales person. 1 = Order placed online by customer."
+        data_type: bool
+        nullable: true
+      sales_order_number:
+        description: "Unique sales order identification number."
+        data_type: text
+        nullable: true
+      purchase_order_number:
+        description: "Customer purchase order number reference."
+        data_type: text
+        nullable: true
+      account_number:
+        description: "Financial accounting number reference."
+        data_type: text
+        nullable: true
+      customer_id:
+        description: "Customer identification number. Foreign key to Customer.BusinessEntityID."
+        data_type: bigint
+        nullable: true
+      sales_person_id:
+        description: "Sales person who created the sales order. Foreign key to SalesPerson.BusinessEntityID."
+        data_type: bigint
+        nullable: true
+      territory_id:
+        description: "Territory in which the sale was made. Foreign key to SalesTerritory.SalesTerritoryID."
+        data_type: bigint
+        nullable: true
+      bill_to_address_id:
+        description: "Customer billing address. Foreign key to Address.AddressID."
+        data_type: bigint
+        nullable: true
+      ship_to_address_id:
+        description: "Customer shipping address. Foreign key to Address.AddressID."
+        data_type: bigint
+        nullable: true
+      ship_method_id:
+        description: "Shipping method. Foreign key to ShipMethod.ShipMethodID."
+        data_type: bigint
+        nullable: true
+      credit_card_id:
+        description: "Credit card identification number. Foreign key to CreditCard.CreditCardID."
+        data_type: bigint
+        nullable: true
+      credit_card_approval_code:
+        description: "Approval code provided by the credit card company."
+        data_type: text
+        nullable: true
+      sub_total:
+        description: "Sales subtotal. Computed as SUM(SalesOrderDetail.LineTotal) for the appropriate SalesOrderID."
+        data_type: double
+        nullable: true
+      tax_amt:
+        description: "Tax amount."
+        data_type: double
+        nullable: true
+      freight:
+        description: "Shipping cost."
+        data_type: double
+        nullable: true
+      total_due:
+        description: "Total due from customer. Computed as Subtotal + TaxAmt + Freight."
+        data_type: double
+        nullable: true
+      rowguid:
+        description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
+        data_type: text
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      currency_rate_id:
+        description: "Currency exchange rate used. Foreign key to CurrencyRate.CurrencyRateID."
+        data_type: bigint
+        nullable: true
+  raw__adventure_works__sales_person_quota_histories:
+    description: "Sales performance tracking."
+    columns:
+      business_entity_id:
+        description: "Sales person identification number. Foreign key to SalesPerson.BusinessEntityID."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      quota_date:
+        description: "Sales quota date."
+        data_type: text
+        nullable: true
+      sales_quota:
+        description: "Sales quota amount."
+        data_type: double
+        nullable: true
+      rowguid:
+        description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
+        data_type: text
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+  raw__adventure_works__sales_persons:
+    description: "Sales representative current information."
+    columns:
+      business_entity_id:
+        description: "Primary key for SalesPerson records. Foreign key to Employee.BusinessEntityID."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      bonus:
+        description: "Bonus due if quota is met."
+        data_type: double
+        nullable: true
+      commission_pct:
+        description: "Commission percent received per sale."
+        data_type: double
+        nullable: true
+      sales_ytd:
+        description: "Sales total year to date."
+        data_type: double
+        nullable: true
+      sales_last_year:
+        description: "Sales total of previous year."
+        data_type: double
+        nullable: true
+      rowguid:
+        description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
+        data_type: text
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      territory_id:
+        description: "Territory currently assigned to. Foreign key to SalesTerritory.SalesTerritoryID."
+        data_type: bigint
+        nullable: true
+      sales_quota:
+        description: "Projected yearly sales."
+        data_type: double
+        nullable: true
+  raw__adventure_works__sales_reasons:
+    description: "Lookup table of customer purchase reasons."
+    columns:
+      sales_reason_id:
+        description: "Primary key for SalesReason records."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      name:
+        description: "Sales reason description."
+        data_type: text
+        nullable: true
+      reason_type:
+        description: "Category the sales reason belongs to."
+        data_type: text
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+  raw__adventure_works__sales_tax_rates:
+    description: "Tax rate lookup table."
+    columns:
+      sales_tax_rate_id:
+        description: "Primary key for SalesTaxRate records."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      state_province_id:
+        description: "State, province, or country/region the sales tax applies to."
+        data_type: bigint
+        nullable: true
+      tax_type:
+        description: "1 = Tax applied to retail transactions, 2 = Tax applied to wholesale transactions, 3 = Tax applied to all sales (retail and wholesale) transactions."
+        data_type: bigint
+        nullable: true
+      tax_rate:
+        description: "Tax rate amount."
+        data_type: double
+        nullable: true
+      name:
+        description: "Tax rate description."
+        data_type: text
+        nullable: true
+      rowguid:
+        description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
+        data_type: text
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+  raw__adventure_works__sales_territories:
+    description: "Sales territory lookup table."
+    columns:
+      territory_id:
+        description: "Primary key for SalesTerritory records."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      name:
+        description: "Sales territory description."
+        data_type: text
+        nullable: true
+      country_region_code:
+        description: "ISO standard country or region code. Foreign key to CountryRegion.CountryRegionCode."
+        data_type: text
+        nullable: true
+      group:
+        description: "Geographic area to which the sales territory belongs."
+        data_type: text
+        nullable: true
+      sales_ytd:
+        description: "Sales in the territory year to date."
+        data_type: double
+        nullable: true
+      sales_last_year:
+        description: "Sales in the territory the previous year."
+        data_type: double
+        nullable: true
+      cost_ytd:
+        description: "Business costs in the territory year to date."
+        data_type: double
+        nullable: true
+      cost_last_year:
+        description: "Business costs in the territory the previous year."
+        data_type: double
+        nullable: true
+      rowguid:
+        description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
+        data_type: text
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+  raw__adventure_works__sales_territory_histories:
+    description: "Sales representative transfers to other sales territories."
+    columns:
+      business_entity_id:
+        description: "Primary key. The sales rep. Foreign key to SalesPerson.BusinessEntityID."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      territory_id:
+        description: "Primary key. Territory identification number. Foreign key to SalesTerritory.SalesTerritoryID."
+        data_type: bigint
+        nullable: true
+      start_date:
+        description: "Primary key. Date the sales representative started work in the territory."
+        data_type: text
+        nullable: true
+      rowguid:
+        description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
+        data_type: text
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      end_date:
+        description: "Date the sales representative left work in the territory."
+        data_type: text
+        nullable: true
+  raw__adventure_works__scrap_reasons:
+    description: "Manufacturing failure reasons lookup table."
+    columns:
+      scrap_reason_id:
+        description: "Primary key for ScrapReason records."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      name:
+        description: "Failure description."
+        data_type: text
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+  raw__adventure_works__shifts:
+    description: "Work shift lookup table."
+    columns:
+      shift_id:
+        description: "Primary key for Shift records."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      name:
+        description: "Shift description."
+        data_type: text
+        nullable: true
+      start_time:
+        description: "Shift start time."
+        data_type: text
+        nullable: true
+      end_time:
+        description: "Shift end time."
+        data_type: text
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+  raw__adventure_works__ship_methods:
+    description: "Shipping company lookup table."
+    columns:
+      ship_method_id:
+        description: "Primary key for ShipMethod records."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      name:
+        description: "Shipping company name."
+        data_type: text
+        nullable: true
+      ship_base:
+        description: "Minimum shipping charge."
+        data_type: double
+        nullable: true
+      ship_rate:
+        description: "Shipping charge per pound."
+        data_type: double
+        nullable: true
+      rowguid:
+        description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
+        data_type: text
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+  raw__adventure_works__shopping_cart_items:
+    description: "Contains online customer orders until the order is submitted or cancelled."
+    columns:
+      shopping_cart_item_id:
+        description: "Primary key for ShoppingCartItem records."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      shopping_cart_id:
+        description: "Shopping cart identification number."
+        data_type: text
+        nullable: true
+      quantity:
+        description: "Product quantity ordered."
+        data_type: bigint
+        nullable: true
+      product_id:
+        description: "Product ordered. Foreign key to Product.ProductID."
+        data_type: bigint
+        nullable: true
+      date_created:
+        description: "Date the time the record was created."
+        data_type: text
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+  raw__adventure_works__special_offers:
+    description: "Sale discounts lookup table."
+    columns:
+      special_offer_id:
+        description: "Primary key for SpecialOffer records."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      description:
+        description: "Discount description."
+        data_type: text
+        nullable: true
+      discount_percentage:
+        description: "Discount percentage."
+        data_type: double
+        nullable: true
+      type:
+        description: "Discount type category."
+        data_type: text
+        nullable: true
+      category:
+        description: "Group the discount applies to such as Reseller or Customer."
+        data_type: text
+        nullable: true
+      start_date:
+        description: "Discount start date."
+        data_type: text
+        nullable: true
+      end_date:
+        description: "Discount end date."
+        data_type: text
+        nullable: true
+      minimum_quantity:
+        description: "Minimum discount percent allowed."
+        data_type: bigint
+        nullable: true
+      rowguid:
+        description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
+        data_type: text
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      maximum_quantity:
+        description: "Maximum discount percent allowed."
+        data_type: bigint
+        nullable: true
+  raw__adventure_works__state_provinces:
+    description: "State and province lookup table."
+    columns:
+      state_province_id:
+        description: "Primary key for StateProvince records."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      state_province_code:
+        description: "ISO standard state or province code."
+        data_type: text
+        nullable: true
+      country_region_code:
+        description: "ISO standard country or region code. Foreign key to CountryRegion.CountryRegionCode."
+        data_type: text
+        nullable: true
+      is_only_state_province_flag:
+        description: "0 = StateProvinceCode exists. 1 = StateProvinceCode unavailable, using CountryRegionCode."
+        data_type: bool
+        nullable: true
+      name:
+        description: "State or province description."
+        data_type: text
+        nullable: true
+      territory_id:
+        description: "ID of the territory in which the state or province is located. Foreign key to SalesTerritory.SalesTerritoryID."
+        data_type: bigint
+        nullable: true
+      rowguid:
+        description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
+        data_type: text
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+  raw__adventure_works__stores:
+    description: "Customers (resellers) of Adventure Works products."
+    columns:
+      business_entity_id:
+        description: "Primary key. Foreign key to Customer.BusinessEntityID."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      name:
+        description: "Name of the store."
+        data_type: text
+        nullable: true
+      sales_person_id:
+        description: "ID of the sales person assigned to the customer. Foreign key to SalesPerson.BusinessEntityID."
+        data_type: bigint
+        nullable: true
+      demographics:
+        description: "Demographic information about the store such as the number of employees, annual sales and store type."
+        data_type: text
+        nullable: true
+      rowguid:
+        description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
+        data_type: text
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+  raw__adventure_works__transaction_histories:
+    description: "Record of each purchase order, sales order, or work order transaction year to date."
+    columns:
+      transaction_id:
+        description: "Primary key for TransactionHistory records."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      product_id:
+        description: "Product identification number. Foreign key to Product.ProductID."
+        data_type: bigint
+        nullable: true
+      reference_order_id:
+        description: "Purchase order, sales order, or work order identification number."
+        data_type: bigint
+        nullable: true
+      reference_order_line_id:
+        description: "Line number associated with the purchase order, sales order, or work order."
+        data_type: bigint
+        nullable: true
+      transaction_date:
+        description: "Date and time of the transaction."
+        data_type: text
+        nullable: true
+      transaction_type:
+        description: "W = WorkOrder, S = SalesOrder, P = PurchaseOrder."
+        data_type: text
+        nullable: true
+      quantity:
+        description: "Product quantity."
+        data_type: bigint
+        nullable: true
+      actual_cost:
+        description: "Product cost."
+        data_type: double
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+  raw__adventure_works__transaction_history_archives:
+    description: "Transactions for previous years."
+    columns:
+      transaction_id:
+        description: "Primary key for TransactionHistoryArchive records."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      product_id:
+        description: "Product identification number. Foreign key to Product.ProductID."
+        data_type: bigint
+        nullable: true
+      reference_order_id:
+        description: "Purchase order, sales order, or work order identification number."
+        data_type: bigint
+        nullable: true
+      reference_order_line_id:
+        description: "Line number associated with the purchase order, sales order, or work order."
+        data_type: bigint
+        nullable: true
+      transaction_date:
+        description: "Date and time of the transaction."
+        data_type: text
+        nullable: true
+      transaction_type:
+        description: "W = Work Order, S = Sales Order, P = Purchase Order."
+        data_type: text
+        nullable: true
+      quantity:
+        description: "Product quantity."
+        data_type: bigint
+        nullable: true
+      actual_cost:
+        description: "Product cost."
+        data_type: double
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+  raw__adventure_works__unit_measures:
+    description: "Unit of measure lookup table."
+    columns:
+      unit_measure_code:
+        description: "Primary key."
+        nullable: false
+        primary_key: true
+        data_type: text
+      name:
+        description: "Unit of measure description."
+        data_type: text
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+  raw__adventure_works__vendors:
+    description: "Companies from whom Adventure Works Cycles purchases parts or other goods."
+    columns:
+      business_entity_id:
+        description: "Primary key for Vendor records. Foreign key to BusinessEntity.BusinessEntityID."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      account_number:
+        description: "Vendor account (identification) number."
+        data_type: text
+        nullable: true
+      name:
+        description: "Company name."
+        data_type: text
+        nullable: true
+      credit_rating:
+        description: "1 = Superior, 2 = Excellent, 3 = Above average, 4 = Average, 5 = Below average."
+        data_type: bigint
+        nullable: true
+      preferred_vendor_status:
+        description: "0 = Do not use if another vendor is available. 1 = Preferred over other vendors supplying the same product."
+        data_type: bool
+        nullable: true
+      active_flag:
+        description: "0 = Vendor no longer used. 1 = Vendor is actively used."
+        data_type: bool
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      purchasing_web_service_url:
+        description: "Vendor URL."
+        data_type: text
+        nullable: true
+  raw__adventure_works__work_order_routings:
+    description: "Work order details."
+    columns:
+      work_order_id:
+        description: "Primary key. Foreign key to WorkOrder.WorkOrderID."
+        data_type: bigint
+        nullable: true
+      product_id:
+        description: "Primary key. Foreign key to Product.ProductID."
+        data_type: bigint
+        nullable: true
+      operation_sequence:
+        description: "Primary key. Indicates the manufacturing process sequence."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      location_id:
+        description: "Manufacturing location where the part is processed. Foreign key to Location.LocationID."
+        data_type: bigint
+        nullable: true
+      scheduled_start_date:
+        description: "Planned manufacturing start date."
+        data_type: text
+        nullable: true
+      scheduled_end_date:
+        description: "Planned manufacturing end date."
+        data_type: text
+        nullable: true
+      actual_start_date:
+        description: "Actual start date."
+        data_type: text
+        nullable: true
+      actual_end_date:
+        description: "Actual end date."
+        data_type: text
+        nullable: true
+      actual_resource_hrs:
+        description: "Number of manufacturing hours used."
+        data_type: double
+        nullable: true
+      planned_cost:
+        description: "Estimated manufacturing cost."
+        data_type: double
+        nullable: true
+      actual_cost:
+        description: "Actual manufacturing cost."
+        data_type: double
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+  raw__adventure_works__work_orders:
+    description: "Manufacturing work orders."
+    columns:
+      work_order_id:
+        description: "Primary key for WorkOrder records."
+        nullable: false
+        primary_key: true
+        data_type: bigint
+      product_id:
+        description: "Product identification number. Foreign key to Product.ProductID."
+        data_type: bigint
+        nullable: true
+      order_qty:
+        description: "Product quantity to build."
+        data_type: bigint
+        nullable: true
+      stocked_qty:
+        description: "Quantity built and put in inventory."
+        data_type: bigint
+        nullable: true
+      scrapped_qty:
+        description: "Quantity that failed inspection."
+        data_type: bigint
+        nullable: true
+      start_date:
+        description: "Work order start date."
+        data_type: text
+        nullable: true
+      end_date:
+        description: "Work order end date."
+        data_type: text
+        nullable: true
+      due_date:
+        description: "Work order due date."
+        data_type: text
+        nullable: true
+      modified_date:
+        description: "Date and time the record was last updated."
+        incremental: true
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        description: "Internal data loading identifier."
+        data_type: text
+        nullable: false
+      _dlt_id:
+        description: "Internal unique identifier."
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      scrap_reason_id:
+        description: "Reason for inspection failure."
+        data_type: bigint
+        nullable: true
