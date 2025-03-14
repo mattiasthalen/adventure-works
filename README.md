@@ -177,6 +177,61 @@ flowchart LR
     bridge__products ---> events__products --> unified_bridge
     bridge__sales_order_details --> events__sales_order_details --> unified_bridge
 ```
+The alternative would have been to connect all the associated bags to the bridge, but that would increase the computational demands since each join requires a `left.valid_from BETWEEN right.valid_from AND right.valid_to`. And the only benefit is that the bridges can be built independently. I prefer lower computational cost in this case.
+```mermaid
+flowchart LR
+    classDef bronze fill:#CD7F32,color:black
+    classDef silver fill:#C0C0C0,color:black
+    classDef gold fill:#FFD700,color:black
+
+    subgraph db.das["db.das"]
+        raw__adventure_works__product_categories(["raw__adventure_works__product_categories"]):::bronze
+        raw__adventure_works__product_subcategories(["raw__adventure_works__product_subcategories"]):::bronze
+        raw__adventure_works__products(["raw__adventure_works__products"]):::bronze
+        raw__adventure_works__sales_order_details(["raw__adventure_works__sales_order_details"]):::bronze
+    end
+    
+    subgraph db.dab["db.dab"]
+        bag__adventure_works__product_categories(["bag__adventure_works__product_categories"]):::silver
+        bag__adventure_works__product_subcategories(["bag__adventure_works__product_subcategories"]):::silver
+        bag__adventure_works__products(["bag__adventure_works__products"]):::silver
+        bag__adventure_works__sales_order_details(["bag__adventure_works__sales_order_details"]):::silver
+    end
+    
+    subgraph db.dar__staging["db.dar__staging"]
+        bridge__product_categories(["bridge__product_categories"]):::silver
+        bridge__product_subcategories(["bridge__product_subcategories"]):::silver
+        bridge__products(["bridge__products"]):::silver
+        bridge__sales_order_details(["bridge__sales_order_details"]):::silver
+        
+        events__product_categories(["events__product_categories"]):::silver
+        events__product_subcategories(["events__product_subcategories"]):::silver
+        events__products(["events__products"]):::silver
+        events__sales_order_details(["events__sales_order_details"]):::silver
+    end
+
+    subgraph db.dar["db.dar"]
+        unified_bridge(["_bridge__as_of"]):::gold
+    end
+
+       raw__adventure_works__product_categories --> bag__adventure_works__product_categories --> bridge__product_categories
+    bag__adventure_works__product_categories --> bridge__product_subcategories
+    bag__adventure_works__product_categories --> bridge__products
+    bag__adventure_works__product_categories --> bridge__sales_order_details
+ 
+    raw__adventure_works__product_subcategories --> bag__adventure_works__product_subcategories --> bridge__product_subcategories
+    bag__adventure_works__product_subcategories --> bridge__products
+    bag__adventure_works__product_subcategories --> bridge__sales_order_details
+    
+    raw__adventure_works__products --> bag__adventure_works__products --> bridge__products
+    bag__adventure_works__products --> bridge__sales_order_details    
+    
+    raw__adventure_works__sales_order_details --> bag__adventure_works__sales_order_details --> bridge__sales_order_details
+    bridge__product_categories --> events__product_categories --> unified_bridge
+    bridge__product_subcategories --> events__product_subcategories --> unified_bridge
+    bridge__products --> events__products --> unified_bridge
+    bridge__sales_order_details --> events__sales_order_details --> unified_bridge
+```
 
 ## Implementation Approach
 
