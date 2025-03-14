@@ -1,0 +1,1697 @@
+﻿<!DOCTYPE html SYSTEM "about:legacy-compat">
+<html xmlns:ms="urn:schemas-microsoft-com:xslt">
+  <head>
+    <META http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="_root" content="../../../">
+    <meta http-equiv="cache-control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="expires" content="0">
+    <meta name="cache-pool-id" content="33cc">
+    <title>Sales.SalesOrderHeader -
+        AdventureWorks</title>
+    <link href="../../../favicon.ico" rel="icon">
+    <link href="../../../favicon.ico" rel="shortcut icon">
+    <link rel="stylesheet" href="../../../lib/Google Fonts/style.css?v=33cc">
+    <link rel="stylesheet" href="../../../lib/jQueryUI/jquery-ui-1.9.2.custom.min.css?v=33cc">
+    <link rel="stylesheet" href="../../../css/reset.css?v=33cc">
+    <link rel="stylesheet" href="../../../css/default.css?v=33cc">
+    <link rel="stylesheet" href="../../../css/layout.css?v=33cc">
+    <link rel="stylesheet" href="../../../css/inline-html.css?v=33cc">
+    <link rel="stylesheet" href="../../../css/user.css?v=33cc">
+    <div id="popup-error"> Action cannot be finished </div>
+    <div id="binding"></div><script src="../../../lib/jQuery/jquery-1.11.3.min.js?v=33cc"></script><script src="../../../lib/jQueryUI/jquery-ui-1.9.2.custom.min.js?v=33cc"></script><script src="../../../lib/iframeResizer/client.min.js?v=33cc"></script><script src="../../../lib/Store.js/store.legacy.min.js?v=33cc"></script><script src="../../../lib/fuse.js/fuse.min.js?v=33cc"></script><script src="../../../lib/throttle-debounce/throttle-debounce.min.js?v=33cc"></script><script src="../../../js/sticky.js?v=33cc"></script><script src="../../../js/url.js?v=33cc"></script><script src="../../../js/tables.js?v=33cc"></script><script src="../../../js/loader.multi.js?v=33cc"></script><script src="../../../js/treeExpand.js?v=33cc"></script><script src="../../../js/utilities.js?v=33cc"></script><script src="../../../js/mobile.js?v=33cc"></script><script src="../../../js/dependenciesTree.js?v=33cc"></script><script src="../../../js/userLinks.js?v=33cc"></script><script src="../../../js/search.js?v=33cc"></script><script src="../../../js/erd.js?v=33cc"></script><script src="../../../search.json.js?v=33cc"></script><script src="../../../js/user.js?v=33cc"></script></head>
+  <body class="font-size-medium">
+    <div id="nav-toggle"></div>
+    <div id="main" class="cf">
+      <div id="infobar" class="only-mobile"><a href="../../../" class="ajax logo" data-target="#right"><img src="../../../img/logo.png"></a><h3 class="docname font-medium">AdventureWorks</h3>
+      </div>
+      <div id="aside" class="resizable-left border-right">
+        <div id="left"><nav id="nav" class="grid"><div class="span12"><a href="../../../" class="ajax logo" data-target="#right"><img src="../../../img/logo.png"></a><div class="menu"></div>
+              <h3 class="docname font-medium">AdventureWorks</h3>
+            </div></nav><div class="search-box -with-pattern"><input class="search-input" id="search-input" type="text"><label class="search-icon" for="search-input"></label><i class="search-options-btn"></i><div class="search-options-dropdown font-small">
+              <div class="search-options-dropdown-group"><label><input type="checkbox" disabled checked> Search object names
+          </label></div>
+              <div class="search-options-dropdown-group"><label><input type="checkbox" data-search="columns"> Search column names
+          </label></div>
+            </div>
+          </div>
+          <ul class="tree">
+            <li>
+              <ul>
+                <li class=" expand "><i class="&#xA;      icon-database"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/home.html">AdventureWorks</a><ul style="display: none;">
+                    <li class=" expand "><i class="icon-folder"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules.html">Modules</a><ul style="display: none;">
+                        <li class=""><i class="&#xA;      icon-module"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Business_Entities_82/module.html">Business Entities</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=" expand "><i class="&#xA;      icon-module"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/People_8/module.html">People</a><ul style="display: none;">
+                            <li class=" expand "><i class="icon-folder"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/People_8/tables.html">Tables</a><ul style="display: none;">
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/People_8/tables/Person_Address_135.html">Person.Address</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/People_8/tables/Person_AddressType_136.html">Person.AddressType</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/People_8/tables/Person_BusinessEntity_137.html">Person.BusinessEntity</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/People_8/tables/Person_BusinessEntityAddress_138.html">Person.BusinessEntityAddress</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/People_8/tables/Person_BusinessEntityContact_139.html">Person.BusinessEntityContact</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/People_8/tables/Person_ContactType_140.html">Person.ContactType</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/People_8/tables/Person_CountryRegion_141.html">Person.CountryRegion</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/People_8/tables/Person_EmailAddress_142.html">Person.EmailAddress</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/People_8/tables/Person_Password_143.html">Person.Password</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/People_8/tables/Person_Person_144.html">Person.Person</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/People_8/tables/Person_PersonPhone_145.html">Person.PersonPhone</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/People_8/tables/Person_PhoneNumberType_146.html">Person.PhoneNumberType</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/People_8/tables/Person_StateProvince_147.html">Person.StateProvince</a><ul style="display: none;"></ul>
+                                </li>
+                              </ul>
+                            </li>
+                            <li class=" expand "><i class="icon-folder"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/People_8/views.html">Views</a><ul style="display: none;">
+                                <li class=""><i class="&#xA;      icon-view"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/People_8/views/Person_vAdditionalContactInfo_203.html">Person.vAdditionalContactInfo</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-view"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/People_8/views/Person_vStateProvinceCountryRegion_204.html">Person.vStateProvinceCountryRegion</a><ul style="display: none;"></ul>
+                                </li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </li>
+                        <li class=" expand "><i class="&#xA;      icon-module"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Human_Resources_9/module.html">Human Resources</a><ul style="display: none;">
+                            <li class=" expand "><i class="icon-folder"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Human_Resources_9/tables.html">Tables</a><ul style="display: none;">
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Human_Resources_9/tables/HumanResources_Department_129.html">HumanResources.Department</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Human_Resources_9/tables/HumanResources_Employee_130.html">HumanResources.Employee</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Human_Resources_9/tables/HumanResources_EmployeeDepartmentHistory_131.html">HumanResources.EmployeeDepartmentHistory</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Human_Resources_9/tables/HumanResources_EmployeePayHistory_132.html">HumanResources.EmployeePayHistory</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Human_Resources_9/tables/HumanResources_JobCandidate_133.html">HumanResources.JobCandidate</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Human_Resources_9/tables/HumanResources_Shift_134.html">HumanResources.Shift</a><ul style="display: none;"></ul>
+                                </li>
+                              </ul>
+                            </li>
+                            <li class=" expand "><i class="icon-folder"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Human_Resources_9/views.html">Views</a><ul style="display: none;">
+                                <li class=""><i class="&#xA;      icon-view"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Human_Resources_9/views/HumanResources_vEmployee_197.html">HumanResources.vEmployee</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-view"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Human_Resources_9/views/HumanResources_vEmployeeDepartment_198.html">HumanResources.vEmployeeDepartment</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-view"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Human_Resources_9/views/HumanResources_vEmployeeDepartmentHistory_199.html">HumanResources.vEmployeeDepartmentHistory</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-view"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Human_Resources_9/views/HumanResources_vJobCandidate_200.html">HumanResources.vJobCandidate</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-view"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Human_Resources_9/views/HumanResources_vJobCandidateEducation_201.html">HumanResources.vJobCandidateEducation</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-view"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Human_Resources_9/views/HumanResources_vJobCandidateEmployment_202.html">HumanResources.vJobCandidateEmployment</a><ul style="display: none;"></ul>
+                                </li>
+                              </ul>
+                            </li>
+                            <li class=" expand "><i class="icon-folder"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Human_Resources_9/procedures.html">Procedures</a><ul style="display: none;">
+                                <li class=""><i class="&#xA;      icon-procedure"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Human_Resources_9/procedures/dbo_uspGetEmployeeManagers_123.html">dbo.uspGetEmployeeManagers</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-procedure"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Human_Resources_9/procedures/dbo_uspGetManagerEmployees_124.html">dbo.uspGetManagerEmployees</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-procedure"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Human_Resources_9/procedures/dbo_uspSearchCandidateResumes_128.html">dbo.uspSearchCandidateResumes</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-procedure"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Human_Resources_9/procedures/HumanResources_uspUpdateEmployeeHireInfo_129.html">HumanResources.uspUpdateEmployeeHireInfo</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-procedure"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Human_Resources_9/procedures/HumanResources_uspUpdateEmployeeLogin_130.html">HumanResources.uspUpdateEmployeeLogin</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-procedure"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Human_Resources_9/procedures/HumanResources_uspUpdateEmployeePersonalInfo_131.html">HumanResources.uspUpdateEmployeePersonalInfo</a><ul style="display: none;"></ul>
+                                </li>
+                              </ul>
+                            </li>
+                            <li class=" expand "><i class="icon-folder"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Human_Resources_9/functions.html">Functions</a><ul style="display: none;">
+                                <li class=""><i class="&#xA;      icon-function"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Human_Resources_9/functions/dbo_ufnGetContactInformation_111.html">dbo.ufnGetContactInformation</a><ul style="display: none;"></ul>
+                                </li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </li>
+                        <li class=" expand "><i class="&#xA;      icon-module"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Products_10/module.html">Products</a><ul style="display: none;">
+                            <li class=" expand "><i class="icon-folder"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Products_10/tables.html">Tables</a><ul style="display: none;">
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Products_10/tables/Production_Culture_149.html">Production.Culture</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Products_10/tables/Production_Document_150.html">Production.Document</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Products_10/tables/Production_Illustration_151.html">Production.Illustration</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Products_10/tables/Production_Product_153.html">Production.Product</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Products_10/tables/Production_ProductCategory_154.html">Production.ProductCategory</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Products_10/tables/Production_ProductDescription_156.html">Production.ProductDescription</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Products_10/tables/Production_ProductDocument_157.html">Production.ProductDocument</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Products_10/tables/Production_ProductModel_160.html">Production.ProductModel</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Products_10/tables/Production_ProductModelIllustration_161.html">Production.ProductModelIllustration</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Products_10/tables/Production_ProductModelProductDescriptionCulture_162.html">Production.ProductModelProductDescriptionCulture</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Products_10/tables/Production_ProductPhoto_163.html">Production.ProductPhoto</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Products_10/tables/Production_ProductProductPhoto_164.html">Production.ProductProductPhoto</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Products_10/tables/Production_ProductReview_165.html">Production.ProductReview</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Products_10/tables/Production_ProductSubcategory_166.html">Production.ProductSubcategory</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Products_10/tables/Production_UnitMeasure_170.html">Production.UnitMeasure</a><ul style="display: none;"></ul>
+                                </li>
+                              </ul>
+                            </li>
+                            <li class=" expand "><i class="icon-folder"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Products_10/views.html">Views</a><ul style="display: none;">
+                                <li class=""><i class="&#xA;      icon-view"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Products_10/views/Production_vProductAndDescription_205.html">Production.vProductAndDescription</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-view"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Products_10/views/Production_vProductModelCatalogDescription_206.html">Production.vProductModelCatalogDescription</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-view"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Products_10/views/Production_vProductModelInstructions_207.html">Production.vProductModelInstructions</a><ul style="display: none;"></ul>
+                                </li>
+                              </ul>
+                            </li>
+                            <li class=" expand "><i class="icon-folder"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Products_10/procedures.html">Procedures</a><ul style="display: none;">
+                                <li class=""><i class="&#xA;      icon-procedure"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Products_10/procedures/dbo_uspGetBillOfMaterials_122.html">dbo.uspGetBillOfMaterials</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-procedure"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Products_10/procedures/dbo_uspGetWhereUsedProductID_125.html">dbo.uspGetWhereUsedProductID</a><ul style="display: none;"></ul>
+                                </li>
+                              </ul>
+                            </li>
+                            <li class=" expand "><i class="icon-folder"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Products_10/functions.html">Functions</a><ul style="display: none;">
+                                <li class=""><i class="&#xA;      icon-function"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Products_10/functions/dbo_ufnGetDocumentStatusText_114.html">dbo.ufnGetDocumentStatusText</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-function"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Products_10/functions/dbo_ufnGetProductDealerPrice_115.html">dbo.ufnGetProductDealerPrice</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-function"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Products_10/functions/dbo_ufnGetProductListPrice_116.html">dbo.ufnGetProductListPrice</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-function"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Products_10/functions/dbo_ufnGetProductStandardCost_117.html">dbo.ufnGetProductStandardCost</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-function"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Products_10/functions/dbo_ufnGetStock_120.html">dbo.ufnGetStock</a><ul style="display: none;"></ul>
+                                </li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </li>
+                        <li class=" expand "><i class="&#xA;      icon-module"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Manufacturing_81/module.html">Manufacturing</a><ul style="display: none;">
+                            <li class=" expand "><i class="icon-folder"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Manufacturing_81/tables.html">Tables</a><ul style="display: none;">
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Manufacturing_81/tables/Production_BillOfMaterials_148.html">Production.BillOfMaterials</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Manufacturing_81/tables/Production_ProductCostHistory_155.html">Production.ProductCostHistory</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Manufacturing_81/tables/Production_ProductListPriceHistory_159.html">Production.ProductListPriceHistory</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Manufacturing_81/tables/Production_ScrapReason_167.html">Production.ScrapReason</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Manufacturing_81/tables/Production_TransactionHistory_168.html">Production.TransactionHistory</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Manufacturing_81/tables/Production_TransactionHistoryArchive_169.html">Production.TransactionHistoryArchive</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Manufacturing_81/tables/Production_WorkOrder_171.html">Production.WorkOrder</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Manufacturing_81/tables/Production_WorkOrderRouting_172.html">Production.WorkOrderRouting</a><ul style="display: none;"></ul>
+                                </li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </li>
+                        <li class=" expand "><i class="&#xA;      icon-module"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Purchasing_11/module.html">Purchasing</a><ul style="display: none;">
+                            <li class=" expand "><i class="icon-folder"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Purchasing_11/tables.html">Tables</a><ul style="display: none;">
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Purchasing_11/tables/Purchasing_ProductVendor_173.html">Purchasing.ProductVendor</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Purchasing_11/tables/Purchasing_PurchaseOrderDetail_174.html">Purchasing.PurchaseOrderDetail</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Purchasing_11/tables/Purchasing_PurchaseOrderHeader_175.html">Purchasing.PurchaseOrderHeader</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Purchasing_11/tables/Purchasing_ShipMethod_176.html">Purchasing.ShipMethod</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Purchasing_11/tables/Purchasing_Vendor_177.html">Purchasing.Vendor</a><ul style="display: none;"></ul>
+                                </li>
+                              </ul>
+                            </li>
+                            <li class=" expand "><i class="icon-folder"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Purchasing_11/views.html">Views</a><ul style="display: none;">
+                                <li class=""><i class="&#xA;      icon-view"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Purchasing_11/views/Purchasing_vVendorWithAddresses_208.html">Purchasing.vVendorWithAddresses</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-view"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Purchasing_11/views/Purchasing_vVendorWithContacts_209.html">Purchasing.vVendorWithContacts</a><ul style="display: none;"></ul>
+                                </li>
+                              </ul>
+                            </li>
+                            <li class=" expand "><i class="icon-folder"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Purchasing_11/functions.html">Functions</a><ul style="display: none;">
+                                <li class=""><i class="&#xA;      icon-function"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Purchasing_11/functions/dbo_ufnGetPurchaseOrderStatusText_118.html">dbo.ufnGetPurchaseOrderStatusText</a><ul style="display: none;"></ul>
+                                </li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </li>
+                        <li class=" expand "><i class="&#xA;      icon-module"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Inventory_80/module.html">Inventory</a><ul style="display: none;">
+                            <li class=" expand "><i class="icon-folder"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Inventory_80/tables.html">Tables</a><ul style="display: none;">
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Inventory_80/tables/Production_Location_152.html">Production.Location</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Inventory_80/tables/Production_ProductInventory_158.html">Production.ProductInventory</a><ul style="display: none;"></ul>
+                                </li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </li>
+                        <li class=" expand "><i class="&#xA;      icon-module"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Sales_12/module.html">Sales</a><ul style="display: none;">
+                            <li class=" expand "><i class="icon-folder"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Sales_12/tables.html">Tables</a><ul style="display: none;">
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Sales_12/tables/Sales_CountryRegionCurrency_178.html">Sales.CountryRegionCurrency</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Sales_12/tables/Sales_CreditCard_179.html">Sales.CreditCard</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Sales_12/tables/Sales_Currency_180.html">Sales.Currency</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Sales_12/tables/Sales_CurrencyRate_181.html">Sales.CurrencyRate</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Sales_12/tables/Sales_Customer_182.html">Sales.Customer</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Sales_12/tables/Sales_PersonCreditCard_183.html">Sales.PersonCreditCard</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Sales_12/tables/Sales_SalesOrderDetail_184.html">Sales.SalesOrderDetail</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Sales_12/tables/Sales_SalesOrderHeader_185.html">Sales.SalesOrderHeader</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Sales_12/tables/Sales_SalesOrderHeaderSalesReason_186.html">Sales.SalesOrderHeaderSalesReason</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Sales_12/tables/Sales_SalesPerson_187.html">Sales.SalesPerson</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Sales_12/tables/Sales_SalesPersonQuotaHistory_188.html">Sales.SalesPersonQuotaHistory</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Sales_12/tables/Sales_SalesReason_189.html">Sales.SalesReason</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Sales_12/tables/Sales_SalesTaxRate_190.html">Sales.SalesTaxRate</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Sales_12/tables/Sales_SalesTerritory_191.html">Sales.SalesTerritory</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Sales_12/tables/Sales_SalesTerritoryHistory_192.html">Sales.SalesTerritoryHistory</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Sales_12/tables/Sales_ShoppingCartItem_193.html">Sales.ShoppingCartItem</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Sales_12/tables/Sales_SpecialOffer_194.html">Sales.SpecialOffer</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Sales_12/tables/Sales_SpecialOfferProduct_195.html">Sales.SpecialOfferProduct</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Sales_12/tables/Sales_Store_196.html">Sales.Store</a><ul style="display: none;"></ul>
+                                </li>
+                              </ul>
+                            </li>
+                            <li class=" expand "><i class="icon-folder"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Sales_12/views.html">Views</a><ul style="display: none;">
+                                <li class=""><i class="&#xA;      icon-view"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Sales_12/views/Sales_vIndividualCustomer_210.html">Sales.vIndividualCustomer</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-view"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Sales_12/views/Sales_vPersonDemographics_211.html">Sales.vPersonDemographics</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-view"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Sales_12/views/Sales_vSalesPerson_212.html">Sales.vSalesPerson</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-view"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Sales_12/views/Sales_vSalesPersonSalesByFiscalYears_213.html">Sales.vSalesPersonSalesByFiscalYears</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-view"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Sales_12/views/Sales_vStoreWithAddresses_214.html">Sales.vStoreWithAddresses</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-view"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Sales_12/views/Sales_vStoreWithContacts_215.html">Sales.vStoreWithContacts</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-view"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Sales_12/views/Sales_vStoreWithDemographics_216.html">Sales.vStoreWithDemographics</a><ul style="display: none;"></ul>
+                                </li>
+                              </ul>
+                            </li>
+                            <li class=" expand "><i class="icon-folder"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Sales_12/functions.html">Functions</a><ul style="display: none;">
+                                <li class=""><i class="&#xA;      icon-function"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Sales_12/functions/dbo_ufnGetAccountingEndDate_112.html">dbo.ufnGetAccountingEndDate</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-function"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Sales_12/functions/dbo_ufnGetAccountingStartDate_113.html">dbo.ufnGetAccountingStartDate</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-function"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Sales_12/functions/dbo_ufnGetSalesOrderStatusText_119.html">dbo.ufnGetSalesOrderStatusText</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-function"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Sales_12/functions/dbo_ufnLeadingZeros_121.html">dbo.ufnLeadingZeros</a><ul style="display: none;"></ul>
+                                </li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </li>
+                        <li class=" expand "><i class="&#xA;      icon-module"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Admin_13/module.html">Admin</a><ul style="display: none;">
+                            <li class=" expand "><i class="icon-folder"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Admin_13/tables.html">Tables</a><ul style="display: none;">
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Admin_13/tables/dbo_AWBuildVersion_126.html">dbo.AWBuildVersion</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Admin_13/tables/dbo_DatabaseLog_127.html">dbo.DatabaseLog</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Admin_13/tables/dbo_ErrorLog_128.html">dbo.ErrorLog</a><ul style="display: none;"></ul>
+                                </li>
+                              </ul>
+                            </li>
+                            <li class=" expand "><i class="icon-folder"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Admin_13/procedures.html">Procedures</a><ul style="display: none;">
+                                <li class=""><i class="&#xA;      icon-procedure"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Admin_13/procedures/dbo_uspLogError_126.html">dbo.uspLogError</a><ul style="display: none;"></ul>
+                                </li>
+                                <li class=""><i class="&#xA;      icon-procedure"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/modules/Admin_13/procedures/dbo_uspPrintError_127.html">dbo.uspPrintError</a><ul style="display: none;"></ul>
+                                </li>
+                              </ul>
+                            </li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class=" expand "><i class="icon-folder"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables.html">Tables</a><ul style="display: none;">
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/dbo_AWBuildVersion_126.html">dbo.AWBuildVersion</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/dbo_DatabaseLog_127.html">dbo.DatabaseLog</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/dbo_ErrorLog_128.html">dbo.ErrorLog</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/HumanResources_Department_129.html">HumanResources.Department</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/HumanResources_Employee_130.html">HumanResources.Employee</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/HumanResources_EmployeeDepartmentHistory_131.html">HumanResources.EmployeeDepartmentHistory</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/HumanResources_EmployeePayHistory_132.html">HumanResources.EmployeePayHistory</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/HumanResources_JobCandidate_133.html">HumanResources.JobCandidate</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/HumanResources_Shift_134.html">HumanResources.Shift</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Person_Address_135.html">Person.Address</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Person_AddressType_136.html">Person.AddressType</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Person_BusinessEntity_137.html">Person.BusinessEntity</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Person_BusinessEntityAddress_138.html">Person.BusinessEntityAddress</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Person_BusinessEntityContact_139.html">Person.BusinessEntityContact</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Person_ContactType_140.html">Person.ContactType</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Person_CountryRegion_141.html">Person.CountryRegion</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Person_EmailAddress_142.html">Person.EmailAddress</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Person_Password_143.html">Person.Password</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Person_Person_144.html">Person.Person</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Person_PersonPhone_145.html">Person.PersonPhone</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Person_PhoneNumberType_146.html">Person.PhoneNumberType</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Person_StateProvince_147.html">Person.StateProvince</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Production_BillOfMaterials_148.html">Production.BillOfMaterials</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Production_Culture_149.html">Production.Culture</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Production_Document_150.html">Production.Document</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Production_Illustration_151.html">Production.Illustration</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Production_Location_152.html">Production.Location</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Production_Product_153.html">Production.Product</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Production_ProductCategory_154.html">Production.ProductCategory</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Production_ProductCostHistory_155.html">Production.ProductCostHistory</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Production_ProductDescription_156.html">Production.ProductDescription</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Production_ProductDocument_157.html">Production.ProductDocument</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Production_ProductInventory_158.html">Production.ProductInventory</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Production_ProductListPriceHistory_159.html">Production.ProductListPriceHistory</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Production_ProductModel_160.html">Production.ProductModel</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Production_ProductModelIllustration_161.html">Production.ProductModelIllustration</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Production_ProductModelProductDescriptionCulture_162.html">Production.ProductModelProductDescriptionCulture</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Production_ProductPhoto_163.html">Production.ProductPhoto</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Production_ProductProductPhoto_164.html">Production.ProductProductPhoto</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Production_ProductReview_165.html">Production.ProductReview</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Production_ProductSubcategory_166.html">Production.ProductSubcategory</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Production_ScrapReason_167.html">Production.ScrapReason</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Production_TransactionHistory_168.html">Production.TransactionHistory</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Production_TransactionHistoryArchive_169.html">Production.TransactionHistoryArchive</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Production_UnitMeasure_170.html">Production.UnitMeasure</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Production_WorkOrder_171.html">Production.WorkOrder</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Production_WorkOrderRouting_172.html">Production.WorkOrderRouting</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Purchasing_ProductVendor_173.html">Purchasing.ProductVendor</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Purchasing_PurchaseOrderDetail_174.html">Purchasing.PurchaseOrderDetail</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Purchasing_PurchaseOrderHeader_175.html">Purchasing.PurchaseOrderHeader</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Purchasing_ShipMethod_176.html">Purchasing.ShipMethod</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Purchasing_Vendor_177.html">Purchasing.Vendor</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Sales_CountryRegionCurrency_178.html">Sales.CountryRegionCurrency</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Sales_CreditCard_179.html">Sales.CreditCard</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Sales_Currency_180.html">Sales.Currency</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Sales_CurrencyRate_181.html">Sales.CurrencyRate</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Sales_Customer_182.html">Sales.Customer</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Sales_PersonCreditCard_183.html">Sales.PersonCreditCard</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Sales_SalesOrderDetail_184.html">Sales.SalesOrderDetail</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Sales_SalesOrderHeader_185.html">Sales.SalesOrderHeader</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Sales_SalesOrderHeaderSalesReason_186.html">Sales.SalesOrderHeaderSalesReason</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Sales_SalesPerson_187.html">Sales.SalesPerson</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Sales_SalesPersonQuotaHistory_188.html">Sales.SalesPersonQuotaHistory</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Sales_SalesReason_189.html">Sales.SalesReason</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Sales_SalesTaxRate_190.html">Sales.SalesTaxRate</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Sales_SalesTerritory_191.html">Sales.SalesTerritory</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Sales_SalesTerritoryHistory_192.html">Sales.SalesTerritoryHistory</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Sales_ShoppingCartItem_193.html">Sales.ShoppingCartItem</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Sales_SpecialOffer_194.html">Sales.SpecialOffer</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Sales_SpecialOfferProduct_195.html">Sales.SpecialOfferProduct</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-table"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/tables/Sales_Store_196.html">Sales.Store</a><ul style="display: none;"></ul>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class=" expand "><i class="icon-folder"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/views.html">Views</a><ul style="display: none;">
+                        <li class=""><i class="&#xA;      icon-view"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/views/HumanResources_vEmployee_197.html">HumanResources.vEmployee</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-view"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/views/HumanResources_vEmployeeDepartment_198.html">HumanResources.vEmployeeDepartment</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-view"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/views/HumanResources_vEmployeeDepartmentHistory_199.html">HumanResources.vEmployeeDepartmentHistory</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-view"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/views/HumanResources_vJobCandidate_200.html">HumanResources.vJobCandidate</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-view"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/views/HumanResources_vJobCandidateEducation_201.html">HumanResources.vJobCandidateEducation</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-view"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/views/HumanResources_vJobCandidateEmployment_202.html">HumanResources.vJobCandidateEmployment</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-view"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/views/Person_vAdditionalContactInfo_203.html">Person.vAdditionalContactInfo</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-view"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/views/Person_vStateProvinceCountryRegion_204.html">Person.vStateProvinceCountryRegion</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-view"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/views/Production_vProductAndDescription_205.html">Production.vProductAndDescription</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-view"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/views/Production_vProductModelCatalogDescription_206.html">Production.vProductModelCatalogDescription</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-view"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/views/Production_vProductModelInstructions_207.html">Production.vProductModelInstructions</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-view"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/views/Purchasing_vVendorWithAddresses_208.html">Purchasing.vVendorWithAddresses</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-view"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/views/Purchasing_vVendorWithContacts_209.html">Purchasing.vVendorWithContacts</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-view"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/views/Sales_vIndividualCustomer_210.html">Sales.vIndividualCustomer</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-view"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/views/Sales_vPersonDemographics_211.html">Sales.vPersonDemographics</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-view"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/views/Sales_vSalesPerson_212.html">Sales.vSalesPerson</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-view"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/views/Sales_vSalesPersonSalesByFiscalYears_213.html">Sales.vSalesPersonSalesByFiscalYears</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-view"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/views/Sales_vStoreWithAddresses_214.html">Sales.vStoreWithAddresses</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-view"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/views/Sales_vStoreWithContacts_215.html">Sales.vStoreWithContacts</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-view"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/views/Sales_vStoreWithDemographics_216.html">Sales.vStoreWithDemographics</a><ul style="display: none;"></ul>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class=" expand "><i class="icon-folder"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/procedures.html">Procedures</a><ul style="display: none;">
+                        <li class=""><i class="&#xA;      icon-procedure"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/procedures/dbo_uspGetBillOfMaterials_122.html">dbo.uspGetBillOfMaterials</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-procedure"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/procedures/dbo_uspGetEmployeeManagers_123.html">dbo.uspGetEmployeeManagers</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-procedure"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/procedures/dbo_uspGetManagerEmployees_124.html">dbo.uspGetManagerEmployees</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-procedure"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/procedures/dbo_uspGetWhereUsedProductID_125.html">dbo.uspGetWhereUsedProductID</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-procedure"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/procedures/dbo_uspLogError_126.html">dbo.uspLogError</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-procedure"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/procedures/dbo_uspPrintError_127.html">dbo.uspPrintError</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-procedure"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/procedures/dbo_uspSearchCandidateResumes_128.html">dbo.uspSearchCandidateResumes</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-procedure"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/procedures/HumanResources_uspUpdateEmployeeHireInfo_129.html">HumanResources.uspUpdateEmployeeHireInfo</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-procedure"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/procedures/HumanResources_uspUpdateEmployeeLogin_130.html">HumanResources.uspUpdateEmployeeLogin</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-procedure"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/procedures/HumanResources_uspUpdateEmployeePersonalInfo_131.html">HumanResources.uspUpdateEmployeePersonalInfo</a><ul style="display: none;"></ul>
+                        </li>
+                      </ul>
+                    </li>
+                    <li class=" expand "><i class="icon-folder"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/functions.html">Functions</a><ul style="display: none;">
+                        <li class=""><i class="&#xA;      icon-function"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/functions/dbo_ufnGetAccountingEndDate_112.html">dbo.ufnGetAccountingEndDate</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-function"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/functions/dbo_ufnGetAccountingStartDate_113.html">dbo.ufnGetAccountingStartDate</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-function"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/functions/dbo_ufnGetContactInformation_111.html">dbo.ufnGetContactInformation</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-function"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/functions/dbo_ufnGetDocumentStatusText_114.html">dbo.ufnGetDocumentStatusText</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-function"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/functions/dbo_ufnGetProductDealerPrice_115.html">dbo.ufnGetProductDealerPrice</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-function"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/functions/dbo_ufnGetProductListPrice_116.html">dbo.ufnGetProductListPrice</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-function"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/functions/dbo_ufnGetProductStandardCost_117.html">dbo.ufnGetProductStandardCost</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-function"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/functions/dbo_ufnGetPurchaseOrderStatusText_118.html">dbo.ufnGetPurchaseOrderStatusText</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-function"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/functions/dbo_ufnGetSalesOrderStatusText_119.html">dbo.ufnGetSalesOrderStatusText</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-function"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/functions/dbo_ufnGetStock_120.html">dbo.ufnGetStock</a><ul style="display: none;"></ul>
+                        </li>
+                        <li class=""><i class="&#xA;      icon-function"></i><a class="ajax" data-target="#right" href="../../../doc/AdventureWorks_2/functions/dbo_ufnLeadingZeros_121.html">dbo.ufnLeadingZeros</a><ul style="display: none;"></ul>
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <div id="left-footer">
+        Generated with <strong><a href="http://dataedo.com">Dataedo</a></strong></div>
+      </div>
+      <div id="content" class="resizable-right">
+        <div id="right">
+          <div id="header" class="cf">
+            <div id="breadcrumb" class="font-small"><a href="../../../index.html" class="ajax" data-target="#right">Repository</a> › <a href="../../../doc/AdventureWorks_2/home.html" class="ajax" data-target="#right">AdventureWorks</a> › <a href="../../../doc/AdventureWorks_2/tables.html" class="ajax" data-target="#right">Tables</a> › <a href="../../../doc/AdventureWorks_2/tables/Sales_SalesOrderHeader_185.html" class="ajax" data-target="#right">Sales.SalesOrderHeader</a></div>
+            <div id="tools">
+              <div class="font-size"><a data-class="font-size-small" class="small"> A </a><a data-class="font-size-medium" class="medium"> A </a><a data-class="font-size-large" class="large"> A </a></div>
+            </div>
+          </div>
+          <h1 class="sticky-header"><i class="&#xA;      icon2x-table" title="Table"></i>Sales.SalesOrderHeader</h1>
+          <table class="table table-vertical">
+            <tbody>
+              <tr>
+                <td>Documentation</td>
+                <td class="">AdventureWorks</td>
+              </tr>
+              <tr>
+                <td>Schema</td>
+                <td class="">Sales</td>
+              </tr>
+              <tr>
+                <td>Name</td>
+                <td class="">SalesOrderHeader</td>
+              </tr>
+              <tr>
+                <td>Module</td>
+                <td><a href="../../../doc/AdventureWorks_2/modules/Sales_12/module.html" class="ajax" data-target="#right">Sales</a></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="element description">
+            <div class="html user-description"><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><title>
+		</title>
+		<style type="text/css">
+			.cs2654AE3A{text-align:left;text-indent:0pt;margin:0pt 0pt 0pt 0pt}
+			.cs82292024{color:#000000;background-color:transparent;font-family:Segoe UI;font-size:10pt;font-weight:normal;font-style:normal;}
+		</style>
+	</head>
+	<body>
+		<p class="cs2654AE3A"><span class="cs82292024">General sales order information.</span></p></body>
+</html>
+</div>
+          </div>
+          <div class="collapsible" data-key="columns">
+            <div class="collapsible-link font-large font-bold">Columns</div>
+            <div class="collapsible-area">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th></th>
+                    <th>Key</th>
+                    <th>Name</th>
+                    <th>Data type</th>
+                    <th>Null</th>
+                    <th class="only-desktop">Attributes</th>
+                    <th class="only-desktop">References</th>
+                    <th class="only-desktop">Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><i class="icon-column no-margin" title="Column"></i></td>
+                    <td>1</td>
+                    <td><i class="icon-key no-margin" title="Primary key"></i></td>
+                    <td rel="column-full-name">SalesOrderID</td>
+                    <td>int</td>
+                    <td style="text-align: center;"></td>
+                    <td class="only-desktop"><span title="Identity or auto increment column">Identity</span></td>
+                    <td class="only-desktop"></td>
+                    <td class="only-desktop user-description">Primary key.</td>
+                  </tr>
+                  <tr class="only-mobile">
+                    <td colspan="5"><span class="user-description">Primary key.</span><br><span title="Identity or auto increment column">Identity</span><br></td>
+                  </tr>
+                  <tr>
+                    <td><i class="icon-column no-margin" title="Column"></i></td>
+                    <td>2</td>
+                    <td></td>
+                    <td rel="column-full-name">RevisionNumber</td>
+                    <td>tinyint</td>
+                    <td style="text-align: center;"></td>
+                    <td class="only-desktop">
+      Default:
+      0</td>
+                    <td class="only-desktop"></td>
+                    <td class="only-desktop user-description">Incremental number to track changes to the sales order over time.</td>
+                  </tr>
+                  <tr class="only-mobile">
+                    <td colspan="5"><span class="user-description">Incremental number to track changes to the sales order over time.</span><br>
+      Default:
+      0<br></td>
+                  </tr>
+                  <tr>
+                    <td><i class="icon-column no-margin" title="Column"></i></td>
+                    <td>3</td>
+                    <td></td>
+                    <td rel="column-full-name">OrderDate</td>
+                    <td>datetime</td>
+                    <td style="text-align: center;"></td>
+                    <td class="only-desktop">
+      Default:
+      getdate()</td>
+                    <td class="only-desktop"></td>
+                    <td class="only-desktop user-description">Dates the sales order was created.</td>
+                  </tr>
+                  <tr class="only-mobile">
+                    <td colspan="5"><span class="user-description">Dates the sales order was created.</span><br>
+      Default:
+      getdate()<br></td>
+                  </tr>
+                  <tr>
+                    <td><i class="icon-column no-margin" title="Column"></i></td>
+                    <td>4</td>
+                    <td></td>
+                    <td rel="column-full-name">DueDate</td>
+                    <td>datetime</td>
+                    <td style="text-align: center;"></td>
+                    <td class="only-desktop"></td>
+                    <td class="only-desktop"></td>
+                    <td class="only-desktop user-description">Date the order is due to the customer.</td>
+                  </tr>
+                  <tr class="only-mobile">
+                    <td colspan="5"><span class="user-description">Date the order is due to the customer.</span><br></td>
+                  </tr>
+                  <tr>
+                    <td><i class="icon-column no-margin" title="Column"></i></td>
+                    <td>5</td>
+                    <td></td>
+                    <td rel="column-full-name">ShipDate</td>
+                    <td>datetime</td>
+                    <td style="text-align: center;"><i class="icon-check no-margin" title="Nullable"></i></td>
+                    <td class="only-desktop"></td>
+                    <td class="only-desktop"></td>
+                    <td class="only-desktop user-description">Date the order was shipped to the customer.</td>
+                  </tr>
+                  <tr class="only-mobile">
+                    <td colspan="5"><span class="user-description">Date the order was shipped to the customer.</span><br></td>
+                  </tr>
+                  <tr>
+                    <td><i class="icon-column no-margin" title="Column"></i></td>
+                    <td>6</td>
+                    <td></td>
+                    <td rel="column-full-name">Status</td>
+                    <td>tinyint</td>
+                    <td style="text-align: center;"></td>
+                    <td class="only-desktop">
+      Default:
+      1</td>
+                    <td class="only-desktop"></td>
+                    <td class="only-desktop user-description">Order current status. 1 = In process; 2 = Approved; 3 = Backordered; 4 = Rejected; 5 = Shipped; 6 = Cancelled</td>
+                  </tr>
+                  <tr class="only-mobile">
+                    <td colspan="5"><span class="user-description">Order current status. 1 = In process; 2 = Approved; 3 = Backordered; 4 = Rejected; 5 = Shipped; 6 = Cancelled</span><br>
+      Default:
+      1<br></td>
+                  </tr>
+                  <tr>
+                    <td><i class="icon-column no-margin" title="Column"></i></td>
+                    <td>7</td>
+                    <td></td>
+                    <td rel="column-full-name">OnlineOrderFlag</td>
+                    <td>bit</td>
+                    <td style="text-align: center;"></td>
+                    <td class="only-desktop">
+      Default:
+      1</td>
+                    <td class="only-desktop"></td>
+                    <td class="only-desktop user-description">0 = Order placed by sales person. 1 = Order placed online by customer.</td>
+                  </tr>
+                  <tr class="only-mobile">
+                    <td colspan="5"><span class="user-description">0 = Order placed by sales person. 1 = Order placed online by customer.</span><br>
+      Default:
+      1<br></td>
+                  </tr>
+                  <tr>
+                    <td><i class="icon-column no-margin" title="Column"></i></td>
+                    <td>8</td>
+                    <td><i class="icon-unique-key no-margin" title="Unique key"></i></td>
+                    <td rel="column-full-name">SalesOrderNumber</td>
+                    <td>nvarchar(25)</td>
+                    <td style="text-align: center;"></td>
+                    <td class="only-desktop">
+      Computed:
+      isnull(N'SO'+CONVERT([nvarchar](23),[SalesOrderID]),N'*** ERROR ***')</td>
+                    <td class="only-desktop"></td>
+                    <td class="only-desktop user-description">Unique sales order identification number.</td>
+                  </tr>
+                  <tr class="only-mobile">
+                    <td colspan="5"><span class="user-description">Unique sales order identification number.</span><br>
+      Computed:
+      isnull(N'SO'+CONVERT([nvarchar](23),[SalesOrderID]),N'*** ERROR ***')<br></td>
+                  </tr>
+                  <tr>
+                    <td><i class="icon-column no-margin" title="Column"></i></td>
+                    <td>9</td>
+                    <td></td>
+                    <td rel="column-full-name">PurchaseOrderNumber</td>
+                    <td>nvarchar(25)</td>
+                    <td style="text-align: center;"><i class="icon-check no-margin" title="Nullable"></i></td>
+                    <td class="only-desktop"></td>
+                    <td class="only-desktop"></td>
+                    <td class="only-desktop user-description">Customer purchase order number reference. </td>
+                  </tr>
+                  <tr class="only-mobile">
+                    <td colspan="5"><span class="user-description">Customer purchase order number reference. </span><br></td>
+                  </tr>
+                  <tr>
+                    <td><i class="icon-column no-margin" title="Column"></i></td>
+                    <td>10</td>
+                    <td></td>
+                    <td rel="column-full-name">AccountNumber</td>
+                    <td>nvarchar(15)</td>
+                    <td style="text-align: center;"><i class="icon-check no-margin" title="Nullable"></i></td>
+                    <td class="only-desktop"></td>
+                    <td class="only-desktop"></td>
+                    <td class="only-desktop user-description">Financial accounting number reference.</td>
+                  </tr>
+                  <tr class="only-mobile">
+                    <td colspan="5"><span class="user-description">Financial accounting number reference.</span><br></td>
+                  </tr>
+                  <tr>
+                    <td><i class="icon-column no-margin" title="Column"></i></td>
+                    <td>11</td>
+                    <td></td>
+                    <td rel="column-full-name">CustomerID</td>
+                    <td>int</td>
+                    <td style="text-align: center;"></td>
+                    <td class="only-desktop"></td>
+                    <td class="only-desktop"><a href="../../../doc/AdventureWorks_2/tables/Sales_Customer_182.html" class="ajax" data-target="#right">Sales.Customer</a></td>
+                    <td class="only-desktop user-description">Customer identification number. Foreign key to Customer.BusinessEntityID.</td>
+                  </tr>
+                  <tr class="only-mobile">
+                    <td colspan="5"><span class="user-description">Customer identification number. Foreign key to Customer.BusinessEntityID.</span><br>
+            References:
+            <a href="../../../doc/AdventureWorks_2/tables/Sales_Customer_182.html" class="ajax" data-target="#right">Sales.Customer</a><br></td>
+                  </tr>
+                  <tr>
+                    <td><i class="icon-column no-margin" title="Column"></i></td>
+                    <td>12</td>
+                    <td></td>
+                    <td rel="column-full-name">SalesPersonID</td>
+                    <td>int</td>
+                    <td style="text-align: center;"><i class="icon-check no-margin" title="Nullable"></i></td>
+                    <td class="only-desktop"></td>
+                    <td class="only-desktop"><a href="../../../doc/AdventureWorks_2/tables/Sales_SalesPerson_187.html" class="ajax" data-target="#right">Sales.SalesPerson</a></td>
+                    <td class="only-desktop user-description">Sales person who created the sales order. Foreign key to SalesPerson.BusinessEntityID.</td>
+                  </tr>
+                  <tr class="only-mobile">
+                    <td colspan="5"><span class="user-description">Sales person who created the sales order. Foreign key to SalesPerson.BusinessEntityID.</span><br>
+            References:
+            <a href="../../../doc/AdventureWorks_2/tables/Sales_SalesPerson_187.html" class="ajax" data-target="#right">Sales.SalesPerson</a><br></td>
+                  </tr>
+                  <tr>
+                    <td><i class="icon-column no-margin" title="Column"></i></td>
+                    <td>13</td>
+                    <td></td>
+                    <td rel="column-full-name">TerritoryID</td>
+                    <td>int</td>
+                    <td style="text-align: center;"><i class="icon-check no-margin" title="Nullable"></i></td>
+                    <td class="only-desktop"></td>
+                    <td class="only-desktop"><a href="../../../doc/AdventureWorks_2/tables/Sales_SalesTerritory_191.html" class="ajax" data-target="#right">Sales.SalesTerritory</a></td>
+                    <td class="only-desktop user-description">Territory in which the sale was made. Foreign key to SalesTerritory.SalesTerritoryID.</td>
+                  </tr>
+                  <tr class="only-mobile">
+                    <td colspan="5"><span class="user-description">Territory in which the sale was made. Foreign key to SalesTerritory.SalesTerritoryID.</span><br>
+            References:
+            <a href="../../../doc/AdventureWorks_2/tables/Sales_SalesTerritory_191.html" class="ajax" data-target="#right">Sales.SalesTerritory</a><br></td>
+                  </tr>
+                  <tr>
+                    <td><i class="icon-column no-margin" title="Column"></i></td>
+                    <td>14</td>
+                    <td></td>
+                    <td rel="column-full-name">BillToAddressID</td>
+                    <td>int</td>
+                    <td style="text-align: center;"></td>
+                    <td class="only-desktop"></td>
+                    <td class="only-desktop"><a href="../../../doc/AdventureWorks_2/tables/Person_Address_135.html" class="ajax" data-target="#right">Person.Address</a></td>
+                    <td class="only-desktop user-description">Customer billing address. Foreign key to Address.AddressID.</td>
+                  </tr>
+                  <tr class="only-mobile">
+                    <td colspan="5"><span class="user-description">Customer billing address. Foreign key to Address.AddressID.</span><br>
+            References:
+            <a href="../../../doc/AdventureWorks_2/tables/Person_Address_135.html" class="ajax" data-target="#right">Person.Address</a><br></td>
+                  </tr>
+                  <tr>
+                    <td><i class="icon-column no-margin" title="Column"></i></td>
+                    <td>15</td>
+                    <td></td>
+                    <td rel="column-full-name">ShipToAddressID</td>
+                    <td>int</td>
+                    <td style="text-align: center;"></td>
+                    <td class="only-desktop"></td>
+                    <td class="only-desktop"><a href="../../../doc/AdventureWorks_2/tables/Person_Address_135.html" class="ajax" data-target="#right">Person.Address</a></td>
+                    <td class="only-desktop user-description">Customer shipping address. Foreign key to Address.AddressID.</td>
+                  </tr>
+                  <tr class="only-mobile">
+                    <td colspan="5"><span class="user-description">Customer shipping address. Foreign key to Address.AddressID.</span><br>
+            References:
+            <a href="../../../doc/AdventureWorks_2/tables/Person_Address_135.html" class="ajax" data-target="#right">Person.Address</a><br></td>
+                  </tr>
+                  <tr>
+                    <td><i class="icon-column no-margin" title="Column"></i></td>
+                    <td>16</td>
+                    <td></td>
+                    <td rel="column-full-name">ShipMethodID</td>
+                    <td>int</td>
+                    <td style="text-align: center;"></td>
+                    <td class="only-desktop"></td>
+                    <td class="only-desktop"><a href="../../../doc/AdventureWorks_2/tables/Purchasing_ShipMethod_176.html" class="ajax" data-target="#right">Purchasing.ShipMethod</a></td>
+                    <td class="only-desktop user-description">Shipping method. Foreign key to ShipMethod.ShipMethodID.</td>
+                  </tr>
+                  <tr class="only-mobile">
+                    <td colspan="5"><span class="user-description">Shipping method. Foreign key to ShipMethod.ShipMethodID.</span><br>
+            References:
+            <a href="../../../doc/AdventureWorks_2/tables/Purchasing_ShipMethod_176.html" class="ajax" data-target="#right">Purchasing.ShipMethod</a><br></td>
+                  </tr>
+                  <tr>
+                    <td><i class="icon-column no-margin" title="Column"></i></td>
+                    <td>17</td>
+                    <td></td>
+                    <td rel="column-full-name">CreditCardID</td>
+                    <td>int</td>
+                    <td style="text-align: center;"><i class="icon-check no-margin" title="Nullable"></i></td>
+                    <td class="only-desktop"></td>
+                    <td class="only-desktop"><a href="../../../doc/AdventureWorks_2/tables/Sales_CreditCard_179.html" class="ajax" data-target="#right">Sales.CreditCard</a></td>
+                    <td class="only-desktop user-description">Credit card identification number. Foreign key to CreditCard.CreditCardID.</td>
+                  </tr>
+                  <tr class="only-mobile">
+                    <td colspan="5"><span class="user-description">Credit card identification number. Foreign key to CreditCard.CreditCardID.</span><br>
+            References:
+            <a href="../../../doc/AdventureWorks_2/tables/Sales_CreditCard_179.html" class="ajax" data-target="#right">Sales.CreditCard</a><br></td>
+                  </tr>
+                  <tr>
+                    <td><i class="icon-column no-margin" title="Column"></i></td>
+                    <td>18</td>
+                    <td></td>
+                    <td rel="column-full-name">CreditCardApprovalCode</td>
+                    <td>varchar(15)</td>
+                    <td style="text-align: center;"><i class="icon-check no-margin" title="Nullable"></i></td>
+                    <td class="only-desktop"></td>
+                    <td class="only-desktop"></td>
+                    <td class="only-desktop user-description">Approval code provided by the credit card company.</td>
+                  </tr>
+                  <tr class="only-mobile">
+                    <td colspan="5"><span class="user-description">Approval code provided by the credit card company.</span><br></td>
+                  </tr>
+                  <tr>
+                    <td><i class="icon-column no-margin" title="Column"></i></td>
+                    <td>19</td>
+                    <td></td>
+                    <td rel="column-full-name">CurrencyRateID</td>
+                    <td>int</td>
+                    <td style="text-align: center;"><i class="icon-check no-margin" title="Nullable"></i></td>
+                    <td class="only-desktop"></td>
+                    <td class="only-desktop"><a href="../../../doc/AdventureWorks_2/tables/Sales_CurrencyRate_181.html" class="ajax" data-target="#right">Sales.CurrencyRate</a></td>
+                    <td class="only-desktop user-description">Currency exchange rate used. Foreign key to CurrencyRate.CurrencyRateID.</td>
+                  </tr>
+                  <tr class="only-mobile">
+                    <td colspan="5"><span class="user-description">Currency exchange rate used. Foreign key to CurrencyRate.CurrencyRateID.</span><br>
+            References:
+            <a href="../../../doc/AdventureWorks_2/tables/Sales_CurrencyRate_181.html" class="ajax" data-target="#right">Sales.CurrencyRate</a><br></td>
+                  </tr>
+                  <tr>
+                    <td><i class="icon-column no-margin" title="Column"></i></td>
+                    <td>20</td>
+                    <td></td>
+                    <td rel="column-full-name">SubTotal</td>
+                    <td>money</td>
+                    <td style="text-align: center;"></td>
+                    <td class="only-desktop">
+      Default:
+      0.00</td>
+                    <td class="only-desktop"></td>
+                    <td class="only-desktop user-description">Sales subtotal. Computed as SUM(SalesOrderDetail.LineTotal)for the appropriate SalesOrderID.</td>
+                  </tr>
+                  <tr class="only-mobile">
+                    <td colspan="5"><span class="user-description">Sales subtotal. Computed as SUM(SalesOrderDetail.LineTotal)for the appropriate SalesOrderID.</span><br>
+      Default:
+      0.00<br></td>
+                  </tr>
+                  <tr>
+                    <td><i class="icon-column no-margin" title="Column"></i></td>
+                    <td>21</td>
+                    <td></td>
+                    <td rel="column-full-name">TaxAmt</td>
+                    <td>money</td>
+                    <td style="text-align: center;"></td>
+                    <td class="only-desktop">
+      Default:
+      0.00</td>
+                    <td class="only-desktop"></td>
+                    <td class="only-desktop user-description">Tax amount.</td>
+                  </tr>
+                  <tr class="only-mobile">
+                    <td colspan="5"><span class="user-description">Tax amount.</span><br>
+      Default:
+      0.00<br></td>
+                  </tr>
+                  <tr>
+                    <td><i class="icon-column no-margin" title="Column"></i></td>
+                    <td>22</td>
+                    <td></td>
+                    <td rel="column-full-name">Freight</td>
+                    <td>money</td>
+                    <td style="text-align: center;"></td>
+                    <td class="only-desktop">
+      Default:
+      0.00</td>
+                    <td class="only-desktop"></td>
+                    <td class="only-desktop user-description">Shipping cost.</td>
+                  </tr>
+                  <tr class="only-mobile">
+                    <td colspan="5"><span class="user-description">Shipping cost.</span><br>
+      Default:
+      0.00<br></td>
+                  </tr>
+                  <tr>
+                    <td><i class="icon-column no-margin" title="Column"></i></td>
+                    <td>23</td>
+                    <td></td>
+                    <td rel="column-full-name">TotalDue</td>
+                    <td>money</td>
+                    <td style="text-align: center;"></td>
+                    <td class="only-desktop">
+      Computed:
+      isnull(([SubTotal]+[TaxAmt])+[Freight],(0))</td>
+                    <td class="only-desktop"></td>
+                    <td class="only-desktop user-description">Total due from customer. Computed as Subtotal + TaxAmt + Freight.</td>
+                  </tr>
+                  <tr class="only-mobile">
+                    <td colspan="5"><span class="user-description">Total due from customer. Computed as Subtotal + TaxAmt + Freight.</span><br>
+      Computed:
+      isnull(([SubTotal]+[TaxAmt])+[Freight],(0))<br></td>
+                  </tr>
+                  <tr>
+                    <td><i class="icon-column no-margin" title="Column"></i></td>
+                    <td>24</td>
+                    <td></td>
+                    <td rel="column-full-name">Comment</td>
+                    <td>nvarchar(128)</td>
+                    <td style="text-align: center;"><i class="icon-check no-margin" title="Nullable"></i></td>
+                    <td class="only-desktop"></td>
+                    <td class="only-desktop"></td>
+                    <td class="only-desktop user-description">Sales representative comments.</td>
+                  </tr>
+                  <tr class="only-mobile">
+                    <td colspan="5"><span class="user-description">Sales representative comments.</span><br></td>
+                  </tr>
+                  <tr>
+                    <td><i class="icon-column no-margin" title="Column"></i></td>
+                    <td>25</td>
+                    <td><i class="icon-unique-key no-margin" title="Unique key"></i></td>
+                    <td rel="column-full-name">rowguid</td>
+                    <td>uniqueidentifier</td>
+                    <td style="text-align: center;"></td>
+                    <td class="only-desktop">
+      Default:
+      newid()</td>
+                    <td class="only-desktop"></td>
+                    <td class="only-desktop user-description">ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample.</td>
+                  </tr>
+                  <tr class="only-mobile">
+                    <td colspan="5"><span class="user-description">ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample.</span><br>
+      Default:
+      newid()<br></td>
+                  </tr>
+                  <tr>
+                    <td><i class="icon-column no-margin" title="Column"></i></td>
+                    <td>26</td>
+                    <td></td>
+                    <td rel="column-full-name">ModifiedDate</td>
+                    <td>datetime</td>
+                    <td style="text-align: center;"></td>
+                    <td class="only-desktop">
+      Default:
+      getdate()</td>
+                    <td class="only-desktop"></td>
+                    <td class="only-desktop user-description">Date and time the record was last updated.</td>
+                  </tr>
+                  <tr class="only-mobile">
+                    <td colspan="5"><span class="user-description">Date and time the record was last updated.</span><br>
+      Default:
+      getdate()<br></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="collapsible" data-key="relations">
+            <div class="collapsible-link font-large font-bold">Relations</div>
+            <div class="collapsible-area">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Foreign table</th>
+                    <th></th>
+                    <th>Primary table</th>
+                    <th class="only-desktop">Join</th>
+                    <th class="only-desktop">Title / Name / Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Sales.SalesOrderHeader</td>
+                    <td><i class="&#xA;            icon24-relation-mx-1x no-margin" title="Many to one relation"></i></td>
+                    <td><a href="../../../doc/AdventureWorks_2/tables/Person_Address_135.html" class="ajax" data-target="#right">Person.Address</a></td>
+                    <td class="only-desktop"><span style="font-weight: bold">Sales.SalesOrderHeader</span>.BillToAddressID = Person.Address.AddressID</td>
+                    <td class="only-desktop">FK_SalesOrderHeader_Address_BillToAddressID<br><span class="user-description">Foreign key constraint referencing Address.AddressID.</span></td>
+                  </tr>
+                  <tr class="only-mobile">
+                    <td colspan="3">
+                      <div><span style="font-weight: bold">Sales.SalesOrderHeader</span>.BillToAddressID = Person.Address.AddressID</div><strong>Name</strong>: FK_SalesOrderHeader_Address_BillToAddressID<br><span class="user-description">Foreign key constraint referencing Address.AddressID.</span></td>
+                  </tr>
+                  <tr>
+                    <td>Sales.SalesOrderHeader</td>
+                    <td><i class="&#xA;            icon24-relation-mx-1x no-margin" title="Many to one relation"></i></td>
+                    <td><a href="../../../doc/AdventureWorks_2/tables/Person_Address_135.html" class="ajax" data-target="#right">Person.Address</a></td>
+                    <td class="only-desktop"><span style="font-weight: bold">Sales.SalesOrderHeader</span>.ShipToAddressID = Person.Address.AddressID</td>
+                    <td class="only-desktop">FK_SalesOrderHeader_Address_ShipToAddressID<br><span class="user-description">Foreign key constraint referencing Address.AddressID.</span></td>
+                  </tr>
+                  <tr class="only-mobile">
+                    <td colspan="3">
+                      <div><span style="font-weight: bold">Sales.SalesOrderHeader</span>.ShipToAddressID = Person.Address.AddressID</div><strong>Name</strong>: FK_SalesOrderHeader_Address_ShipToAddressID<br><span class="user-description">Foreign key constraint referencing Address.AddressID.</span></td>
+                  </tr>
+                  <tr>
+                    <td>Sales.SalesOrderHeader</td>
+                    <td><i class="&#xA;            icon24-relation-mx-1x no-margin" title="Many to one relation"></i></td>
+                    <td><a href="../../../doc/AdventureWorks_2/tables/Sales_CreditCard_179.html" class="ajax" data-target="#right">Sales.CreditCard</a></td>
+                    <td class="only-desktop"><span style="font-weight: bold">Sales.SalesOrderHeader</span>.CreditCardID = Sales.CreditCard.CreditCardID</td>
+                    <td class="only-desktop">FK_SalesOrderHeader_CreditCard_CreditCardID<br><span class="user-description">Foreign key constraint referencing CreditCard.CreditCardID.</span></td>
+                  </tr>
+                  <tr class="only-mobile">
+                    <td colspan="3">
+                      <div><span style="font-weight: bold">Sales.SalesOrderHeader</span>.CreditCardID = Sales.CreditCard.CreditCardID</div><strong>Name</strong>: FK_SalesOrderHeader_CreditCard_CreditCardID<br><span class="user-description">Foreign key constraint referencing CreditCard.CreditCardID.</span></td>
+                  </tr>
+                  <tr>
+                    <td>Sales.SalesOrderHeader</td>
+                    <td><i class="&#xA;            icon24-relation-mx-1x no-margin" title="Many to one relation"></i></td>
+                    <td><a href="../../../doc/AdventureWorks_2/tables/Sales_CurrencyRate_181.html" class="ajax" data-target="#right">Sales.CurrencyRate</a></td>
+                    <td class="only-desktop"><span style="font-weight: bold">Sales.SalesOrderHeader</span>.CurrencyRateID = Sales.CurrencyRate.CurrencyRateID</td>
+                    <td class="only-desktop">FK_SalesOrderHeader_CurrencyRate_CurrencyRateID<br><span class="user-description">Foreign key constraint referencing CurrencyRate.CurrencyRateID.</span></td>
+                  </tr>
+                  <tr class="only-mobile">
+                    <td colspan="3">
+                      <div><span style="font-weight: bold">Sales.SalesOrderHeader</span>.CurrencyRateID = Sales.CurrencyRate.CurrencyRateID</div><strong>Name</strong>: FK_SalesOrderHeader_CurrencyRate_CurrencyRateID<br><span class="user-description">Foreign key constraint referencing CurrencyRate.CurrencyRateID.</span></td>
+                  </tr>
+                  <tr>
+                    <td>Sales.SalesOrderHeader</td>
+                    <td><i class="&#xA;            icon24-relation-mx-1x no-margin" title="Many to one relation"></i></td>
+                    <td><a href="../../../doc/AdventureWorks_2/tables/Sales_Customer_182.html" class="ajax" data-target="#right">Sales.Customer</a></td>
+                    <td class="only-desktop"><span style="font-weight: bold">Sales.SalesOrderHeader</span>.CustomerID = Sales.Customer.CustomerID</td>
+                    <td class="only-desktop">FK_SalesOrderHeader_Customer_CustomerID<br><span class="user-description">Foreign key constraint referencing Customer.CustomerID.</span></td>
+                  </tr>
+                  <tr class="only-mobile">
+                    <td colspan="3">
+                      <div><span style="font-weight: bold">Sales.SalesOrderHeader</span>.CustomerID = Sales.Customer.CustomerID</div><strong>Name</strong>: FK_SalesOrderHeader_Customer_CustomerID<br><span class="user-description">Foreign key constraint referencing Customer.CustomerID.</span></td>
+                  </tr>
+                  <tr>
+                    <td>Sales.SalesOrderHeader</td>
+                    <td><i class="&#xA;            icon24-relation-mx-1x no-margin" title="Many to one relation"></i></td>
+                    <td><a href="../../../doc/AdventureWorks_2/tables/Sales_SalesPerson_187.html" class="ajax" data-target="#right">Sales.SalesPerson</a></td>
+                    <td class="only-desktop"><span style="font-weight: bold">Sales.SalesOrderHeader</span>.SalesPersonID = Sales.SalesPerson.BusinessEntityID</td>
+                    <td class="only-desktop">FK_SalesOrderHeader_SalesPerson_SalesPersonID<br><span class="user-description">Foreign key constraint referencing SalesPerson.SalesPersonID.</span></td>
+                  </tr>
+                  <tr class="only-mobile">
+                    <td colspan="3">
+                      <div><span style="font-weight: bold">Sales.SalesOrderHeader</span>.SalesPersonID = Sales.SalesPerson.BusinessEntityID</div><strong>Name</strong>: FK_SalesOrderHeader_SalesPerson_SalesPersonID<br><span class="user-description">Foreign key constraint referencing SalesPerson.SalesPersonID.</span></td>
+                  </tr>
+                  <tr>
+                    <td>Sales.SalesOrderHeader</td>
+                    <td><i class="&#xA;            icon24-relation-mx-1x no-margin" title="Many to one relation"></i></td>
+                    <td><a href="../../../doc/AdventureWorks_2/tables/Sales_SalesTerritory_191.html" class="ajax" data-target="#right">Sales.SalesTerritory</a></td>
+                    <td class="only-desktop"><span style="font-weight: bold">Sales.SalesOrderHeader</span>.TerritoryID = Sales.SalesTerritory.TerritoryID</td>
+                    <td class="only-desktop">FK_SalesOrderHeader_SalesTerritory_TerritoryID<br><span class="user-description">Foreign key constraint referencing SalesTerritory.TerritoryID.</span></td>
+                  </tr>
+                  <tr class="only-mobile">
+                    <td colspan="3">
+                      <div><span style="font-weight: bold">Sales.SalesOrderHeader</span>.TerritoryID = Sales.SalesTerritory.TerritoryID</div><strong>Name</strong>: FK_SalesOrderHeader_SalesTerritory_TerritoryID<br><span class="user-description">Foreign key constraint referencing SalesTerritory.TerritoryID.</span></td>
+                  </tr>
+                  <tr>
+                    <td>Sales.SalesOrderHeader</td>
+                    <td><i class="&#xA;            icon24-relation-mx-1x no-margin" title="Many to one relation"></i></td>
+                    <td><a href="../../../doc/AdventureWorks_2/tables/Purchasing_ShipMethod_176.html" class="ajax" data-target="#right">Purchasing.ShipMethod</a></td>
+                    <td class="only-desktop"><span style="font-weight: bold">Sales.SalesOrderHeader</span>.ShipMethodID = Purchasing.ShipMethod.ShipMethodID</td>
+                    <td class="only-desktop">FK_SalesOrderHeader_ShipMethod_ShipMethodID<br><span class="user-description">Foreign key constraint referencing ShipMethod.ShipMethodID.</span></td>
+                  </tr>
+                  <tr class="only-mobile">
+                    <td colspan="3">
+                      <div><span style="font-weight: bold">Sales.SalesOrderHeader</span>.ShipMethodID = Purchasing.ShipMethod.ShipMethodID</div><strong>Name</strong>: FK_SalesOrderHeader_ShipMethod_ShipMethodID<br><span class="user-description">Foreign key constraint referencing ShipMethod.ShipMethodID.</span></td>
+                  </tr>
+                  <tr>
+                    <td><a href="../../../doc/AdventureWorks_2/tables/Sales_SalesOrderDetail_184.html" class="ajax" data-target="#right">Sales.SalesOrderDetail</a></td>
+                    <td><i class="&#xA;            icon24-relation-mx-1x no-margin" title="Many to one relation"></i></td>
+                    <td>Sales.SalesOrderHeader</td>
+                    <td class="only-desktop">Sales.SalesOrderDetail.SalesOrderID = <span style="font-weight: bold">Sales.SalesOrderHeader</span>.SalesOrderID</td>
+                    <td class="only-desktop">FK_SalesOrderDetail_SalesOrderHeader_SalesOrderID<br><span class="user-description">Foreign key constraint referencing SalesOrderHeader.PurchaseOrderID.</span></td>
+                  </tr>
+                  <tr class="only-mobile">
+                    <td colspan="3">
+                      <div>Sales.SalesOrderDetail.SalesOrderID = <span style="font-weight: bold">Sales.SalesOrderHeader</span>.SalesOrderID</div><strong>Name</strong>: FK_SalesOrderDetail_SalesOrderHeader_SalesOrderID<br><span class="user-description">Foreign key constraint referencing SalesOrderHeader.PurchaseOrderID.</span></td>
+                  </tr>
+                  <tr>
+                    <td><a href="../../../doc/AdventureWorks_2/tables/Sales_SalesOrderHeaderSalesReason_186.html" class="ajax" data-target="#right">Sales.SalesOrderHeaderSalesReason</a></td>
+                    <td><i class="&#xA;            icon24-relation-mx-1x no-margin" title="Many to one relation"></i></td>
+                    <td>Sales.SalesOrderHeader</td>
+                    <td class="only-desktop">Sales.SalesOrderHeaderSalesReason.SalesOrderID = <span style="font-weight: bold">Sales.SalesOrderHeader</span>.SalesOrderID</td>
+                    <td class="only-desktop">FK_SalesOrderHeaderSalesReason_SalesOrderHeader_SalesOrderID<br><span class="user-description">Foreign key constraint referencing SalesOrderHeader.SalesOrderID.</span></td>
+                  </tr>
+                  <tr class="only-mobile">
+                    <td colspan="3">
+                      <div>Sales.SalesOrderHeaderSalesReason.SalesOrderID = <span style="font-weight: bold">Sales.SalesOrderHeader</span>.SalesOrderID</div><strong>Name</strong>: FK_SalesOrderHeaderSalesReason_SalesOrderHeader_SalesOrderID<br><span class="user-description">Foreign key constraint referencing SalesOrderHeader.SalesOrderID.</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="collapsible" data-key="unique-keys">
+            <div class="collapsible-link font-large font-bold">Unique keys</div>
+            <div class="collapsible-area">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Key name</th>
+                    <th>Columns</th>
+                    <th class="only-desktop">Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><i class="icon-key no-margin" title="Primary key"></i></td>
+                    <td>PK_SalesOrderHeader_SalesOrderID</td>
+                    <td>SalesOrderID</td>
+                    <td class="only-desktop user-description">Primary key (clustered) constraint</td>
+                  </tr>
+                  <tr class="only-mobile">
+                    <td colspan="3">Primary key (clustered) constraint</td>
+                  </tr>
+                  <tr>
+                    <td><i class="icon-unique-key no-margin" title="Unique key"></i></td>
+                    <td>AK_SalesOrderHeader_rowguid</td>
+                    <td>rowguid</td>
+                    <td class="only-desktop user-description">Unique nonclustered index. Used to support replication samples.</td>
+                  </tr>
+                  <tr class="only-mobile">
+                    <td colspan="3">Unique nonclustered index. Used to support replication samples.</td>
+                  </tr>
+                  <tr>
+                    <td><i class="icon-unique-key no-margin" title="Unique key"></i></td>
+                    <td>AK_SalesOrderHeader_SalesOrderNumber</td>
+                    <td>SalesOrderNumber</td>
+                    <td class="only-desktop user-description">Unique nonclustered index.</td>
+                  </tr>
+                  <tr class="only-mobile">
+                    <td colspan="3">Unique nonclustered index.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="collapsible" data-key="triggers">
+            <div class="collapsible-link font-large font-bold">Triggers</div>
+            <div class="collapsible-area">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Key name</th>
+                    <th>When</th>
+                    <th class="only-desktop">Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="dependency-node" data-node-id="1">
+                    <td style="white-space: nowrap;"><span class="expand"><i class="icon-expand"></i></span><span class="collapse" style="display: none"><i class="icon-collapse"></i></span><i class="icon-trigger-active no-margin" title="Active trigger"></i></td>
+                    <td>uSalesOrderHeader</td>
+                    <td>After Update</td>
+                    <td class="only-desktop user-description">AFTER UPDATE trigger that updates the RevisionNumber and ModifiedDate columns in the SalesOrderHeader table.Updates the SalesYTD column in the SalesPerson and SalesTerritory tables.</td>
+                  </tr>
+                  <tr data-parent-node-id="1" style="display: none;" class="only-desktop">
+                    <td colspan="4">
+                      <div class="sql-script"><div style="color:Black;background-color:White;"><pre>
+<span style="color:Blue;">CREATE</span> <span style="color:Blue;">TRIGGER</span> [Sales].[uSalesOrderHeader] <span style="color:Blue;">ON</span> [Sales].[SalesOrderHeader] 
+<span style="color:Blue;">AFTER</span> <span style="color:Blue;">UPDATE</span> <span style="color:Blue;">NOT</span> <span style="color:Blue;">FOR</span> <span style="color:Blue;">REPLICATION</span> <span style="color:Blue;">AS</span> 
+<span style="color:Blue;">BEGIN</span>
+    <span style="color:Blue;">DECLARE</span> @Count <span style="color:Blue;">int</span>;
+
+    <span style="color:Blue;">SET</span> @Count = <span style="color:Magenta;">@@ROWCOUNT</span>;
+    <span style="color:Blue;">IF</span> @Count = 0 
+        <span style="color:Blue;">RETURN</span>;
+
+    <span style="color:Blue;">SET</span> <span style="color:Blue;">NOCOUNT</span> <span style="color:Blue;">ON</span>;
+
+    <span style="color:Blue;">BEGIN</span> TRY
+        <span style="color:Green;">-- Update RevisionNumber for modification of any field EXCEPT the Status.</span>
+        <span style="color:Blue;">IF</span> <span style="color:Blue;">NOT</span> <span style="color:Blue;">UPDATE</span>([Status])
+        <span style="color:Blue;">BEGIN</span>
+            <span style="color:Blue;">UPDATE</span> [Sales].[SalesOrderHeader]
+            <span style="color:Blue;">SET</span> [Sales].[SalesOrderHeader].[RevisionNumber] = 
+                [Sales].[SalesOrderHeader].[RevisionNumber] + 1
+            <span style="color:Blue;">WHERE</span> [Sales].[SalesOrderHeader].[SalesOrderID] <span style="color:Blue;">IN</span> 
+                (<span style="color:Blue;">SELECT</span> inserted.[SalesOrderID] <span style="color:Blue;">FROM</span> inserted);
+        <span style="color:Blue;">END</span>;
+
+        <span style="color:Green;">-- Update the SalesPerson SalesYTD when SubTotal is updated</span>
+        <span style="color:Blue;">IF</span> <span style="color:Blue;">UPDATE</span>([SubTotal])
+        <span style="color:Blue;">BEGIN</span>
+            <span style="color:Blue;">DECLARE</span> @StartDate <span style="color:Blue;">datetime</span>,
+                    @EndDate <span style="color:Blue;">datetime</span>
+
+            <span style="color:Blue;">SET</span> @StartDate = [ufnGetAccountingStartDate]();
+            <span style="color:Blue;">SET</span> @EndDate = [ufnGetAccountingEndDate]();
+
+            <span style="color:Blue;">UPDATE</span> [Sales].[SalesPerson]
+            <span style="color:Blue;">SET</span> [Sales].[SalesPerson].[SalesYTD] = 
+                (<span style="color:Blue;">SELECT</span> <span style="color:Magenta;">SUM</span>([Sales].[SalesOrderHeader].[SubTotal])
+                <span style="color:Blue;">FROM</span> [Sales].[SalesOrderHeader] 
+                <span style="color:Blue;">WHERE</span> [Sales].[SalesPerson].[BusinessEntityID] = [Sales].[SalesOrderHeader].[SalesPersonID]
+                    <span style="color:Blue;">AND</span> ([Sales].[SalesOrderHeader].[Status] = 5) <span style="color:Green;">-- Shipped</span>
+                    <span style="color:Blue;">AND</span> [Sales].[SalesOrderHeader].[OrderDate] <span style="color:Blue;">BETWEEN</span> @StartDate <span style="color:Blue;">AND</span> @EndDate)
+            <span style="color:Blue;">WHERE</span> [Sales].[SalesPerson].[BusinessEntityID] 
+                <span style="color:Blue;">IN</span> (<span style="color:Blue;">SELECT</span> <span style="color:Blue;">DISTINCT</span> inserted.[SalesPersonID] <span style="color:Blue;">FROM</span> inserted 
+                    <span style="color:Blue;">WHERE</span> inserted.[OrderDate] <span style="color:Blue;">BETWEEN</span> @StartDate <span style="color:Blue;">AND</span> @EndDate);
+
+            <span style="color:Green;">-- Update the SalesTerritory SalesYTD when SubTotal is updated</span>
+            <span style="color:Blue;">UPDATE</span> [Sales].[SalesTerritory]
+            <span style="color:Blue;">SET</span> [Sales].[SalesTerritory].[SalesYTD] = 
+                (<span style="color:Blue;">SELECT</span> <span style="color:Magenta;">SUM</span>([Sales].[SalesOrderHeader].[SubTotal])
+                <span style="color:Blue;">FROM</span> [Sales].[SalesOrderHeader] 
+                <span style="color:Blue;">WHERE</span> [Sales].[SalesTerritory].[TerritoryID] = [Sales].[SalesOrderHeader].[TerritoryID]
+                    <span style="color:Blue;">AND</span> ([Sales].[SalesOrderHeader].[Status] = 5) <span style="color:Green;">-- Shipped</span>
+                    <span style="color:Blue;">AND</span> [Sales].[SalesOrderHeader].[OrderDate] <span style="color:Blue;">BETWEEN</span> @StartDate <span style="color:Blue;">AND</span> @EndDate)
+            <span style="color:Blue;">WHERE</span> [Sales].[SalesTerritory].[TerritoryID] 
+                <span style="color:Blue;">IN</span> (<span style="color:Blue;">SELECT</span> <span style="color:Blue;">DISTINCT</span> inserted.[TerritoryID] <span style="color:Blue;">FROM</span> inserted 
+                    <span style="color:Blue;">WHERE</span> inserted.[OrderDate] <span style="color:Blue;">BETWEEN</span> @StartDate <span style="color:Blue;">AND</span> @EndDate);
+        <span style="color:Blue;">END</span>;
+    <span style="color:Blue;">END</span> TRY
+    <span style="color:Blue;">BEGIN</span> CATCH
+        <span style="color:Blue;">EXECUTE</span> [uspPrintError];
+
+        <span style="color:Green;">-- Rollback any active or uncommittable transactions before</span>
+        <span style="color:Green;">-- inserting information in the ErrorLog</span>
+        <span style="color:Blue;">IF</span> <span style="color:Magenta;">@@TRANCOUNT</span> &gt; 0
+        <span style="color:Blue;">BEGIN</span>
+            <span style="color:Blue;">ROLLBACK</span> <span style="color:Blue;">TRANSACTION</span>;
+        <span style="color:Blue;">END</span>
+
+        <span style="color:Blue;">EXECUTE</span> [uspLogError];
+    <span style="color:Blue;">END</span> CATCH;
+<span style="color:Blue;">END</span>;
+</pre></div></div>
+                    </td>
+                  </tr>
+                  <tr class="only-mobile">
+                    <td colspan="4"><span class="user-description">AFTER UPDATE trigger that updates the RevisionNumber and ModifiedDate columns in the SalesOrderHeader table.Updates the SalesYTD column in the SalesPerson and SalesTerritory tables.</span></td>
+                  </tr>
+                  <tr data-parent-node-id="1" style="display: none;" class="only-mobile">
+                    <td colspan="4">
+                      <div class="sql-script"><div style="color:Black;background-color:White;"><pre>
+<span style="color:Blue;">CREATE</span> <span style="color:Blue;">TRIGGER</span> [Sales].[uSalesOrderHeader] <span style="color:Blue;">ON</span> [Sales].[SalesOrderHeader] 
+<span style="color:Blue;">AFTER</span> <span style="color:Blue;">UPDATE</span> <span style="color:Blue;">NOT</span> <span style="color:Blue;">FOR</span> <span style="color:Blue;">REPLICATION</span> <span style="color:Blue;">AS</span> 
+<span style="color:Blue;">BEGIN</span>
+    <span style="color:Blue;">DECLARE</span> @Count <span style="color:Blue;">int</span>;
+
+    <span style="color:Blue;">SET</span> @Count = <span style="color:Magenta;">@@ROWCOUNT</span>;
+    <span style="color:Blue;">IF</span> @Count = 0 
+        <span style="color:Blue;">RETURN</span>;
+
+    <span style="color:Blue;">SET</span> <span style="color:Blue;">NOCOUNT</span> <span style="color:Blue;">ON</span>;
+
+    <span style="color:Blue;">BEGIN</span> TRY
+        <span style="color:Green;">-- Update RevisionNumber for modification of any field EXCEPT the Status.</span>
+        <span style="color:Blue;">IF</span> <span style="color:Blue;">NOT</span> <span style="color:Blue;">UPDATE</span>([Status])
+        <span style="color:Blue;">BEGIN</span>
+            <span style="color:Blue;">UPDATE</span> [Sales].[SalesOrderHeader]
+            <span style="color:Blue;">SET</span> [Sales].[SalesOrderHeader].[RevisionNumber] = 
+                [Sales].[SalesOrderHeader].[RevisionNumber] + 1
+            <span style="color:Blue;">WHERE</span> [Sales].[SalesOrderHeader].[SalesOrderID] <span style="color:Blue;">IN</span> 
+                (<span style="color:Blue;">SELECT</span> inserted.[SalesOrderID] <span style="color:Blue;">FROM</span> inserted);
+        <span style="color:Blue;">END</span>;
+
+        <span style="color:Green;">-- Update the SalesPerson SalesYTD when SubTotal is updated</span>
+        <span style="color:Blue;">IF</span> <span style="color:Blue;">UPDATE</span>([SubTotal])
+        <span style="color:Blue;">BEGIN</span>
+            <span style="color:Blue;">DECLARE</span> @StartDate <span style="color:Blue;">datetime</span>,
+                    @EndDate <span style="color:Blue;">datetime</span>
+
+            <span style="color:Blue;">SET</span> @StartDate = [ufnGetAccountingStartDate]();
+            <span style="color:Blue;">SET</span> @EndDate = [ufnGetAccountingEndDate]();
+
+            <span style="color:Blue;">UPDATE</span> [Sales].[SalesPerson]
+            <span style="color:Blue;">SET</span> [Sales].[SalesPerson].[SalesYTD] = 
+                (<span style="color:Blue;">SELECT</span> <span style="color:Magenta;">SUM</span>([Sales].[SalesOrderHeader].[SubTotal])
+                <span style="color:Blue;">FROM</span> [Sales].[SalesOrderHeader] 
+                <span style="color:Blue;">WHERE</span> [Sales].[SalesPerson].[BusinessEntityID] = [Sales].[SalesOrderHeader].[SalesPersonID]
+                    <span style="color:Blue;">AND</span> ([Sales].[SalesOrderHeader].[Status] = 5) <span style="color:Green;">-- Shipped</span>
+                    <span style="color:Blue;">AND</span> [Sales].[SalesOrderHeader].[OrderDate] <span style="color:Blue;">BETWEEN</span> @StartDate <span style="color:Blue;">AND</span> @EndDate)
+            <span style="color:Blue;">WHERE</span> [Sales].[SalesPerson].[BusinessEntityID] 
+                <span style="color:Blue;">IN</span> (<span style="color:Blue;">SELECT</span> <span style="color:Blue;">DISTINCT</span> inserted.[SalesPersonID] <span style="color:Blue;">FROM</span> inserted 
+                    <span style="color:Blue;">WHERE</span> inserted.[OrderDate] <span style="color:Blue;">BETWEEN</span> @StartDate <span style="color:Blue;">AND</span> @EndDate);
+
+            <span style="color:Green;">-- Update the SalesTerritory SalesYTD when SubTotal is updated</span>
+            <span style="color:Blue;">UPDATE</span> [Sales].[SalesTerritory]
+            <span style="color:Blue;">SET</span> [Sales].[SalesTerritory].[SalesYTD] = 
+                (<span style="color:Blue;">SELECT</span> <span style="color:Magenta;">SUM</span>([Sales].[SalesOrderHeader].[SubTotal])
+                <span style="color:Blue;">FROM</span> [Sales].[SalesOrderHeader] 
+                <span style="color:Blue;">WHERE</span> [Sales].[SalesTerritory].[TerritoryID] = [Sales].[SalesOrderHeader].[TerritoryID]
+                    <span style="color:Blue;">AND</span> ([Sales].[SalesOrderHeader].[Status] = 5) <span style="color:Green;">-- Shipped</span>
+                    <span style="color:Blue;">AND</span> [Sales].[SalesOrderHeader].[OrderDate] <span style="color:Blue;">BETWEEN</span> @StartDate <span style="color:Blue;">AND</span> @EndDate)
+            <span style="color:Blue;">WHERE</span> [Sales].[SalesTerritory].[TerritoryID] 
+                <span style="color:Blue;">IN</span> (<span style="color:Blue;">SELECT</span> <span style="color:Blue;">DISTINCT</span> inserted.[TerritoryID] <span style="color:Blue;">FROM</span> inserted 
+                    <span style="color:Blue;">WHERE</span> inserted.[OrderDate] <span style="color:Blue;">BETWEEN</span> @StartDate <span style="color:Blue;">AND</span> @EndDate);
+        <span style="color:Blue;">END</span>;
+    <span style="color:Blue;">END</span> TRY
+    <span style="color:Blue;">BEGIN</span> CATCH
+        <span style="color:Blue;">EXECUTE</span> [uspPrintError];
+
+        <span style="color:Green;">-- Rollback any active or uncommittable transactions before</span>
+        <span style="color:Green;">-- inserting information in the ErrorLog</span>
+        <span style="color:Blue;">IF</span> <span style="color:Magenta;">@@TRANCOUNT</span> &gt; 0
+        <span style="color:Blue;">BEGIN</span>
+            <span style="color:Blue;">ROLLBACK</span> <span style="color:Blue;">TRANSACTION</span>;
+        <span style="color:Blue;">END</span>
+
+        <span style="color:Blue;">EXECUTE</span> [uspLogError];
+    <span style="color:Blue;">END</span> CATCH;
+<span style="color:Blue;">END</span>;
+</pre></div></div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="collapsible" data-key="uses">
+            <div class="collapsible-link font-large font-bold">Uses</div>
+            <div class="collapsible-area">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="dependency-node" style="font-weight: bold" data-node-id="1" data-parent-node-id="0">
+                    <td>
+                      <div style="margin-left: 0px; white-space: nowrap;">
+                        <div style="float: left"><span class="expand" style="display: none"><i class="icon-expand"></i></span><span class="collapse"><i class="icon-collapse"></i></span><i class="&#xA;                  icon-table" title="Table"></i></div>
+                        <div style="margin-left: 44px">Sales.SalesOrderHeader</div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="dependency-node" style="" data-node-id="2" data-parent-node-id="1">
+                    <td>
+                      <div style="margin-left: 22px; white-space: nowrap;">
+                        <div style="float: left"><span><i class="icon-none"></i></span><i class="&#xA;                  icon-used-by-table" title="Uses "></i></div>
+                        <div style="margin-left: 44px">Sales.SalesOrderHeader</div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="dependency-node" style="" data-node-id="3" data-parent-node-id="1">
+                    <td>
+                      <div style="margin-left: 22px; white-space: nowrap;">
+                        <div style="float: left"><span><i class="icon-none"></i></span><i class="&#xA;                  icon24-relation-mx-1x" title="Many to one relation"></i></div>
+                        <div style="margin-left: 44px"><a href="../../../doc/AdventureWorks_2/tables/Person_Address_135.html" class="ajax" data-target="#right">Person.Address</a></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="dependency-node" style="" data-node-id="4" data-parent-node-id="1">
+                    <td>
+                      <div style="margin-left: 22px; white-space: nowrap;">
+                        <div style="float: left"><span><i class="icon-none"></i></span><i class="&#xA;                  icon24-relation-mx-1x" title="Many to one relation"></i></div>
+                        <div style="margin-left: 44px"><a href="../../../doc/AdventureWorks_2/tables/Person_Address_135.html" class="ajax" data-target="#right">Person.Address</a></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="dependency-node" style="" data-node-id="10" data-parent-node-id="1">
+                    <td>
+                      <div style="margin-left: 22px; white-space: nowrap;">
+                        <div style="float: left"><span><i class="icon-none"></i></span><i class="&#xA;                  icon24-relation-mx-1x" title="Many to one relation"></i></div>
+                        <div style="margin-left: 44px"><a href="../../../doc/AdventureWorks_2/tables/Purchasing_ShipMethod_176.html" class="ajax" data-target="#right">Purchasing.ShipMethod</a></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="dependency-node" style="" data-node-id="5" data-parent-node-id="1">
+                    <td>
+                      <div style="margin-left: 22px; white-space: nowrap;">
+                        <div style="float: left"><span><i class="icon-none"></i></span><i class="&#xA;                  icon24-relation-mx-1x" title="Many to one relation"></i></div>
+                        <div style="margin-left: 44px"><a href="../../../doc/AdventureWorks_2/tables/Sales_CreditCard_179.html" class="ajax" data-target="#right">Sales.CreditCard</a></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="dependency-node" style="" data-node-id="6" data-parent-node-id="1">
+                    <td>
+                      <div style="margin-left: 22px; white-space: nowrap;">
+                        <div style="float: left"><span><i class="icon-none"></i></span><i class="&#xA;                  icon24-relation-mx-1x" title="Many to one relation"></i></div>
+                        <div style="margin-left: 44px"><a href="../../../doc/AdventureWorks_2/tables/Sales_CurrencyRate_181.html" class="ajax" data-target="#right">Sales.CurrencyRate</a></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="dependency-node" style="" data-node-id="7" data-parent-node-id="1">
+                    <td>
+                      <div style="margin-left: 22px; white-space: nowrap;">
+                        <div style="float: left"><span><i class="icon-none"></i></span><i class="&#xA;                  icon24-relation-mx-1x" title="Many to one relation"></i></div>
+                        <div style="margin-left: 44px"><a href="../../../doc/AdventureWorks_2/tables/Sales_Customer_182.html" class="ajax" data-target="#right">Sales.Customer</a></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="dependency-node" style="" data-node-id="8" data-parent-node-id="1">
+                    <td>
+                      <div style="margin-left: 22px; white-space: nowrap;">
+                        <div style="float: left"><span><i class="icon-none"></i></span><i class="&#xA;                  icon24-relation-mx-1x" title="Many to one relation"></i></div>
+                        <div style="margin-left: 44px"><a href="../../../doc/AdventureWorks_2/tables/Sales_SalesPerson_187.html" class="ajax" data-target="#right">Sales.SalesPerson</a></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="dependency-node" style="" data-node-id="9" data-parent-node-id="1">
+                    <td>
+                      <div style="margin-left: 22px; white-space: nowrap;">
+                        <div style="float: left"><span><i class="icon-none"></i></span><i class="&#xA;                  icon24-relation-mx-1x" title="Many to one relation"></i></div>
+                        <div style="margin-left: 44px"><a href="../../../doc/AdventureWorks_2/tables/Sales_SalesTerritory_191.html" class="ajax" data-target="#right">Sales.SalesTerritory</a></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="dependency-node" style="font-weight: bold" data-node-id="11" data-parent-node-id="0">
+                    <td>
+                      <div style="margin-left: 0px; white-space: nowrap;">
+                        <div style="float: left"><span class="expand" style="display: none"><i class="icon-expand"></i></span><span class="collapse"><i class="icon-collapse"></i></span><i class="&#xA;                  icon-trigger-active" title="Trigger"></i></div>
+                        <div style="margin-left: 44px">Sales.uSalesOrderHeader</div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="dependency-node" style="" data-node-id="12" data-parent-node-id="11">
+                    <td>
+                      <div style="margin-left: 22px; white-space: nowrap;">
+                        <div style="float: left"><span><i class="icon-none"></i></span><i class="&#xA;                  icon-used-by-table" title="Uses "></i></div>
+                        <div style="margin-left: 44px">Sales.SalesOrderHeader</div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="dependency-node" style="" data-node-id="13" data-parent-node-id="11">
+                    <td>
+                      <div style="margin-left: 22px; white-space: nowrap;">
+                        <div style="float: left"><span><i class="icon-none"></i></span><i class="&#xA;                  icon-used-by-table" title="Uses "></i></div>
+                        <div style="margin-left: 44px"><a href="../../../doc/AdventureWorks_2/tables/Sales_SalesPerson_187.html" class="ajax" data-target="#right">Sales.SalesPerson</a></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="dependency-node" style="" data-node-id="14" data-parent-node-id="11">
+                    <td>
+                      <div style="margin-left: 22px; white-space: nowrap;">
+                        <div style="float: left"><span><i class="icon-none"></i></span><i class="&#xA;                  icon-used-by-table" title="Uses "></i></div>
+                        <div style="margin-left: 44px"><a href="../../../doc/AdventureWorks_2/tables/Sales_SalesTerritory_191.html" class="ajax" data-target="#right">Sales.SalesTerritory</a></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="dependency-node" style="" data-node-id="17" data-parent-node-id="11">
+                    <td>
+                      <div style="margin-left: 22px; white-space: nowrap;">
+                        <div style="float: left"><span class="expand"><i class="icon-expand"></i></span><span class="collapse" style="display: none"><i class="icon-collapse"></i></span><i class="&#xA;                  icon-used-by-procedure" title="Uses "></i></div>
+                        <div style="margin-left: 44px"><a href="../../../doc/AdventureWorks_2/procedures/dbo_uspLogError_126.html" class="ajax" data-target="#right">dbo.uspLogError</a></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="dependency-node" style="display: none" data-node-id="19" data-parent-node-id="17">
+                    <td>
+                      <div style="margin-left: 44px; white-space: nowrap;">
+                        <div style="float: left"><span><i class="icon-none"></i></span><i class="&#xA;                  icon-used-by-table" title="Uses "></i></div>
+                        <div style="margin-left: 44px"><a href="../../../doc/AdventureWorks_2/tables/dbo_ErrorLog_128.html" class="ajax" data-target="#right">dbo.ErrorLog</a></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="dependency-node" style="display: none" data-node-id="20" data-parent-node-id="17">
+                    <td>
+                      <div style="margin-left: 44px; white-space: nowrap;">
+                        <div style="float: left"><span><i class="icon-none"></i></span><i class="&#xA;                  icon-used-by-procedure" title="Uses "></i></div>
+                        <div style="margin-left: 44px"><a href="../../../doc/AdventureWorks_2/procedures/dbo_uspPrintError_127.html" class="ajax" data-target="#right">dbo.uspPrintError</a></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="dependency-node" style="" data-node-id="18" data-parent-node-id="11">
+                    <td>
+                      <div style="margin-left: 22px; white-space: nowrap;">
+                        <div style="float: left"><span><i class="icon-none"></i></span><i class="&#xA;                  icon-used-by-procedure" title="Uses "></i></div>
+                        <div style="margin-left: 44px"><a href="../../../doc/AdventureWorks_2/procedures/dbo_uspPrintError_127.html" class="ajax" data-target="#right">dbo.uspPrintError</a></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="dependency-node" style="" data-node-id="15" data-parent-node-id="11">
+                    <td>
+                      <div style="margin-left: 22px; white-space: nowrap;">
+                        <div style="float: left"><span><i class="icon-none"></i></span><i class="&#xA;                  icon-used-by-function" title="Uses "></i></div>
+                        <div style="margin-left: 44px"><a href="../../../doc/AdventureWorks_2/functions/dbo_ufnGetAccountingEndDate_112.html" class="ajax" data-target="#right">dbo.ufnGetAccountingEndDate</a></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="dependency-node" style="" data-node-id="16" data-parent-node-id="11">
+                    <td>
+                      <div style="margin-left: 22px; white-space: nowrap;">
+                        <div style="float: left"><span><i class="icon-none"></i></span><i class="&#xA;                  icon-used-by-function" title="Uses "></i></div>
+                        <div style="margin-left: 44px"><a href="../../../doc/AdventureWorks_2/functions/dbo_ufnGetAccountingStartDate_113.html" class="ajax" data-target="#right">dbo.ufnGetAccountingStartDate</a></div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="collapsible" data-key="used-by">
+            <div class="collapsible-link font-large font-bold">Used by</div>
+            <div class="collapsible-area">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="dependency-node" style="font-weight: bold" data-node-id="1" data-parent-node-id="0">
+                    <td>
+                      <div style="margin-left: 0px; white-space: nowrap;">
+                        <div style="float: left"><span class="expand" style="display: none"><i class="icon-expand"></i></span><span class="collapse"><i class="icon-collapse"></i></span><i class="&#xA;                  icon-table" title="Table"></i></div>
+                        <div style="margin-left: 44px">Sales.SalesOrderHeader</div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="dependency-node" style="" data-node-id="2" data-parent-node-id="1">
+                    <td>
+                      <div style="margin-left: 22px; white-space: nowrap;">
+                        <div style="float: left"><span><i class="icon-none"></i></span><i class="&#xA;                  icon-uses-table" title="Used by "></i></div>
+                        <div style="margin-left: 44px">Sales.SalesOrderHeader</div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="dependency-node" style="" data-node-id="3" data-parent-node-id="1">
+                    <td>
+                      <div style="margin-left: 22px; white-space: nowrap;">
+                        <div style="float: left"><span><i class="icon-none"></i></span><i class="&#xA;                  icon-uses-view" title="Used by "></i></div>
+                        <div style="margin-left: 44px"><a href="../../../doc/AdventureWorks_2/views/Sales_vSalesPersonSalesByFiscalYears_213.html" class="ajax" data-target="#right">Sales.vSalesPersonSalesByFiscalYears</a></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="dependency-node" style="" data-node-id="4" data-parent-node-id="1">
+                    <td>
+                      <div style="margin-left: 22px; white-space: nowrap;">
+                        <div style="float: left"><span><i class="icon-none"></i></span><i class="&#xA;                  icon-uses-trigger-active" title="Used by "></i></div>
+                        <div style="margin-left: 44px"><a href="../../../doc/AdventureWorks_2/tables/Sales_SalesOrderDetail_184.html" class="ajax" data-target="#right">Sales.iduSalesOrderDetail</a></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="dependency-node" style="" data-node-id="5" data-parent-node-id="1">
+                    <td>
+                      <div style="margin-left: 22px; white-space: nowrap;">
+                        <div style="float: left"><span><i class="icon-none"></i></span><i class="&#xA;                  icon-uses-trigger-active" title="Used by "></i></div>
+                        <div style="margin-left: 44px">Sales.uSalesOrderHeader</div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="dependency-node" style="" data-node-id="6" data-parent-node-id="1">
+                    <td>
+                      <div style="margin-left: 22px; white-space: nowrap;">
+                        <div style="float: left"><span><i class="icon-none"></i></span><i class="&#xA;                  icon24-relation-1x-mx" title="Many to one relation"></i></div>
+                        <div style="margin-left: 44px"><a href="../../../doc/AdventureWorks_2/tables/Sales_SalesOrderDetail_184.html" class="ajax" data-target="#right">Sales.SalesOrderDetail</a></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="dependency-node" style="" data-node-id="7" data-parent-node-id="1">
+                    <td>
+                      <div style="margin-left: 22px; white-space: nowrap;">
+                        <div style="float: left"><span><i class="icon-none"></i></span><i class="&#xA;                  icon24-relation-1x-mx" title="Many to one relation"></i></div>
+                        <div style="margin-left: 44px"><a href="../../../doc/AdventureWorks_2/tables/Sales_SalesOrderHeaderSalesReason_186.html" class="ajax" data-target="#right">Sales.SalesOrderHeaderSalesReason</a></div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div style="margin-top: 15px"><span class="font-gray font-small font-small">
+        Exported: <b>2019-02-04 23:13</b>, Last imported: <b>2018-03-07 11:56</b></span></div><script>
+      $('.dependency-node .expand').click(function () {
+        expand(this, true);
+      });
+
+      $('.dependency-node .collapse').click(function () {
+        collapse(this, true);
+      });
+    </script></div><footer class="footer font-gray font-small cf"><span style="float:right">
+        Generated with <strong><a href="http://dataedo.com">Dataedo</a></strong></span></footer></div>
+    </div>
+  </body>
+</html>
