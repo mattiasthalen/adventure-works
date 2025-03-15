@@ -29,12 +29,12 @@ tables:
         nullable: true
       rowguid:
         description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
-        data_type: text
+        data_type: uniqueidentifier
         nullable: true
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -64,12 +64,12 @@ tables:
         nullable: true
       rowguid:
         description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
-        data_type: text
+        data_type: uniqueidentifier
         nullable: true
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -99,7 +99,7 @@ tables:
         nullable: true
       start_date:
         description: "Date the component started being used in the assembly item."
-        data_type: text
+        data_type: date
         nullable: true
       unit_measure_code:
         description: "Standard code identifying the unit of measure for the quantity."
@@ -116,7 +116,7 @@ tables:
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -130,7 +130,7 @@ tables:
         row_key: true
       end_date:
         description: "Date the component stopped being used in the assembly item."
-        data_type: text
+        data_type: date
         nullable: true
   raw__adventure_works__business_entity_addresses:
     description: "Cross-reference table mapping customers, vendors, and employees to their addresses."
@@ -150,12 +150,12 @@ tables:
         nullable: true
       rowguid:
         description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
-        data_type: text
+        data_type: uniqueidentifier
         nullable: true
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -185,12 +185,12 @@ tables:
         nullable: true
       rowguid:
         description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
-        data_type: text
+        data_type: uniqueidentifier
         nullable: true
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -217,7 +217,7 @@ tables:
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -244,7 +244,7 @@ tables:
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -283,7 +283,7 @@ tables:
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -310,7 +310,7 @@ tables:
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -337,7 +337,7 @@ tables:
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -359,7 +359,7 @@ tables:
         data_type: bigint
       currency_rate_date:
         description: "Date and time the exchange rate was obtained."
-        data_type: text
+        data_type: date
         nullable: true
       from_currency_code:
         description: "Exchange rate was converted from this currency code."
@@ -380,7 +380,7 @@ tables:
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -414,12 +414,12 @@ tables:
         nullable: true
       rowguid:
         description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
-        data_type: text
+        data_type: uniqueidentifier
         nullable: true
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -454,7 +454,7 @@ tables:
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -484,12 +484,12 @@ tables:
         nullable: true
       rowguid:
         description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
-        data_type: text
+        data_type: uniqueidentifier
         nullable: true
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -524,7 +524,7 @@ tables:
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -538,7 +538,7 @@ tables:
         row_key: true
       end_date:
         description: "Date the employee left the department. NULL = Current department."
-        data_type: text
+        data_type: date
         nullable: true
   raw__adventure_works__employee_pay_histories:
     description: "Employee pay history."
@@ -564,7 +564,7 @@ tables:
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -598,7 +598,7 @@ tables:
         nullable: true
       birth_date:
         description: "Date of birth."
-        data_type: text
+        data_type: date
         nullable: true
       marital_status:
         description: "M = Married, S = Single."
@@ -610,7 +610,7 @@ tables:
         nullable: true
       hire_date:
         description: "Employee hired on this date."
-        data_type: text
+        data_type: date
         nullable: true
       salaried_flag:
         description: "Job classification. 0 = Hourly, not exempt from collective bargaining. 1 = Salaried, exempt from collective bargaining."
@@ -630,12 +630,12 @@ tables:
         nullable: true
       rowguid:
         description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
-        data_type: text
+        data_type: uniqueidentifier
         nullable: true
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -661,12 +661,12 @@ tables:
         data_type: bigint
       diagram:
         description: "Illustrations used in manufacturing instructions. Stored as XML."
-        data_type: text
+        data_type: xml
         nullable: true
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -688,12 +688,12 @@ tables:
         data_type: bigint
       resume:
         description: "Résumé in XML format."
-        data_type: text
+        data_type: xml
         nullable: true
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -732,7 +732,7 @@ tables:
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -763,7 +763,7 @@ tables:
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -809,16 +809,16 @@ tables:
         nullable: true
       demographics:
         description: "Personal information such as hobbies, and income collected from online shoppers. Used for sales analysis."
-        data_type: text
+        data_type: xml
         nullable: true
       rowguid:
         description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
-        data_type: text
+        data_type: uniqueidentifier
         nullable: true
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -840,7 +840,7 @@ tables:
         nullable: true
       additional_contact_info:
         description: "Additional contact information about the person stored in xml format."
-        data_type: text
+        data_type: xml
         nullable: true
   raw__adventure_works__phone_number_types:
     description: "Type of phone number of a person."
@@ -857,7 +857,7 @@ tables:
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -883,12 +883,12 @@ tables:
         nullable: true
       rowguid:
         description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
-        data_type: text
+        data_type: uniqueidentifier
         nullable: true
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -914,7 +914,7 @@ tables:
         nullable: true
       end_date:
         description: "Product cost end date."
-        data_type: text
+        data_type: date
         nullable: true
       standard_cost:
         description: "Standard cost of the product."
@@ -923,7 +923,7 @@ tables:
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -949,12 +949,12 @@ tables:
         nullable: true
       rowguid:
         description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
-        data_type: text
+        data_type: uniqueidentifier
         nullable: true
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -992,12 +992,12 @@ tables:
         nullable: true
       rowguid:
         description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
-        data_type: text
+        data_type: uniqueidentifier
         nullable: true
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -1023,7 +1023,7 @@ tables:
         nullable: true
       end_date:
         description: "List price end date."
-        data_type: text
+        data_type: date
         nullable: true
       list_price:
         description: "Product list price."
@@ -1032,7 +1032,7 @@ tables:
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -1059,7 +1059,7 @@ tables:
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -1085,12 +1085,12 @@ tables:
         nullable: true
       rowguid:
         description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
-        data_type: text
+        data_type: uniqueidentifier
         nullable: true
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -1104,11 +1104,11 @@ tables:
         row_key: true
       catalog_description:
         description: "Detailed product catalog information in xml format."
-        data_type: text
+        data_type: xml
         nullable: true
       instructions:
         description: "Manufacturing instructions in xml format."
-        data_type: text
+        data_type: xml
         nullable: true
   raw__adventure_works__product_photos:
     description: "Product images."
@@ -1120,7 +1120,7 @@ tables:
         data_type: bigint
       thumb_nail_photo:
         description: "Small image of the product."
-        data_type: text
+        data_type: binary
         nullable: true
       thumbnail_photo_file_name:
         description: "Small image file name."
@@ -1128,7 +1128,7 @@ tables:
         nullable: true
       large_photo:
         description: "Large image of the product."
-        data_type: text
+        data_type: binary
         nullable: true
       large_photo_file_name:
         description: "Large image file name."
@@ -1137,7 +1137,7 @@ tables:
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -1167,7 +1167,7 @@ tables:
         nullable: true
       review_date:
         description: "Date review was submitted."
-        data_type: text
+        data_type: date
         nullable: true
       email_address:
         description: "Reviewer's e-mail address."
@@ -1184,7 +1184,7 @@ tables:
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -1242,16 +1242,16 @@ tables:
         nullable: true
       sell_start_date:
         description: "Date the product was available for sale."
-        data_type: text
+        data_type: date
         nullable: true
       rowguid:
         description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
-        data_type: text
+        data_type: uniqueidentifier
         nullable: true
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -1305,7 +1305,7 @@ tables:
         nullable: true
       sell_end_date:
         description: "Date the product was no longer available for sale."
-        data_type: text
+        data_type: date
         nullable: true
   raw__adventure_works__product_subcategories:
     description: "Product subcategories. See ProductCategory table."
@@ -1325,12 +1325,12 @@ tables:
         nullable: true
       rowguid:
         description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
-        data_type: text
+        data_type: uniqueidentifier
         nullable: true
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -1368,7 +1368,7 @@ tables:
         nullable: true
       last_receipt_date:
         description: "Date the product was last received by the vendor."
-        data_type: text
+        data_type: date
         nullable: true
       min_order_qty:
         description: "The minimum quantity that should be ordered."
@@ -1385,7 +1385,7 @@ tables:
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -1415,7 +1415,7 @@ tables:
         data_type: bigint
       due_date:
         description: "Date the product is expected to be received."
-        data_type: text
+        data_type: date
         nullable: true
       order_qty:
         description: "Quantity ordered."
@@ -1448,7 +1448,7 @@ tables:
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -1490,11 +1490,11 @@ tables:
         nullable: true
       order_date:
         description: "Purchase order creation date."
-        data_type: text
+        data_type: date
         nullable: true
       ship_date:
         description: "Estimated shipment date from the vendor."
-        data_type: text
+        data_type: date
         nullable: true
       sub_total:
         description: "Purchase order subtotal. Computed as SUM(PurchaseOrderDetail.LineTotal) for the appropriate PurchaseOrderID."
@@ -1515,7 +1515,7 @@ tables:
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -1569,12 +1569,12 @@ tables:
         nullable: true
       rowguid:
         description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
-        data_type: text
+        data_type: uniqueidentifier
         nullable: true
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -1600,15 +1600,15 @@ tables:
         nullable: true
       order_date:
         description: "Dates the sales order was created."
-        data_type: text
+        data_type: date
         nullable: true
       due_date:
         description: "Date the order is due to the customer."
-        data_type: text
+        data_type: date
         nullable: true
       ship_date:
         description: "Date the order was shipped to the customer."
-        data_type: text
+        data_type: date
         nullable: true
       status:
         description: "Order current status. 1 = In process; 2 = Approved; 3 = Backordered; 4 = Rejected; 5 = Shipped; 6 = Cancelled."
@@ -1680,12 +1680,12 @@ tables:
         nullable: true
       rowguid:
         description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
-        data_type: text
+        data_type: uniqueidentifier
         nullable: true
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -1711,7 +1711,7 @@ tables:
         data_type: bigint
       quota_date:
         description: "Sales quota date."
-        data_type: text
+        data_type: date
         nullable: true
       sales_quota:
         description: "Sales quota amount."
@@ -1719,12 +1719,12 @@ tables:
         nullable: true
       rowguid:
         description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
-        data_type: text
+        data_type: uniqueidentifier
         nullable: true
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -1762,12 +1762,12 @@ tables:
         nullable: true
       rowguid:
         description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
-        data_type: text
+        data_type: uniqueidentifier
         nullable: true
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -1806,7 +1806,7 @@ tables:
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -1844,12 +1844,12 @@ tables:
         nullable: true
       rowguid:
         description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
-        data_type: text
+        data_type: uniqueidentifier
         nullable: true
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -1899,12 +1899,12 @@ tables:
         nullable: true
       rowguid:
         description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
-        data_type: text
+        data_type: uniqueidentifier
         nullable: true
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -1930,16 +1930,16 @@ tables:
         nullable: true
       start_date:
         description: "Primary key. Date the sales representative started work in the territory."
-        data_type: text
+        data_type: date
         nullable: true
       rowguid:
         description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
-        data_type: text
+        data_type: uniqueidentifier
         nullable: true
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -1953,7 +1953,7 @@ tables:
         row_key: true
       end_date:
         description: "Date the sales representative left work in the territory."
-        data_type: text
+        data_type: date
         nullable: true
   raw__adventure_works__scrap_reasons:
     description: "Manufacturing failure reasons lookup table."
@@ -1970,7 +1970,7 @@ tables:
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -1996,16 +1996,16 @@ tables:
         nullable: true
       start_time:
         description: "Shift start time."
-        data_type: text
+        data_type: time
         nullable: true
       end_time:
         description: "Shift end time."
-        data_type: text
+        data_type: time
         nullable: true
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -2039,12 +2039,12 @@ tables:
         nullable: true
       rowguid:
         description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
-        data_type: text
+        data_type: uniqueidentifier
         nullable: true
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -2078,12 +2078,12 @@ tables:
         nullable: true
       date_created:
         description: "Date the time the record was created."
-        data_type: text
+        data_type: date
         nullable: true
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -2121,11 +2121,11 @@ tables:
         nullable: true
       start_date:
         description: "Discount start date."
-        data_type: text
+        data_type: date
         nullable: true
       end_date:
         description: "Discount end date."
-        data_type: text
+        data_type: date
         nullable: true
       minimum_quantity:
         description: "Minimum discount percent allowed."
@@ -2133,12 +2133,12 @@ tables:
         nullable: true
       rowguid:
         description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
-        data_type: text
+        data_type: uniqueidentifier
         nullable: true
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -2184,12 +2184,12 @@ tables:
         nullable: true
       rowguid:
         description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
-        data_type: text
+        data_type: uniqueidentifier
         nullable: true
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -2219,16 +2219,16 @@ tables:
         nullable: true
       demographics:
         description: "Demographic information about the store such as the number of employees, annual sales and store type."
-        data_type: text
+        data_type: xml
         nullable: true
       rowguid:
         description: "ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample."
-        data_type: text
+        data_type: uniqueidentifier
         nullable: true
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -2262,7 +2262,7 @@ tables:
         nullable: true
       transaction_date:
         description: "Date and time of the transaction."
-        data_type: text
+        data_type: date
         nullable: true
       transaction_type:
         description: "W = WorkOrder, S = SalesOrder, P = PurchaseOrder."
@@ -2279,7 +2279,7 @@ tables:
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -2313,7 +2313,7 @@ tables:
         nullable: true
       transaction_date:
         description: "Date and time of the transaction."
-        data_type: text
+        data_type: date
         nullable: true
       transaction_type:
         description: "W = Work Order, S = Sales Order, P = Purchase Order."
@@ -2330,7 +2330,7 @@ tables:
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -2357,7 +2357,7 @@ tables:
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -2400,7 +2400,7 @@ tables:
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -2438,19 +2438,19 @@ tables:
         nullable: true
       scheduled_start_date:
         description: "Planned manufacturing start date."
-        data_type: text
+        data_type: date
         nullable: true
       scheduled_end_date:
         description: "Planned manufacturing end date."
-        data_type: text
+        data_type: date
         nullable: true
       actual_start_date:
         description: "Actual start date."
-        data_type: text
+        data_type: date
         nullable: true
       actual_end_date:
         description: "Actual end date."
-        data_type: text
+        data_type: date
         nullable: true
       actual_resource_hrs:
         description: "Number of manufacturing hours used."
@@ -2467,7 +2467,7 @@ tables:
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
@@ -2505,20 +2505,20 @@ tables:
         nullable: true
       start_date:
         description: "Work order start date."
-        data_type: text
+        data_type: date
         nullable: true
       end_date:
         description: "Work order end date."
-        data_type: text
+        data_type: date
         nullable: true
       due_date:
         description: "Work order due date."
-        data_type: text
+        data_type: date
         nullable: true
       modified_date:
         description: "Date and time the record was last updated."
         incremental: true
-        data_type: text
+        data_type: date
         nullable: true
       _dlt_load_id:
         description: "Internal data loading identifier."
