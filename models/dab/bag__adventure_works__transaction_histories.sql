@@ -5,7 +5,28 @@ MODEL (
   ),
   tags hook,
   grain (_pit_hook__transaction_history, _hook__transaction_history),
-  references (_hook__product, _hook__order__reference)
+  description 'Hook viewpoint of transaction_histories data: Record of each purchase order, sales order, or work order transaction year to date.',
+  references (_hook__product, _hook__order__reference),
+  column_descriptions (
+    transaction_history__transaction_id = 'Primary key for TransactionHistory records.',
+    transaction_history__product_id = 'Product identification number. Foreign key to Product.ProductID.',
+    transaction_history__reference_order_id = 'Purchase order, sales order, or work order identification number.',
+    transaction_history__reference_order_line_id = 'Line number associated with the purchase order, sales order, or work order.',
+    transaction_history__transaction_date = 'Date and time of the transaction.',
+    transaction_history__transaction_type = 'W = WorkOrder, S = SalesOrder, P = PurchaseOrder.',
+    transaction_history__quantity = 'Product quantity.',
+    transaction_history__actual_cost = 'Product cost.',
+    transaction_history__record_loaded_at = 'Timestamp when this record was loaded into the system',
+    transaction_history__record_updated_at = 'Timestamp when this record was last updated',
+    transaction_history__record_version = 'Version number for this record',
+    transaction_history__record_valid_from = 'Timestamp from which this record version is valid',
+    transaction_history__record_valid_to = 'Timestamp until which this record version is valid',
+    transaction_history__is_current_record = 'Flag indicating if this is the current valid version of the record',
+    _hook__transaction_history = 'Reference hook to transaction_history',
+    _hook__product = 'Reference hook to product',
+    _hook__order__reference = 'Reference hook to reference order',
+    _pit_hook__transaction_history = 'Point-in-time hook that combines the primary hook with a validity timestamp'
+  )
 );
 
 WITH staging AS (

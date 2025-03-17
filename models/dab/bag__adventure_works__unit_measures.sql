@@ -4,7 +4,20 @@ MODEL (
     unique_key _pit_hook__reference__unit_measure
   ),
   tags hook,
-  grain (_pit_hook__reference__unit_measure, _hook__reference__unit_measure)
+  grain (_pit_hook__reference__unit_measure, _hook__reference__unit_measure),
+  description 'Hook viewpoint of unit_measures data: Unit of measure lookup table.',
+  column_descriptions (
+    unit_measure__unit_measure_code = 'Primary key.',
+    unit_measure__name = 'Unit of measure description.',
+    unit_measure__record_loaded_at = 'Timestamp when this record was loaded into the system',
+    unit_measure__record_updated_at = 'Timestamp when this record was last updated',
+    unit_measure__record_version = 'Version number for this record',
+    unit_measure__record_valid_from = 'Timestamp from which this record version is valid',
+    unit_measure__record_valid_to = 'Timestamp until which this record version is valid',
+    unit_measure__is_current_record = 'Flag indicating if this is the current valid version of the record',
+    _hook__reference__unit_measure = 'Reference hook to unit_measure reference',
+    _pit_hook__reference__unit_measure = 'Point-in-time hook that combines the primary hook with a validity timestamp'
+  )
 );
 
 WITH staging AS (

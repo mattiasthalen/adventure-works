@@ -1,6 +1,15 @@
 MODEL (
   kind VIEW,
-  enabled TRUE
+  enabled TRUE,
+  description 'Raw viewpoint of product_subcategories data: Product subcategories. See ProductCategory table.',
+  column_descriptions (
+    product_subcategory_id = 'Primary key for ProductSubcategory records.',
+    product_category_id = 'Product category identification number. Foreign key to ProductCategory.ProductCategoryID.',
+    name = 'Subcategory description.',
+    rowguid = 'ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample.',
+    modified_date = 'Date and time the record was last updated.',
+    _dlt_load_id = 'Internal data loading identifier.'
+  )
 );
 
 SELECT

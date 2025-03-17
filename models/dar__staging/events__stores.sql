@@ -11,6 +11,18 @@ MODEL (
     _pit_hook__store,
     _pit_hook__territory__sales,
     _hook__epoch__date
+  ),
+  description 'Event viewpoint of stores data: Customers (resellers) of Adventure Works products.',
+  column_descriptions (
+    peripheral = 'Name of the stores peripheral this event relates to',
+    _pit_hook__bridge = 'Unique identifier for this event record',
+    _hook__epoch__date = 'Hook to the date the event occurred',
+    event__stores_modified = 'Flag indicating a modified event for this stores',
+    bridge__record_loaded_at = 'Timestamp when this event record was loaded',
+    bridge__record_updated_at = 'Timestamp when this event record was last updated',
+    bridge__record_valid_from = 'Timestamp from which this event record is valid',
+    bridge__record_valid_to = 'Timestamp until which this event record is valid',
+    bridge__is_current_record = 'Flag indicating if this is the current valid version of the event record'
   )
 );
 

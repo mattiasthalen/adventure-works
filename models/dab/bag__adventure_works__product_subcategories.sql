@@ -5,7 +5,23 @@ MODEL (
   ),
   tags hook,
   grain (_pit_hook__product_subcategory, _hook__product_subcategory),
-  references (_hook__product_category)
+  description 'Hook viewpoint of product_subcategories data: Product subcategories. See ProductCategory table.',
+  references (_hook__product_category),
+  column_descriptions (
+    product_subcategory__product_subcategory_id = 'Primary key for ProductSubcategory records.',
+    product_subcategory__product_category_id = 'Product category identification number. Foreign key to ProductCategory.ProductCategoryID.',
+    product_subcategory__name = 'Subcategory description.',
+    product_subcategory__rowguid = 'ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample.',
+    product_subcategory__record_loaded_at = 'Timestamp when this record was loaded into the system',
+    product_subcategory__record_updated_at = 'Timestamp when this record was last updated',
+    product_subcategory__record_version = 'Version number for this record',
+    product_subcategory__record_valid_from = 'Timestamp from which this record version is valid',
+    product_subcategory__record_valid_to = 'Timestamp until which this record version is valid',
+    product_subcategory__is_current_record = 'Flag indicating if this is the current valid version of the record',
+    _hook__product_subcategory = 'Reference hook to product_subcategory',
+    _hook__product_category = 'Reference hook to product_category',
+    _pit_hook__product_subcategory = 'Point-in-time hook that combines the primary hook with a validity timestamp'
+  )
 );
 
 WITH staging AS (

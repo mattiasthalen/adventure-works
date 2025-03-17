@@ -1,6 +1,14 @@
 MODEL (
   kind VIEW,
-  enabled TRUE
+  enabled TRUE,
+  description 'Raw viewpoint of product_descriptions data: Product descriptions in several languages.',
+  column_descriptions (
+    product_description_id = 'Primary key for ProductDescription records.',
+    description = 'Description of the product.',
+    rowguid = 'ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample.',
+    modified_date = 'Date and time the record was last updated.',
+    _dlt_load_id = 'Internal data loading identifier.'
+  )
 );
 
 SELECT

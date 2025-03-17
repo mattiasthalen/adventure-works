@@ -5,7 +5,24 @@ MODEL (
   ),
   tags hook,
   grain (_pit_hook__address, _hook__address),
-  references (_hook__business_entity, _hook__reference__address_type)
+  description 'Hook viewpoint of business_entity_addresses data: Cross-reference table mapping customers, vendors, and employees to their addresses.',
+  references (_hook__business_entity, _hook__reference__address_type),
+  column_descriptions (
+    business_entity_address__business_entity_id = 'Primary key. Foreign key to BusinessEntity.BusinessEntityID.',
+    business_entity_address__address_id = 'Primary key. Foreign key to Address.AddressID.',
+    business_entity_address__address_type_id = 'Primary key. Foreign key to AddressType.AddressTypeID.',
+    business_entity_address__rowguid = 'ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample.',
+    business_entity_address__record_loaded_at = 'Timestamp when this record was loaded into the system',
+    business_entity_address__record_updated_at = 'Timestamp when this record was last updated',
+    business_entity_address__record_version = 'Version number for this record',
+    business_entity_address__record_valid_from = 'Timestamp from which this record version is valid',
+    business_entity_address__record_valid_to = 'Timestamp until which this record version is valid',
+    business_entity_address__is_current_record = 'Flag indicating if this is the current valid version of the record',
+    _hook__address = 'Reference hook to address',
+    _hook__business_entity = 'Reference hook to business_entity',
+    _hook__reference__address_type = 'Reference hook to address_type reference',
+    _pit_hook__address = 'Point-in-time hook that combines the primary hook with a validity timestamp'
+  )
 );
 
 WITH staging AS (

@@ -5,7 +5,22 @@ MODEL (
   ),
   tags hook,
   grain (_pit_hook__job_candidate, _hook__job_candidate),
-  references (_hook__person__employee)
+  description 'Hook viewpoint of job_candidates data: Résumés submitted to Human Resources by job applicants.',
+  references (_hook__person__employee),
+  column_descriptions (
+    job_candidate__job_candidate_id = 'Primary key for JobCandidate records.',
+    job_candidate__resume = 'Résumé in XML format.',
+    job_candidate__business_entity_id = 'Employee identification number if applicant was hired. Foreign key to Employee.BusinessEntityID.',
+    job_candidate__record_loaded_at = 'Timestamp when this record was loaded into the system',
+    job_candidate__record_updated_at = 'Timestamp when this record was last updated',
+    job_candidate__record_version = 'Version number for this record',
+    job_candidate__record_valid_from = 'Timestamp from which this record version is valid',
+    job_candidate__record_valid_to = 'Timestamp until which this record version is valid',
+    job_candidate__is_current_record = 'Flag indicating if this is the current valid version of the record',
+    _hook__job_candidate = 'Reference hook to job_candidate',
+    _hook__person__employee = 'Reference hook to employee person',
+    _pit_hook__job_candidate = 'Point-in-time hook that combines the primary hook with a validity timestamp'
+  )
 );
 
 WITH staging AS (

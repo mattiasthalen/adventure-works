@@ -2,7 +2,21 @@ MODEL (
   enabled TRUE,
   kind VIEW,
   tags unified_star_schema,
-  grain (_pit_hook__product_list_price_history)
+  grain (_pit_hook__product_list_price_history),
+  description 'Business viewpoint of product_list_price_histories data: Changes in the list price of a product over time.',
+  column_descriptions (
+    product_list_price_history__product_id = 'Product identification number. Foreign key to Product.ProductID.',
+    product_list_price_history__start_date = 'List price start date.',
+    product_list_price_history__end_date = 'List price end date.',
+    product_list_price_history__list_price = 'Product list price.',
+    product_list_price_history__modified_date = 'Date when this record was last modified',
+    product_list_price_history__record_loaded_at = 'Timestamp when this record was loaded into the system',
+    product_list_price_history__record_updated_at = 'Timestamp when this record was last updated',
+    product_list_price_history__record_version = 'Version number for this record',
+    product_list_price_history__record_valid_from = 'Timestamp from which this record version is valid',
+    product_list_price_history__record_valid_to = 'Timestamp until which this record version is valid',
+    product_list_price_history__is_current_record = 'Flag indicating if this is the current valid version of the record'
+  )
 );
 
 SELECT

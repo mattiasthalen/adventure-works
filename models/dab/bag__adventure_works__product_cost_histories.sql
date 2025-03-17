@@ -5,7 +5,24 @@ MODEL (
   ),
   tags hook,
   grain (_pit_hook__product_cost_history, _hook__product_cost_history),
-  references (_hook__product, _hook__epoch__start_date)
+  description 'Hook viewpoint of product_cost_histories data: Changes in the cost of a product over time.',
+  references (_hook__product, _hook__epoch__start_date),
+  column_descriptions (
+    product_cost_history__product_id = 'Product identification number. Foreign key to Product.ProductID.',
+    product_cost_history__start_date = 'Product cost start date.',
+    product_cost_history__end_date = 'Product cost end date.',
+    product_cost_history__standard_cost = 'Standard cost of the product.',
+    product_cost_history__record_loaded_at = 'Timestamp when this record was loaded into the system',
+    product_cost_history__record_updated_at = 'Timestamp when this record was last updated',
+    product_cost_history__record_version = 'Version number for this record',
+    product_cost_history__record_valid_from = 'Timestamp from which this record version is valid',
+    product_cost_history__record_valid_to = 'Timestamp until which this record version is valid',
+    product_cost_history__is_current_record = 'Flag indicating if this is the current valid version of the record',
+    _hook__product_cost_history = 'Reference hook to product_cost_history',
+    _hook__product = 'Reference hook to product',
+    _hook__epoch__start_date = 'Reference hook to start_date epoch',
+    _pit_hook__product_cost_history = 'Point-in-time hook that combines the primary hook with a validity timestamp'
+  )
 );
 
 WITH staging AS (

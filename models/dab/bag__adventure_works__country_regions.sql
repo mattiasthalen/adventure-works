@@ -4,7 +4,20 @@ MODEL (
     unique_key _pit_hook__reference__country_region
   ),
   tags hook,
-  grain (_pit_hook__reference__country_region, _hook__reference__country_region)
+  grain (_pit_hook__reference__country_region, _hook__reference__country_region),
+  description 'Hook viewpoint of country_regions data: Lookup table containing the ISO standard codes for countries and regions.',
+  column_descriptions (
+    country_region__country_region_code = 'ISO standard code for countries and regions.',
+    country_region__name = 'Country or region name.',
+    country_region__record_loaded_at = 'Timestamp when this record was loaded into the system',
+    country_region__record_updated_at = 'Timestamp when this record was last updated',
+    country_region__record_version = 'Version number for this record',
+    country_region__record_valid_from = 'Timestamp from which this record version is valid',
+    country_region__record_valid_to = 'Timestamp until which this record version is valid',
+    country_region__is_current_record = 'Flag indicating if this is the current valid version of the record',
+    _hook__reference__country_region = 'Reference hook to country_region reference',
+    _pit_hook__reference__country_region = 'Point-in-time hook that combines the primary hook with a validity timestamp'
+  )
 );
 
 WITH staging AS (

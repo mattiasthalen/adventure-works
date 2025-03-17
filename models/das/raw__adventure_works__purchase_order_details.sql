@@ -1,6 +1,21 @@
 MODEL (
   kind VIEW,
-  enabled TRUE
+  enabled TRUE,
+  description 'Raw viewpoint of purchase_order_details data: Individual products associated with a specific purchase order. See PurchaseOrderHeader.',
+  column_descriptions (
+    purchase_order_id = 'Primary key. Foreign key to PurchaseOrderHeader.PurchaseOrderID.',
+    purchase_order_detail_id = 'Primary key. One line number per purchased product.',
+    due_date = 'Date the product is expected to be received.',
+    order_qty = 'Quantity ordered.',
+    product_id = 'Product identification number. Foreign key to Product.ProductID.',
+    unit_price = 'Vendor''s selling price of a single product.',
+    line_total = 'Per product subtotal. Computed as OrderQty * UnitPrice.',
+    received_qty = 'Quantity actually received from the vendor.',
+    rejected_qty = 'Quantity rejected during inspection.',
+    stocked_qty = 'Quantity accepted into inventory. Computed as ReceivedQty - RejectedQty.',
+    modified_date = 'Date and time the record was last updated.',
+    _dlt_load_id = 'Internal data loading identifier.'
+  )
 );
 
 SELECT

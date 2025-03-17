@@ -4,7 +4,21 @@ MODEL (
     unique_key _pit_hook__department
   ),
   tags hook,
-  grain (_pit_hook__department, _hook__department)
+  grain (_pit_hook__department, _hook__department),
+  description 'Hook viewpoint of departments data: Lookup table containing the departments within the Adventure Works Cycles company.',
+  column_descriptions (
+    department__department_id = 'Primary key for Department records.',
+    department__name = 'Name of the department.',
+    department__group_name = 'Name of the group to which the department belongs.',
+    department__record_loaded_at = 'Timestamp when this record was loaded into the system',
+    department__record_updated_at = 'Timestamp when this record was last updated',
+    department__record_version = 'Version number for this record',
+    department__record_valid_from = 'Timestamp from which this record version is valid',
+    department__record_valid_to = 'Timestamp until which this record version is valid',
+    department__is_current_record = 'Flag indicating if this is the current valid version of the record',
+    _hook__department = 'Reference hook to department',
+    _pit_hook__department = 'Point-in-time hook that combines the primary hook with a validity timestamp'
+  )
 );
 
 WITH staging AS (

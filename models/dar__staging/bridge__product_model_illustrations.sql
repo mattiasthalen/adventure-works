@@ -5,7 +5,21 @@ MODEL (
   ),
   tags bridge,
   grain (_pit_hook__bridge),
-  references (_pit_hook__product_model_illustration, _pit_hook__reference__illustration, _pit_hook__reference__product_model)
+  references (_pit_hook__product_model_illustration, _pit_hook__reference__illustration, _pit_hook__reference__product_model),
+  description 'Bridge viewpoint of product_model_illustration data: Cross-reference table mapping product models and illustrations.',
+  column_descriptions (
+    _pit_hook__product_model_illustration = 'Point-in-time hook for product_model_illustration',
+    _pit_hook__reference__illustration = 'Point-in-time hook for illustration reference',
+    _pit_hook__reference__product_model = 'Point-in-time hook for product_model reference',
+    _hook__product_model_illustration = 'Primary hook to product_model_illustration',
+    peripheral = 'Name of the peripheral this bridge represents',
+    _pit_hook__bridge = 'Unified bridge point-in-time hook that combines peripheral and validity period',
+    bridge__record_loaded_at = 'Timestamp when this bridge record was loaded',
+    bridge__record_updated_at = 'Timestamp when this bridge record was last updated',
+    bridge__record_valid_from = 'Timestamp from which this bridge record is valid',
+    bridge__record_valid_to = 'Timestamp until which this bridge record is valid',
+    bridge__is_current_record = 'Flag indicating if this is the current valid version of the bridge record'
+  )
 );
 
 WITH cte__bridge AS (

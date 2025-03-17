@@ -1,6 +1,35 @@
 MODEL (
   kind VIEW,
-  enabled TRUE
+  enabled TRUE,
+  description 'Raw viewpoint of sales_order_headers data: General sales order information.',
+  column_descriptions (
+    sales_order_id = 'Primary key.',
+    revision_number = 'Incremental number to track changes to the sales order over time.',
+    order_date = 'Dates the sales order was created.',
+    due_date = 'Date the order is due to the customer.',
+    ship_date = 'Date the order was shipped to the customer.',
+    status = 'Order current status. 1 = In process; 2 = Approved; 3 = Backordered; 4 = Rejected; 5 = Shipped; 6 = Cancelled.',
+    online_order_flag = '0 = Order placed by sales person. 1 = Order placed online by customer.',
+    sales_order_number = 'Unique sales order identification number.',
+    purchase_order_number = 'Customer purchase order number reference.',
+    account_number = 'Financial accounting number reference.',
+    customer_id = 'Customer identification number. Foreign key to Customer.BusinessEntityID.',
+    sales_person_id = 'Sales person who created the sales order. Foreign key to SalesPerson.BusinessEntityID.',
+    territory_id = 'Territory in which the sale was made. Foreign key to SalesTerritory.SalesTerritoryID.',
+    bill_to_address_id = 'Customer billing address. Foreign key to Address.AddressID.',
+    ship_to_address_id = 'Customer shipping address. Foreign key to Address.AddressID.',
+    ship_method_id = 'Shipping method. Foreign key to ShipMethod.ShipMethodID.',
+    credit_card_id = 'Credit card identification number. Foreign key to CreditCard.CreditCardID.',
+    credit_card_approval_code = 'Approval code provided by the credit card company.',
+    sub_total = 'Sales subtotal. Computed as SUM(SalesOrderDetail.LineTotal) for the appropriate SalesOrderID.',
+    tax_amt = 'Tax amount.',
+    freight = 'Shipping cost.',
+    total_due = 'Total due from customer. Computed as Subtotal + TaxAmt + Freight.',
+    rowguid = 'ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample.',
+    modified_date = 'Date and time the record was last updated.',
+    _dlt_load_id = 'Internal data loading identifier.',
+    currency_rate_id = 'Currency exchange rate used. Foreign key to CurrencyRate.CurrencyRateID.'
+  )
 );
 
 SELECT

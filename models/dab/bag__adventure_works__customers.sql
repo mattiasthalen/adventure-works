@@ -5,7 +5,27 @@ MODEL (
   ),
   tags hook,
   grain (_pit_hook__customer, _hook__customer),
-  references (_hook__person__customer, _hook__store, _hook__territory__sales)
+  description 'Hook viewpoint of customers data: Current customer information. Also see the Person and Store tables.',
+  references (_hook__person__customer, _hook__store, _hook__territory__sales),
+  column_descriptions (
+    customer__customer_id = 'Primary key.',
+    customer__store_id = 'Foreign key to Store.BusinessEntityID.',
+    customer__territory_id = 'ID of the territory in which the customer is located. Foreign key to SalesTerritory.SalesTerritoryID.',
+    customer__account_number = 'Unique number identifying the customer assigned by the accounting system.',
+    customer__rowguid = 'ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample.',
+    customer__person_id = 'Foreign key to Person.BusinessEntityID.',
+    customer__record_loaded_at = 'Timestamp when this record was loaded into the system',
+    customer__record_updated_at = 'Timestamp when this record was last updated',
+    customer__record_version = 'Version number for this record',
+    customer__record_valid_from = 'Timestamp from which this record version is valid',
+    customer__record_valid_to = 'Timestamp until which this record version is valid',
+    customer__is_current_record = 'Flag indicating if this is the current valid version of the record',
+    _hook__customer = 'Reference hook to customer',
+    _hook__person__customer = 'Reference hook to customer person',
+    _hook__store = 'Reference hook to store',
+    _hook__territory__sales = 'Reference hook to sales territory',
+    _pit_hook__customer = 'Point-in-time hook that combines the primary hook with a validity timestamp'
+  )
 );
 
 WITH staging AS (

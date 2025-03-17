@@ -8,6 +8,20 @@ MODEL (
   references (
     _pit_hook__reference__special_offer,
     _hook__epoch__date
+  ),
+  description 'Event viewpoint of special_offers data: Sale discounts lookup table.',
+  column_descriptions (
+    peripheral = 'Name of the special_offers peripheral this event relates to',
+    _pit_hook__bridge = 'Unique identifier for this event record',
+    _hook__epoch__date = 'Hook to the date the event occurred',
+    event__special_offers_started = 'Flag indicating a started event for this special_offers',
+    event__special_offers_ended = 'Flag indicating a ended event for this special_offers',
+    event__special_offers_modified = 'Flag indicating a modified event for this special_offers',
+    bridge__record_loaded_at = 'Timestamp when this event record was loaded',
+    bridge__record_updated_at = 'Timestamp when this event record was last updated',
+    bridge__record_valid_from = 'Timestamp from which this event record is valid',
+    bridge__record_valid_to = 'Timestamp until which this event record is valid',
+    bridge__is_current_record = 'Flag indicating if this is the current valid version of the event record'
   )
 );
 

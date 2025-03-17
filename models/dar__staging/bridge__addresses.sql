@@ -5,7 +5,22 @@ MODEL (
   ),
   tags bridge,
   grain (_pit_hook__bridge),
-  references (_pit_hook__address, _pit_hook__reference__country_region, _pit_hook__reference__state_province, _pit_hook__territory__sales)
+  references (_pit_hook__address, _pit_hook__reference__country_region, _pit_hook__reference__state_province, _pit_hook__territory__sales),
+  description 'Bridge viewpoint of address data: Street address information for customers, employees, and vendors.',
+  column_descriptions (
+    _pit_hook__address = 'Point-in-time hook for address',
+    _pit_hook__reference__country_region = 'Point-in-time hook for country_region reference',
+    _pit_hook__reference__state_province = 'Point-in-time hook for state_province reference',
+    _pit_hook__territory__sales = 'Point-in-time hook for sales territory',
+    _hook__address = 'Primary hook to address',
+    peripheral = 'Name of the peripheral this bridge represents',
+    _pit_hook__bridge = 'Unified bridge point-in-time hook that combines peripheral and validity period',
+    bridge__record_loaded_at = 'Timestamp when this bridge record was loaded',
+    bridge__record_updated_at = 'Timestamp when this bridge record was last updated',
+    bridge__record_valid_from = 'Timestamp from which this bridge record is valid',
+    bridge__record_valid_to = 'Timestamp until which this bridge record is valid',
+    bridge__is_current_record = 'Flag indicating if this is the current valid version of the bridge record'
+  )
 );
 
 WITH cte__bridge AS (

@@ -1,6 +1,25 @@
 MODEL (
   kind VIEW,
-  enabled TRUE
+  enabled TRUE,
+  description 'Raw viewpoint of employees data: Employee information.',
+  column_descriptions (
+    business_entity_id = 'Primary key for Employee records. Foreign key to BusinessEntity.BusinessEntityID.',
+    national_idnumber = 'Unique national identification number such as a social security number.',
+    login_id = 'Network login.',
+    job_title = 'Work title such as Buyer or Sales Representative.',
+    birth_date = 'Date of birth.',
+    marital_status = 'M = Married, S = Single.',
+    gender = 'M = Male, F = Female.',
+    hire_date = 'Employee hired on this date.',
+    salaried_flag = 'Job classification. 0 = Hourly, not exempt from collective bargaining. 1 = Salaried, exempt from collective bargaining.',
+    vacation_hours = 'Number of available vacation hours.',
+    sick_leave_hours = 'Number of available sick leave hours.',
+    current_flag = '0 = Inactive, 1 = Active.',
+    rowguid = 'ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample.',
+    modified_date = 'Date and time the record was last updated.',
+    _dlt_load_id = 'Internal data loading identifier.',
+    organization_level = 'The depth of the employee in the corporate hierarchy.'
+  )
 );
 
 SELECT

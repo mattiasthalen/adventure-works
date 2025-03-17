@@ -4,7 +4,21 @@ MODEL (
     unique_key _pit_hook__reference__sales_reason
   ),
   tags hook,
-  grain (_pit_hook__reference__sales_reason, _hook__reference__sales_reason)
+  grain (_pit_hook__reference__sales_reason, _hook__reference__sales_reason),
+  description 'Hook viewpoint of sales_reasons data: Lookup table of customer purchase reasons.',
+  column_descriptions (
+    sales_reason__sales_reason_id = 'Primary key for SalesReason records.',
+    sales_reason__name = 'Sales reason description.',
+    sales_reason__reason_type = 'Category the sales reason belongs to.',
+    sales_reason__record_loaded_at = 'Timestamp when this record was loaded into the system',
+    sales_reason__record_updated_at = 'Timestamp when this record was last updated',
+    sales_reason__record_version = 'Version number for this record',
+    sales_reason__record_valid_from = 'Timestamp from which this record version is valid',
+    sales_reason__record_valid_to = 'Timestamp until which this record version is valid',
+    sales_reason__is_current_record = 'Flag indicating if this is the current valid version of the record',
+    _hook__reference__sales_reason = 'Reference hook to sales_reason reference',
+    _pit_hook__reference__sales_reason = 'Point-in-time hook that combines the primary hook with a validity timestamp'
+  )
 );
 
 WITH staging AS (

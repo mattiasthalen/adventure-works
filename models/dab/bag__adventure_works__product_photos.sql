@@ -4,7 +4,23 @@ MODEL (
     unique_key _pit_hook__reference__product_photo
   ),
   tags hook,
-  grain (_pit_hook__reference__product_photo, _hook__reference__product_photo)
+  grain (_pit_hook__reference__product_photo, _hook__reference__product_photo),
+  description 'Hook viewpoint of product_photos data: Product images.',
+  column_descriptions (
+    product_photo__product_photo_id = 'Primary key for ProductPhoto records.',
+    product_photo__thumb_nail_photo = 'Small image of the product.',
+    product_photo__thumbnail_photo_file_name = 'Small image file name.',
+    product_photo__large_photo = 'Large image of the product.',
+    product_photo__large_photo_file_name = 'Large image file name.',
+    product_photo__record_loaded_at = 'Timestamp when this record was loaded into the system',
+    product_photo__record_updated_at = 'Timestamp when this record was last updated',
+    product_photo__record_version = 'Version number for this record',
+    product_photo__record_valid_from = 'Timestamp from which this record version is valid',
+    product_photo__record_valid_to = 'Timestamp until which this record version is valid',
+    product_photo__is_current_record = 'Flag indicating if this is the current valid version of the record',
+    _hook__reference__product_photo = 'Reference hook to product_photo reference',
+    _pit_hook__reference__product_photo = 'Point-in-time hook that combines the primary hook with a validity timestamp'
+  )
 );
 
 WITH staging AS (
@@ -51,9 +67,9 @@ SELECT
   _pit_hook__reference__product_photo::BLOB,
   _hook__reference__product_photo::BLOB,
   product_photo__product_photo_id::BIGINT,
-  product_photo__thumb_nail_photo::TEXT,
+  product_photo__thumb_nail_photo::BINARY,
   product_photo__thumbnail_photo_file_name::TEXT,
-  product_photo__large_photo::TEXT,
+  product_photo__large_photo::BINARY,
   product_photo__large_photo_file_name::TEXT,
   product_photo__modified_date::DATE,
   product_photo__record_loaded_at::TIMESTAMP,

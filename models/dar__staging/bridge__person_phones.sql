@@ -5,7 +5,20 @@ MODEL (
   ),
   tags bridge,
   grain (_pit_hook__bridge),
-  references (_pit_hook__person__individual, _pit_hook__reference__phone_number_type)
+  references (_pit_hook__person__individual, _pit_hook__reference__phone_number_type),
+  description 'Bridge viewpoint of individual person data: Telephone number and type of a person.',
+  column_descriptions (
+    _pit_hook__person__individual = 'Point-in-time hook for individual person',
+    _pit_hook__reference__phone_number_type = 'Point-in-time hook for phone_number_type reference',
+    _hook__person__individual = 'Primary hook to individual person',
+    peripheral = 'Name of the peripheral this bridge represents',
+    _pit_hook__bridge = 'Unified bridge point-in-time hook that combines peripheral and validity period',
+    bridge__record_loaded_at = 'Timestamp when this bridge record was loaded',
+    bridge__record_updated_at = 'Timestamp when this bridge record was last updated',
+    bridge__record_valid_from = 'Timestamp from which this bridge record is valid',
+    bridge__record_valid_to = 'Timestamp until which this bridge record is valid',
+    bridge__is_current_record = 'Flag indicating if this is the current valid version of the bridge record'
+  )
 );
 
 WITH cte__bridge AS (

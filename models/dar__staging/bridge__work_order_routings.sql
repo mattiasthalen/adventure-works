@@ -5,7 +5,26 @@ MODEL (
   ),
   tags bridge,
   grain (_pit_hook__bridge),
-  references (_pit_hook__order__work, _pit_hook__product, _pit_hook__product_category, _pit_hook__product_subcategory, _pit_hook__reference__location, _pit_hook__reference__product_model, _pit_hook__reference__scrap_reason, _pit_hook__work_order_routing)
+  references (_pit_hook__order__work, _pit_hook__product, _pit_hook__product_category, _pit_hook__product_subcategory, _pit_hook__reference__location, _pit_hook__reference__product_model, _pit_hook__reference__scrap_reason, _pit_hook__work_order_routing),
+  description 'Bridge viewpoint of work_order_routing data: Work order details.',
+  column_descriptions (
+    _pit_hook__order__work = 'Point-in-time hook for work order',
+    _pit_hook__product = 'Point-in-time hook for product',
+    _pit_hook__product_category = 'Point-in-time hook for product_category',
+    _pit_hook__product_subcategory = 'Point-in-time hook for product_subcategory',
+    _pit_hook__reference__location = 'Point-in-time hook for location reference',
+    _pit_hook__reference__product_model = 'Point-in-time hook for product_model reference',
+    _pit_hook__reference__scrap_reason = 'Point-in-time hook for scrap_reason reference',
+    _pit_hook__work_order_routing = 'Point-in-time hook for work_order_routing',
+    _hook__work_order_routing = 'Primary hook to work_order_routing',
+    peripheral = 'Name of the peripheral this bridge represents',
+    _pit_hook__bridge = 'Unified bridge point-in-time hook that combines peripheral and validity period',
+    bridge__record_loaded_at = 'Timestamp when this bridge record was loaded',
+    bridge__record_updated_at = 'Timestamp when this bridge record was last updated',
+    bridge__record_valid_from = 'Timestamp from which this bridge record is valid',
+    bridge__record_valid_to = 'Timestamp until which this bridge record is valid',
+    bridge__is_current_record = 'Flag indicating if this is the current valid version of the bridge record'
+  )
 );
 
 WITH cte__bridge AS (

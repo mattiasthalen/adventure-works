@@ -1,6 +1,22 @@
 MODEL (
   kind VIEW,
-  enabled TRUE
+  enabled TRUE,
+  description 'Raw viewpoint of work_order_routings data: Work order details.',
+  column_descriptions (
+    work_order_id = 'Primary key. Foreign key to WorkOrder.WorkOrderID.',
+    product_id = 'Primary key. Foreign key to Product.ProductID.',
+    operation_sequence = 'Primary key. Indicates the manufacturing process sequence.',
+    location_id = 'Manufacturing location where the part is processed. Foreign key to Location.LocationID.',
+    scheduled_start_date = 'Planned manufacturing start date.',
+    scheduled_end_date = 'Planned manufacturing end date.',
+    actual_start_date = 'Actual start date.',
+    actual_end_date = 'Actual end date.',
+    actual_resource_hrs = 'Number of manufacturing hours used.',
+    planned_cost = 'Estimated manufacturing cost.',
+    actual_cost = 'Actual manufacturing cost.',
+    modified_date = 'Date and time the record was last updated.',
+    _dlt_load_id = 'Internal data loading identifier.'
+  )
 );
 
 SELECT

@@ -1,6 +1,20 @@
 MODEL (
   kind VIEW,
-  enabled TRUE
+  enabled TRUE,
+  description 'Raw viewpoint of work_orders data: Manufacturing work orders.',
+  column_descriptions (
+    work_order_id = 'Primary key for WorkOrder records.',
+    product_id = 'Product identification number. Foreign key to Product.ProductID.',
+    order_qty = 'Product quantity to build.',
+    stocked_qty = 'Quantity built and put in inventory.',
+    scrapped_qty = 'Quantity that failed inspection.',
+    start_date = 'Work order start date.',
+    end_date = 'Work order end date.',
+    due_date = 'Work order due date.',
+    modified_date = 'Date and time the record was last updated.',
+    _dlt_load_id = 'Internal data loading identifier.',
+    scrap_reason_id = 'Reason for inspection failure.'
+  )
 );
 
 SELECT

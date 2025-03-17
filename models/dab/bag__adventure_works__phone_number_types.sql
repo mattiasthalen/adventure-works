@@ -4,7 +4,20 @@ MODEL (
     unique_key _pit_hook__reference__phone_number_type
   ),
   tags hook,
-  grain (_pit_hook__reference__phone_number_type, _hook__reference__phone_number_type)
+  grain (_pit_hook__reference__phone_number_type, _hook__reference__phone_number_type),
+  description 'Hook viewpoint of phone_number_types data: Type of phone number of a person.',
+  column_descriptions (
+    phone_number_type__phone_number_type_id = 'Primary key for telephone number type records.',
+    phone_number_type__name = 'Name of the telephone number type.',
+    phone_number_type__record_loaded_at = 'Timestamp when this record was loaded into the system',
+    phone_number_type__record_updated_at = 'Timestamp when this record was last updated',
+    phone_number_type__record_version = 'Version number for this record',
+    phone_number_type__record_valid_from = 'Timestamp from which this record version is valid',
+    phone_number_type__record_valid_to = 'Timestamp until which this record version is valid',
+    phone_number_type__is_current_record = 'Flag indicating if this is the current valid version of the record',
+    _hook__reference__phone_number_type = 'Reference hook to phone_number_type reference',
+    _pit_hook__reference__phone_number_type = 'Point-in-time hook that combines the primary hook with a validity timestamp'
+  )
 );
 
 WITH staging AS (

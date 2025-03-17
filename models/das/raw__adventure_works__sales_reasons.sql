@@ -1,6 +1,14 @@
 MODEL (
   kind VIEW,
-  enabled TRUE
+  enabled TRUE,
+  description 'Raw viewpoint of sales_reasons data: Lookup table of customer purchase reasons.',
+  column_descriptions (
+    sales_reason_id = 'Primary key for SalesReason records.',
+    name = 'Sales reason description.',
+    reason_type = 'Category the sales reason belongs to.',
+    modified_date = 'Date and time the record was last updated.',
+    _dlt_load_id = 'Internal data loading identifier.'
+  )
 );
 
 SELECT

@@ -9,6 +9,19 @@ MODEL (
     _pit_hook__employee_pay_history,
     _pit_hook__person__employee,
     _hook__epoch__date
+  ),
+  description 'Event viewpoint of employee_pay_histories data: Employee pay history.',
+  column_descriptions (
+    peripheral = 'Name of the employee_pay_histories peripheral this event relates to',
+    _pit_hook__bridge = 'Unique identifier for this event record',
+    _hook__epoch__date = 'Hook to the date the event occurred',
+    event__employee_pay_histories_rate_change = 'Flag indicating a rate_change event for this employee_pay_histories',
+    event__employee_pay_histories_modified = 'Flag indicating a modified event for this employee_pay_histories',
+    bridge__record_loaded_at = 'Timestamp when this event record was loaded',
+    bridge__record_updated_at = 'Timestamp when this event record was last updated',
+    bridge__record_valid_from = 'Timestamp from which this event record is valid',
+    bridge__record_valid_to = 'Timestamp until which this event record is valid',
+    bridge__is_current_record = 'Flag indicating if this is the current valid version of the event record'
   )
 );
 
