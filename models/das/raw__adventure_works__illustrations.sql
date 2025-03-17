@@ -1,6 +1,13 @@
 MODEL (
   kind VIEW,
-  enabled TRUE
+  enabled TRUE,
+  description 'Raw viewpoint of illustrations data: Bicycle assembly diagrams.',
+  column_descriptions (
+    illustration_id = 'Primary key for Illustration records.',
+    diagram = 'Illustrations used in manufacturing instructions. Stored as XML.',
+    modified_date = 'Date and time the record was last updated.',
+    _dlt_load_id = 'Internal data loading identifier.'
+  )
 );
 
 SELECT

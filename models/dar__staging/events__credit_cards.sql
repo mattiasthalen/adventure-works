@@ -8,6 +8,18 @@ MODEL (
   references (
     _pit_hook__credit_card,
     _hook__epoch__date
+  ),
+  description 'Event viewpoint of credit_cards data: Customer credit card information.',
+  column_descriptions (
+    peripheral = 'Name of the credit_cards peripheral this event relates to',
+    _pit_hook__bridge = 'Unique identifier for this event record',
+    _hook__epoch__date = 'Hook to the date the event occurred',
+    event__credit_cards_modified = 'Flag indicating a modified event for this credit_cards',
+    bridge__record_loaded_at = 'Timestamp when this event record was loaded',
+    bridge__record_updated_at = 'Timestamp when this event record was last updated',
+    bridge__record_valid_from = 'Timestamp from which this event record is valid',
+    bridge__record_valid_to = 'Timestamp until which this event record is valid',
+    bridge__is_current_record = 'Flag indicating if this is the current valid version of the event record'
   )
 );
 

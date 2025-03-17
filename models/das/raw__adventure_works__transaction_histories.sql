@@ -1,6 +1,19 @@
 MODEL (
   kind VIEW,
-  enabled TRUE
+  enabled TRUE,
+  description 'Raw viewpoint of transaction_histories data: Record of each purchase order, sales order, or work order transaction year to date.',
+  column_descriptions (
+    transaction_id = 'Primary key for TransactionHistory records.',
+    product_id = 'Product identification number. Foreign key to Product.ProductID.',
+    reference_order_id = 'Purchase order, sales order, or work order identification number.',
+    reference_order_line_id = 'Line number associated with the purchase order, sales order, or work order.',
+    transaction_date = 'Date and time of the transaction.',
+    transaction_type = 'W = WorkOrder, S = SalesOrder, P = PurchaseOrder.',
+    quantity = 'Product quantity.',
+    actual_cost = 'Product cost.',
+    modified_date = 'Date and time the record was last updated.',
+    _dlt_load_id = 'Internal data loading identifier.'
+  )
 );
 
 SELECT

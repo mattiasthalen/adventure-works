@@ -1,6 +1,17 @@
 MODEL (
   kind VIEW,
-  enabled TRUE
+  enabled TRUE,
+  description 'Raw viewpoint of currency_rates data: Currency exchange rates.',
+  column_descriptions (
+    currency_rate_id = 'Primary key for CurrencyRate records.',
+    currency_rate_date = 'Date and time the exchange rate was obtained.',
+    from_currency_code = 'Exchange rate was converted from this currency code.',
+    to_currency_code = 'Exchange rate was converted to this currency code.',
+    average_rate = 'Average exchange rate for the day.',
+    end_of_day_rate = 'Final exchange rate for the day.',
+    modified_date = 'Date and time the record was last updated.',
+    _dlt_load_id = 'Internal data loading identifier.'
+  )
 );
 
 SELECT

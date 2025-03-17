@@ -1,12 +1,12 @@
 import os
 import glob
-from parse_yaml import load_bags_config, ensure_directory_exists
+from parse_yaml import ensure_directory_exists
 
 def generate_bridge_union(output_dir, bridge_schema, events_schema):
-    """Generate a bridge union that contains ONLY event models"""
+    """Generate a bridge union that contains ONLY event models with consistent column ordering"""
     ensure_directory_exists(output_dir)
     
-    # Dynamically discover event models only
+    # Dynamically discover event models only (sorted for consistency)
     event_models = discover_models(events_schema, "events__*")
     
     # Collect PIT hooks and event fields
@@ -16,13 +16,20 @@ def generate_bridge_union(output_dir, bridge_schema, events_schema):
     if "_pit_hook__bridge" in all_pit_hooks:
         all_pit_hooks.remove("_pit_hook__bridge")
     
+    # Sort hooks and fields for consistent output
+    sorted_pit_hooks = sorted(list(all_pit_hooks))
+    sorted_event_fields = sorted(list(all_event_fields))
+    
     # Add epoch date hook
-    all_hooks = list(sorted(all_pit_hooks))
+    all_hooks = sorted_pit_hooks.copy()
     all_hooks.append("_hook__epoch__date")
     
     # Generate the bridge union
     bridge_name = "_bridge__as_of"
     sql_path = os.path.join(output_dir, f"{bridge_name}.sql")
+    
+    # Create column descriptions
+    column_descriptions = get_bridge_union_column_descriptions(sorted_pit_hooks, sorted_event_fields)
     
     with open(sql_path, 'w') as sql_file:
         # Write MODEL declaration
@@ -33,10 +40,21 @@ def generate_bridge_union(output_dir, bridge_schema, events_schema):
   kind VIEW,
   tags unified_star_schema,
   grain (_pit_hook__bridge),
-  references ({references})
-);
-
-""")
+  references ({references}),
+  description 'Unified viewpoint of all event data: Combined timeline of all business events in the Adventure Works dataset'""")
+        
+        # Add column descriptions
+        if column_descriptions:
+            sql_file.write(",\n  column_descriptions (\n")
+            col_desc_items = list(column_descriptions.items())
+            for i, (col_name, desc) in enumerate(col_desc_items):
+                sql_file.write(f"    {col_name} = '{desc}'")
+                if i < len(col_desc_items) - 1:
+                    sql_file.write(",")
+                sql_file.write("\n")
+            sql_file.write("  )")
+        
+        sql_file.write("\n);\n\n")
         
         # Write UNION query with ONLY event models
         sql_file.write("WITH cte__bridge_union AS (\n")
@@ -56,17 +74,17 @@ def generate_bridge_union(output_dir, bridge_schema, events_schema):
         sql_file.write("  peripheral::TEXT,\n")
         sql_file.write("  _pit_hook__bridge::BLOB,\n")
         
-        # Include all PIT hooks (sorted for consistency)
-        for pit_hook in sorted(all_pit_hooks):
+        # Include all PIT hooks in sorted order
+        for pit_hook in sorted_pit_hooks:
             sql_file.write(f"  {pit_hook}::BLOB,\n")
         
         # Include epoch date hook
         sql_file.write("  _hook__epoch__date::BLOB,\n")
         
-        # Include event fields
-        for i, event_field in enumerate(sorted(all_event_fields)):
+        # Include event fields in sorted order
+        for i, event_field in enumerate(sorted_event_fields):
             sql_file.write(f"  {event_field}::INT")
-            if i < len(all_event_fields) - 1:
+            if i < len(sorted_event_fields) - 1:
                 sql_file.write(",\n")
             else:
                 sql_file.write(",\n")
@@ -82,6 +100,45 @@ FROM cte__bridge_union""")
     print(f"Generated bridge union with {len(event_models)} events in {output_dir}")
     return 1  # Return count of models generated
 
+def get_bridge_union_column_descriptions(pit_hooks, event_fields):
+    """Generate descriptions for bridge union columns"""
+    descriptions = {}
+    
+    # Describe standard columns
+    descriptions["peripheral"] = "Name of the peripheral this record relates to"
+    descriptions["_pit_hook__bridge"] = "Unique identifier for this bridge record"
+    descriptions["_hook__epoch__date"] = "Hook to the date the event occurred"
+    
+    # Describe each PIT hook
+    for pit_hook in pit_hooks:
+        # Extract concept from hook name
+        parts = pit_hook.split('__')
+        if len(parts) >= 2:
+            concept = parts[1]
+            if len(parts) >= 3:
+                qualifier = parts[2]
+                descriptions[pit_hook] = f"Point-in-time hook for {qualifier} {concept}"
+            else:
+                descriptions[pit_hook] = f"Point-in-time hook for {concept}"
+    
+    # Describe event fields
+    for event_field in event_fields:
+        # Extract event type and entity from name
+        parts = event_field.split('__')
+        if len(parts) >= 3:
+            event_type = parts[2]
+            entity = parts[1]
+            descriptions[event_field] = f"Flag indicating a {event_type} event for {entity}"
+    
+    # Describe temporal fields
+    descriptions["bridge__record_loaded_at"] = "Timestamp when this record was loaded"
+    descriptions["bridge__record_updated_at"] = "Timestamp when this record was last updated"
+    descriptions["bridge__record_valid_from"] = "Timestamp from which this record is valid"
+    descriptions["bridge__record_valid_to"] = "Timestamp until which this record is valid"
+    descriptions["bridge__is_current_record"] = "Flag indicating if this is the current valid version of the record"
+    
+    return descriptions
+
 def discover_models(schema, pattern):
     """Discover models matching pattern in the given schema directory"""
     # In a real implementation, query the database catalog tables
@@ -89,7 +146,7 @@ def discover_models(schema, pattern):
     models_dir = f"./models/{schema}/"
     sql_files = glob.glob(f"{models_dir}{pattern}.sql")
     
-    # Extract model names from file paths
+    # Extract model names from file paths and sort for consistency
     models = [os.path.basename(f).replace('.sql', '') for f in sql_files]
     
     return sorted(models)

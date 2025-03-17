@@ -8,6 +8,18 @@ MODEL (
   references (
     _pit_hook__department,
     _hook__epoch__date
+  ),
+  description 'Event viewpoint of departments data: Lookup table containing the departments within the Adventure Works Cycles company.',
+  column_descriptions (
+    peripheral = 'Name of the departments peripheral this event relates to',
+    _pit_hook__bridge = 'Unique identifier for this event record',
+    _hook__epoch__date = 'Hook to the date the event occurred',
+    event__departments_modified = 'Flag indicating a modified event for this departments',
+    bridge__record_loaded_at = 'Timestamp when this event record was loaded',
+    bridge__record_updated_at = 'Timestamp when this event record was last updated',
+    bridge__record_valid_from = 'Timestamp from which this event record is valid',
+    bridge__record_valid_to = 'Timestamp until which this event record is valid',
+    bridge__is_current_record = 'Flag indicating if this is the current valid version of the event record'
   )
 );
 

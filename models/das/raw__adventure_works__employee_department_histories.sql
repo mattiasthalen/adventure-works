@@ -1,6 +1,16 @@
 MODEL (
   kind VIEW,
-  enabled TRUE
+  enabled TRUE,
+  description 'Raw viewpoint of employee_department_histories data: Employee department transfers.',
+  column_descriptions (
+    business_entity_id = 'Employee identification number. Foreign key to Employee.BusinessEntityID.',
+    department_id = 'Department in which the employee worked including currently. Foreign key to Department.DepartmentID.',
+    shift_id = 'Identifies which 8-hour shift the employee works. Foreign key to Shift.Shift.ID.',
+    start_date = 'Date the employee started work in the department.',
+    modified_date = 'Date and time the record was last updated.',
+    _dlt_load_id = 'Internal data loading identifier.',
+    end_date = 'Date the employee left the department. NULL = Current department.'
+  )
 );
 
 SELECT

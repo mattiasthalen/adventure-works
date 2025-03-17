@@ -1,6 +1,14 @@
 MODEL (
   kind VIEW,
-  enabled TRUE
+  enabled TRUE,
+  description 'Raw viewpoint of departments data: Lookup table containing the departments within the Adventure Works Cycles company.',
+  column_descriptions (
+    department_id = 'Primary key for Department records.',
+    name = 'Name of the department.',
+    group_name = 'Name of the group to which the department belongs.',
+    modified_date = 'Date and time the record was last updated.',
+    _dlt_load_id = 'Internal data loading identifier.'
+  )
 );
 
 SELECT

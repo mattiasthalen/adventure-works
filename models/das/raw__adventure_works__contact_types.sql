@@ -1,6 +1,13 @@
 MODEL (
   kind VIEW,
-  enabled TRUE
+  enabled TRUE,
+  description 'Raw viewpoint of contact_types data: Lookup table containing the types of business entity contacts.',
+  column_descriptions (
+    contact_type_id = 'Primary key for ContactType records.',
+    name = 'Contact type description.',
+    modified_date = 'Date and time the record was last updated.',
+    _dlt_load_id = 'Internal data loading identifier.'
+  )
 );
 
 SELECT

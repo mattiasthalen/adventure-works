@@ -9,6 +9,20 @@ MODEL (
     _pit_hook__bill_of_materials,
     _pit_hook__reference__unit_measure,
     _hook__epoch__date
+  ),
+  description 'Event viewpoint of bill_of_materials data: Items required to make bicycles and bicycle subassemblies. It identifies the hierarchical relationship between a parent product and its components.',
+  column_descriptions (
+    peripheral = 'Name of the bill_of_materials peripheral this event relates to',
+    _pit_hook__bridge = 'Unique identifier for this event record',
+    _hook__epoch__date = 'Hook to the date the event occurred',
+    event__bill_of_materials_started = 'Flag indicating a started event for this bill_of_materials',
+    event__bill_of_materials_modified = 'Flag indicating a modified event for this bill_of_materials',
+    event__bill_of_materials_ended = 'Flag indicating a ended event for this bill_of_materials',
+    bridge__record_loaded_at = 'Timestamp when this event record was loaded',
+    bridge__record_updated_at = 'Timestamp when this event record was last updated',
+    bridge__record_valid_from = 'Timestamp from which this event record is valid',
+    bridge__record_valid_to = 'Timestamp until which this event record is valid',
+    bridge__is_current_record = 'Flag indicating if this is the current valid version of the event record'
   )
 );
 

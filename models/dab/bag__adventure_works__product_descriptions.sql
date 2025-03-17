@@ -4,7 +4,21 @@ MODEL (
     unique_key _pit_hook__reference__product_description
   ),
   tags hook,
-  grain (_pit_hook__reference__product_description, _hook__reference__product_description)
+  grain (_pit_hook__reference__product_description, _hook__reference__product_description),
+  description 'Hook viewpoint of product_descriptions data: Product descriptions in several languages.',
+  column_descriptions (
+    product_description__product_description_id = 'Primary key for ProductDescription records.',
+    product_description__description = 'Description of the product.',
+    product_description__rowguid = 'ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample.',
+    product_description__record_loaded_at = 'Timestamp when this record was loaded into the system',
+    product_description__record_updated_at = 'Timestamp when this record was last updated',
+    product_description__record_version = 'Version number for this record',
+    product_description__record_valid_from = 'Timestamp from which this record version is valid',
+    product_description__record_valid_to = 'Timestamp until which this record version is valid',
+    product_description__is_current_record = 'Flag indicating if this is the current valid version of the record',
+    _hook__reference__product_description = 'Reference hook to product_description reference',
+    _pit_hook__reference__product_description = 'Point-in-time hook that combines the primary hook with a validity timestamp'
+  )
 );
 
 WITH staging AS (

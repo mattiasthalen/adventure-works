@@ -11,6 +11,20 @@ MODEL (
     _pit_hook__ship_method,
     _pit_hook__vendor,
     _hook__epoch__date
+  ),
+  description 'Event viewpoint of purchase_order_headers data: General purchase order information. See PurchaseOrderDetail.',
+  column_descriptions (
+    peripheral = 'Name of the purchase_order_headers peripheral this event relates to',
+    _pit_hook__bridge = 'Unique identifier for this event record',
+    _hook__epoch__date = 'Hook to the date the event occurred',
+    event__purchase_order_headers_placed = 'Flag indicating a placed event for this purchase_order_headers',
+    event__purchase_order_headers_shipped = 'Flag indicating a shipped event for this purchase_order_headers',
+    event__purchase_order_headers_modified = 'Flag indicating a modified event for this purchase_order_headers',
+    bridge__record_loaded_at = 'Timestamp when this event record was loaded',
+    bridge__record_updated_at = 'Timestamp when this event record was last updated',
+    bridge__record_valid_from = 'Timestamp from which this event record is valid',
+    bridge__record_valid_to = 'Timestamp until which this event record is valid',
+    bridge__is_current_record = 'Flag indicating if this is the current valid version of the event record'
   )
 );
 

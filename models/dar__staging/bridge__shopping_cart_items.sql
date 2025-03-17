@@ -5,7 +5,23 @@ MODEL (
   ),
   tags bridge,
   grain (_pit_hook__bridge),
-  references (_pit_hook__product, _pit_hook__product_category, _pit_hook__product_subcategory, _pit_hook__reference__product_model, _pit_hook__shopping_cart_item)
+  references (_pit_hook__product, _pit_hook__product_category, _pit_hook__product_subcategory, _pit_hook__reference__product_model, _pit_hook__shopping_cart_item),
+  description 'Bridge viewpoint of shopping_cart_item data: Contains online customer orders until the order is submitted or cancelled.',
+  column_descriptions (
+    _pit_hook__product = 'Point-in-time hook for product',
+    _pit_hook__product_category = 'Point-in-time hook for product_category',
+    _pit_hook__product_subcategory = 'Point-in-time hook for product_subcategory',
+    _pit_hook__reference__product_model = 'Point-in-time hook for product_model reference',
+    _pit_hook__shopping_cart_item = 'Point-in-time hook for shopping_cart_item',
+    _hook__shopping_cart_item = 'Primary hook to shopping_cart_item',
+    peripheral = 'Name of the peripheral this bridge represents',
+    _pit_hook__bridge = 'Unified bridge point-in-time hook that combines peripheral and validity period',
+    bridge__record_loaded_at = 'Timestamp when this bridge record was loaded',
+    bridge__record_updated_at = 'Timestamp when this bridge record was last updated',
+    bridge__record_valid_from = 'Timestamp from which this bridge record is valid',
+    bridge__record_valid_to = 'Timestamp until which this bridge record is valid',
+    bridge__is_current_record = 'Flag indicating if this is the current valid version of the bridge record'
+  )
 );
 
 WITH cte__bridge AS (

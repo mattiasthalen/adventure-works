@@ -8,6 +8,18 @@ MODEL (
   references (
     _pit_hook__reference__location,
     _hook__epoch__date
+  ),
+  description 'Event viewpoint of locations data: Product inventory and manufacturing locations.',
+  column_descriptions (
+    peripheral = 'Name of the locations peripheral this event relates to',
+    _pit_hook__bridge = 'Unique identifier for this event record',
+    _hook__epoch__date = 'Hook to the date the event occurred',
+    event__locations_modified = 'Flag indicating a modified event for this locations',
+    bridge__record_loaded_at = 'Timestamp when this event record was loaded',
+    bridge__record_updated_at = 'Timestamp when this event record was last updated',
+    bridge__record_valid_from = 'Timestamp from which this event record is valid',
+    bridge__record_valid_to = 'Timestamp until which this event record is valid',
+    bridge__is_current_record = 'Flag indicating if this is the current valid version of the event record'
   )
 );
 

@@ -5,7 +5,20 @@ MODEL (
   ),
   tags bridge,
   grain (_pit_hook__bridge),
-  references (_pit_hook__bill_of_materials, _pit_hook__reference__unit_measure)
+  references (_pit_hook__bill_of_materials, _pit_hook__reference__unit_measure),
+  description 'Bridge viewpoint of bill_of_materials data: Items required to make bicycles and bicycle subassemblies. It identifies the hierarchical relationship between a parent product and its components.',
+  column_descriptions (
+    _pit_hook__bill_of_materials = 'Point-in-time hook for bill_of_materials',
+    _pit_hook__reference__unit_measure = 'Point-in-time hook for unit_measure reference',
+    _hook__bill_of_materials = 'Primary hook to bill_of_materials',
+    peripheral = 'Name of the peripheral this bridge represents',
+    _pit_hook__bridge = 'Unified bridge point-in-time hook that combines peripheral and validity period',
+    bridge__record_loaded_at = 'Timestamp when this bridge record was loaded',
+    bridge__record_updated_at = 'Timestamp when this bridge record was last updated',
+    bridge__record_valid_from = 'Timestamp from which this bridge record is valid',
+    bridge__record_valid_to = 'Timestamp until which this bridge record is valid',
+    bridge__is_current_record = 'Flag indicating if this is the current valid version of the bridge record'
+  )
 );
 
 WITH cte__bridge AS (

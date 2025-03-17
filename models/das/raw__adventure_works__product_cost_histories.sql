@@ -1,6 +1,15 @@
 MODEL (
   kind VIEW,
-  enabled TRUE
+  enabled TRUE,
+  description 'Raw viewpoint of product_cost_histories data: Changes in the cost of a product over time.',
+  column_descriptions (
+    product_id = 'Product identification number. Foreign key to Product.ProductID.',
+    start_date = 'Product cost start date.',
+    end_date = 'Product cost end date.',
+    standard_cost = 'Standard cost of the product.',
+    modified_date = 'Date and time the record was last updated.',
+    _dlt_load_id = 'Internal data loading identifier.'
+  )
 );
 
 SELECT

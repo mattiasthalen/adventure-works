@@ -1,6 +1,13 @@
 MODEL (
   kind VIEW,
-  enabled TRUE
+  enabled TRUE,
+  description 'Raw viewpoint of product_model_illustrations data: Cross-reference table mapping product models and illustrations.',
+  column_descriptions (
+    product_model_id = 'Primary key. Foreign key to ProductModel.ProductModelID.',
+    illustration_id = 'Primary key. Foreign key to Illustration.IllustrationID.',
+    modified_date = 'Date and time the record was last updated.',
+    _dlt_load_id = 'Internal data loading identifier.'
+  )
 );
 
 SELECT

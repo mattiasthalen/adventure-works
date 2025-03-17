@@ -13,6 +13,21 @@ MODEL (
     _pit_hook__reference__product_model,
     _pit_hook__reference__scrap_reason,
     _hook__epoch__date
+  ),
+  description 'Event viewpoint of work_orders data: Manufacturing work orders.',
+  column_descriptions (
+    peripheral = 'Name of the work_orders peripheral this event relates to',
+    _pit_hook__bridge = 'Unique identifier for this event record',
+    _hook__epoch__date = 'Hook to the date the event occurred',
+    event__work_orders_started = 'Flag indicating a started event for this work_orders',
+    event__work_orders_ended = 'Flag indicating a ended event for this work_orders',
+    event__work_orders_due = 'Flag indicating a due event for this work_orders',
+    event__work_orders_modified = 'Flag indicating a modified event for this work_orders',
+    bridge__record_loaded_at = 'Timestamp when this event record was loaded',
+    bridge__record_updated_at = 'Timestamp when this event record was last updated',
+    bridge__record_valid_from = 'Timestamp from which this event record is valid',
+    bridge__record_valid_to = 'Timestamp until which this event record is valid',
+    bridge__is_current_record = 'Flag indicating if this is the current valid version of the event record'
   )
 );
 

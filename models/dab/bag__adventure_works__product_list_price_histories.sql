@@ -5,7 +5,24 @@ MODEL (
   ),
   tags hook,
   grain (_pit_hook__product_list_price_history, _hook__product_list_price_history),
-  references (_hook__product, _hook__epoch__start_date)
+  description 'Hook viewpoint of product_list_price_histories data: Changes in the list price of a product over time.',
+  references (_hook__product, _hook__epoch__start_date),
+  column_descriptions (
+    product_list_price_history__product_id = 'Product identification number. Foreign key to Product.ProductID.',
+    product_list_price_history__start_date = 'List price start date.',
+    product_list_price_history__end_date = 'List price end date.',
+    product_list_price_history__list_price = 'Product list price.',
+    product_list_price_history__record_loaded_at = 'Timestamp when this record was loaded into the system',
+    product_list_price_history__record_updated_at = 'Timestamp when this record was last updated',
+    product_list_price_history__record_version = 'Version number for this record',
+    product_list_price_history__record_valid_from = 'Timestamp from which this record version is valid',
+    product_list_price_history__record_valid_to = 'Timestamp until which this record version is valid',
+    product_list_price_history__is_current_record = 'Flag indicating if this is the current valid version of the record',
+    _hook__product_list_price_history = 'Reference hook to product_list_price_history',
+    _hook__product = 'Reference hook to product',
+    _hook__epoch__start_date = 'Reference hook to start_date epoch',
+    _pit_hook__product_list_price_history = 'Point-in-time hook that combines the primary hook with a validity timestamp'
+  )
 );
 
 WITH staging AS (

@@ -1,5 +1,5 @@
 import os
-from parse_yaml import load_schema, get_filtered_tables, ensure_directory_exists, map_data_type
+from parse_yaml import load_schema, get_filtered_tables, ensure_directory_exists, map_data_type, format_raw_description
 
 def generate_raw_views(output_dir):
     """Generate raw model SQL files for all tables in the schema"""
@@ -34,8 +34,40 @@ def generate_raw_views(output_dir):
 
 def generate_sql_for_table(table_name, table_info):
     """Generate SQL VIEW model for a table"""
-    # Model declaration
-    sql = "MODEL (\n  kind VIEW,\n  enabled TRUE\n);\n\n"
+    # Get table description
+    original_description = table_info.get('description', '')
+    entity_name = table_name.replace('raw__adventure_works__', '')
+    
+    # Format the description
+    table_description = format_raw_description(entity_name, original_description)
+    
+    # Model declaration with description
+    sql = f"""MODEL (
+  kind VIEW,
+  enabled TRUE,
+  description '{table_description.replace("'", "''")}'"""
+    
+    # Add column_descriptions if any
+    column_descriptions = {}
+    for col_name, col_info in table_info['columns'].items():
+        # Skip internal DLT columns
+        if col_name.startswith('_dlt') and col_name != '_dlt_load_id':
+            continue
+        
+        if 'description' in col_info:
+            # Escape single quotes in description
+            column_descriptions[col_name] = col_info['description'].replace("'", "''")
+    
+    if column_descriptions:
+        sql += ",\n  column_descriptions (\n"
+        for i, (col_name, desc) in enumerate(column_descriptions.items()):
+            sql += f"    {col_name} = '{desc}'"
+            if i < len(column_descriptions) - 1:
+                sql += ","
+            sql += "\n"
+        sql += "  )"
+    
+    sql += "\n);\n\n"
     
     # Begin SELECT statement
     sql += "SELECT\n"

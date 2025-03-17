@@ -11,6 +11,20 @@ MODEL (
     _pit_hook__person__employee,
     _pit_hook__reference__shift,
     _hook__epoch__date
+  ),
+  description 'Event viewpoint of employee_department_histories data: Employee department transfers.',
+  column_descriptions (
+    peripheral = 'Name of the employee_department_histories peripheral this event relates to',
+    _pit_hook__bridge = 'Unique identifier for this event record',
+    _hook__epoch__date = 'Hook to the date the event occurred',
+    event__employee_department_histories_started = 'Flag indicating a started event for this employee_department_histories',
+    event__employee_department_histories_modified = 'Flag indicating a modified event for this employee_department_histories',
+    event__employee_department_histories_ended = 'Flag indicating a ended event for this employee_department_histories',
+    bridge__record_loaded_at = 'Timestamp when this event record was loaded',
+    bridge__record_updated_at = 'Timestamp when this event record was last updated',
+    bridge__record_valid_from = 'Timestamp from which this event record is valid',
+    bridge__record_valid_to = 'Timestamp until which this event record is valid',
+    bridge__is_current_record = 'Flag indicating if this is the current valid version of the event record'
   )
 );
 

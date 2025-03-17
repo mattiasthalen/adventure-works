@@ -1,6 +1,16 @@
 MODEL (
   kind VIEW,
-  enabled TRUE
+  enabled TRUE,
+  description 'Raw viewpoint of credit_cards data: Customer credit card information.',
+  column_descriptions (
+    credit_card_id = 'Primary key for CreditCard records.',
+    card_type = 'Credit card name.',
+    card_number = 'Credit card number.',
+    exp_month = 'Credit card expiration month.',
+    exp_year = 'Credit card expiration year.',
+    modified_date = 'Date and time the record was last updated.',
+    _dlt_load_id = 'Internal data loading identifier.'
+  )
 );
 
 SELECT

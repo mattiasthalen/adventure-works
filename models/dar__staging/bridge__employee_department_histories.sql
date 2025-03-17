@@ -5,7 +5,22 @@ MODEL (
   ),
   tags bridge,
   grain (_pit_hook__bridge),
-  references (_pit_hook__department, _pit_hook__employee_department_history, _pit_hook__person__employee, _pit_hook__reference__shift)
+  references (_pit_hook__department, _pit_hook__employee_department_history, _pit_hook__person__employee, _pit_hook__reference__shift),
+  description 'Bridge viewpoint of employee_department_history data: Employee department transfers.',
+  column_descriptions (
+    _pit_hook__department = 'Point-in-time hook for department',
+    _pit_hook__employee_department_history = 'Point-in-time hook for employee_department_history',
+    _pit_hook__person__employee = 'Point-in-time hook for employee person',
+    _pit_hook__reference__shift = 'Point-in-time hook for shift reference',
+    _hook__employee_department_history = 'Primary hook to employee_department_history',
+    peripheral = 'Name of the peripheral this bridge represents',
+    _pit_hook__bridge = 'Unified bridge point-in-time hook that combines peripheral and validity period',
+    bridge__record_loaded_at = 'Timestamp when this bridge record was loaded',
+    bridge__record_updated_at = 'Timestamp when this bridge record was last updated',
+    bridge__record_valid_from = 'Timestamp from which this bridge record is valid',
+    bridge__record_valid_to = 'Timestamp until which this bridge record is valid',
+    bridge__is_current_record = 'Flag indicating if this is the current valid version of the bridge record'
+  )
 );
 
 WITH cte__bridge AS (

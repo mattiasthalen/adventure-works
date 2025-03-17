@@ -4,7 +4,30 @@ MODEL (
     unique_key _pit_hook__person__individual
   ),
   tags hook,
-  grain (_pit_hook__person__individual, _hook__person__individual)
+  grain (_pit_hook__person__individual, _hook__person__individual),
+  description 'Hook viewpoint of persons data: Human beings involved with AdventureWorks: employees, customer contacts, and vendor contacts.',
+  column_descriptions (
+    person__business_entity_id = 'Primary key for Person records.',
+    person__person_type = 'Primary type of person: SC = Store Contact, IN = Individual (retail) customer, SP = Sales person, EM = Employee (non-sales), VC = Vendor contact, GC = General contact.',
+    person__name_style = '0 = The data in FirstName and LastName are stored in western style (first name, last name) order. 1 = Eastern style (last name, first name) order.',
+    person__first_name = 'First name of the person.',
+    person__middle_name = 'Middle name or middle initial of the person.',
+    person__last_name = 'Last name of the person.',
+    person__email_promotion = '0 = Contact does not wish to receive e-mail promotions, 1 = Contact does wish to receive e-mail promotions from AdventureWorks, 2 = Contact does wish to receive e-mail promotions from AdventureWorks and selected partners.',
+    person__demographics = 'Personal information such as hobbies, and income collected from online shoppers. Used for sales analysis.',
+    person__rowguid = 'ROWGUIDCOL number uniquely identifying the record. Used to support a merge replication sample.',
+    person__title = 'A courtesy title. For example, Mr. or Ms.',
+    person__suffix = 'Surname suffix. For example, Sr. or Jr.',
+    person__additional_contact_info = 'Additional contact information about the person stored in xml format.',
+    person__record_loaded_at = 'Timestamp when this record was loaded into the system',
+    person__record_updated_at = 'Timestamp when this record was last updated',
+    person__record_version = 'Version number for this record',
+    person__record_valid_from = 'Timestamp from which this record version is valid',
+    person__record_valid_to = 'Timestamp until which this record version is valid',
+    person__is_current_record = 'Flag indicating if this is the current valid version of the record',
+    _hook__person__individual = 'Reference hook to individual person',
+    _pit_hook__person__individual = 'Point-in-time hook that combines the primary hook with a validity timestamp'
+  )
 );
 
 WITH staging AS (

@@ -4,15 +4,30 @@ MODEL (
     unique_key _pit_hook__reference__shift
   ),
   tags hook,
-  grain (_pit_hook__reference__shift, _hook__reference__shift)
+  grain (_pit_hook__reference__shift, _hook__reference__shift),
+  description 'Hook viewpoint of shifts data: Work shift lookup table.',
+  column_descriptions (
+    shift__shift_id = 'Primary key for Shift records.',
+    shift__name = 'Shift description.',
+    shift__start_time = 'Shift start time. ISO duration.',
+    shift__end_time = 'Shift end time. ISO duration.',
+    shift__record_loaded_at = 'Timestamp when this record was loaded into the system',
+    shift__record_updated_at = 'Timestamp when this record was last updated',
+    shift__record_version = 'Version number for this record',
+    shift__record_valid_from = 'Timestamp from which this record version is valid',
+    shift__record_valid_to = 'Timestamp until which this record version is valid',
+    shift__is_current_record = 'Flag indicating if this is the current valid version of the record',
+    _hook__reference__shift = 'Reference hook to shift reference',
+    _pit_hook__reference__shift = 'Point-in-time hook that combines the primary hook with a validity timestamp'
+  )
 );
 
 WITH staging AS (
   SELECT
     shift_id AS shift__shift_id,
     name AS shift__name,
-    start_time AS shift__start_time,
-    end_time AS shift__end_time,
+    MAKE_TIME(REGEXP_EXTRACT(start_time, 'PT(\d+)H', 1)::INT, 0, 0) AS shift__start_time,
+    MAKE_TIME(REGEXP_EXTRACT(end_time, 'PT(\d+)H', 1)::INT, 0, 0) AS shift__end_time,
     modified_date AS shift__modified_date,
     TO_TIMESTAMP(_dlt_load_id::DOUBLE) AS shift__record_loaded_at
   FROM das.raw__adventure_works__shifts
@@ -51,8 +66,8 @@ SELECT
   _hook__reference__shift::BLOB,
   shift__shift_id::BIGINT,
   shift__name::TEXT,
-  shift__start_time::TEXT,
-  shift__end_time::TEXT,
+  shift__start_time::TIME,
+  shift__end_time::TIME,
   shift__modified_date::DATE,
   shift__record_loaded_at::TIMESTAMP,
   shift__record_updated_at::TIMESTAMP,

@@ -1,6 +1,13 @@
 MODEL (
   kind VIEW,
-  enabled TRUE
+  enabled TRUE,
+  description 'Raw viewpoint of cultures data: Lookup table containing the languages in which some AdventureWorks data is stored.',
+  column_descriptions (
+    culture_id = 'Primary key for Culture records.',
+    name = 'Culture description.',
+    modified_date = 'Date and time the record was last updated.',
+    _dlt_load_id = 'Internal data loading identifier.'
+  )
 );
 
 SELECT

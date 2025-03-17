@@ -1,5 +1,5 @@
 import os
-from parse_yaml import load_bags_config, load_schema, ensure_directory_exists
+from parse_yaml import load_bags_config, load_schema, ensure_directory_exists, format_event_description
 
 def generate_event_models(output_dir, bridge_schema, hook_schema):
     """Generate event models for all bags with at least modified_date"""
@@ -129,9 +129,47 @@ def get_hooks_from_bag(bag):
     
     return hooks
 
-def generate_model_declaration(reference_hooks, primary_hook_name):
-    """Generate the MODEL declaration section"""
-    return f"""MODEL (
+def get_event_column_descriptions(entity_name, event_mappings):
+    """Generate descriptions for event model columns"""
+    descriptions = {}
+    
+    # Describe standard columns
+    descriptions["peripheral"] = f"Name of the {entity_name} peripheral this event relates to"
+    descriptions["_pit_hook__bridge"] = "Unique identifier for this event record"
+    descriptions["_hook__epoch__date"] = "Hook to the date the event occurred"
+    
+    # Describe event fields
+    for _, event_name in event_mappings:
+        # Extract event type from name
+        event_type = event_name.replace(f"event__{entity_name}_", "")
+        descriptions[event_name] = f"Flag indicating a {event_type} event for this {entity_name}"
+    
+    # Describe the temporal fields
+    descriptions["bridge__record_loaded_at"] = "Timestamp when this event record was loaded"
+    descriptions["bridge__record_updated_at"] = "Timestamp when this event record was last updated"
+    descriptions["bridge__record_valid_from"] = "Timestamp from which this event record is valid"
+    descriptions["bridge__record_valid_to"] = "Timestamp until which this event record is valid"
+    descriptions["bridge__is_current_record"] = "Flag indicating if this is the current valid version of the event record"
+    
+    return descriptions
+
+def generate_model_declaration(reference_hooks, primary_hook_name, entity_name, event_mappings):
+    """Generate the MODEL declaration section with descriptions"""
+    event_descriptions = get_event_column_descriptions(entity_name, event_mappings)
+    
+    # Get original description from schema
+    source_table = f"raw__adventure_works__{entity_name}s"  # Assuming plural form
+    original_description = ""
+    schema = load_schema()
+    if source_table in schema['tables']:
+        original_description = schema['tables'][source_table].get('description', '')
+    elif source_table[:-1] in schema['tables']:  # Try singular form
+        original_description = schema['tables'][source_table[:-1]].get('description', '')
+    
+    # Format event description
+    model_description = format_event_description(entity_name, original_description)
+    
+    model_declaration = f"""MODEL (
   enabled TRUE,
   kind INCREMENTAL_BY_UNIQUE_KEY(
     unique_key _pit_hook__bridge
@@ -141,9 +179,22 @@ def generate_model_declaration(reference_hooks, primary_hook_name):
   references (
     {',\n    '.join(reference_hooks)},
     _hook__epoch__date
-  )
-);
-"""
+  ),
+  description '{model_description.replace("'", "''")}'"""
+    
+    # Add column descriptions
+    if event_descriptions:
+        model_declaration += ",\n  column_descriptions (\n"
+        col_desc_items = list(event_descriptions.items())
+        for i, (col_name, desc) in enumerate(col_desc_items):
+            model_declaration += f"    {col_name} = '{desc}'"
+            if i < len(col_desc_items) - 1:
+                model_declaration += ","
+            model_declaration += "\n"
+        model_declaration += "  )"
+    
+    model_declaration += "\n);\n"
+    return model_declaration
 
 def generate_bridge_cte(reference_hooks, bridge_schema, bridge_name):
     """Generate the bridge CTE section"""
@@ -264,7 +315,7 @@ def generate_event_model(bag, date_fields, output_dir, bridge_schema, hook_schem
         reference_hooks = get_hooks_from_bag(bag)
     
     # Generate SQL sections
-    model_declaration = generate_model_declaration(reference_hooks, primary_hook_name)
+    model_declaration = generate_model_declaration(reference_hooks, primary_hook_name, entity_name, event_mappings)
     bridge_cte = generate_bridge_cte(reference_hooks, bridge_schema, bridge_name)
     events_cte = generate_events_cte(primary_hook_name, event_mappings, hook_schema, bag_name)
     final_cte = generate_final_cte(primary_hook_name)
