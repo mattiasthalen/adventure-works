@@ -1,6 +1,6 @@
 import os
 import glob
-from parse_yaml import load_bags_config, ensure_directory_exists
+from parse_yaml import ensure_directory_exists
 
 def generate_bridge_union(output_dir, bridge_schema, events_schema):
     """Generate a bridge union that contains ONLY event models with consistent column ordering"""
@@ -114,7 +114,6 @@ def get_bridge_union_column_descriptions(pit_hooks, event_fields):
         # Extract concept from hook name
         parts = pit_hook.split('__')
         if len(parts) >= 2:
-            hook_type = parts[0].replace('_pit', '')
             concept = parts[1]
             if len(parts) >= 3:
                 qualifier = parts[2]

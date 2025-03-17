@@ -15,9 +15,10 @@ def get_composite_parts(hook):
         return hook['composite_key_fields']
     return []
 
-def generate_validity_cte(bag, primary_hook):
+def generate_validity_cte(bag, primary_hook, column_prefix=None):
     """Generate the validity CTE with appropriate partitioning for composite keys"""
-    column_prefix = bag['column_prefix']
+    if column_prefix is None:
+        column_prefix = bag['column_prefix']
     
     # Determine partition field(s)
     partition_fields = []
@@ -174,68 +175,87 @@ def generate_hook_bags(output_dir, raw_schema):
     print(f"Generated {count} hook models in {output_dir}")
     return count
 
-def generate_hook_model_for_bag(bag, schema, output_dir, raw_schema):
-    """Generate a hook model SQL file for a specific bag with composite key support"""
-    bag_name = bag['name']
-    source_table = bag['source_table']
-    column_prefix = bag['column_prefix']
-    hooks = bag['hooks']
-    
-    # Skip _dlt tables
-    if source_table.startswith('_dlt'):
-        return False
-    
-    # Get primary hook
-    primary_hook = next((h for h in hooks if h.get('primary')), hooks[0])
-    
-    # Get source table schema
-    table_columns = {}
-    original_description = ""
-    if source_table in schema['tables']:
-        table_info = schema['tables'][source_table]
-        table_columns = table_info['columns']
-        original_description = table_info.get('description', '')
-    else:
+def is_valid_source_table(source_table, schema):
+    """Check if source table exists in schema"""
+    if source_table not in schema['tables']:
         print(f"Warning: Table {source_table} not found in schema")
         return False
-    
-    # Extract entity name for description
-    entity_name = bag_name.replace('bag__adventure_works__', '')
-    
-    # Format the description
-    table_description = format_hook_description(entity_name, original_description)
-    
-    # Filter columns
-    filtered_columns = {col: props for col, props in table_columns.items() 
-                       if not col.startswith('_dlt_') and col != 'modified_date'}
-    
-    # Get reference hooks
-    reference_hooks = [h['name'] for h in hooks if h != primary_hook]
-    
-    # Generate hooks CTE first to determine the pit_hook_name
-    hooks_cte, primary_hook, pit_hook_name = generate_hooks_cte(bag)
-    
-    # Get column descriptions from source table
+    return True
+
+def get_primary_hook(hooks):
+    """Get the primary hook from hooks list"""
+    return next((h for h in hooks if h.get('primary')), hooks[0])
+
+def extract_entity_name(bag_name):
+    """Extract entity name from bag name"""
+    return bag_name.replace('bag__adventure_works__', '')
+
+def filter_columns(table_columns):
+    """Filter out internal columns"""
+    return {col: props for col, props in table_columns.items() 
+           if not col.startswith('_dlt_') and col != 'modified_date'}
+
+def get_reference_hooks(hooks, primary_hook):
+    """Get non-primary hooks as references"""
+    return [h['name'] for h in hooks if h != primary_hook]
+
+def prepare_column_descriptions(filtered_columns, column_prefix, bag):
+    """Prepare descriptions for all columns"""
     column_descriptions = {}
+    
+    # Source table column descriptions
     for col_name, col_info in filtered_columns.items():
         if 'description' in col_info:
             column_descriptions[f"{column_prefix}__{col_name}"] = col_info['description'].replace("'", "''")
     
-    # Add descriptions for temporal and hook columns
+    # Temporal column descriptions
     temporal_descriptions = get_temporal_column_descriptions()
     for field, desc in temporal_descriptions.items():
         column_descriptions[f"{column_prefix}__{field}"] = desc
     
-    # Add hook column descriptions
+    # Hook column descriptions
     hook_descriptions = get_hook_column_descriptions(bag)
     for hook_name, desc in hook_descriptions.items():
         column_descriptions[hook_name] = desc
     
-    # Generate SQL file
+    return column_descriptions
+
+def write_hook_model_file(
+    bag_name, output_dir, pit_hook_name, primary_hook, table_description,
+    reference_hooks, column_descriptions, filtered_columns, column_prefix,
+    source_table, raw_schema, bag, hooks_cte, hooks
+):
+    """Write the SQL file for the hook model"""
     sql_path = os.path.join(output_dir, f"{bag_name}.sql")
+    
     with open(sql_path, 'w') as sql_file:
-        # MODEL declaration
-        sql_file.write(f"""MODEL (
+        # Write model declaration
+        write_model_declaration(
+            sql_file, pit_hook_name, primary_hook, table_description,
+            reference_hooks, column_descriptions
+        )
+        
+        # Write CTEs
+        write_staging_cte(sql_file, filtered_columns, column_prefix, source_table, raw_schema)
+        
+        validity_cte = generate_validity_cte(bag, primary_hook, column_prefix)
+        sql_file.write(f"{validity_cte}, ")
+        
+        sql_file.write(hooks_cte + "\n")
+        
+        # Write final SELECT
+        write_final_select(
+            sql_file, pit_hook_name, hooks, filtered_columns, column_prefix, source_table
+        )
+    
+    return True
+
+def write_model_declaration(
+    sql_file, pit_hook_name, primary_hook, table_description,
+    reference_hooks, column_descriptions
+):
+    """Write MODEL declaration to SQL file"""
+    sql_file.write(f"""MODEL (
   enabled TRUE,
   kind INCREMENTAL_BY_UNIQUE_KEY(
     unique_key {pit_hook_name}
@@ -243,73 +263,74 @@ def generate_hook_model_for_bag(bag, schema, output_dir, raw_schema):
   tags hook,
   grain ({pit_hook_name}, {primary_hook['name']}),
   description '{table_description.replace("'", "''")}'""")
+    
+    # Add references if any
+    if reference_hooks:
+        sql_file.write(f",\n  references ({', '.join(reference_hooks)})")
+    
+    # Add column descriptions if any
+    if column_descriptions:
+        write_column_descriptions(sql_file, column_descriptions)
+    
+    sql_file.write("\n);\n\n")
+
+def write_column_descriptions(sql_file, column_descriptions):
+    """Write column descriptions section"""
+    sql_file.write(",\n  column_descriptions (\n")
+    col_desc_items = list(column_descriptions.items())
+    for i, (col_name, desc) in enumerate(col_desc_items):
+        sql_file.write(f"    {col_name} = '{desc}'")
+        if i < len(col_desc_items) - 1:
+            sql_file.write(",")
+        sql_file.write("\n")
+    sql_file.write("  )")
+
+def write_staging_cte(sql_file, filtered_columns, column_prefix, source_table, raw_schema):
+    """Write staging CTE section"""
+    sql_file.write("WITH staging AS (\n  SELECT\n")
+    
+    # Handle special case for shifts table
+    is_shifts_table = source_table == "raw__adventure_works__shifts"
+    time_fields = ["start_time", "end_time"] if is_shifts_table else []
+    
+    # Add columns with appropriate transformations
+    for col in filtered_columns.keys():
+        if col in time_fields:
+            sql_file.write(f"    MAKE_TIME(REGEXP_EXTRACT({col}, 'PT(\\d+)H', 1)::INT, 0, 0) AS {column_prefix}__{col},\n")
+        else:
+            sql_file.write(f"    {col} AS {column_prefix}__{col},\n")
+    
+    sql_file.write(f"    modified_date AS {column_prefix}__modified_date,\n")
+    sql_file.write(f"    TO_TIMESTAMP(_dlt_load_id::DOUBLE) AS {column_prefix}__record_loaded_at\n")
+    sql_file.write(f"  FROM {raw_schema}.{source_table}\n")
+    sql_file.write("), ")
+
+def write_final_select(sql_file, pit_hook_name, hooks, filtered_columns, column_prefix, source_table):
+    """Write final SELECT statement"""
+    sql_file.write("SELECT\n")
+    sql_file.write(f"  {pit_hook_name}::BLOB,\n")
+    
+    # Add all hooks
+    for hook in hooks:
+        sql_file.write(f"  {hook['name']}::BLOB,\n")
+    
+    # Add data columns with types
+    is_shifts_table = source_table == "raw__adventure_works__shifts"
+    time_fields = ["start_time", "end_time"] if is_shifts_table else []
+    
+    for col in filtered_columns.keys():
+        data_type = filtered_columns[col].get('data_type', 'text')
         
-        # Add references only if there are any
-        if reference_hooks:
-            sql_file.write(f",\n  references ({', '.join(reference_hooks)})")
+        # Map data type, with special case for time fields
+        if col in time_fields:
+            sql_type = "TIME"
+        else:
+            sql_type = map_data_type(data_type, col)
         
-        # Add column descriptions if any
-        if column_descriptions:
-            sql_file.write(",\n  column_descriptions (\n")
-            col_desc_items = list(column_descriptions.items())
-            for i, (col_name, desc) in enumerate(col_desc_items):
-                sql_file.write(f"    {col_name} = '{desc}'")
-                if i < len(col_desc_items) - 1:
-                    sql_file.write(",")
-                sql_file.write("\n")
-            sql_file.write("  )")
-        
-        sql_file.write("\n);\n\n")
-        
-        # Staging CTE
-        sql_file.write("WITH staging AS (\n  SELECT\n")
-        
-        # For shifts, we need special handling of time fields
-        is_shifts_table = source_table == "raw__adventure_works__shifts"
-        time_fields = ["start_time", "end_time"] if is_shifts_table else []
-        
-        # Add all columns, with transformation for time fields if needed
-        for i, col in enumerate(filtered_columns.keys()):
-            if col in time_fields:
-                # Apply the time transformation for start_time and end_time
-                sql_file.write(f"    MAKE_TIME(REGEXP_EXTRACT({col}, 'PT(\\d+)H', 1)::INT, 0, 0) AS {column_prefix}__{col},\n")
-            else:
-                sql_file.write(f"    {col} AS {column_prefix}__{col},\n")
-        
-        sql_file.write(f"    modified_date AS {column_prefix}__modified_date,\n")
-        sql_file.write(f"    TO_TIMESTAMP(_dlt_load_id::DOUBLE) AS {column_prefix}__record_loaded_at\n")
-        sql_file.write(f"  FROM {raw_schema}.{source_table}\n")
-        sql_file.write("), ")
-        
-        # Validity CTE
-        validity_cte = generate_validity_cte(bag, primary_hook)
-        sql_file.write(f"{validity_cte}, ")
-        
-        # Hooks CTE
-        sql_file.write(hooks_cte + "\n")
-        
-        # Final SELECT
-        sql_file.write("SELECT\n")
-        sql_file.write(f"  {pit_hook_name}::BLOB,\n")
-        
-        # Add all hooks
-        for hook in hooks:
-            sql_file.write(f"  {hook['name']}::BLOB,\n")
-        
-        # Add data columns with types
-        for col in filtered_columns.keys():
-            data_type = filtered_columns[col].get('data_type', 'text')
-            
-            # For time fields, we need to map properly
-            if col in time_fields:
-                sql_type = "TIME"
-            else:
-                sql_type = map_data_type(data_type, col)
-            
-            sql_file.write(f"  {column_prefix}__{col}::{sql_type},\n")
-        
-        # Add system columns
-        sql_file.write(f"""  {column_prefix}__modified_date::DATE,
+        sql_file.write(f"  {column_prefix}__{col}::{sql_type},\n")
+    
+    # Add system columns
+    sql_file.write(f"""  {column_prefix}__modified_date::DATE,
   {column_prefix}__record_loaded_at::TIMESTAMP,
   {column_prefix}__record_updated_at::TIMESTAMP,
   {column_prefix}__record_version::TEXT,
@@ -319,5 +340,42 @@ def generate_hook_model_for_bag(bag, schema, output_dir, raw_schema):
 FROM hooks
 WHERE 1 = 1
 AND {column_prefix}__record_updated_at BETWEEN @start_ts AND @end_ts""")
+
+def generate_hook_model_for_bag(bag, schema, output_dir, raw_schema):
+    """Generate a hook model SQL file for a specific bag with composite key support"""
+    # Extract basic info and validate
+    bag_name = bag['name']
+    source_table = bag['source_table']
+    column_prefix = bag['column_prefix']
     
-    return True
+    # Skip _dlt tables
+    if source_table.startswith('_dlt'):
+        return False
+    
+    # Get source table schema
+    if not is_valid_source_table(source_table, schema):
+        return False
+    
+    # Extract needed information
+    hooks = bag['hooks']
+    primary_hook = get_primary_hook(hooks)
+    table_info = schema['tables'][source_table]
+    
+    # Prepare model data
+    entity_name = extract_entity_name(bag_name)
+    table_description = format_hook_description(entity_name, table_info.get('description', ''))
+    filtered_columns = filter_columns(table_info['columns'])
+    reference_hooks = get_reference_hooks(hooks, primary_hook)
+    
+    # Generate hooks CTE first to determine the pit_hook_name
+    hooks_cte, _, pit_hook_name = generate_hooks_cte(bag)
+    
+    # Get column descriptions
+    column_descriptions = prepare_column_descriptions(filtered_columns, column_prefix, bag)
+    
+    # Generate SQL file
+    return write_hook_model_file(
+        bag_name, output_dir, pit_hook_name, primary_hook, table_description,
+        reference_hooks, column_descriptions, filtered_columns, column_prefix,
+        source_table, raw_schema, bag, hooks_cte, hooks
+    )
