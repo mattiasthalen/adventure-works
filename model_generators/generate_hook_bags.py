@@ -263,8 +263,18 @@ def generate_hook_model_for_bag(bag, schema, output_dir, raw_schema):
         
         # Staging CTE
         sql_file.write("WITH staging AS (\n  SELECT\n")
+        
+        # For shifts, we need special handling of time fields
+        is_shifts_table = source_table == "raw__adventure_works__shifts"
+        time_fields = ["start_time", "end_time"] if is_shifts_table else []
+        
+        # Add all columns, with transformation for time fields if needed
         for i, col in enumerate(filtered_columns.keys()):
-            sql_file.write(f"    {col} AS {column_prefix}__{col},\n")
+            if col in time_fields:
+                # Apply the time transformation for start_time and end_time
+                sql_file.write(f"    MAKE_TIME(REGEXP_EXTRACT({col}, 'PT(\\d+)H', 1)::INT, 0, 0) AS {column_prefix}__{col},\n")
+            else:
+                sql_file.write(f"    {col} AS {column_prefix}__{col},\n")
         
         sql_file.write(f"    modified_date AS {column_prefix}__modified_date,\n")
         sql_file.write(f"    TO_TIMESTAMP(_dlt_load_id::DOUBLE) AS {column_prefix}__record_loaded_at\n")
@@ -289,7 +299,13 @@ def generate_hook_model_for_bag(bag, schema, output_dir, raw_schema):
         # Add data columns with types
         for col in filtered_columns.keys():
             data_type = filtered_columns[col].get('data_type', 'text')
-            sql_type = map_data_type(data_type, col)
+            
+            # For time fields, we need to map properly
+            if col in time_fields:
+                sql_type = "TIME"
+            else:
+                sql_type = map_data_type(data_type, col)
+            
             sql_file.write(f"  {column_prefix}__{col}::{sql_type},\n")
         
         # Add system columns

@@ -26,8 +26,8 @@ WITH staging AS (
   SELECT
     shift_id AS shift__shift_id,
     name AS shift__name,
-    start_time AS shift__start_time,
-    end_time AS shift__end_time,
+    MAKE_TIME(REGEXP_EXTRACT(start_time, 'PT(\d+)H', 1)::INT, 0, 0) AS shift__start_time,
+    MAKE_TIME(REGEXP_EXTRACT(end_time, 'PT(\d+)H', 1)::INT, 0, 0) AS shift__end_time,
     modified_date AS shift__modified_date,
     TO_TIMESTAMP(_dlt_load_id::DOUBLE) AS shift__record_loaded_at
   FROM das.raw__adventure_works__shifts
@@ -66,8 +66,8 @@ SELECT
   _hook__reference__shift::BLOB,
   shift__shift_id::BIGINT,
   shift__name::TEXT,
-  shift__start_time::TEXT,
-  shift__end_time::TEXT,
+  shift__start_time::TIME,
+  shift__end_time::TIME,
   shift__modified_date::DATE,
   shift__record_loaded_at::TIMESTAMP,
   shift__record_updated_at::TIMESTAMP,
