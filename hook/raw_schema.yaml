@@ -1995,12 +1995,12 @@ tables:
         data_type: text
         nullable: true
       start_time:
-        description: "Shift start time."
-        data_type: time
+        description: "Shift start time. ISO duration."
+        data_type: text
         nullable: true
       end_time:
-        description: "Shift end time."
-        data_type: time
+        description: "Shift end time. ISO duration."
+        data_type: text
         nullable: true
       modified_date:
         description: "Date and time the record was last updated."
