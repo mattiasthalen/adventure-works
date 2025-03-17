@@ -1,6 +1,6 @@
 import os
 import networkx as nx
-from parse_yaml import load_bags_config, ensure_directory_exists
+from parse_yaml import load_bags_config, ensure_directory_exists, load_schema, format_bridge_description
 
 def generate_bridges(
     output_dir,
@@ -338,6 +338,45 @@ WHERE 1 = 1
 AND bridge__record_updated_at BETWEEN @start_ts AND @end_ts"""
     
     return sql
+
+def get_bridge_column_descriptions(bag_info):
+    """Generate descriptions for bridge columns"""
+    descriptions = {}
+    
+    # Describe PIT hooks
+    for pit_hook in sorted(bag_info['all_pit_hooks']):
+        # Extract concept from hook name
+        parts = pit_hook.split('__')
+        if len(parts) >= 2:
+            hook_type = parts[0].replace('_pit', '')
+            concept = parts[1]
+            if len(parts) >= 3:
+                qualifier = parts[2]
+                descriptions[pit_hook] = f"Point-in-time hook for {qualifier} {concept}"
+            else:
+                descriptions[pit_hook] = f"Point-in-time hook for {concept}"
+    
+    # Describe primary hook
+    primary_hook_name = bag_info['primary_hook']['name']
+    parts = primary_hook_name.split('__')
+    if len(parts) >= 2:
+        concept = parts[1]
+        if len(parts) >= 3:
+            qualifier = parts[2]
+            descriptions[primary_hook_name] = f"Primary hook to {qualifier} {concept}"
+        else:
+            descriptions[primary_hook_name] = f"Primary hook to {concept}"
+    
+    # Describe temporal fields
+    descriptions["peripheral"] = "Name of the peripheral this bridge represents"
+    descriptions["_pit_hook__bridge"] = "Unified bridge point-in-time hook that combines peripheral and validity period"
+    descriptions["bridge__record_loaded_at"] = "Timestamp when this bridge record was loaded"
+    descriptions["bridge__record_updated_at"] = "Timestamp when this bridge record was last updated"
+    descriptions["bridge__record_valid_from"] = "Timestamp from which this bridge record is valid"
+    descriptions["bridge__record_valid_to"] = "Timestamp until which this bridge record is valid"
+    descriptions["bridge__is_current_record"] = "Flag indicating if this is the current valid version of the bridge record"
+    
+    return descriptions
     
 def generate_intermediate_bridge(
     bag_name, 
@@ -358,6 +397,24 @@ def generate_intermediate_bridge(
     if len(hook_parts) < 2:
         return False  # Invalid hook name format
     
+    # Get concept name for bridge description
+    concept = hook_parts[1]
+    qualifier = hook_parts[2] if len(hook_parts) > 2 else ""
+    
+    # Create entity name for description
+    entity_name = qualifier + " " + concept if qualifier else concept
+    entity_name = entity_name.strip()
+    
+    # Get original description from the source table
+    source_table = bag_info['source_table']
+    original_description = ""
+    schema = load_schema()
+    if source_table in schema['tables']:
+        original_description = schema['tables'][source_table].get('description', '')
+    
+    # Format bridge description
+    bridge_description = format_bridge_description(entity_name, original_description)
+    
     # Create file path for bridge model
     bridge_name = f"bridge__{bag_name.replace('bag__adventure_works__', '')}"
     sql_path = os.path.join(output_dir, f"{bridge_name}.sql")
@@ -366,6 +423,9 @@ def generate_intermediate_bridge(
     references = build_references_list(bag_info)
     base_cte = generate_base_cte(bridge_name, primary_hook, dependencies, column_prefix, bag_name, hook_schema)
     join_fragments = generate_join_fragments(dependencies, all_bag_info, bridge_schema)
+    
+    # Get column descriptions
+    column_descriptions = get_bridge_column_descriptions(bag_info)
     
     with open(sql_path, 'w') as sql_file:
         # Write MODEL declaration
@@ -376,10 +436,21 @@ def generate_intermediate_bridge(
   ),
   tags bridge,
   grain (_pit_hook__bridge),
-  references ({', '.join(references)})
-);
-
-""")
+  references ({', '.join(references)}),
+  description '{bridge_description.replace("'", "''")}'""")
+        
+        # Add column descriptions
+        if column_descriptions:
+            sql_file.write(",\n  column_descriptions (\n")
+            col_desc_items = list(column_descriptions.items())
+            for i, (col_name, desc) in enumerate(col_desc_items):
+                sql_file.write(f"    {col_name} = '{desc}'")
+                if i < len(col_desc_items) - 1:
+                    sql_file.write(",")
+                sql_file.write("\n")
+            sql_file.write("  )")
+        
+        sql_file.write("\n);\n\n")
         
         # Write base CTE
         sql_file.write(base_cte)

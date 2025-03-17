@@ -2,7 +2,7 @@ import os
 import yaml
 import networkx as nx
 
-def load_schema(schema_path='./pipelines/schemas/export/adventure_works.schema.yaml'):
+def load_schema(schema_path='./hook/raw_schema.yaml'):
     """Load and return the schema from YAML file"""
     with open(schema_path, 'r') as file:
         return yaml.safe_load(file)
@@ -29,7 +29,7 @@ def map_data_type(data_type, column_name=None):
     data_type = data_type.lower()
     
     # Special handling for specific fields
-    if column_name.endswith('_date'):
+    if column_name and column_name.endswith('_date'):
         return 'DATE'
     
     # Standard type mapping
@@ -43,6 +43,16 @@ def map_data_type(data_type, column_name=None):
         return 'TEXT'
     elif data_type == 'timestamp':
         return 'TIMESTAMP'
+    elif data_type == 'date':
+        return 'DATE'
+    elif data_type == 'time':
+        return 'TIME'
+    elif data_type == 'uniqueidentifier':
+        return 'TEXT'
+    elif data_type == 'binary':
+        return 'BINARY'
+    elif data_type == 'xml':
+        return 'TEXT'
     else:
         return 'TEXT'
 
@@ -186,3 +196,34 @@ def find_qualified_hooks(bags_config):
     
     # Filter to only include concepts with multiple qualifiers
     return {k: v for k, v in qualified_hooks.items() if len(v) > 1}
+
+# Description formatting helper functions
+def format_raw_description(entity_name, original_description):
+    """Format description for raw models"""
+    if not original_description:
+        return f"Raw viewpoint of {entity_name} data"
+    return f"Raw viewpoint of {entity_name} data: {original_description}"
+
+def format_hook_description(entity_name, original_description):
+    """Format description for hook models"""
+    if not original_description:
+        return f"Hook viewpoint of {entity_name} data"
+    return f"Hook viewpoint of {entity_name} data: {original_description}"
+
+def format_bridge_description(entity_name, original_description):
+    """Format description for bridge models"""
+    if not original_description:
+        return f"Bridge viewpoint of {entity_name} data"
+    return f"Bridge viewpoint of {entity_name} data: {original_description}"
+
+def format_event_description(entity_name, original_description):
+    """Format description for event models"""
+    if not original_description:
+        return f"Event viewpoint of {entity_name} data"
+    return f"Event viewpoint of {entity_name} data: {original_description}"
+
+def format_peripheral_description(entity_name, original_description):
+    """Format description for peripheral models"""
+    if not original_description:
+        return f"Business viewpoint of {entity_name} data"
+    return f"Business viewpoint of {entity_name} data: {original_description}"

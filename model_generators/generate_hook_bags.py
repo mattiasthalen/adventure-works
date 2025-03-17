@@ -1,5 +1,5 @@
 import os
-from parse_yaml import load_schema, load_bags_config, ensure_directory_exists, map_data_type
+from parse_yaml import load_schema, load_bags_config, ensure_directory_exists, map_data_type, format_hook_description
 
 def is_composite_hook(hook):
     """Check if a hook definition is for a composite key"""
@@ -118,6 +118,41 @@ def generate_hooks_cte(bag):
     
     return hooks_cte, primary_hook, pit_hook_name
 
+def get_temporal_column_descriptions():
+    """Return descriptions for the temporal columns added in hook models"""
+    return {
+        "record_loaded_at": "Timestamp when this record was loaded into the system",
+        "record_updated_at": "Timestamp when this record was last updated",
+        "record_version": "Version number for this record",
+        "record_valid_from": "Timestamp from which this record version is valid",
+        "record_valid_to": "Timestamp until which this record version is valid",
+        "is_current_record": "Flag indicating if this is the current valid version of the record"
+    }
+
+def get_hook_column_descriptions(bag):
+    """Generate descriptions for hook columns"""
+    descriptions = {}
+    
+    # Describe all regular hooks
+    for hook in bag['hooks']:
+        hook_name = hook['name']
+        # Extract the concept from the hook name
+        parts = hook_name.split('__')
+        if len(parts) >= 2:
+            concept = parts[1]
+            if len(parts) >= 3:
+                qualifier = parts[2]
+                descriptions[hook_name] = f"Reference hook to {qualifier} {concept}"
+            else:
+                descriptions[hook_name] = f"Reference hook to {concept}"
+    
+    # Describe PIT hook
+    primary_hook = next((h for h in bag['hooks'] if h.get('primary')), bag['hooks'][0])
+    pit_hook_name = primary_hook['name'].replace('_hook', '_pit_hook', 1)
+    descriptions[pit_hook_name] = "Point-in-time hook that combines the primary hook with a validity timestamp"
+    
+    return descriptions
+
 def generate_hook_bags(output_dir, raw_schema):
     """Generate hook model SQL files based on bags configuration with composite key support"""
     # Ensure output directory exists
@@ -155,11 +190,20 @@ def generate_hook_model_for_bag(bag, schema, output_dir, raw_schema):
     
     # Get source table schema
     table_columns = {}
+    original_description = ""
     if source_table in schema['tables']:
-        table_columns = schema['tables'][source_table]['columns']
+        table_info = schema['tables'][source_table]
+        table_columns = table_info['columns']
+        original_description = table_info.get('description', '')
     else:
         print(f"Warning: Table {source_table} not found in schema")
         return False
+    
+    # Extract entity name for description
+    entity_name = bag_name.replace('bag__adventure_works__', '')
+    
+    # Format the description
+    table_description = format_hook_description(entity_name, original_description)
     
     # Filter columns
     filtered_columns = {col: props for col, props in table_columns.items() 
@@ -168,12 +212,28 @@ def generate_hook_model_for_bag(bag, schema, output_dir, raw_schema):
     # Get reference hooks
     reference_hooks = [h['name'] for h in hooks if h != primary_hook]
     
+    # Generate hooks CTE first to determine the pit_hook_name
+    hooks_cte, primary_hook, pit_hook_name = generate_hooks_cte(bag)
+    
+    # Get column descriptions from source table
+    column_descriptions = {}
+    for col_name, col_info in filtered_columns.items():
+        if 'description' in col_info:
+            column_descriptions[f"{column_prefix}__{col_name}"] = col_info['description'].replace("'", "''")
+    
+    # Add descriptions for temporal and hook columns
+    temporal_descriptions = get_temporal_column_descriptions()
+    for field, desc in temporal_descriptions.items():
+        column_descriptions[f"{column_prefix}__{field}"] = desc
+    
+    # Add hook column descriptions
+    hook_descriptions = get_hook_column_descriptions(bag)
+    for hook_name, desc in hook_descriptions.items():
+        column_descriptions[hook_name] = desc
+    
     # Generate SQL file
     sql_path = os.path.join(output_dir, f"{bag_name}.sql")
     with open(sql_path, 'w') as sql_file:
-        # Generate hooks CTE first to determine the pit_hook_name
-        hooks_cte, primary_hook, pit_hook_name = generate_hooks_cte(bag)
-        
         # MODEL declaration
         sql_file.write(f"""MODEL (
   enabled TRUE,
@@ -181,11 +241,23 @@ def generate_hook_model_for_bag(bag, schema, output_dir, raw_schema):
     unique_key {pit_hook_name}
   ),
   tags hook,
-  grain ({pit_hook_name}, {primary_hook['name']})""")
+  grain ({pit_hook_name}, {primary_hook['name']}),
+  description '{table_description.replace("'", "''")}'""")
         
         # Add references only if there are any
         if reference_hooks:
             sql_file.write(f",\n  references ({', '.join(reference_hooks)})")
+        
+        # Add column descriptions if any
+        if column_descriptions:
+            sql_file.write(",\n  column_descriptions (\n")
+            col_desc_items = list(column_descriptions.items())
+            for i, (col_name, desc) in enumerate(col_desc_items):
+                sql_file.write(f"    {col_name} = '{desc}'")
+                if i < len(col_desc_items) - 1:
+                    sql_file.write(",")
+                sql_file.write("\n")
+            sql_file.write("  )")
         
         sql_file.write("\n);\n\n")
         
