@@ -3,10 +3,10 @@ import glob
 from parse_yaml import load_bags_config, ensure_directory_exists
 
 def generate_bridge_union(output_dir, bridge_schema, events_schema):
-    """Generate a bridge union that contains ONLY event models"""
+    """Generate a bridge union that contains ONLY event models with consistent column ordering"""
     ensure_directory_exists(output_dir)
     
-    # Dynamically discover event models only
+    # Dynamically discover event models only (sorted for consistency)
     event_models = discover_models(events_schema, "events__*")
     
     # Collect PIT hooks and event fields
@@ -16,8 +16,12 @@ def generate_bridge_union(output_dir, bridge_schema, events_schema):
     if "_pit_hook__bridge" in all_pit_hooks:
         all_pit_hooks.remove("_pit_hook__bridge")
     
+    # Sort hooks and fields for consistent output
+    sorted_pit_hooks = sorted(list(all_pit_hooks))
+    sorted_event_fields = sorted(list(all_event_fields))
+    
     # Add epoch date hook
-    all_hooks = list(sorted(all_pit_hooks))
+    all_hooks = sorted_pit_hooks.copy()
     all_hooks.append("_hook__epoch__date")
     
     # Generate the bridge union
@@ -25,7 +29,7 @@ def generate_bridge_union(output_dir, bridge_schema, events_schema):
     sql_path = os.path.join(output_dir, f"{bridge_name}.sql")
     
     # Create column descriptions
-    column_descriptions = get_bridge_union_column_descriptions(all_pit_hooks, all_event_fields)
+    column_descriptions = get_bridge_union_column_descriptions(sorted_pit_hooks, sorted_event_fields)
     
     with open(sql_path, 'w') as sql_file:
         # Write MODEL declaration
@@ -70,17 +74,17 @@ def generate_bridge_union(output_dir, bridge_schema, events_schema):
         sql_file.write("  peripheral::TEXT,\n")
         sql_file.write("  _pit_hook__bridge::BLOB,\n")
         
-        # Include all PIT hooks (sorted for consistency)
-        for pit_hook in sorted(all_pit_hooks):
+        # Include all PIT hooks in sorted order
+        for pit_hook in sorted_pit_hooks:
             sql_file.write(f"  {pit_hook}::BLOB,\n")
         
         # Include epoch date hook
         sql_file.write("  _hook__epoch__date::BLOB,\n")
         
-        # Include event fields
-        for i, event_field in enumerate(sorted(all_event_fields)):
+        # Include event fields in sorted order
+        for i, event_field in enumerate(sorted_event_fields):
             sql_file.write(f"  {event_field}::INT")
-            if i < len(all_event_fields) - 1:
+            if i < len(sorted_event_fields) - 1:
                 sql_file.write(",\n")
             else:
                 sql_file.write(",\n")
@@ -143,7 +147,7 @@ def discover_models(schema, pattern):
     models_dir = f"./models/{schema}/"
     sql_files = glob.glob(f"{models_dir}{pattern}.sql")
     
-    # Extract model names from file paths
+    # Extract model names from file paths and sort for consistency
     models = [os.path.basename(f).replace('.sql', '') for f in sql_files]
     
     return sorted(models)
