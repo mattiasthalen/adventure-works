@@ -101,3 +101,9 @@ SELECT
   work_order_routing__record_valid_to::TIMESTAMP,
   work_order_routing__is_current_record::BOOLEAN
 FROM cte__final
+;
+
+@IF(
+  @runtime_stage = 'evaluating',
+  COPY dar.work_order_routings TO './export/dar/work_order_routings.parquet' (FORMAT parquet, COMPRESSION zstd)
+);

@@ -85,3 +85,9 @@ SELECT
   address__record_valid_to::TIMESTAMP,
   address__is_current_record::BOOLEAN
 FROM cte__final
+;
+
+@IF(
+  @runtime_stage = 'evaluating',
+  COPY dar.addresses TO './export/dar/addresses.parquet' (FORMAT parquet, COMPRESSION zstd)
+);

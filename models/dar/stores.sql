@@ -77,3 +77,9 @@ SELECT
   store__record_valid_to::TIMESTAMP,
   store__is_current_record::BOOLEAN
 FROM cte__final
+;
+
+@IF(
+  @runtime_stage = 'evaluating',
+  COPY dar.stores TO './export/dar/stores.parquet' (FORMAT parquet, COMPRESSION zstd)
+);

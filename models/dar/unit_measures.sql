@@ -65,3 +65,9 @@ SELECT
   unit_measure__record_valid_to::TIMESTAMP,
   unit_measure__is_current_record::BOOLEAN
 FROM cte__final
+;
+
+@IF(
+  @runtime_stage = 'evaluating',
+  COPY dar.unit_measures TO './export/dar/unit_measures.parquet' (FORMAT parquet, COMPRESSION zstd)
+);

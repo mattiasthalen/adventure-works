@@ -69,3 +69,9 @@ SELECT
   person_phone__record_valid_to::TIMESTAMP,
   person_phone__is_current_record::BOOLEAN
 FROM cte__final
+;
+
+@IF(
+  @runtime_stage = 'evaluating',
+  COPY dar.person_phones TO './export/dar/person_phones.parquet' (FORMAT parquet, COMPRESSION zstd)
+);

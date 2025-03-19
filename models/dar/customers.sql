@@ -81,3 +81,9 @@ SELECT
   customer__record_valid_to::TIMESTAMP,
   customer__is_current_record::BOOLEAN
 FROM cte__final
+;
+
+@IF(
+  @runtime_stage = 'evaluating',
+  COPY dar.customers TO './export/dar/customers.parquet' (FORMAT parquet, COMPRESSION zstd)
+);

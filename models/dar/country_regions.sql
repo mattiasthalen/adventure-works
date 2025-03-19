@@ -65,3 +65,9 @@ SELECT
   country_region__record_valid_to::TIMESTAMP,
   country_region__is_current_record::BOOLEAN
 FROM cte__final
+;
+
+@IF(
+  @runtime_stage = 'evaluating',
+  COPY dar.country_regions TO './export/dar/country_regions.parquet' (FORMAT parquet, COMPRESSION zstd)
+);

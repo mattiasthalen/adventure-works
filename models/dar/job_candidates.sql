@@ -69,3 +69,9 @@ SELECT
   job_candidate__record_valid_to::TIMESTAMP,
   job_candidate__is_current_record::BOOLEAN
 FROM cte__final
+;
+
+@IF(
+  @runtime_stage = 'evaluating',
+  COPY dar.job_candidates TO './export/dar/job_candidates.parquet' (FORMAT parquet, COMPRESSION zstd)
+);

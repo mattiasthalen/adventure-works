@@ -77,3 +77,9 @@ SELECT
   ship_method__record_valid_to::TIMESTAMP,
   ship_method__is_current_record::BOOLEAN
 FROM cte__final
+;
+
+@IF(
+  @runtime_stage = 'evaluating',
+  COPY dar.ship_methods TO './export/dar/ship_methods.parquet' (FORMAT parquet, COMPRESSION zstd)
+);

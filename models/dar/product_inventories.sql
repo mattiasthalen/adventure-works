@@ -81,3 +81,9 @@ SELECT
   product_inventory__record_valid_to::TIMESTAMP,
   product_inventory__is_current_record::BOOLEAN
 FROM cte__final
+;
+
+@IF(
+  @runtime_stage = 'evaluating',
+  COPY dar.product_inventories TO './export/dar/product_inventories.parquet' (FORMAT parquet, COMPRESSION zstd)
+);

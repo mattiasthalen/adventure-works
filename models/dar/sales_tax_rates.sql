@@ -81,3 +81,9 @@ SELECT
   sales_tax_rate__record_valid_to::TIMESTAMP,
   sales_tax_rate__is_current_record::BOOLEAN
 FROM cte__final
+;
+
+@IF(
+  @runtime_stage = 'evaluating',
+  COPY dar.sales_tax_rates TO './export/dar/sales_tax_rates.parquet' (FORMAT parquet, COMPRESSION zstd)
+);

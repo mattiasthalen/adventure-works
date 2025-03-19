@@ -85,3 +85,9 @@ SELECT
   state_province__record_valid_to::TIMESTAMP,
   state_province__is_current_record::BOOLEAN
 FROM cte__final
+;
+
+@IF(
+  @runtime_stage = 'evaluating',
+  COPY dar.state_provinces TO './export/dar/state_provinces.parquet' (FORMAT parquet, COMPRESSION zstd)
+);

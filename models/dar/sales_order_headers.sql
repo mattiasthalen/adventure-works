@@ -153,3 +153,9 @@ SELECT
   sales_order_header__record_valid_to::TIMESTAMP,
   sales_order_header__is_current_record::BOOLEAN
 FROM cte__final
+;
+
+@IF(
+  @runtime_stage = 'evaluating',
+  COPY dar.sales_order_headers TO './export/dar/sales_order_headers.parquet' (FORMAT parquet, COMPRESSION zstd)
+);

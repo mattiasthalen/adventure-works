@@ -77,3 +77,9 @@ SELECT
   shopping_cart_item__record_valid_to::TIMESTAMP,
   shopping_cart_item__is_current_record::BOOLEAN
 FROM cte__final
+;
+
+@IF(
+  @runtime_stage = 'evaluating',
+  COPY dar.shopping_cart_items TO './export/dar/shopping_cart_items.parquet' (FORMAT parquet, COMPRESSION zstd)
+);

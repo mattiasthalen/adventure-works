@@ -81,3 +81,9 @@ SELECT
   currency_rate__record_valid_to::TIMESTAMP,
   currency_rate__is_current_record::BOOLEAN
 FROM cte__final
+;
+
+@IF(
+  @runtime_stage = 'evaluating',
+  COPY dar.currency_rates TO './export/dar/currency_rates.parquet' (FORMAT parquet, COMPRESSION zstd)
+);

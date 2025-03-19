@@ -65,3 +65,9 @@ SELECT
   culture__record_valid_to::TIMESTAMP,
   culture__is_current_record::BOOLEAN
 FROM cte__final
+;
+
+@IF(
+  @runtime_stage = 'evaluating',
+  COPY dar.cultures TO './export/dar/cultures.parquet' (FORMAT parquet, COMPRESSION zstd)
+);

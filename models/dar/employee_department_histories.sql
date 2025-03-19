@@ -77,3 +77,9 @@ SELECT
   employee_department_history__record_valid_to::TIMESTAMP,
   employee_department_history__is_current_record::BOOLEAN
 FROM cte__final
+;
+
+@IF(
+  @runtime_stage = 'evaluating',
+  COPY dar.employee_department_histories TO './export/dar/employee_department_histories.parquet' (FORMAT parquet, COMPRESSION zstd)
+);

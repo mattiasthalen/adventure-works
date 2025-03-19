@@ -73,3 +73,9 @@ SELECT
   sales_person_quota_history__record_valid_to::TIMESTAMP,
   sales_person_quota_history__is_current_record::BOOLEAN
 FROM cte__final
+;
+
+@IF(
+  @runtime_stage = 'evaluating',
+  COPY dar.sales_person_quota_histories TO './export/dar/sales_person_quota_histories.parquet' (FORMAT parquet, COMPRESSION zstd)
+);

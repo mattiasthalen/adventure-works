@@ -73,3 +73,9 @@ SELECT
   product_list_price_history__record_valid_to::TIMESTAMP,
   product_list_price_history__is_current_record::BOOLEAN
 FROM cte__final
+;
+
+@IF(
+  @runtime_stage = 'evaluating',
+  COPY dar.product_list_price_histories TO './export/dar/product_list_price_histories.parquet' (FORMAT parquet, COMPRESSION zstd)
+);

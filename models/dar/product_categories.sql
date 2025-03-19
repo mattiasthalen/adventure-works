@@ -69,3 +69,9 @@ SELECT
   product_category__record_valid_to::TIMESTAMP,
   product_category__is_current_record::BOOLEAN
 FROM cte__final
+;
+
+@IF(
+  @runtime_stage = 'evaluating',
+  COPY dar.product_categories TO './export/dar/product_categories.parquet' (FORMAT parquet, COMPRESSION zstd)
+);

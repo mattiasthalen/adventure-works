@@ -3,7 +3,7 @@ import glob
 import re
 from parse_yaml import ensure_directory_exists
 
-def generate_bridge_union(output_dir, bridge_schema, events_schema):
+def generate_bridge_union(output_dir, bridge_schema, events_schema, target_schema):
     """Generate a bridge union that contains ONLY event models with consistent column ordering"""
     ensure_directory_exists(output_dir)
     
@@ -142,7 +142,13 @@ def generate_bridge_union(output_dir, bridge_schema, events_schema):
   bridge__record_valid_from::TIMESTAMP,
   bridge__record_valid_to::TIMESTAMP,
   bridge__is_current_record::BOOL
-FROM cte__ghosting""")
+FROM cte__ghosting\n""")
+        sql_file.write(";\n")
+        sql_file.write("\n")
+        sql_file.write("@IF(\n")
+        sql_file.write("  @runtime_stage = 'evaluating',\n")
+        sql_file.write(f"  COPY {target_schema}.{bridge_name} TO './export/{target_schema}/{bridge_name}.parquet' (FORMAT parquet, COMPRESSION zstd)\n")
+        sql_file.write(");")
     
     print(f"Generated bridge union with {len(event_models)} events in {output_dir}")
     return 1  # Return count of models generated

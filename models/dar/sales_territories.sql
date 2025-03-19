@@ -93,3 +93,9 @@ SELECT
   sales_territory__record_valid_to::TIMESTAMP,
   sales_territory__is_current_record::BOOLEAN
 FROM cte__final
+;
+
+@IF(
+  @runtime_stage = 'evaluating',
+  COPY dar.sales_territories TO './export/dar/sales_territories.parquet' (FORMAT parquet, COMPRESSION zstd)
+);
