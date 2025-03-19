@@ -107,7 +107,7 @@ for peripheral in peripherals:
     obt_df = obt_df.join(
         peripheral_df,
         on=list(common_columns),
-        how="left",
+        how="inner",
         #validate="m:1"
     )
 
