@@ -1,5 +1,5 @@
-version: 2
-version_hash: 26ZtB4EaitMbhDx4ij/rDTlczOfBi6b1q3DCAszCAiQ=
+version: 3
+version_hash: kqdt6jpLaXrk8DvU2ZSnsnX8Yn4nW1a48XzNO0JVl8M=
 engine_version: 11
 name: duckdb_dab
 tables:
@@ -2555,6 +2555,12 @@ tables:
       sales_order_header__currency_rate_id:
         data_type: bigint
         nullable: true
+      sales_order_header__customer_order_sequence:
+        data_type: bigint
+        nullable: true
+      sales_order_header__first_order:
+        data_type: bool
+        nullable: true
     write_disposition: replace
     table_format: iceberg
     resource: bag__adventure_works__sales_order_headers
@@ -3822,5 +3828,6 @@ normalizers:
   json:
     module: dlt.common.normalizers.json.relational
 previous_hashes:
+- 26ZtB4EaitMbhDx4ij/rDTlczOfBi6b1q3DCAszCAiQ=
 - As0Dm/lgNmoy/VpgqTXMtCxfInfxeFrKvVr6GKLHPpM=
 - +Zd8dsDXcs5VD+SoAiFUDVIMqzMoMW7/D30F6gQn9IY=
