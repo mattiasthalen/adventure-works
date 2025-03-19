@@ -21,7 +21,63 @@ MODEL (
   )
 );
 
+WITH cte__source AS (
+  SELECT
+    _pit_hook__reference__product_location,
+    product_inventory__product_id,
+    product_inventory__location_id,
+    product_inventory__shelf,
+    product_inventory__bin,
+    product_inventory__quantity,
+    product_inventory__rowguid,
+    product_inventory__modified_date,
+    product_inventory__record_loaded_at,
+    product_inventory__record_updated_at,
+    product_inventory__record_version,
+    product_inventory__record_valid_from,
+    product_inventory__record_valid_to,
+    product_inventory__is_current_record
+  FROM dab.bag__adventure_works__product_inventories
+),
+
+cte__ghost_record AS (
+  SELECT
+    'ghost_record' AS _pit_hook__reference__product_location,
+    NULL AS product_inventory__product_id,
+    NULL AS product_inventory__location_id,
+    'N/A' AS product_inventory__shelf,
+    NULL AS product_inventory__bin,
+    NULL AS product_inventory__quantity,
+    'N/A' AS product_inventory__rowguid,
+    NULL AS product_inventory__modified_date,
+    TIMESTAMP '1970-01-01 00:00:00' AS product_inventory__record_loaded_at,
+    TIMESTAMP '1970-01-01 00:00:00' AS product_inventory__record_updated_at,
+    0 AS product_inventory__record_version,
+    TIMESTAMP '1970-01-01 00:00:00' AS product_inventory__record_valid_from,
+    TIMESTAMP '9999-12-31 23:59:59' AS product_inventory__record_valid_to,
+    TRUE AS product_inventory__is_current_record
+  FROM (SELECT 1) dummy
+),
+
+cte__final AS (
+  SELECT * FROM cte__source
+  UNION ALL
+  SELECT * FROM cte__ghost_record
+)
+
 SELECT
-  *
-  EXCLUDE (_hook__reference__product_location, _hook__reference__location, _hook__product)
-FROM dab.bag__adventure_works__product_inventories
+  _pit_hook__reference__product_location::BLOB,
+  product_inventory__product_id::BIGINT,
+  product_inventory__location_id::BIGINT,
+  product_inventory__shelf::TEXT,
+  product_inventory__bin::BIGINT,
+  product_inventory__quantity::BIGINT,
+  product_inventory__rowguid::TEXT,
+  product_inventory__modified_date::DATE,
+  product_inventory__record_loaded_at::TIMESTAMP,
+  product_inventory__record_updated_at::TIMESTAMP,
+  product_inventory__record_version::TEXT,
+  product_inventory__record_valid_from::TIMESTAMP,
+  product_inventory__record_valid_to::TIMESTAMP,
+  product_inventory__is_current_record::BOOLEAN
+FROM cte__final

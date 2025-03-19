@@ -1,5 +1,5 @@
 import os
-from parse_yaml import load_bags_config, load_schema, ensure_directory_exists, format_peripheral_description
+from parse_yaml import load_bags_config, load_schema, ensure_directory_exists, format_peripheral_description, map_data_type
 
 def generate_peripherals(output_dir, hook_schema):
     """Generate peripheral views in the gold layer based on silver bags"""
@@ -79,8 +79,80 @@ def get_peripheral_column_descriptions(bag, schema):
     
     return descriptions
 
+def get_column_list_and_types(bag, schema):
+    """Get a list of columns and their types from the source table"""
+    source_table = bag['source_table']
+    column_prefix = bag['column_prefix']
+    
+    if source_table not in schema['tables']:
+        return [], {}
+    
+    # Get columns from source table
+    table_columns = schema['tables'][source_table]['columns']
+    
+    column_list = []
+    column_types = {}
+    
+    # Process each column
+    for col_name, col_info in table_columns.items():
+        # Skip internal columns
+        if col_name.startswith('_dlt_') or col_name == 'modified_date':
+            continue
+        
+        prefixed_col = f"{column_prefix}__{col_name}"
+        column_list.append(prefixed_col)
+        
+        # Determine SQL type
+        data_type = col_info.get('data_type', 'text')
+        sql_type = map_data_type(data_type, col_name)
+        column_types[prefixed_col] = sql_type
+    
+    # Add system columns
+    system_columns = [
+        f"{column_prefix}__modified_date",
+        f"{column_prefix}__record_loaded_at",
+        f"{column_prefix}__record_updated_at",
+        f"{column_prefix}__record_version",
+        f"{column_prefix}__record_valid_from",
+        f"{column_prefix}__record_valid_to",
+        f"{column_prefix}__is_current_record"
+    ]
+    
+    # Add types for system columns
+    system_types = {
+        f"{column_prefix}__modified_date": "DATE",
+        f"{column_prefix}__record_loaded_at": "TIMESTAMP",
+        f"{column_prefix}__record_updated_at": "TIMESTAMP",
+        f"{column_prefix}__record_version": "TEXT",
+        f"{column_prefix}__record_valid_from": "TIMESTAMP",
+        f"{column_prefix}__record_valid_to": "TIMESTAMP",
+        f"{column_prefix}__is_current_record": "BOOLEAN"
+    }
+    
+    column_list.extend(system_columns)
+    column_types.update(system_types)
+    
+    return column_list, column_types
+
+def generate_ghost_value(field_name, sql_type):
+    """Generate appropriate ghost value based on SQL type"""
+    sql_type = sql_type.upper()
+    
+    if sql_type in ['TEXT', 'STRING', 'VARCHAR']:
+        return "'N/A'"
+    elif sql_type in ['BIGINT', 'INT', 'INTEGER', 'DOUBLE', 'FLOAT', 'DECIMAL']:
+        return "NULL"
+    elif sql_type == 'BOOLEAN':
+        return "FALSE"
+    elif sql_type in ['DATE', 'TIMESTAMP', 'TIME']:
+        return "NULL"
+    elif sql_type == 'BINARY':
+        return "NULL"
+    else:
+        return "NULL"
+
 def generate_peripheral_for_bag(bag, output_dir, hook_schema, schema):
-    """Generate a peripheral view for a specific bag"""
+    """Generate a peripheral view for a specific bag with explicit CTEs"""
     bag_name = bag['name']
     
     # Skip _dlt tables
@@ -99,14 +171,13 @@ def generate_peripheral_for_bag(bag, output_dir, hook_schema, schema):
     primary_hook = next((h for h in bag['hooks'] if h.get('primary')), bag['hooks'][0])
     primary_pit_hook = f"_pit{primary_hook['name']}"
     
-    # Build exclusion list
-    exclude_columns = []
-    for hook in bag['hooks']:
-        exclude_columns.append(hook['name'])
+    # Get column information
+    column_list, column_types = get_column_list_and_types(bag, schema)
     
     # Get descriptions
     peripheral_description = get_peripheral_description(bag_name, schema)
     column_descriptions = get_peripheral_column_descriptions(bag, schema)
+    column_prefix = bag['column_prefix']
     
     with open(sql_path, 'w') as file:
         # Write MODEL declaration with description
@@ -130,10 +201,69 @@ def generate_peripheral_for_bag(bag, output_dir, hook_schema, schema):
         
         file.write("\n);\n\n")
         
-        # Write SELECT statement
+        # Write the CTE for source data
+        file.write("WITH cte__source AS (\n  SELECT\n")
+        file.write(f"    {primary_pit_hook},\n")
+        
+        # Add all columns from the source table
+        for i, col in enumerate(column_list):
+            file.write(f"    {col}")
+            if i < len(column_list) - 1:
+                file.write(",\n")
+            else:
+                file.write("\n")
+                
+        file.write(f"  FROM {hook_schema}.{bag_name}\n),\n\n")
+        
+        # Write the CTE for ghost record
+        file.write("cte__ghost_record AS (\n  SELECT\n")
+        file.write(f"    'ghost_record' AS {primary_pit_hook},\n")
+        
+        # Add ghost values for each column
+        for i, col in enumerate(column_list):
+            if col == f"{column_prefix}__record_loaded_at":
+                file.write(f"    TIMESTAMP '1970-01-01 00:00:00' AS {col}")
+            elif col == f"{column_prefix}__record_updated_at":
+                file.write(f"    TIMESTAMP '1970-01-01 00:00:00' AS {col}")
+            elif col == f"{column_prefix}__record_version":
+                file.write(f"    0 AS {col}")
+            elif col == f"{column_prefix}__record_valid_from":
+                file.write(f"    TIMESTAMP '1970-01-01 00:00:00' AS {col}")
+            elif col == f"{column_prefix}__record_valid_to":
+                file.write(f"    TIMESTAMP '9999-12-31 23:59:59' AS {col}")
+            elif col == f"{column_prefix}__is_current_record":
+                file.write(f"    TRUE AS {col}")
+            else:
+                ghost_value = generate_ghost_value(col, column_types.get(col, "TEXT"))
+                file.write(f"    {ghost_value} AS {col}")
+                
+            if i < len(column_list) - 1:
+                file.write(",\n")
+            else:
+                file.write("\n")
+                
+        file.write("  FROM (SELECT 1) dummy\n),\n\n")
+        
+        # Write the CTE that unions source and ghost
+        file.write("cte__final AS (\n")
+        file.write("  SELECT * FROM cte__source\n")
+        file.write("  UNION ALL\n")
+        file.write("  SELECT * FROM cte__ghost_record\n")
+        file.write(")\n\n")
+        
+        # Write the final SELECT with explicit casting
         file.write("SELECT\n")
-        file.write("  *\n")
-        file.write(f"  EXCLUDE ({', '.join(exclude_columns)})\n")
-        file.write(f"FROM {hook_schema}.{bag_name}")
+        file.write(f"  {primary_pit_hook}::BLOB,\n")
+        
+        # Add all columns with appropriate casting
+        for i, col in enumerate(column_list):
+            sql_type = column_types.get(col, "TEXT")
+            file.write(f"  {col}::{sql_type}")
+            if i < len(column_list) - 1:
+                file.write(",\n")
+            else:
+                file.write("\n")
+                
+        file.write("FROM cte__final")
     
     return True

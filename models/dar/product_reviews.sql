@@ -22,7 +22,66 @@ MODEL (
   )
 );
 
+WITH cte__source AS (
+  SELECT
+    _pit_hook__product_review,
+    product_review__product_review_id,
+    product_review__product_id,
+    product_review__reviewer_name,
+    product_review__review_date,
+    product_review__email_address,
+    product_review__rating,
+    product_review__comments,
+    product_review__modified_date,
+    product_review__record_loaded_at,
+    product_review__record_updated_at,
+    product_review__record_version,
+    product_review__record_valid_from,
+    product_review__record_valid_to,
+    product_review__is_current_record
+  FROM dab.bag__adventure_works__product_reviews
+),
+
+cte__ghost_record AS (
+  SELECT
+    'ghost_record' AS _pit_hook__product_review,
+    NULL AS product_review__product_review_id,
+    NULL AS product_review__product_id,
+    'N/A' AS product_review__reviewer_name,
+    NULL AS product_review__review_date,
+    'N/A' AS product_review__email_address,
+    NULL AS product_review__rating,
+    'N/A' AS product_review__comments,
+    NULL AS product_review__modified_date,
+    TIMESTAMP '1970-01-01 00:00:00' AS product_review__record_loaded_at,
+    TIMESTAMP '1970-01-01 00:00:00' AS product_review__record_updated_at,
+    0 AS product_review__record_version,
+    TIMESTAMP '1970-01-01 00:00:00' AS product_review__record_valid_from,
+    TIMESTAMP '9999-12-31 23:59:59' AS product_review__record_valid_to,
+    TRUE AS product_review__is_current_record
+  FROM (SELECT 1) dummy
+),
+
+cte__final AS (
+  SELECT * FROM cte__source
+  UNION ALL
+  SELECT * FROM cte__ghost_record
+)
+
 SELECT
-  *
-  EXCLUDE (_hook__product_review, _hook__product)
-FROM dab.bag__adventure_works__product_reviews
+  _pit_hook__product_review::BLOB,
+  product_review__product_review_id::BIGINT,
+  product_review__product_id::BIGINT,
+  product_review__reviewer_name::TEXT,
+  product_review__review_date::DATE,
+  product_review__email_address::TEXT,
+  product_review__rating::BIGINT,
+  product_review__comments::TEXT,
+  product_review__modified_date::DATE,
+  product_review__record_loaded_at::TIMESTAMP,
+  product_review__record_updated_at::TIMESTAMP,
+  product_review__record_version::TEXT,
+  product_review__record_valid_from::TIMESTAMP,
+  product_review__record_valid_to::TIMESTAMP,
+  product_review__is_current_record::BOOLEAN
+FROM cte__final

@@ -25,7 +25,75 @@ MODEL (
   )
 );
 
+WITH cte__source AS (
+  SELECT
+    _pit_hook__product_vendor,
+    product_vendor__product_id,
+    product_vendor__business_entity_id,
+    product_vendor__average_lead_time,
+    product_vendor__standard_price,
+    product_vendor__last_receipt_cost,
+    product_vendor__last_receipt_date,
+    product_vendor__min_order_qty,
+    product_vendor__max_order_qty,
+    product_vendor__unit_measure_code,
+    product_vendor__on_order_qty,
+    product_vendor__modified_date,
+    product_vendor__record_loaded_at,
+    product_vendor__record_updated_at,
+    product_vendor__record_version,
+    product_vendor__record_valid_from,
+    product_vendor__record_valid_to,
+    product_vendor__is_current_record
+  FROM dab.bag__adventure_works__product_vendors
+),
+
+cte__ghost_record AS (
+  SELECT
+    'ghost_record' AS _pit_hook__product_vendor,
+    NULL AS product_vendor__product_id,
+    NULL AS product_vendor__business_entity_id,
+    NULL AS product_vendor__average_lead_time,
+    NULL AS product_vendor__standard_price,
+    NULL AS product_vendor__last_receipt_cost,
+    NULL AS product_vendor__last_receipt_date,
+    NULL AS product_vendor__min_order_qty,
+    NULL AS product_vendor__max_order_qty,
+    'N/A' AS product_vendor__unit_measure_code,
+    NULL AS product_vendor__on_order_qty,
+    NULL AS product_vendor__modified_date,
+    TIMESTAMP '1970-01-01 00:00:00' AS product_vendor__record_loaded_at,
+    TIMESTAMP '1970-01-01 00:00:00' AS product_vendor__record_updated_at,
+    0 AS product_vendor__record_version,
+    TIMESTAMP '1970-01-01 00:00:00' AS product_vendor__record_valid_from,
+    TIMESTAMP '9999-12-31 23:59:59' AS product_vendor__record_valid_to,
+    TRUE AS product_vendor__is_current_record
+  FROM (SELECT 1) dummy
+),
+
+cte__final AS (
+  SELECT * FROM cte__source
+  UNION ALL
+  SELECT * FROM cte__ghost_record
+)
+
 SELECT
-  *
-  EXCLUDE (_hook__product_vendor, _hook__vendor, _hook__product, _hook__reference__unit_measure)
-FROM dab.bag__adventure_works__product_vendors
+  _pit_hook__product_vendor::BLOB,
+  product_vendor__product_id::BIGINT,
+  product_vendor__business_entity_id::BIGINT,
+  product_vendor__average_lead_time::BIGINT,
+  product_vendor__standard_price::DOUBLE,
+  product_vendor__last_receipt_cost::DOUBLE,
+  product_vendor__last_receipt_date::DATE,
+  product_vendor__min_order_qty::BIGINT,
+  product_vendor__max_order_qty::BIGINT,
+  product_vendor__unit_measure_code::TEXT,
+  product_vendor__on_order_qty::BIGINT,
+  product_vendor__modified_date::DATE,
+  product_vendor__record_loaded_at::TIMESTAMP,
+  product_vendor__record_updated_at::TIMESTAMP,
+  product_vendor__record_version::TEXT,
+  product_vendor__record_valid_from::TIMESTAMP,
+  product_vendor__record_valid_to::TIMESTAMP,
+  product_vendor__is_current_record::BOOLEAN
+FROM cte__final

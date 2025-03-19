@@ -20,7 +20,60 @@ MODEL (
   )
 );
 
+WITH cte__source AS (
+  SELECT
+    _pit_hook__ship_method,
+    ship_method__ship_method_id,
+    ship_method__name,
+    ship_method__ship_base,
+    ship_method__ship_rate,
+    ship_method__rowguid,
+    ship_method__modified_date,
+    ship_method__record_loaded_at,
+    ship_method__record_updated_at,
+    ship_method__record_version,
+    ship_method__record_valid_from,
+    ship_method__record_valid_to,
+    ship_method__is_current_record
+  FROM dab.bag__adventure_works__ship_methods
+),
+
+cte__ghost_record AS (
+  SELECT
+    'ghost_record' AS _pit_hook__ship_method,
+    NULL AS ship_method__ship_method_id,
+    'N/A' AS ship_method__name,
+    NULL AS ship_method__ship_base,
+    NULL AS ship_method__ship_rate,
+    'N/A' AS ship_method__rowguid,
+    NULL AS ship_method__modified_date,
+    TIMESTAMP '1970-01-01 00:00:00' AS ship_method__record_loaded_at,
+    TIMESTAMP '1970-01-01 00:00:00' AS ship_method__record_updated_at,
+    0 AS ship_method__record_version,
+    TIMESTAMP '1970-01-01 00:00:00' AS ship_method__record_valid_from,
+    TIMESTAMP '9999-12-31 23:59:59' AS ship_method__record_valid_to,
+    TRUE AS ship_method__is_current_record
+  FROM (SELECT 1) dummy
+),
+
+cte__final AS (
+  SELECT * FROM cte__source
+  UNION ALL
+  SELECT * FROM cte__ghost_record
+)
+
 SELECT
-  *
-  EXCLUDE (_hook__ship_method)
-FROM dab.bag__adventure_works__ship_methods
+  _pit_hook__ship_method::BLOB,
+  ship_method__ship_method_id::BIGINT,
+  ship_method__name::TEXT,
+  ship_method__ship_base::DOUBLE,
+  ship_method__ship_rate::DOUBLE,
+  ship_method__rowguid::TEXT,
+  ship_method__modified_date::DATE,
+  ship_method__record_loaded_at::TIMESTAMP,
+  ship_method__record_updated_at::TIMESTAMP,
+  ship_method__record_version::TEXT,
+  ship_method__record_valid_from::TIMESTAMP,
+  ship_method__record_valid_to::TIMESTAMP,
+  ship_method__is_current_record::BOOLEAN
+FROM cte__final

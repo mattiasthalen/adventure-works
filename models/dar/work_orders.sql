@@ -24,7 +24,72 @@ MODEL (
   )
 );
 
+WITH cte__source AS (
+  SELECT
+    _pit_hook__order__work,
+    work_order__work_order_id,
+    work_order__product_id,
+    work_order__order_qty,
+    work_order__stocked_qty,
+    work_order__scrapped_qty,
+    work_order__start_date,
+    work_order__end_date,
+    work_order__due_date,
+    work_order__scrap_reason_id,
+    work_order__modified_date,
+    work_order__record_loaded_at,
+    work_order__record_updated_at,
+    work_order__record_version,
+    work_order__record_valid_from,
+    work_order__record_valid_to,
+    work_order__is_current_record
+  FROM dab.bag__adventure_works__work_orders
+),
+
+cte__ghost_record AS (
+  SELECT
+    'ghost_record' AS _pit_hook__order__work,
+    NULL AS work_order__work_order_id,
+    NULL AS work_order__product_id,
+    NULL AS work_order__order_qty,
+    NULL AS work_order__stocked_qty,
+    NULL AS work_order__scrapped_qty,
+    NULL AS work_order__start_date,
+    NULL AS work_order__end_date,
+    NULL AS work_order__due_date,
+    NULL AS work_order__scrap_reason_id,
+    NULL AS work_order__modified_date,
+    TIMESTAMP '1970-01-01 00:00:00' AS work_order__record_loaded_at,
+    TIMESTAMP '1970-01-01 00:00:00' AS work_order__record_updated_at,
+    0 AS work_order__record_version,
+    TIMESTAMP '1970-01-01 00:00:00' AS work_order__record_valid_from,
+    TIMESTAMP '9999-12-31 23:59:59' AS work_order__record_valid_to,
+    TRUE AS work_order__is_current_record
+  FROM (SELECT 1) dummy
+),
+
+cte__final AS (
+  SELECT * FROM cte__source
+  UNION ALL
+  SELECT * FROM cte__ghost_record
+)
+
 SELECT
-  *
-  EXCLUDE (_hook__order__work, _hook__product, _hook__reference__scrap_reason)
-FROM dab.bag__adventure_works__work_orders
+  _pit_hook__order__work::BLOB,
+  work_order__work_order_id::BIGINT,
+  work_order__product_id::BIGINT,
+  work_order__order_qty::BIGINT,
+  work_order__stocked_qty::BIGINT,
+  work_order__scrapped_qty::BIGINT,
+  work_order__start_date::DATE,
+  work_order__end_date::DATE,
+  work_order__due_date::DATE,
+  work_order__scrap_reason_id::BIGINT,
+  work_order__modified_date::DATE,
+  work_order__record_loaded_at::TIMESTAMP,
+  work_order__record_updated_at::TIMESTAMP,
+  work_order__record_version::TEXT,
+  work_order__record_valid_from::TIMESTAMP,
+  work_order__record_valid_to::TIMESTAMP,
+  work_order__is_current_record::BOOLEAN
+FROM cte__final

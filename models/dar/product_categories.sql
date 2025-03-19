@@ -18,7 +18,54 @@ MODEL (
   )
 );
 
+WITH cte__source AS (
+  SELECT
+    _pit_hook__product_category,
+    product_category__product_category_id,
+    product_category__name,
+    product_category__rowguid,
+    product_category__modified_date,
+    product_category__record_loaded_at,
+    product_category__record_updated_at,
+    product_category__record_version,
+    product_category__record_valid_from,
+    product_category__record_valid_to,
+    product_category__is_current_record
+  FROM dab.bag__adventure_works__product_categories
+),
+
+cte__ghost_record AS (
+  SELECT
+    'ghost_record' AS _pit_hook__product_category,
+    NULL AS product_category__product_category_id,
+    'N/A' AS product_category__name,
+    'N/A' AS product_category__rowguid,
+    NULL AS product_category__modified_date,
+    TIMESTAMP '1970-01-01 00:00:00' AS product_category__record_loaded_at,
+    TIMESTAMP '1970-01-01 00:00:00' AS product_category__record_updated_at,
+    0 AS product_category__record_version,
+    TIMESTAMP '1970-01-01 00:00:00' AS product_category__record_valid_from,
+    TIMESTAMP '9999-12-31 23:59:59' AS product_category__record_valid_to,
+    TRUE AS product_category__is_current_record
+  FROM (SELECT 1) dummy
+),
+
+cte__final AS (
+  SELECT * FROM cte__source
+  UNION ALL
+  SELECT * FROM cte__ghost_record
+)
+
 SELECT
-  *
-  EXCLUDE (_hook__product_category)
-FROM dab.bag__adventure_works__product_categories
+  _pit_hook__product_category::BLOB,
+  product_category__product_category_id::BIGINT,
+  product_category__name::TEXT,
+  product_category__rowguid::TEXT,
+  product_category__modified_date::DATE,
+  product_category__record_loaded_at::TIMESTAMP,
+  product_category__record_updated_at::TIMESTAMP,
+  product_category__record_version::TEXT,
+  product_category__record_valid_from::TIMESTAMP,
+  product_category__record_valid_to::TIMESTAMP,
+  product_category__is_current_record::BOOLEAN
+FROM cte__final

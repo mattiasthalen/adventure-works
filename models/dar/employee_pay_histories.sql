@@ -19,7 +19,57 @@ MODEL (
   )
 );
 
+WITH cte__source AS (
+  SELECT
+    _pit_hook__employee_pay_history,
+    employee_pay_history__business_entity_id,
+    employee_pay_history__rate_change_date,
+    employee_pay_history__rate,
+    employee_pay_history__pay_frequency,
+    employee_pay_history__modified_date,
+    employee_pay_history__record_loaded_at,
+    employee_pay_history__record_updated_at,
+    employee_pay_history__record_version,
+    employee_pay_history__record_valid_from,
+    employee_pay_history__record_valid_to,
+    employee_pay_history__is_current_record
+  FROM dab.bag__adventure_works__employee_pay_histories
+),
+
+cte__ghost_record AS (
+  SELECT
+    'ghost_record' AS _pit_hook__employee_pay_history,
+    NULL AS employee_pay_history__business_entity_id,
+    NULL AS employee_pay_history__rate_change_date,
+    NULL AS employee_pay_history__rate,
+    NULL AS employee_pay_history__pay_frequency,
+    NULL AS employee_pay_history__modified_date,
+    TIMESTAMP '1970-01-01 00:00:00' AS employee_pay_history__record_loaded_at,
+    TIMESTAMP '1970-01-01 00:00:00' AS employee_pay_history__record_updated_at,
+    0 AS employee_pay_history__record_version,
+    TIMESTAMP '1970-01-01 00:00:00' AS employee_pay_history__record_valid_from,
+    TIMESTAMP '9999-12-31 23:59:59' AS employee_pay_history__record_valid_to,
+    TRUE AS employee_pay_history__is_current_record
+  FROM (SELECT 1) dummy
+),
+
+cte__final AS (
+  SELECT * FROM cte__source
+  UNION ALL
+  SELECT * FROM cte__ghost_record
+)
+
 SELECT
-  *
-  EXCLUDE (_hook__employee_pay_history, _hook__person__employee, _hook__epoch__rate_change_date)
-FROM dab.bag__adventure_works__employee_pay_histories
+  _pit_hook__employee_pay_history::BLOB,
+  employee_pay_history__business_entity_id::BIGINT,
+  employee_pay_history__rate_change_date::DATE,
+  employee_pay_history__rate::DOUBLE,
+  employee_pay_history__pay_frequency::BIGINT,
+  employee_pay_history__modified_date::DATE,
+  employee_pay_history__record_loaded_at::TIMESTAMP,
+  employee_pay_history__record_updated_at::TIMESTAMP,
+  employee_pay_history__record_version::TEXT,
+  employee_pay_history__record_valid_from::TIMESTAMP,
+  employee_pay_history__record_valid_to::TIMESTAMP,
+  employee_pay_history__is_current_record::BOOLEAN
+FROM cte__final

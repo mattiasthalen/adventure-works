@@ -22,7 +22,66 @@ MODEL (
   )
 );
 
+WITH cte__source AS (
+  SELECT
+    _pit_hook__reference__state_province,
+    state_province__state_province_id,
+    state_province__state_province_code,
+    state_province__country_region_code,
+    state_province__is_only_state_province_flag,
+    state_province__name,
+    state_province__territory_id,
+    state_province__rowguid,
+    state_province__modified_date,
+    state_province__record_loaded_at,
+    state_province__record_updated_at,
+    state_province__record_version,
+    state_province__record_valid_from,
+    state_province__record_valid_to,
+    state_province__is_current_record
+  FROM dab.bag__adventure_works__state_provinces
+),
+
+cte__ghost_record AS (
+  SELECT
+    'ghost_record' AS _pit_hook__reference__state_province,
+    NULL AS state_province__state_province_id,
+    'N/A' AS state_province__state_province_code,
+    'N/A' AS state_province__country_region_code,
+    FALSE AS state_province__is_only_state_province_flag,
+    'N/A' AS state_province__name,
+    NULL AS state_province__territory_id,
+    'N/A' AS state_province__rowguid,
+    NULL AS state_province__modified_date,
+    TIMESTAMP '1970-01-01 00:00:00' AS state_province__record_loaded_at,
+    TIMESTAMP '1970-01-01 00:00:00' AS state_province__record_updated_at,
+    0 AS state_province__record_version,
+    TIMESTAMP '1970-01-01 00:00:00' AS state_province__record_valid_from,
+    TIMESTAMP '9999-12-31 23:59:59' AS state_province__record_valid_to,
+    TRUE AS state_province__is_current_record
+  FROM (SELECT 1) dummy
+),
+
+cte__final AS (
+  SELECT * FROM cte__source
+  UNION ALL
+  SELECT * FROM cte__ghost_record
+)
+
 SELECT
-  *
-  EXCLUDE (_hook__reference__state_province, _hook__reference__country_region, _hook__territory__sales)
-FROM dab.bag__adventure_works__state_provinces
+  _pit_hook__reference__state_province::BLOB,
+  state_province__state_province_id::BIGINT,
+  state_province__state_province_code::TEXT,
+  state_province__country_region_code::TEXT,
+  state_province__is_only_state_province_flag::BOOLEAN,
+  state_province__name::TEXT,
+  state_province__territory_id::BIGINT,
+  state_province__rowguid::TEXT,
+  state_province__modified_date::DATE,
+  state_province__record_loaded_at::TIMESTAMP,
+  state_province__record_updated_at::TIMESTAMP,
+  state_province__record_version::TEXT,
+  state_province__record_valid_from::TIMESTAMP,
+  state_province__record_valid_to::TIMESTAMP,
+  state_province__is_current_record::BOOLEAN
+FROM cte__final

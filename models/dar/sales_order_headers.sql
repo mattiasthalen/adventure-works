@@ -39,7 +39,117 @@ MODEL (
   )
 );
 
+WITH cte__source AS (
+  SELECT
+    _pit_hook__order__sales,
+    sales_order_header__sales_order_id,
+    sales_order_header__revision_number,
+    sales_order_header__order_date,
+    sales_order_header__due_date,
+    sales_order_header__ship_date,
+    sales_order_header__status,
+    sales_order_header__online_order_flag,
+    sales_order_header__sales_order_number,
+    sales_order_header__purchase_order_number,
+    sales_order_header__account_number,
+    sales_order_header__customer_id,
+    sales_order_header__sales_person_id,
+    sales_order_header__territory_id,
+    sales_order_header__bill_to_address_id,
+    sales_order_header__ship_to_address_id,
+    sales_order_header__ship_method_id,
+    sales_order_header__credit_card_id,
+    sales_order_header__credit_card_approval_code,
+    sales_order_header__sub_total,
+    sales_order_header__tax_amt,
+    sales_order_header__freight,
+    sales_order_header__total_due,
+    sales_order_header__rowguid,
+    sales_order_header__currency_rate_id,
+    sales_order_header__modified_date,
+    sales_order_header__record_loaded_at,
+    sales_order_header__record_updated_at,
+    sales_order_header__record_version,
+    sales_order_header__record_valid_from,
+    sales_order_header__record_valid_to,
+    sales_order_header__is_current_record
+  FROM dab.bag__adventure_works__sales_order_headers
+),
+
+cte__ghost_record AS (
+  SELECT
+    'ghost_record' AS _pit_hook__order__sales,
+    NULL AS sales_order_header__sales_order_id,
+    NULL AS sales_order_header__revision_number,
+    NULL AS sales_order_header__order_date,
+    NULL AS sales_order_header__due_date,
+    NULL AS sales_order_header__ship_date,
+    NULL AS sales_order_header__status,
+    FALSE AS sales_order_header__online_order_flag,
+    'N/A' AS sales_order_header__sales_order_number,
+    'N/A' AS sales_order_header__purchase_order_number,
+    'N/A' AS sales_order_header__account_number,
+    NULL AS sales_order_header__customer_id,
+    NULL AS sales_order_header__sales_person_id,
+    NULL AS sales_order_header__territory_id,
+    NULL AS sales_order_header__bill_to_address_id,
+    NULL AS sales_order_header__ship_to_address_id,
+    NULL AS sales_order_header__ship_method_id,
+    NULL AS sales_order_header__credit_card_id,
+    'N/A' AS sales_order_header__credit_card_approval_code,
+    NULL AS sales_order_header__sub_total,
+    NULL AS sales_order_header__tax_amt,
+    NULL AS sales_order_header__freight,
+    NULL AS sales_order_header__total_due,
+    'N/A' AS sales_order_header__rowguid,
+    NULL AS sales_order_header__currency_rate_id,
+    NULL AS sales_order_header__modified_date,
+    TIMESTAMP '1970-01-01 00:00:00' AS sales_order_header__record_loaded_at,
+    TIMESTAMP '1970-01-01 00:00:00' AS sales_order_header__record_updated_at,
+    0 AS sales_order_header__record_version,
+    TIMESTAMP '1970-01-01 00:00:00' AS sales_order_header__record_valid_from,
+    TIMESTAMP '9999-12-31 23:59:59' AS sales_order_header__record_valid_to,
+    TRUE AS sales_order_header__is_current_record
+  FROM (SELECT 1) dummy
+),
+
+cte__final AS (
+  SELECT * FROM cte__source
+  UNION ALL
+  SELECT * FROM cte__ghost_record
+)
+
 SELECT
-  *
-  EXCLUDE (_hook__order__sales, _hook__customer, _hook__person__sales, _hook__territory__sales, _hook__address__billing, _hook__address__shipping, _hook__ship_method, _hook__credit_card, _hook__currency)
-FROM dab.bag__adventure_works__sales_order_headers
+  _pit_hook__order__sales::BLOB,
+  sales_order_header__sales_order_id::BIGINT,
+  sales_order_header__revision_number::BIGINT,
+  sales_order_header__order_date::DATE,
+  sales_order_header__due_date::DATE,
+  sales_order_header__ship_date::DATE,
+  sales_order_header__status::BIGINT,
+  sales_order_header__online_order_flag::BOOLEAN,
+  sales_order_header__sales_order_number::TEXT,
+  sales_order_header__purchase_order_number::TEXT,
+  sales_order_header__account_number::TEXT,
+  sales_order_header__customer_id::BIGINT,
+  sales_order_header__sales_person_id::BIGINT,
+  sales_order_header__territory_id::BIGINT,
+  sales_order_header__bill_to_address_id::BIGINT,
+  sales_order_header__ship_to_address_id::BIGINT,
+  sales_order_header__ship_method_id::BIGINT,
+  sales_order_header__credit_card_id::BIGINT,
+  sales_order_header__credit_card_approval_code::TEXT,
+  sales_order_header__sub_total::DOUBLE,
+  sales_order_header__tax_amt::DOUBLE,
+  sales_order_header__freight::DOUBLE,
+  sales_order_header__total_due::DOUBLE,
+  sales_order_header__rowguid::TEXT,
+  sales_order_header__currency_rate_id::BIGINT,
+  sales_order_header__modified_date::DATE,
+  sales_order_header__record_loaded_at::TIMESTAMP,
+  sales_order_header__record_updated_at::TIMESTAMP,
+  sales_order_header__record_version::TEXT,
+  sales_order_header__record_valid_from::TIMESTAMP,
+  sales_order_header__record_valid_to::TIMESTAMP,
+  sales_order_header__is_current_record::BOOLEAN
+FROM cte__final
