@@ -1,7 +1,7 @@
 import os
 from parse_yaml import load_bags_config, load_schema, ensure_directory_exists, format_peripheral_description, map_data_type
 
-def generate_peripherals(output_dir, hook_schema):
+def generate_peripherals(output_dir, hook_schema, target_schema):
     """Generate peripheral views in the gold layer based on silver bags"""
     ensure_directory_exists(output_dir)
     
@@ -10,7 +10,7 @@ def generate_peripherals(output_dir, hook_schema):
     count = 0
     
     for bag in bags_config['bags']:
-        success = generate_peripheral_for_bag(bag, output_dir, hook_schema, schema)
+        success = generate_peripheral_for_bag(bag, output_dir, hook_schema, schema, target_schema)
         if success:
             count += 1
     
@@ -151,7 +151,7 @@ def generate_ghost_value(field_name, sql_type):
     else:
         return "NULL"
 
-def generate_peripheral_for_bag(bag, output_dir, hook_schema, schema):
+def generate_peripheral_for_bag(bag, output_dir, hook_schema, schema, target_schema):
     """Generate a peripheral view for a specific bag with explicit CTEs"""
     bag_name = bag['name']
     
@@ -264,6 +264,12 @@ def generate_peripheral_for_bag(bag, output_dir, hook_schema, schema):
             else:
                 file.write("\n")
                 
-        file.write("FROM cte__final")
+        file.write("FROM cte__final\n")
+        file.write(";\n")
+        file.write("\n")
+        file.write("@IF(\n")
+        file.write("  @runtime_stage = 'evaluating',\n")
+        file.write(f"  COPY {target_schema}.{peripheral_name} TO './export/{target_schema}/{peripheral_name}.parquet' (FORMAT parquet, COMPRESSION zstd)\n")
+        file.write(");")
     
     return True

@@ -85,3 +85,9 @@ SELECT
   product_review__record_valid_to::TIMESTAMP,
   product_review__is_current_record::BOOLEAN
 FROM cte__final
+;
+
+@IF(
+  @runtime_stage = 'evaluating',
+  COPY dar.product_reviews TO './export/dar/product_reviews.parquet' (FORMAT parquet, COMPRESSION zstd)
+);

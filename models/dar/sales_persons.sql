@@ -89,3 +89,9 @@ SELECT
   sales_person__record_valid_to::TIMESTAMP,
   sales_person__is_current_record::BOOLEAN
 FROM cte__final
+;
+
+@IF(
+  @runtime_stage = 'evaluating',
+  COPY dar.sales_persons TO './export/dar/sales_persons.parquet' (FORMAT parquet, COMPRESSION zstd)
+);

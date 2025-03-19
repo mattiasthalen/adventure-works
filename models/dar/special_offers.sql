@@ -97,3 +97,9 @@ SELECT
   special_offer__record_valid_to::TIMESTAMP,
   special_offer__is_current_record::BOOLEAN
 FROM cte__final
+;
+
+@IF(
+  @runtime_stage = 'evaluating',
+  COPY dar.special_offers TO './export/dar/special_offers.parquet' (FORMAT parquet, COMPRESSION zstd)
+);

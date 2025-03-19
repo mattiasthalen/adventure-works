@@ -470,3 +470,9 @@ SELECT
   bridge__record_valid_to::TIMESTAMP,
   bridge__is_current_record::BOOL
 FROM cte__ghosting
+;
+
+@IF(
+  @runtime_stage = 'evaluating',
+  COPY dar._bridge__as_of TO './export/dar/_bridge__as_of.parquet' (FORMAT parquet, COMPRESSION zstd)
+);

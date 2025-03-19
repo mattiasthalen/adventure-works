@@ -65,3 +65,9 @@ SELECT
   currency__record_valid_to::TIMESTAMP,
   currency__is_current_record::BOOLEAN
 FROM cte__final
+;
+
+@IF(
+  @runtime_stage = 'evaluating',
+  COPY dar.currencies TO './export/dar/currencies.parquet' (FORMAT parquet, COMPRESSION zstd)
+);

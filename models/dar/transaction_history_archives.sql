@@ -89,3 +89,9 @@ SELECT
   transaction_history_archive__record_valid_to::TIMESTAMP,
   transaction_history_archive__is_current_record::BOOLEAN
 FROM cte__final
+;
+
+@IF(
+  @runtime_stage = 'evaluating',
+  COPY dar.transaction_history_archives TO './export/dar/transaction_history_archives.parquet' (FORMAT parquet, COMPRESSION zstd)
+);

@@ -93,3 +93,9 @@ SELECT
   work_order__record_valid_to::TIMESTAMP,
   work_order__is_current_record::BOOLEAN
 FROM cte__final
+;
+
+@IF(
+  @runtime_stage = 'evaluating',
+  COPY dar.work_orders TO './export/dar/work_orders.parquet' (FORMAT parquet, COMPRESSION zstd)
+);

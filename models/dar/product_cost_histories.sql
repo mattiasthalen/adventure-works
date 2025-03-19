@@ -73,3 +73,9 @@ SELECT
   product_cost_history__record_valid_to::TIMESTAMP,
   product_cost_history__is_current_record::BOOLEAN
 FROM cte__final
+;
+
+@IF(
+  @runtime_stage = 'evaluating',
+  COPY dar.product_cost_histories TO './export/dar/product_cost_histories.parquet' (FORMAT parquet, COMPRESSION zstd)
+);

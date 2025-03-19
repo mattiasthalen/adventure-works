@@ -73,3 +73,9 @@ SELECT
   email_address__record_valid_to::TIMESTAMP,
   email_address__is_current_record::BOOLEAN
 FROM cte__final
+;
+
+@IF(
+  @runtime_stage = 'evaluating',
+  COPY dar.email_addresses TO './export/dar/email_addresses.parquet' (FORMAT parquet, COMPRESSION zstd)
+);

@@ -73,3 +73,9 @@ SELECT
   location__record_valid_to::TIMESTAMP,
   location__is_current_record::BOOLEAN
 FROM cte__final
+;
+
+@IF(
+  @runtime_stage = 'evaluating',
+  COPY dar.locations TO './export/dar/locations.parquet' (FORMAT parquet, COMPRESSION zstd)
+);

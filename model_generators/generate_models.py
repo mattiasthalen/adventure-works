@@ -55,6 +55,8 @@ def main(
     hook_schema = extract_schema_name(hook_dir)
     bridge_schema = extract_schema_name(bridge_dir)
     events_schema = extract_schema_name(events_dir)
+    bridge_union_schema = extract_schema_name(bridge_union_dir)
+    peripheral_schema = extract_schema_name(peripheral_dir)
     
     # Run the selected step or all steps if none specified
     if generate_only is None or generate_only == 'raw':
@@ -132,7 +134,8 @@ def main(
         union_count = generate_bridge_union(
             output_dir=bridge_union_dir,
             bridge_schema=bridge_schema,
-            events_schema=events_schema
+            events_schema=events_schema,
+            target_schema = bridge_union_schema
         )
         step_elapsed = time.time() - step_start
         print(f"Runtime: {step_elapsed:.2f} seconds")
@@ -148,7 +151,7 @@ def main(
         # Step 6: Generate peripheral models
         print(f"\n=== Generating Peripheral Models in {peripheral_dir} ===")
         step_start = time.time()
-        peripheral_count = generate_peripherals(output_dir=peripheral_dir, hook_schema=hook_schema)
+        peripheral_count = generate_peripherals(output_dir=peripheral_dir, hook_schema=hook_schema, target_schema = peripheral_schema)
         step_elapsed = time.time() - step_start
         print(f"Runtime: {step_elapsed:.2f} seconds")
         n_models += peripheral_count

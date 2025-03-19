@@ -97,3 +97,9 @@ SELECT
   product_vendor__record_valid_to::TIMESTAMP,
   product_vendor__is_current_record::BOOLEAN
 FROM cte__final
+;
+
+@IF(
+  @runtime_stage = 'evaluating',
+  COPY dar.product_vendors TO './export/dar/product_vendors.parquet' (FORMAT parquet, COMPRESSION zstd)
+);

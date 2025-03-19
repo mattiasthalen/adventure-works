@@ -77,3 +77,9 @@ SELECT
   credit_card__record_valid_to::TIMESTAMP,
   credit_card__is_current_record::BOOLEAN
 FROM cte__final
+;
+
+@IF(
+  @runtime_stage = 'evaluating',
+  COPY dar.credit_cards TO './export/dar/credit_cards.parquet' (FORMAT parquet, COMPRESSION zstd)
+);

@@ -73,3 +73,9 @@ SELECT
   shift__record_valid_to::TIMESTAMP,
   shift__is_current_record::BOOLEAN
 FROM cte__final
+;
+
+@IF(
+  @runtime_stage = 'evaluating',
+  COPY dar.shifts TO './export/dar/shifts.parquet' (FORMAT parquet, COMPRESSION zstd)
+);

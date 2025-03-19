@@ -89,3 +89,9 @@ SELECT
   bill_of_material__record_valid_to::TIMESTAMP,
   bill_of_material__is_current_record::BOOLEAN
 FROM cte__final
+;
+
+@IF(
+  @runtime_stage = 'evaluating',
+  COPY dar.bill_of_materials TO './export/dar/bill_of_materials.parquet' (FORMAT parquet, COMPRESSION zstd)
+);

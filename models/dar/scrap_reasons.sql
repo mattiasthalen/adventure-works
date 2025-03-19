@@ -65,3 +65,9 @@ SELECT
   scrap_reason__record_valid_to::TIMESTAMP,
   scrap_reason__is_current_record::BOOLEAN
 FROM cte__final
+;
+
+@IF(
+  @runtime_stage = 'evaluating',
+  COPY dar.scrap_reasons TO './export/dar/scrap_reasons.parquet' (FORMAT parquet, COMPRESSION zstd)
+);

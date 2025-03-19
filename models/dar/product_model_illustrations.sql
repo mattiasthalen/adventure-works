@@ -65,3 +65,9 @@ SELECT
   product_model_illustration__record_valid_to::TIMESTAMP,
   product_model_illustration__is_current_record::BOOLEAN
 FROM cte__final
+;
+
+@IF(
+  @runtime_stage = 'evaluating',
+  COPY dar.product_model_illustrations TO './export/dar/product_model_illustrations.parquet' (FORMAT parquet, COMPRESSION zstd)
+);

@@ -73,3 +73,9 @@ SELECT
   employee_pay_history__record_valid_to::TIMESTAMP,
   employee_pay_history__is_current_record::BOOLEAN
 FROM cte__final
+;
+
+@IF(
+  @runtime_stage = 'evaluating',
+  COPY dar.employee_pay_histories TO './export/dar/employee_pay_histories.parquet' (FORMAT parquet, COMPRESSION zstd)
+);

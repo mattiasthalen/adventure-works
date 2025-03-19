@@ -65,3 +65,9 @@ SELECT
   contact_type__record_valid_to::TIMESTAMP,
   contact_type__is_current_record::BOOLEAN
 FROM cte__final
+;
+
+@IF(
+  @runtime_stage = 'evaluating',
+  COPY dar.contact_types TO './export/dar/contact_types.parquet' (FORMAT parquet, COMPRESSION zstd)
+);

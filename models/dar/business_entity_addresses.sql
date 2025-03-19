@@ -73,3 +73,9 @@ SELECT
   business_entity_address__record_valid_to::TIMESTAMP,
   business_entity_address__is_current_record::BOOLEAN
 FROM cte__final
+;
+
+@IF(
+  @runtime_stage = 'evaluating',
+  COPY dar.business_entity_addresses TO './export/dar/business_entity_addresses.parquet' (FORMAT parquet, COMPRESSION zstd)
+);
