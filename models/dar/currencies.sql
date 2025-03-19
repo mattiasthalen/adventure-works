@@ -17,7 +17,51 @@ MODEL (
   )
 );
 
+WITH cte__source AS (
+  SELECT
+    _pit_hook__currency,
+    currency__currency_code,
+    currency__name,
+    currency__modified_date,
+    currency__record_loaded_at,
+    currency__record_updated_at,
+    currency__record_version,
+    currency__record_valid_from,
+    currency__record_valid_to,
+    currency__is_current_record
+  FROM dab.bag__adventure_works__currencies
+),
+
+cte__ghost_record AS (
+  SELECT
+    'ghost_record' AS _pit_hook__currency,
+    'N/A' AS currency__currency_code,
+    'N/A' AS currency__name,
+    NULL AS currency__modified_date,
+    TIMESTAMP '1970-01-01 00:00:00' AS currency__record_loaded_at,
+    TIMESTAMP '1970-01-01 00:00:00' AS currency__record_updated_at,
+    0 AS currency__record_version,
+    TIMESTAMP '1970-01-01 00:00:00' AS currency__record_valid_from,
+    TIMESTAMP '9999-12-31 23:59:59' AS currency__record_valid_to,
+    TRUE AS currency__is_current_record
+  FROM (SELECT 1) dummy
+),
+
+cte__final AS (
+  SELECT * FROM cte__source
+  UNION ALL
+  SELECT * FROM cte__ghost_record
+)
+
 SELECT
-  *
-  EXCLUDE (_hook__currency)
-FROM dab.bag__adventure_works__currencies
+  _pit_hook__currency::BLOB,
+  currency__currency_code::TEXT,
+  currency__name::TEXT,
+  currency__modified_date::DATE,
+  currency__record_loaded_at::TIMESTAMP,
+  currency__record_updated_at::TIMESTAMP,
+  currency__record_version::TEXT,
+  currency__record_valid_from::TIMESTAMP,
+  currency__record_valid_to::TIMESTAMP,
+  currency__is_current_record::BOOLEAN
+FROM cte__final

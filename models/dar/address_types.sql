@@ -18,7 +18,54 @@ MODEL (
   )
 );
 
+WITH cte__source AS (
+  SELECT
+    _pit_hook__reference__address_type,
+    address_type__address_type_id,
+    address_type__name,
+    address_type__rowguid,
+    address_type__modified_date,
+    address_type__record_loaded_at,
+    address_type__record_updated_at,
+    address_type__record_version,
+    address_type__record_valid_from,
+    address_type__record_valid_to,
+    address_type__is_current_record
+  FROM dab.bag__adventure_works__address_types
+),
+
+cte__ghost_record AS (
+  SELECT
+    'ghost_record' AS _pit_hook__reference__address_type,
+    NULL AS address_type__address_type_id,
+    'N/A' AS address_type__name,
+    'N/A' AS address_type__rowguid,
+    NULL AS address_type__modified_date,
+    TIMESTAMP '1970-01-01 00:00:00' AS address_type__record_loaded_at,
+    TIMESTAMP '1970-01-01 00:00:00' AS address_type__record_updated_at,
+    0 AS address_type__record_version,
+    TIMESTAMP '1970-01-01 00:00:00' AS address_type__record_valid_from,
+    TIMESTAMP '9999-12-31 23:59:59' AS address_type__record_valid_to,
+    TRUE AS address_type__is_current_record
+  FROM (SELECT 1) dummy
+),
+
+cte__final AS (
+  SELECT * FROM cte__source
+  UNION ALL
+  SELECT * FROM cte__ghost_record
+)
+
 SELECT
-  *
-  EXCLUDE (_hook__reference__address_type)
-FROM dab.bag__adventure_works__address_types
+  _pit_hook__reference__address_type::BLOB,
+  address_type__address_type_id::BIGINT,
+  address_type__name::TEXT,
+  address_type__rowguid::TEXT,
+  address_type__modified_date::DATE,
+  address_type__record_loaded_at::TIMESTAMP,
+  address_type__record_updated_at::TIMESTAMP,
+  address_type__record_version::TEXT,
+  address_type__record_valid_from::TIMESTAMP,
+  address_type__record_valid_to::TIMESTAMP,
+  address_type__is_current_record::BOOLEAN
+FROM cte__final

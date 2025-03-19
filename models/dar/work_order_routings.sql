@@ -26,7 +26,78 @@ MODEL (
   )
 );
 
+WITH cte__source AS (
+  SELECT
+    _pit_hook__work_order_routing,
+    work_order_routing__work_order_id,
+    work_order_routing__product_id,
+    work_order_routing__operation_sequence,
+    work_order_routing__location_id,
+    work_order_routing__scheduled_start_date,
+    work_order_routing__scheduled_end_date,
+    work_order_routing__actual_start_date,
+    work_order_routing__actual_end_date,
+    work_order_routing__actual_resource_hrs,
+    work_order_routing__planned_cost,
+    work_order_routing__actual_cost,
+    work_order_routing__modified_date,
+    work_order_routing__record_loaded_at,
+    work_order_routing__record_updated_at,
+    work_order_routing__record_version,
+    work_order_routing__record_valid_from,
+    work_order_routing__record_valid_to,
+    work_order_routing__is_current_record
+  FROM dab.bag__adventure_works__work_order_routings
+),
+
+cte__ghost_record AS (
+  SELECT
+    'ghost_record' AS _pit_hook__work_order_routing,
+    NULL AS work_order_routing__work_order_id,
+    NULL AS work_order_routing__product_id,
+    NULL AS work_order_routing__operation_sequence,
+    NULL AS work_order_routing__location_id,
+    NULL AS work_order_routing__scheduled_start_date,
+    NULL AS work_order_routing__scheduled_end_date,
+    NULL AS work_order_routing__actual_start_date,
+    NULL AS work_order_routing__actual_end_date,
+    NULL AS work_order_routing__actual_resource_hrs,
+    NULL AS work_order_routing__planned_cost,
+    NULL AS work_order_routing__actual_cost,
+    NULL AS work_order_routing__modified_date,
+    TIMESTAMP '1970-01-01 00:00:00' AS work_order_routing__record_loaded_at,
+    TIMESTAMP '1970-01-01 00:00:00' AS work_order_routing__record_updated_at,
+    0 AS work_order_routing__record_version,
+    TIMESTAMP '1970-01-01 00:00:00' AS work_order_routing__record_valid_from,
+    TIMESTAMP '9999-12-31 23:59:59' AS work_order_routing__record_valid_to,
+    TRUE AS work_order_routing__is_current_record
+  FROM (SELECT 1) dummy
+),
+
+cte__final AS (
+  SELECT * FROM cte__source
+  UNION ALL
+  SELECT * FROM cte__ghost_record
+)
+
 SELECT
-  *
-  EXCLUDE (_hook__work_order_routing, _hook__order_line__work, _hook__order__work, _hook__product, _hook__reference__location)
-FROM dab.bag__adventure_works__work_order_routings
+  _pit_hook__work_order_routing::BLOB,
+  work_order_routing__work_order_id::BIGINT,
+  work_order_routing__product_id::BIGINT,
+  work_order_routing__operation_sequence::BIGINT,
+  work_order_routing__location_id::BIGINT,
+  work_order_routing__scheduled_start_date::DATE,
+  work_order_routing__scheduled_end_date::DATE,
+  work_order_routing__actual_start_date::DATE,
+  work_order_routing__actual_end_date::DATE,
+  work_order_routing__actual_resource_hrs::DOUBLE,
+  work_order_routing__planned_cost::DOUBLE,
+  work_order_routing__actual_cost::DOUBLE,
+  work_order_routing__modified_date::DATE,
+  work_order_routing__record_loaded_at::TIMESTAMP,
+  work_order_routing__record_updated_at::TIMESTAMP,
+  work_order_routing__record_version::TEXT,
+  work_order_routing__record_valid_from::TIMESTAMP,
+  work_order_routing__record_valid_to::TIMESTAMP,
+  work_order_routing__is_current_record::BOOLEAN
+FROM cte__final

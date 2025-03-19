@@ -20,7 +20,60 @@ MODEL (
   )
 );
 
+WITH cte__source AS (
+  SELECT
+    _pit_hook__employee_department_history,
+    employee_department_history__business_entity_id,
+    employee_department_history__department_id,
+    employee_department_history__shift_id,
+    employee_department_history__start_date,
+    employee_department_history__end_date,
+    employee_department_history__modified_date,
+    employee_department_history__record_loaded_at,
+    employee_department_history__record_updated_at,
+    employee_department_history__record_version,
+    employee_department_history__record_valid_from,
+    employee_department_history__record_valid_to,
+    employee_department_history__is_current_record
+  FROM dab.bag__adventure_works__employee_department_histories
+),
+
+cte__ghost_record AS (
+  SELECT
+    'ghost_record' AS _pit_hook__employee_department_history,
+    NULL AS employee_department_history__business_entity_id,
+    NULL AS employee_department_history__department_id,
+    NULL AS employee_department_history__shift_id,
+    NULL AS employee_department_history__start_date,
+    NULL AS employee_department_history__end_date,
+    NULL AS employee_department_history__modified_date,
+    TIMESTAMP '1970-01-01 00:00:00' AS employee_department_history__record_loaded_at,
+    TIMESTAMP '1970-01-01 00:00:00' AS employee_department_history__record_updated_at,
+    0 AS employee_department_history__record_version,
+    TIMESTAMP '1970-01-01 00:00:00' AS employee_department_history__record_valid_from,
+    TIMESTAMP '9999-12-31 23:59:59' AS employee_department_history__record_valid_to,
+    TRUE AS employee_department_history__is_current_record
+  FROM (SELECT 1) dummy
+),
+
+cte__final AS (
+  SELECT * FROM cte__source
+  UNION ALL
+  SELECT * FROM cte__ghost_record
+)
+
 SELECT
-  *
-  EXCLUDE (_hook__employee_department_history, _hook__person__employee, _hook__department, _hook__reference__shift, _hook__epoch__start_date)
-FROM dab.bag__adventure_works__employee_department_histories
+  _pit_hook__employee_department_history::BLOB,
+  employee_department_history__business_entity_id::BIGINT,
+  employee_department_history__department_id::BIGINT,
+  employee_department_history__shift_id::BIGINT,
+  employee_department_history__start_date::DATE,
+  employee_department_history__end_date::DATE,
+  employee_department_history__modified_date::DATE,
+  employee_department_history__record_loaded_at::TIMESTAMP,
+  employee_department_history__record_updated_at::TIMESTAMP,
+  employee_department_history__record_version::TEXT,
+  employee_department_history__record_valid_from::TIMESTAMP,
+  employee_department_history__record_valid_to::TIMESTAMP,
+  employee_department_history__is_current_record::BOOLEAN
+FROM cte__final

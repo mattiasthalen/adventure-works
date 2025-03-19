@@ -19,7 +19,57 @@ MODEL (
   )
 );
 
+WITH cte__source AS (
+  SELECT
+    _pit_hook__reference__shift,
+    shift__shift_id,
+    shift__name,
+    shift__start_time,
+    shift__end_time,
+    shift__modified_date,
+    shift__record_loaded_at,
+    shift__record_updated_at,
+    shift__record_version,
+    shift__record_valid_from,
+    shift__record_valid_to,
+    shift__is_current_record
+  FROM dab.bag__adventure_works__shifts
+),
+
+cte__ghost_record AS (
+  SELECT
+    'ghost_record' AS _pit_hook__reference__shift,
+    NULL AS shift__shift_id,
+    'N/A' AS shift__name,
+    'N/A' AS shift__start_time,
+    'N/A' AS shift__end_time,
+    NULL AS shift__modified_date,
+    TIMESTAMP '1970-01-01 00:00:00' AS shift__record_loaded_at,
+    TIMESTAMP '1970-01-01 00:00:00' AS shift__record_updated_at,
+    0 AS shift__record_version,
+    TIMESTAMP '1970-01-01 00:00:00' AS shift__record_valid_from,
+    TIMESTAMP '9999-12-31 23:59:59' AS shift__record_valid_to,
+    TRUE AS shift__is_current_record
+  FROM (SELECT 1) dummy
+),
+
+cte__final AS (
+  SELECT * FROM cte__source
+  UNION ALL
+  SELECT * FROM cte__ghost_record
+)
+
 SELECT
-  *
-  EXCLUDE (_hook__reference__shift)
-FROM dab.bag__adventure_works__shifts
+  _pit_hook__reference__shift::BLOB,
+  shift__shift_id::BIGINT,
+  shift__name::TEXT,
+  shift__start_time::TEXT,
+  shift__end_time::TEXT,
+  shift__modified_date::DATE,
+  shift__record_loaded_at::TIMESTAMP,
+  shift__record_updated_at::TIMESTAMP,
+  shift__record_version::TEXT,
+  shift__record_valid_from::TIMESTAMP,
+  shift__record_valid_to::TIMESTAMP,
+  shift__is_current_record::BOOLEAN
+FROM cte__final

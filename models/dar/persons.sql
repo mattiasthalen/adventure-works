@@ -27,7 +27,81 @@ MODEL (
   )
 );
 
+WITH cte__source AS (
+  SELECT
+    _pit_hook__person__individual,
+    person__business_entity_id,
+    person__person_type,
+    person__name_style,
+    person__first_name,
+    person__middle_name,
+    person__last_name,
+    person__email_promotion,
+    person__demographics,
+    person__rowguid,
+    person__title,
+    person__suffix,
+    person__additional_contact_info,
+    person__modified_date,
+    person__record_loaded_at,
+    person__record_updated_at,
+    person__record_version,
+    person__record_valid_from,
+    person__record_valid_to,
+    person__is_current_record
+  FROM dab.bag__adventure_works__persons
+),
+
+cte__ghost_record AS (
+  SELECT
+    'ghost_record' AS _pit_hook__person__individual,
+    NULL AS person__business_entity_id,
+    'N/A' AS person__person_type,
+    FALSE AS person__name_style,
+    'N/A' AS person__first_name,
+    'N/A' AS person__middle_name,
+    'N/A' AS person__last_name,
+    NULL AS person__email_promotion,
+    'N/A' AS person__demographics,
+    'N/A' AS person__rowguid,
+    'N/A' AS person__title,
+    'N/A' AS person__suffix,
+    'N/A' AS person__additional_contact_info,
+    NULL AS person__modified_date,
+    TIMESTAMP '1970-01-01 00:00:00' AS person__record_loaded_at,
+    TIMESTAMP '1970-01-01 00:00:00' AS person__record_updated_at,
+    0 AS person__record_version,
+    TIMESTAMP '1970-01-01 00:00:00' AS person__record_valid_from,
+    TIMESTAMP '9999-12-31 23:59:59' AS person__record_valid_to,
+    TRUE AS person__is_current_record
+  FROM (SELECT 1) dummy
+),
+
+cte__final AS (
+  SELECT * FROM cte__source
+  UNION ALL
+  SELECT * FROM cte__ghost_record
+)
+
 SELECT
-  *
-  EXCLUDE (_hook__person__individual)
-FROM dab.bag__adventure_works__persons
+  _pit_hook__person__individual::BLOB,
+  person__business_entity_id::BIGINT,
+  person__person_type::TEXT,
+  person__name_style::BOOLEAN,
+  person__first_name::TEXT,
+  person__middle_name::TEXT,
+  person__last_name::TEXT,
+  person__email_promotion::BIGINT,
+  person__demographics::TEXT,
+  person__rowguid::TEXT,
+  person__title::TEXT,
+  person__suffix::TEXT,
+  person__additional_contact_info::TEXT,
+  person__modified_date::DATE,
+  person__record_loaded_at::TIMESTAMP,
+  person__record_updated_at::TIMESTAMP,
+  person__record_version::TEXT,
+  person__record_valid_from::TIMESTAMP,
+  person__record_valid_to::TIMESTAMP,
+  person__is_current_record::BOOLEAN
+FROM cte__final

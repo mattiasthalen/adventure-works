@@ -23,7 +23,69 @@ MODEL (
   )
 );
 
+WITH cte__source AS (
+  SELECT
+    _pit_hook__transaction_history_archive,
+    transaction_history_archive__transaction_id,
+    transaction_history_archive__product_id,
+    transaction_history_archive__reference_order_id,
+    transaction_history_archive__reference_order_line_id,
+    transaction_history_archive__transaction_date,
+    transaction_history_archive__transaction_type,
+    transaction_history_archive__quantity,
+    transaction_history_archive__actual_cost,
+    transaction_history_archive__modified_date,
+    transaction_history_archive__record_loaded_at,
+    transaction_history_archive__record_updated_at,
+    transaction_history_archive__record_version,
+    transaction_history_archive__record_valid_from,
+    transaction_history_archive__record_valid_to,
+    transaction_history_archive__is_current_record
+  FROM dab.bag__adventure_works__transaction_history_archives
+),
+
+cte__ghost_record AS (
+  SELECT
+    'ghost_record' AS _pit_hook__transaction_history_archive,
+    NULL AS transaction_history_archive__transaction_id,
+    NULL AS transaction_history_archive__product_id,
+    NULL AS transaction_history_archive__reference_order_id,
+    NULL AS transaction_history_archive__reference_order_line_id,
+    NULL AS transaction_history_archive__transaction_date,
+    'N/A' AS transaction_history_archive__transaction_type,
+    NULL AS transaction_history_archive__quantity,
+    NULL AS transaction_history_archive__actual_cost,
+    NULL AS transaction_history_archive__modified_date,
+    TIMESTAMP '1970-01-01 00:00:00' AS transaction_history_archive__record_loaded_at,
+    TIMESTAMP '1970-01-01 00:00:00' AS transaction_history_archive__record_updated_at,
+    0 AS transaction_history_archive__record_version,
+    TIMESTAMP '1970-01-01 00:00:00' AS transaction_history_archive__record_valid_from,
+    TIMESTAMP '9999-12-31 23:59:59' AS transaction_history_archive__record_valid_to,
+    TRUE AS transaction_history_archive__is_current_record
+  FROM (SELECT 1) dummy
+),
+
+cte__final AS (
+  SELECT * FROM cte__source
+  UNION ALL
+  SELECT * FROM cte__ghost_record
+)
+
 SELECT
-  *
-  EXCLUDE (_hook__transaction_history_archive, _hook__product, _hook__order__reference)
-FROM dab.bag__adventure_works__transaction_history_archives
+  _pit_hook__transaction_history_archive::BLOB,
+  transaction_history_archive__transaction_id::BIGINT,
+  transaction_history_archive__product_id::BIGINT,
+  transaction_history_archive__reference_order_id::BIGINT,
+  transaction_history_archive__reference_order_line_id::BIGINT,
+  transaction_history_archive__transaction_date::DATE,
+  transaction_history_archive__transaction_type::TEXT,
+  transaction_history_archive__quantity::BIGINT,
+  transaction_history_archive__actual_cost::DOUBLE,
+  transaction_history_archive__modified_date::DATE,
+  transaction_history_archive__record_loaded_at::TIMESTAMP,
+  transaction_history_archive__record_updated_at::TIMESTAMP,
+  transaction_history_archive__record_version::TEXT,
+  transaction_history_archive__record_valid_from::TIMESTAMP,
+  transaction_history_archive__record_valid_to::TIMESTAMP,
+  transaction_history_archive__is_current_record::BOOLEAN
+FROM cte__final
