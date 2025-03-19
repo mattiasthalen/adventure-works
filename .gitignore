@@ -13,3 +13,4 @@ logs/
 .venv/
 lakehouse/*
 !lakehouse/state.duckdb
+*.parquet
