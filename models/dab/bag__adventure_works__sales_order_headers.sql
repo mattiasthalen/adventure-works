@@ -16,6 +16,8 @@ MODEL (
     sales_order_header__status = 'Order current status. 1 = In process; 2 = Approved; 3 = Backordered; 4 = Rejected; 5 = Shipped; 6 = Cancelled.',
     sales_order_header__online_order_flag = '0 = Order placed by sales person. 1 = Order placed online by customer.',
     sales_order_header__sales_order_number = 'Unique sales order identification number.',
+    sales_order_header__customer_order_sequence = 'Sequence number of the sales order for the customer.',
+    sales_order_header__first_order = 'Flag indicating if this is the first order for the customer.',
     sales_order_header__purchase_order_number = 'Customer purchase order number reference.',
     sales_order_header__account_number = 'Financial accounting number reference.',
     sales_order_header__customer_id = 'Customer identification number. Foreign key to Customer.BusinessEntityID.',
@@ -100,6 +102,16 @@ WITH staging AS (
       ELSE sales_order_header__record_valid_to
     END AS sales_order_header__record_updated_at
   FROM staging
+), derived AS (
+  SELECT
+    *,
+    ROW_NUMBER()
+      OVER (
+        PARTITION BY sales_order_header__customer_id
+        ORDER BY sales_order_header__order_date
+      ) AS sales_order_header__customer_order_sequence,
+    sales_order_header__customer_order_sequence = 1 AS sales_order_header__first_order
+  FROM validity
 ), hooks AS (
   SELECT
     CONCAT('order__sales__adventure_works|', sales_order_header__sales_order_id) AS _hook__order__sales,
@@ -116,7 +128,7 @@ WITH staging AS (
       'epoch__valid_from|'||sales_order_header__record_valid_from
     ) AS _pit_hook__order__sales,
     *
-  FROM validity
+  FROM derived
 )
 SELECT
   _pit_hook__order__sales::BLOB,
@@ -137,6 +149,8 @@ SELECT
   sales_order_header__status::BIGINT,
   sales_order_header__online_order_flag::BOOLEAN,
   sales_order_header__sales_order_number::TEXT,
+  sales_order_header__customer_order_sequence::INT,
+  sales_order_header__first_order::BOOL,
   sales_order_header__purchase_order_number::TEXT,
   sales_order_header__account_number::TEXT,
   sales_order_header__customer_id::BIGINT,

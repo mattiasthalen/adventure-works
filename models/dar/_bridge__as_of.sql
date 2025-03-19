@@ -343,6 +343,8 @@ SELECT
   event__work_orders_ended::INT,
   event__work_orders_modified::INT,
   event__work_orders_started::INT,
+  measure__sales_order_headers_from_new_customers::INT,
+  measure__sales_order_headers_from_returning_customers::INT,
   measure__sales_order_line_qty_due::BIGINT,
   measure__sales_order_line_qty_placed::BIGINT,
   measure__sales_order_line_qty_shipped::BIGINT,
