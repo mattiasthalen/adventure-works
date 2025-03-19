@@ -1,5 +1,5 @@
-version: 3
-version_hash: BHzrVV2rSPL327I6UYvxwlj0PYxf9E9T11GFfQp66Wc=
+version: 4
+version_hash: w8uN+zkTcesuBhXhj7tL1pdIKtD1L8OWgW6YqUY4v0c=
 engine_version: 11
 name: duckdb_dar
 tables:
@@ -2279,6 +2279,12 @@ tables:
       sales_order_header__currency_rate_id:
         data_type: bigint
         nullable: true
+      sales_order_header__customer_order_sequence:
+        data_type: bigint
+        nullable: true
+      sales_order_header__first_order:
+        data_type: bool
+        nullable: true
     write_disposition: replace
     table_format: iceberg
     resource: sales_order_headers
@@ -3854,6 +3860,45 @@ tables:
       event__work_orders_started:
         data_type: bigint
         nullable: true
+      event__sales_order_lines_due:
+        data_type: bigint
+        nullable: true
+      measure__sales_order_line_qty_due:
+        data_type: bigint
+        nullable: true
+      measure__sales_order_line_total_due:
+        data_type: double
+        nullable: true
+      event__sales_order_lines_modified:
+        data_type: bigint
+        nullable: true
+      event__sales_order_lines_shipped:
+        data_type: bigint
+        nullable: true
+      measure__sales_order_line_qty_shipped:
+        data_type: bigint
+        nullable: true
+      measure__sales_order_line_total_shipped:
+        data_type: double
+        nullable: true
+      event__sales_order_lines_placed:
+        data_type: bigint
+        nullable: true
+      measure__sales_order_line_qty_placed:
+        data_type: bigint
+        nullable: true
+      measure__sales_order_line_total_placed:
+        data_type: double
+        nullable: true
+      measure__sales_order_headers_from_returning_customers:
+        data_type: bigint
+        nullable: true
+      measure__sales_order_headers_from_new_customers:
+        data_type: bigint
+        nullable: true
+      event__shopping_cart_items_created:
+        data_type: bigint
+        nullable: true
     write_disposition: replace
     table_format: iceberg
     resource: _bridge__as_of
@@ -3981,6 +4026,7 @@ normalizers:
   json:
     module: dlt.common.normalizers.json.relational
 previous_hashes:
+- BHzrVV2rSPL327I6UYvxwlj0PYxf9E9T11GFfQp66Wc=
 - fLV0evMKNAtLTPKSWJpPa2VwzGRsoLJcFHlP3gYaF9U=
 - ek7waLBztHfLgsBGPzkKz5PbYJRzCPYF35rsL65XNTA=
 - C4U3fkUTtWhIQ9Jzu0YkToPogUpAohe5eR3nDAELo+U=

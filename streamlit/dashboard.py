@@ -127,19 +127,41 @@ def create_metric_summary(df, group_by_col=None, sort_by=None):
     
     event_cols = [
         col for col in df.columns
-        if col.startswith("event__")
+       if col.startswith(("event__", "measure__"))
         and not col.endswith("_modified")
     ]
     aggregations = []
     
     for col in event_cols:
-        aggregation = pl.col(col).sum().alias(col.replace("event__", "metric__"))
+        prefixes = {
+            "event__": "metric__",
+            "measure__": "metric__"
+        }
+
+        metric_name = col
+        for old, new in prefixes.items():
+            metric_name = metric_name.replace(old, new)
+        
+        aggregation = pl.col(col).sum().alias(metric_name)
         aggregations.append(aggregation)
     
     metric_df = df.select(aggregations)
     
     if group_by_col:
         metric_df = df.group_by(group_by_col).agg(aggregations)
+
+    metric_df = metric_df.with_columns(
+        (
+            pl.col("metric__sales_order_headers_from_new_customers")
+            / pl.col("metric__sales_order_headers_placed")
+            * 100
+        ).alias("metric__sales_order_headers_from_new_customers__percentage"),
+        (
+            pl.col("metric__sales_order_headers_from_returning_customers")
+            / pl.col("metric__sales_order_headers_placed")
+            * 100
+        ).alias("metric__sales_order_headers_from_returning_customers__percentage")
+    )
         
     metric_df = metric_df.sort(
         sort_by,
