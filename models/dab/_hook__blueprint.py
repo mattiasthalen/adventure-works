@@ -57,21 +57,9 @@ def entrypoint(evaluator: MacroEvaluator) -> str | exp.Expression:
     cte__scd = exp.select(exp.Star()).from_("cte__prefixed")
 
     # Define hooks CTE
-    # First sort all hooks by name
-    sorted_hooks = sorted(hooks or [], key=lambda hook: hook["name"])
-    
-    # If there's a primary hook name, find it and move it to the front
-    if primary_hook and hooks:
-        primary_hook_index = next((i for i, h in enumerate(sorted_hooks) if h["name"] == primary_hook), None)
-        if primary_hook_index is not None:
-            # Move the primary hook to the front
-            primary_hook_item = sorted_hooks.pop(primary_hook_index)
-            sorted_hooks.insert(0, primary_hook_item)
-    
-    # Create the hook selects
     hook_selects = [
         exp.column(hook["business_key_field"]).as_(hook["name"])
-        for hook in sorted_hooks
+        for hook in hooks
     ]
 
     cte__hooks = exp.select(*hook_selects, exp.Star()).from_("cte__scd")
