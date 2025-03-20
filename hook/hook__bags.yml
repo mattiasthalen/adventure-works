@@ -1,5 +1,5 @@
 bags:
-  - name: "bag__adventure_works__persons"
+  - name: "hook__adventure_works__persons"
     source_table: "raw__adventure_works__persons"
     column_prefix: "person"
     hooks:
@@ -8,7 +8,7 @@ bags:
         business_key_field: "business_entity_id"
         primary: true
       
-  - name: "bag__adventure_works__customers"
+  - name: "hook__adventure_works__customers"
     source_table: "raw__adventure_works__customers"
     column_prefix: "customer"
     hooks:
@@ -26,7 +26,7 @@ bags:
         keyset: "territory__sales__adventure_works"
         business_key_field: "territory_id"
       
-  - name: "bag__adventure_works__employees"
+  - name: "hook__adventure_works__employees"
     source_table: "raw__adventure_works__employees"
     column_prefix: "employee"
     hooks:
@@ -35,7 +35,7 @@ bags:
         business_key_field: "business_entity_id"
         primary: true
       
-  - name: "bag__adventure_works__products"
+  - name: "hook__adventure_works__products"
     source_table: "raw__adventure_works__products"
     column_prefix: "product"
     hooks:
@@ -50,7 +50,7 @@ bags:
         keyset: "reference__product_model__adventure_works"
         business_key_field: "product_model_id"
       
-  - name: "bag__adventure_works__sales_order_headers"
+  - name: "hook__adventure_works__sales_order_headers"
     source_table: "raw__adventure_works__sales_order_headers"
     column_prefix: "sales_order_header"
     hooks:
@@ -83,7 +83,7 @@ bags:
         keyset: "currency__adventure_works"
         business_key_field: "currency_rate_id"
       
-  - name: "bag__adventure_works__sales_order_details"
+  - name: "hook__adventure_works__sales_order_details"
     source_table: "raw__adventure_works__sales_order_details"
     column_prefix: "sales_order_detail"
     hooks:
@@ -101,7 +101,7 @@ bags:
         keyset: "reference__special_offer__adventure_works"
         business_key_field: "special_offer_id"
       
-  - name: "bag__adventure_works__sales_territories"
+  - name: "hook__adventure_works__sales_territories"
     source_table: "raw__adventure_works__sales_territories"
     column_prefix: "sales_territory"
     hooks:
@@ -113,7 +113,7 @@ bags:
         keyset: "reference__country_region__adventure_works"
         business_key_field: "country_region_code"
       
-  - name: "bag__adventure_works__addresses"
+  - name: "hook__adventure_works__addresses"
     source_table: "raw__adventure_works__addresses"
     column_prefix: "address"
     hooks:
@@ -125,7 +125,7 @@ bags:
         keyset: "reference__state_province__adventure_works"
         business_key_field: "state_province_id"
       
-  - name: "bag__adventure_works__departments"
+  - name: "hook__adventure_works__departments"
     source_table: "raw__adventure_works__departments"
     column_prefix: "department"
     hooks:
@@ -134,7 +134,7 @@ bags:
         business_key_field: "department_id"
         primary: true
       
-  - name: "bag__adventure_works__vendors"
+  - name: "hook__adventure_works__vendors"
     source_table: "raw__adventure_works__vendors"
     column_prefix: "vendor"
     hooks:
@@ -143,7 +143,7 @@ bags:
         business_key_field: "business_entity_id"
         primary: true
       
-  - name: "bag__adventure_works__stores"
+  - name: "hook__adventure_works__stores"
     source_table: "raw__adventure_works__stores"
     column_prefix: "store"
     hooks:
@@ -155,7 +155,7 @@ bags:
         keyset: "person__sales__adventure_works"
         business_key_field: "sales_person_id"
       
-  - name: "bag__adventure_works__sales_persons"
+  - name: "hook__adventure_works__sales_persons"
     source_table: "raw__adventure_works__sales_persons"
     column_prefix: "sales_person"
     hooks:
@@ -167,7 +167,7 @@ bags:
         keyset: "territory__sales__adventure_works"
         business_key_field: "territory_id"
       
-  - name: "bag__adventure_works__credit_cards"
+  - name: "hook__adventure_works__credit_cards"
     source_table: "raw__adventure_works__credit_cards"
     column_prefix: "credit_card"
     hooks:
@@ -176,7 +176,7 @@ bags:
         business_key_field: "credit_card_id"
         primary: true
       
-  - name: "bag__adventure_works__ship_methods"
+  - name: "hook__adventure_works__ship_methods"
     source_table: "raw__adventure_works__ship_methods"
     column_prefix: "ship_method"
     hooks:
@@ -185,7 +185,7 @@ bags:
         business_key_field: "ship_method_id"
         primary: true
       
-  - name: "bag__adventure_works__product_categories"
+  - name: "hook__adventure_works__product_categories"
     source_table: "raw__adventure_works__product_categories"
     column_prefix: "product_category"
     hooks:
@@ -194,7 +194,7 @@ bags:
         business_key_field: "product_category_id"
         primary: true
       
-  - name: "bag__adventure_works__product_subcategories"
+  - name: "hook__adventure_works__product_subcategories"
     source_table: "raw__adventure_works__product_subcategories"
     column_prefix: "product_subcategory"
     hooks:
@@ -206,7 +206,7 @@ bags:
         keyset: "product_category__adventure_works"
         business_key_field: "product_category_id"
       
-  - name: "bag__adventure_works__currencies"
+  - name: "hook__adventure_works__currencies"
     source_table: "raw__adventure_works__currencies"
     column_prefix: "currency"
     hooks:
@@ -215,7 +215,7 @@ bags:
         business_key_field: "currency_code"
         primary: true
       
-  - name: "bag__adventure_works__work_orders"
+  - name: "hook__adventure_works__work_orders"
     source_table: "raw__adventure_works__work_orders"
     column_prefix: "work_order"
     hooks:
@@ -230,7 +230,7 @@ bags:
         keyset: "reference__scrap_reason__adventure_works"
         business_key_field: "scrap_reason_id"
       
-  - name: "bag__adventure_works__currency_rates"
+  - name: "hook__adventure_works__currency_rates"
     source_table: "raw__adventure_works__currency_rates"
     column_prefix: "currency_rate"
     hooks:
@@ -245,7 +245,7 @@ bags:
         business_key_field: "currency_rate_id"
         primary: true
 
-  - name: "bag__adventure_works__employee_pay_histories"
+  - name: "hook__adventure_works__employee_pay_histories"
     source_table: "raw__adventure_works__employee_pay_histories"
     column_prefix: "employee_pay_history"
     hooks:
@@ -261,7 +261,7 @@ bags:
         keyset: "epoch__date"
         business_key_field: "rate_change_date"
 
-  - name: "bag__adventure_works__employee_department_histories"
+  - name: "hook__adventure_works__employee_department_histories"
     source_table: "raw__adventure_works__employee_department_histories"
     column_prefix: "employee_department_history"
     hooks:
@@ -285,7 +285,7 @@ bags:
         keyset: "epoch__date"
         business_key_field: "start_date"
 
-  - name: "bag__adventure_works__job_candidates"
+  - name: "hook__adventure_works__job_candidates"
     source_table: "raw__adventure_works__job_candidates"
     column_prefix: "job_candidate"
     hooks:
@@ -297,7 +297,7 @@ bags:
         keyset: "person__employee__adventure_works"
         business_key_field: "business_entity_id"
 
-  - name: "bag__adventure_works__shifts"
+  - name: "hook__adventure_works__shifts"
     source_table: "raw__adventure_works__shifts"
     column_prefix: "shift"
     hooks:
@@ -306,7 +306,7 @@ bags:
         business_key_field: "shift_id"
         primary: true
 
-  - name: "bag__adventure_works__address_types"
+  - name: "hook__adventure_works__address_types"
     source_table: "raw__adventure_works__address_types"
     column_prefix: "address_type"
     hooks:
@@ -315,7 +315,7 @@ bags:
         business_key_field: "address_type_id"
         primary: true
 
-  - name: "bag__adventure_works__business_entity_addresses"
+  - name: "hook__adventure_works__business_entity_addresses"
     source_table: "raw__adventure_works__business_entity_addresses"
     column_prefix: "business_entity_address"
     hooks:
@@ -330,7 +330,7 @@ bags:
         keyset: "reference__address_type__adventure_works"
         business_key_field: "address_type_id"
 
-  - name: "bag__adventure_works__business_entity_contacts"
+  - name: "hook__adventure_works__business_entity_contacts"
     source_table: "raw__adventure_works__business_entity_contacts"
     column_prefix: "business_entity_contact"
     hooks:
@@ -345,7 +345,7 @@ bags:
         keyset: "reference__contact_type__adventure_works"
         business_key_field: "contact_type_id"
 
-  - name: "bag__adventure_works__contact_types"
+  - name: "hook__adventure_works__contact_types"
     source_table: "raw__adventure_works__contact_types"
     column_prefix: "contact_type"
     hooks:
@@ -354,7 +354,7 @@ bags:
         business_key_field: "contact_type_id"
         primary: true
 
-  - name: "bag__adventure_works__country_regions"
+  - name: "hook__adventure_works__country_regions"
     source_table: "raw__adventure_works__country_regions"
     column_prefix: "country_region"
     hooks:
@@ -363,7 +363,7 @@ bags:
         business_key_field: "country_region_code"
         primary: true
 
-  - name: "bag__adventure_works__email_addresses"
+  - name: "hook__adventure_works__email_addresses"
     source_table: "raw__adventure_works__email_addresses"
     column_prefix: "email_address"
     hooks:
@@ -375,7 +375,7 @@ bags:
         keyset: "reference__adventure_works"
         business_key_field: "email_address_id"
 
-  - name: "bag__adventure_works__person_phones"
+  - name: "hook__adventure_works__person_phones"
     source_table: "raw__adventure_works__person_phones"
     column_prefix: "person_phone"
     hooks:
@@ -387,7 +387,7 @@ bags:
         keyset: "reference__phone_number_type__adventure_works"
         business_key_field: "phone_number_type_id"
 
-  - name: "bag__adventure_works__phone_number_types"
+  - name: "hook__adventure_works__phone_number_types"
     source_table: "raw__adventure_works__phone_number_types"
     column_prefix: "phone_number_type"
     hooks:
@@ -396,7 +396,7 @@ bags:
         business_key_field: "phone_number_type_id"
         primary: true
 
-  - name: "bag__adventure_works__bill_of_materials"
+  - name: "hook__adventure_works__bill_of_materials"
     source_table: "raw__adventure_works__bill_of_materials"
     column_prefix: "bill_of_material"
     hooks:
@@ -414,7 +414,7 @@ bags:
         keyset: "reference__unit_measure__adventure_works"
         business_key_field: "unit_measure_code"
 
-  - name: "bag__adventure_works__cultures"
+  - name: "hook__adventure_works__cultures"
     source_table: "raw__adventure_works__cultures"
     column_prefix: "culture"
     hooks:
@@ -423,7 +423,7 @@ bags:
         business_key_field: "culture_id"
         primary: true
 
-  - name: "bag__adventure_works__illustrations"
+  - name: "hook__adventure_works__illustrations"
     source_table: "raw__adventure_works__illustrations"
     column_prefix: "illustration"
     hooks:
@@ -432,7 +432,7 @@ bags:
         business_key_field: "illustration_id"
         primary: true
 
-  - name: "bag__adventure_works__locations"
+  - name: "hook__adventure_works__locations"
     source_table: "raw__adventure_works__locations"
     column_prefix: "location"
     hooks:
@@ -441,7 +441,7 @@ bags:
         business_key_field: "location_id"
         primary: true
 
-  - name: "bag__adventure_works__product_cost_histories"
+  - name: "hook__adventure_works__product_cost_histories"
     source_table: "raw__adventure_works__product_cost_histories"
     column_prefix: "product_cost_history"
     hooks:
@@ -457,7 +457,7 @@ bags:
         keyset: "epoch__date"
         business_key_field: "start_date"
 
-  - name: "bag__adventure_works__product_descriptions"
+  - name: "hook__adventure_works__product_descriptions"
     source_table: "raw__adventure_works__product_descriptions"
     column_prefix: "product_description"
     hooks:
@@ -466,7 +466,7 @@ bags:
         business_key_field: "product_description_id"
         primary: true
 
-  - name: "bag__adventure_works__product_inventories"
+  - name: "hook__adventure_works__product_inventories"
     source_table: "raw__adventure_works__product_inventories"
     column_prefix: "product_inventory"
     hooks:
@@ -482,7 +482,7 @@ bags:
         keyset: "product__adventure_works"
         business_key_field: "product_id"
 
-  - name: "bag__adventure_works__product_list_price_histories"
+  - name: "hook__adventure_works__product_list_price_histories"
     source_table: "raw__adventure_works__product_list_price_histories"
     column_prefix: "product_list_price_history"
     hooks:
@@ -498,7 +498,7 @@ bags:
         keyset: "epoch__date"
         business_key_field: "start_date"
 
-  - name: "bag__adventure_works__product_model_illustrations"
+  - name: "hook__adventure_works__product_model_illustrations"
     source_table: "raw__adventure_works__product_model_illustrations"
     column_prefix: "product_model_illustration"
     hooks:
@@ -514,7 +514,7 @@ bags:
         keyset: "reference__product_model__adventure_works"
         business_key_field: "product_model_id"
 
-  - name: "bag__adventure_works__product_models"
+  - name: "hook__adventure_works__product_models"
     source_table: "raw__adventure_works__product_models"
     column_prefix: "product_model"
     hooks:
@@ -523,7 +523,7 @@ bags:
         business_key_field: "product_model_id"
         primary: true
 
-  - name: "bag__adventure_works__product_photos"
+  - name: "hook__adventure_works__product_photos"
     source_table: "raw__adventure_works__product_photos"
     column_prefix: "product_photo"
     hooks:
@@ -532,7 +532,7 @@ bags:
         keyset: "reference__product_photo__adventure_works"
         business_key_field: "product_photo_id"
 
-  - name: "bag__adventure_works__product_reviews"
+  - name: "hook__adventure_works__product_reviews"
     source_table: "raw__adventure_works__product_reviews"
     column_prefix: "product_review"
     hooks:
@@ -544,7 +544,7 @@ bags:
         keyset: "product__adventure_works"
         business_key_field: "product_id"
 
-  - name: "bag__adventure_works__scrap_reasons"
+  - name: "hook__adventure_works__scrap_reasons"
     source_table: "raw__adventure_works__scrap_reasons"
     column_prefix: "scrap_reason"
     hooks:
@@ -553,7 +553,7 @@ bags:
         business_key_field: "scrap_reason_id"
         primary: true
 
-  - name: "bag__adventure_works__transaction_histories"
+  - name: "hook__adventure_works__transaction_histories"
     source_table: "raw__adventure_works__transaction_histories"
     column_prefix: "transaction_history"
     hooks:
@@ -568,7 +568,7 @@ bags:
         keyset: "order__adventure_works"
         business_key_field: "reference_order_id"
 
-  - name: "bag__adventure_works__transaction_history_archives"
+  - name: "hook__adventure_works__transaction_history_archives"
     source_table: "raw__adventure_works__transaction_history_archives"
     column_prefix: "transaction_history_archive"
     hooks:
@@ -583,7 +583,7 @@ bags:
         keyset: "order__adventure_works"
         business_key_field: "reference_order_id"
 
-  - name: "bag__adventure_works__unit_measures"
+  - name: "hook__adventure_works__unit_measures"
     source_table: "raw__adventure_works__unit_measures"
     column_prefix: "unit_measure"
     hooks:
@@ -592,7 +592,7 @@ bags:
         business_key_field: "unit_measure_code"
         primary: true
 
-  - name: "bag__adventure_works__work_order_routings"
+  - name: "hook__adventure_works__work_order_routings"
     source_table: "raw__adventure_works__work_order_routings"
     column_prefix: "work_order_routing"
     hooks:
@@ -615,7 +615,7 @@ bags:
         keyset: "reference__location__adventure_works"
         business_key_field: "location_id"
 
-  - name: "bag__adventure_works__product_vendors"
+  - name: "hook__adventure_works__product_vendors"
     source_table: "raw__adventure_works__product_vendors"
     column_prefix: "product_vendor"
     hooks:
@@ -634,7 +634,7 @@ bags:
         keyset: "reference__unit_measure__adventure_works"
         business_key_field: "unit_measure_code"
 
-  - name: "bag__adventure_works__purchase_order_headers"
+  - name: "hook__adventure_works__purchase_order_headers"
     source_table: "raw__adventure_works__purchase_order_headers"
     column_prefix: "purchase_order_header"
     hooks:
@@ -652,7 +652,7 @@ bags:
         keyset: "ship_method__adventure_works"
         business_key_field: "ship_method_id"
 
-  - name: "bag__adventure_works__purchase_order_details"
+  - name: "hook__adventure_works__purchase_order_details"
     source_table: "raw__adventure_works__purchase_order_details"
     column_prefix: "purchase_order_detail"
     hooks:
@@ -667,7 +667,7 @@ bags:
         keyset: "product__adventure_works"
         business_key_field: "product_id"
 
-  - name: "bag__adventure_works__special_offers"
+  - name: "hook__adventure_works__special_offers"
     source_table: "raw__adventure_works__special_offers"
     column_prefix: "special_offer"
     hooks:
@@ -676,7 +676,7 @@ bags:
         business_key_field: "special_offer_id"
         primary: true
 
-  - name: "bag__adventure_works__shopping_cart_items"
+  - name: "hook__adventure_works__shopping_cart_items"
     source_table: "raw__adventure_works__shopping_cart_items"
     column_prefix: "shopping_cart_item"
     hooks:
@@ -688,7 +688,7 @@ bags:
         keyset: "product__adventure_works"
         business_key_field: "product_id"
 
-  - name: "bag__adventure_works__sales_territory_histories"
+  - name: "hook__adventure_works__sales_territory_histories"
     source_table: "raw__adventure_works__sales_territory_histories"
     column_prefix: "sales_territory_history"
     hooks:
@@ -700,7 +700,7 @@ bags:
         keyset: "territory__sales__adventure_works"
         business_key_field: "territory_id"
 
-  - name: "bag__adventure_works__sales_tax_rates"
+  - name: "hook__adventure_works__sales_tax_rates"
     source_table: "raw__adventure_works__sales_tax_rates"
     column_prefix: "sales_tax_rate"
     hooks:
@@ -712,7 +712,7 @@ bags:
         keyset: "reference__state_province__adventure_works"
         business_key_field: "state_province_id"
 
-  - name: "bag__adventure_works__state_provinces"
+  - name: "hook__adventure_works__state_provinces"
     source_table: "raw__adventure_works__state_provinces"
     column_prefix: "state_province"
     hooks:
@@ -727,7 +727,7 @@ bags:
         keyset: "territory__sales__adventure_works"
         business_key_field: "territory_id"
 
-  - name: "bag__adventure_works__sales_person_quota_histories"
+  - name: "hook__adventure_works__sales_person_quota_histories"
     source_table: "raw__adventure_works__sales_person_quota_histories"
     column_prefix: "sales_person_quota_history"
     hooks:
@@ -736,7 +736,7 @@ bags:
         business_key_field: "business_entity_id"
         primary: true
 
-  - name: "bag__adventure_works__sales_reasons"
+  - name: "hook__adventure_works__sales_reasons"
     source_table: "raw__adventure_works__sales_reasons"
     column_prefix: "sales_reason"
     hooks:

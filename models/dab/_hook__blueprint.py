@@ -35,10 +35,10 @@ blueprints = generate_blueprints_from_yaml(
 )
 
 @model(
-    "dab.hook_@{name}",
+    "dab.@{name}",
     is_sql=True,
     kind="VIEW",
-    blueprints=blueprints[0:1]
+    blueprints=blueprints[0:3]
 )
 def entrypoint(evaluator: MacroEvaluator) -> str | exp.Expression:
     source_table = evaluator.var("source_table")
