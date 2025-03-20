@@ -1,0 +1,92 @@
+import sqlalchemy
+import yaml
+
+from sqlglot import exp
+from sqlmesh.core.macros import MacroEvaluator
+from sqlmesh.core.model import model
+
+def load_bags_config(config_path: str) -> dict:
+    with open(config_path, 'r') as file:
+        return yaml.safe_load(file)
+
+def generate_blueprints_from_yaml(hook_config_path: str) -> list:
+    bags_config = load_bags_config(hook_config_path)
+
+    blueprints = []
+
+    for bag in bags_config["bags"]:
+
+        hooks = {hook["name"]: "binary" for hook in bag["hooks"]}
+
+        blueprint = {
+            "name": bag['name'],
+            "source_table": bag['source_table'],
+            "column_prefix": bag['column_prefix'],
+            "hooks": bag['hooks'], 
+            "columns": hooks
+        }
+
+        blueprints.append(blueprint)
+
+    return blueprints
+
+blueprints = generate_blueprints_from_yaml(
+    hook_config_path="./hook/hook__bags.yml"
+)
+
+@model(
+    "dab.hook_@{name}",
+    is_sql=True,
+    kind="VIEW",
+    blueprints=blueprints[0:1]
+)
+def entrypoint(evaluator: MacroEvaluator) -> str | exp.Expression:
+    source_table = evaluator.var("source_table")
+    column_prefix = evaluator.var("column_prefix")
+    primary_hook = evaluator.var("primary_hook")
+    hooks = evaluator.var("hooks")
+    columns = evaluator.var("columns")
+
+    # Define source CTE
+    cte__source = exp.select(exp.Star()).from_(f"das.{source_table}")
+
+    # Prefix all fields CTE
+    cte__prefixed = exp.select(exp.Star()).from_("cte__source")
+
+    # Add SCD Type 2 fields CTE
+    cte__scd = exp.select(exp.Star()).from_("cte__prefixed")
+
+    # Define hooks CTE
+    # First sort all hooks by name
+    sorted_hooks = sorted(hooks or [], key=lambda hook: hook["name"])
+    
+    # If there's a primary hook name, find it and move it to the front
+    if primary_hook and hooks:
+        primary_hook_index = next((i for i, h in enumerate(sorted_hooks) if h["name"] == primary_hook), None)
+        if primary_hook_index is not None:
+            # Move the primary hook to the front
+            primary_hook_item = sorted_hooks.pop(primary_hook_index)
+            sorted_hooks.insert(0, primary_hook_item)
+    
+    # Create the hook selects
+    hook_selects = [
+        exp.column(hook["business_key_field"]).as_(hook["name"])
+        for hook in sorted_hooks
+    ]
+
+    cte__hooks = exp.select(*hook_selects, exp.Star()).from_("cte__scd")
+
+    # Build CTE definitions
+    ctes = exp.With(
+        expressions=[
+            exp.CTE(this=cte__source, alias=exp.to_identifier("cte__source")),
+            exp.CTE(this=cte__prefixed, alias=exp.to_identifier("cte__prefixed")),
+            exp.CTE(this=cte__scd, alias=exp.to_identifier("cte__scd")),
+            exp.CTE(this=cte__hooks, alias=exp.to_identifier("cte__hooks")),
+        ]
+    )
+
+    sql = exp.select("*").from_("cte__hooks")
+    sql.set("with", ctes)
+
+    return sql
