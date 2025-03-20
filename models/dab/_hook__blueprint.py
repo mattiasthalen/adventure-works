@@ -1,4 +1,3 @@
-import sqlalchemy
 import yaml
 
 from sqlglot import exp
@@ -64,17 +63,14 @@ def entrypoint(evaluator: MacroEvaluator) -> str | exp.Expression:
 
     cte__hooks = exp.select(*hook_selects, exp.Star()).from_("cte__scd")
 
-    # Build CTE definitions
-    ctes = exp.With(
-        expressions=[
-            exp.CTE(this=cte__source, alias=exp.to_identifier("cte__source")),
-            exp.CTE(this=cte__prefixed, alias=exp.to_identifier("cte__prefixed")),
-            exp.CTE(this=cte__scd, alias=exp.to_identifier("cte__scd")),
-            exp.CTE(this=cte__hooks, alias=exp.to_identifier("cte__hooks")),
-        ]
+    # Final
+    sql = (
+        exp.select(exp.Star())
+        .from_("cte__hooks")
+        .with_("cte__source", as_=cte__source)
+        .with_("cte__prefixed", as_=cte__prefixed)
+        .with_("cte__scd", as_=cte__scd)
+        .with_("cte__hooks", as_=cte__hooks)
     )
-
-    sql = exp.select("*").from_("cte__hooks")
-    sql.set("with", ctes)
 
     return sql
