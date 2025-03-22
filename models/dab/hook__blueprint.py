@@ -4,6 +4,7 @@ import json
 from sqlglot import exp
 from sqlmesh.core.macros import MacroEvaluator
 from sqlmesh.core.model import model
+from sqlmesh.core.model.kind import ModelKindName
 
 def load_yaml(path: str) -> dict:
     with open(path, 'r') as file:
@@ -13,17 +14,17 @@ def generate_blueprints_from_yaml(
     hook_config_path: str,
     schema_path: str
 ) -> list:
-    frames_config = load_yaml(hook_config_path)
+    bags_config = load_yaml(hook_config_path)
     raw_schema = load_yaml(schema_path)
 
     blueprints = []
 
-    for frame in frames_config["frames"]:
+    for bag in bags_config["bags"]:
 
-        name = frame["name"]
-        source_table = frame['source_table']
-        column_prefix = frame['column_prefix']
-        hooks = frame['hooks']
+        name = bag["name"]
+        source_table = bag['source_table']
+        column_prefix = bag['column_prefix']
+        hooks = bag['hooks']
         schema = raw_schema["tables"][source_table]
 
         description = schema["description"]
@@ -129,7 +130,7 @@ def generate_blueprints_from_yaml(
     return blueprints
 
 blueprints = generate_blueprints_from_yaml(
-    hook_config_path="./hook/hook__frames.yml",
+    hook_config_path="./hook/hook__bags.yml",
     schema_path="./hook/raw_schema.yaml"
 )
 
@@ -139,7 +140,10 @@ if __name__ == "__main__":
 @model(
     "dab.@{name}",
     is_sql=True,
-    kind="VIEW",
+    kind=dict(
+        name=ModelKindName.INCREMENTAL_BY_UNIQUE_KEY,
+        unique_key="@{grain}"
+    ),
     blueprints=blueprints,
     grain="@{grain}",
     references="@{references}",
@@ -147,9 +151,6 @@ if __name__ == "__main__":
     #column_descriptions="@{column_descriptions}"
 )
 def entrypoint(evaluator: MacroEvaluator) -> str | exp.Expression:
-
-    name = evaluator.var("name")
-    description = evaluator.var("description")
     source_table = evaluator.var("source_table")
     source_primary_keys = evaluator.var("source_primary_keys")
     source_columns = evaluator.var("source_columns")
@@ -157,9 +158,6 @@ def entrypoint(evaluator: MacroEvaluator) -> str | exp.Expression:
     hooks = evaluator.var("hooks")
     columns = evaluator.var("columns")
     column_data_types = evaluator.var("column_data_types")
-    column_descriptions = evaluator.var("column_descriptions")
-
-    primary_hook = next((hook for hook in hooks if hook.get("primary")), hooks[0])
 
     # Define source CTE
     loaded_at = exp.func(
@@ -292,6 +290,12 @@ def entrypoint(evaluator: MacroEvaluator) -> str | exp.Expression:
     sql = (
         exp.select(*casted_columns)
         .from_("cte__prefixed")
+        .where(
+            exp.column(f"{column_prefix}record_updated_at").between(
+                low=evaluator.locals["start_ts"],
+                high=evaluator.locals["end_ts"]
+            )
+        )
         .with_("cte__source", as_=cte__source)
         .with_("cte__scd", as_=cte__scd)
         .with_("cte__hooks", as_=cte__hooks)
