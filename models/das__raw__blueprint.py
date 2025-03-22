@@ -9,7 +9,7 @@ from models.blueprint_generators import generate_raw_blueprints
 
 # Generate blueprints
 blueprints = generate_raw_blueprints(
-    schema_path="./hook/raw_schema.yaml"
+    schema_path="./models/raw_schema.yaml"
 )
 
 @model(

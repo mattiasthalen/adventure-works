@@ -11,8 +11,8 @@ from models.blueprint_generators import generate_hook_blueprints
 
 # Generate blueprints
 blueprints = generate_hook_blueprints(
-    hook_config_path="./hook/hook__bags.yml",
-    schema_path="./hook/raw_schema.yaml"
+    hook_config_path="./models/hook__bags.yml",
+    schema_path="./models/raw_schema.yaml"
 )
 
 @model(
