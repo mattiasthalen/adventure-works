@@ -26,8 +26,8 @@ MODEL (
     event__sales_order_headers_due = 'Flag indicating a due event for this sales_order_headers',
     event__sales_order_headers_shipped = 'Flag indicating a shipped event for this sales_order_headers',
     event__sales_order_headers_modified = 'Flag indicating a modified event for this sales_order_headers',
-    measure__sales_order_headers_from_new_customers = 'Flag indicating a new customer for this sales_order_headers',
-    measure__sales_order_headers_from_returning_customers = 'Flag indicating a returning customer for this sales_order_headers',
+    --measure__sales_order_headers_from_new_customers = 'Flag indicating a new customer for this sales_order_headers',
+    --measure__sales_order_headers_from_returning_customers = 'Flag indicating a returning customer for this sales_order_headers',
     bridge__record_loaded_at = 'Timestamp when this event record was loaded',
     bridge__record_updated_at = 'Timestamp when this event record was last updated',
     bridge__record_valid_from = 'Timestamp from which this event record is valid',
@@ -59,8 +59,8 @@ WITH cte__bridge AS (
 
 cte__events AS (
   SELECT
-    *,
-    sales_order_header__first_order
+    *
+    --,sales_order_header__first_order
   FROM cte__bridge
   LEFT JOIN dab.bag__adventure_works__sales_order_headers USING(_pit_hook__order__sales)
 ),
@@ -71,9 +71,10 @@ cte__pivot AS (
     MAX(CASE WHEN event = 'sales_order_header__order_date' THEN 1 END) AS event__sales_order_headers_placed,
     MAX(CASE WHEN event = 'sales_order_header__due_date' THEN 1 END) AS event__sales_order_headers_due,
     MAX(CASE WHEN event = 'sales_order_header__ship_date' THEN 1 END) AS event__sales_order_headers_shipped,
-    MAX(CASE WHEN event = 'sales_order_header__modified_date' THEN 1 END) AS event__sales_order_headers_modified,
-    MAX(CASE WHEN event = 'sales_order_header__order_date' AND sales_order_header__first_order THEN 1 END) AS measure__sales_order_headers_from_new_customers,
-    MAX(CASE WHEN event = 'sales_order_header__order_date' AND NOT sales_order_header__first_order THEN 1 END) AS measure__sales_order_headers_from_returning_customers
+    MAX(CASE WHEN event = 'sales_order_header__modified_date' THEN 1 END) AS event__sales_order_headers_modified
+    --,
+    --MAX(CASE WHEN event = 'sales_order_header__order_date' AND sales_order_header__first_order THEN 1 END) AS measure__sales_order_headers_from_new_customers,
+    --MAX(CASE WHEN event = 'sales_order_header__order_date' AND NOT sales_order_header__first_order THEN 1 END) AS measure__sales_order_headers_from_returning_customers
   FROM cte__events
   UNPIVOT (
     event_date FOR event IN (
@@ -114,8 +115,8 @@ SELECT
   event__sales_order_headers_due::INT,
   event__sales_order_headers_shipped::INT,
   event__sales_order_headers_modified::INT,
-  measure__sales_order_headers_from_new_customers::INT,
-  measure__sales_order_headers_from_returning_customers::INT,
+  --measure__sales_order_headers_from_new_customers::INT,
+  --measure__sales_order_headers_from_returning_customers::INT,
   bridge__record_loaded_at::TIMESTAMP,
   bridge__record_updated_at::TIMESTAMP,
   bridge__record_valid_from::TIMESTAMP,
