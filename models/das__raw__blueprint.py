@@ -5,7 +5,10 @@ from sqlmesh.core.macros import MacroEvaluator
 from sqlmesh.core.model import model
 
 # Import from our blueprint module
-from models.blueprint_generators import generate_raw_blueprints
+try:
+    from models.blueprint_generators import generate_bridge_blueprints
+except:
+    from blueprint_generators import generate_bridge_blueprints
 
 # Generate blueprints
 blueprints = generate_raw_blueprints(
