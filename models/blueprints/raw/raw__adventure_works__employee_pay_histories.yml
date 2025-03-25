@@ -1,0 +1,22 @@
+column_descriptions:
+  _dlt_load_id: Internal data loading identifier.
+  business_entity_id: Employee identification number. Foreign key to Employee.BusinessEntityID.
+  modified_date: Date and time the record was last updated.
+  pay_frequency: 1 = Salary received monthly, 2 = Salary received biweekly.
+  rate: Salary hourly rate.
+  rate_change_date: Date the change in pay is effective.
+columns:
+- name: business_entity_id
+  type: bigint
+- name: rate_change_date
+  type: timestamp
+- name: rate
+  type: double
+- name: pay_frequency
+  type: bigint
+- name: modified_date
+  type: date
+- name: _dlt_load_id
+  type: text
+description: Employee pay history.
+name: raw__adventure_works__employee_pay_histories

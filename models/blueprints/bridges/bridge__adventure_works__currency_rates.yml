@@ -1,0 +1,28 @@
+column_data_types:
+  _hook__currency_rate: binary
+  _pit_hook__bridge: binary
+  _pit_hook__currency_rate: binary
+  bridge__is_current_record: boolean
+  bridge__record_loaded_at: timestamp
+  bridge__record_updated_at: timestamp
+  bridge__record_valid_from: timestamp
+  bridge__record_valid_to: timestamp
+  peripheral: text
+column_descriptions:
+  _hook__currency_rate: Hook to the concept currency_rate
+  _pit_hook__bridge: Point-in-time hook for the bridge record.
+  _pit_hook__currency_rate: Point-in-time hook to the concept currency_rate
+  bridge__is_current_record: Flag indicating if this is the current valid version
+    of the bridge record.
+  bridge__record_loaded_at: Timestamp when this bridge record was loaded.
+  bridge__record_updated_at: Timestamp when this bridge record was last updated.
+  bridge__record_valid_from: Timestamp from which this bridge record is valid.
+  bridge__record_valid_to: Timestamp until which this bridge record is valid.
+  peripheral: Name of the peripheral table the bridge record belongs to.
+column_prefix: currency_rate
+description: Puppini bridge for the peripheral table adventure_works__currency_rates
+hook: _hook__currency_rate
+name: bridge__adventure_works__currency_rates
+peripheral: adventure_works__currency_rates
+primary_hook: _pit_hook__currency_rate
+source_name: bag__adventure_works__currency_rates

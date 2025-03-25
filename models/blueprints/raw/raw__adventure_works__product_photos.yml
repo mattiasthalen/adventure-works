@@ -1,0 +1,25 @@
+column_descriptions:
+  _dlt_load_id: Internal data loading identifier.
+  large_photo: Large image of the product.
+  large_photo_file_name: Large image file name.
+  modified_date: Date and time the record was last updated.
+  product_photo_id: Primary key for ProductPhoto records.
+  thumb_nail_photo: Small image of the product.
+  thumbnail_photo_file_name: Small image file name.
+columns:
+- name: product_photo_id
+  type: bigint
+- name: thumb_nail_photo
+  type: binary
+- name: thumbnail_photo_file_name
+  type: text
+- name: large_photo
+  type: binary
+- name: large_photo_file_name
+  type: text
+- name: modified_date
+  type: date
+- name: _dlt_load_id
+  type: text
+description: Product images.
+name: raw__adventure_works__product_photos

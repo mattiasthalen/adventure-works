@@ -1,0 +1,26 @@
+column_descriptions:
+  _dlt_load_id: Internal data loading identifier.
+  business_entity_id: Primary key. The sales rep. Foreign key to SalesPerson.BusinessEntityID.
+  end_date: Date the sales representative left work in the territory.
+  modified_date: Date and time the record was last updated.
+  rowguid: ROWGUIDCOL number uniquely identifying the record. Used to support a merge
+    replication sample.
+  start_date: Primary key. Date the sales representative started work in the territory.
+  territory_id: Primary key. Territory identification number. Foreign key to SalesTerritory.SalesTerritoryID.
+columns:
+- name: business_entity_id
+  type: bigint
+- name: territory_id
+  type: bigint
+- name: start_date
+  type: date
+- name: rowguid
+  type: uniqueidentifier
+- name: modified_date
+  type: date
+- name: _dlt_load_id
+  type: text
+- name: end_date
+  type: date
+description: Sales representative transfers to other sales territories.
+name: raw__adventure_works__sales_territory_histories

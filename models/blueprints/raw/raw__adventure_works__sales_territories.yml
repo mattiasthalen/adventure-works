@@ -1,0 +1,38 @@
+column_descriptions:
+  _dlt_load_id: Internal data loading identifier.
+  cost_last_year: Business costs in the territory the previous year.
+  cost_ytd: Business costs in the territory year to date.
+  country_region_code: ISO standard country or region code. Foreign key to CountryRegion.CountryRegionCode.
+  group: Geographic area to which the sales territory belongs.
+  modified_date: Date and time the record was last updated.
+  name: Sales territory description.
+  rowguid: ROWGUIDCOL number uniquely identifying the record. Used to support a merge
+    replication sample.
+  sales_last_year: Sales in the territory the previous year.
+  sales_ytd: Sales in the territory year to date.
+  territory_id: Primary key for SalesTerritory records.
+columns:
+- name: territory_id
+  type: bigint
+- name: name
+  type: text
+- name: country_region_code
+  type: text
+- name: group
+  type: text
+- name: sales_ytd
+  type: double
+- name: sales_last_year
+  type: double
+- name: cost_ytd
+  type: double
+- name: cost_last_year
+  type: double
+- name: rowguid
+  type: uniqueidentifier
+- name: modified_date
+  type: date
+- name: _dlt_load_id
+  type: text
+description: Sales territory lookup table.
+name: raw__adventure_works__sales_territories

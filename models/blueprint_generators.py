@@ -1,4 +1,5 @@
 import networkx as nx
+import os
 import yaml
 
 def load_yaml(path: str) -> dict:
@@ -31,14 +32,14 @@ def generate_raw_blueprints(schema_path: str) -> list:
     
     blueprints = []
     
-    for table_name, table_schema in raw_schema["tables"].items():
-        description = table_schema.get("description", "")
+    for name, schema in raw_schema["tables"].items():
+        description = schema.get("description", "")
         
         # Create column descriptions dictionary
         column_descriptions = {}
         columns = []
         
-        for col_name, col_props in table_schema["columns"].items():
+        for col_name, col_props in schema["columns"].items():
             data_type = col_props.get("data_type", "text")
             col_description = col_props.get("description", "")
             
@@ -54,7 +55,7 @@ def generate_raw_blueprints(schema_path: str) -> list:
             column_descriptions[col_name] = col_description
         
         blueprint = {
-            "table_name": table_name,
+            "name": name,
             "description": description,
             "columns": columns,
             "column_descriptions": column_descriptions
@@ -394,8 +395,8 @@ def generate_bridge_blueprints(hook_config_path: str = None) -> list:
             column_prefix = peripheral.replace("adventure_works", "").strip("_")
             
         node_dict = {
+            "name": target_name,
             "source_name": node,
-            "target_name": target_name,
             "peripheral": peripheral,
             "column_prefix": column_prefix,
             "description": description
@@ -558,15 +559,32 @@ def generate_bridge_blueprints(hook_config_path: str = None) -> list:
 
     return graph_list
 
-if __name__ == "__main__":
-    import json
+def export_blueprints(blueprints: dict, output_path: str) -> None:
 
-    blueprints = generate_bridge_blueprints(
+    os.makedirs(output_path, exist_ok=True)
+    
+    for blueprint in blueprints:
+        name = blueprint["name"]
+        with open(f"{output_path}/{name}.yml", "w") as f:
+            yaml.dump(blueprint, f)
+
+if __name__ == "__main__":
+
+    raw_blueprints = generate_raw_blueprints(
+        schema_path="./models/raw_schema.yaml"
+    )
+
+    export_blueprints(raw_blueprints, "./models/blueprints/raw")
+
+    hook_blueprints = generate_hook_blueprints(
+        hook_config_path="./models/hook__bags.yml",
+        schema_path="./models/raw_schema.yaml"
+    )
+
+    export_blueprints(hook_blueprints, "./models/blueprints/hook")
+
+    bridge_blueprints = generate_bridge_blueprints(
         hook_config_path="./models/hook__bags.yml"
     )
 
-    # Print debug information
-    print("\nGraph structure for a leaf & a root:")
-    for blueprint in blueprints:
-        if blueprint["target_name"] in ("bridge__adventure_works__sales_order_details", "bridge__adventure_works__product_categories"):
-            print(json.dumps(blueprint, indent=4))
+    export_blueprints(bridge_blueprints, "./models/blueprints/bridges")

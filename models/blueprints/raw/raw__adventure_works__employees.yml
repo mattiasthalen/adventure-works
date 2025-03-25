@@ -1,0 +1,55 @@
+column_descriptions:
+  _dlt_load_id: Internal data loading identifier.
+  birth_date: Date of birth.
+  business_entity_id: Primary key for Employee records. Foreign key to BusinessEntity.BusinessEntityID.
+  current_flag: 0 = Inactive, 1 = Active.
+  gender: M = Male, F = Female.
+  hire_date: Employee hired on this date.
+  job_title: Work title such as Buyer or Sales Representative.
+  login_id: Network login.
+  marital_status: M = Married, S = Single.
+  modified_date: Date and time the record was last updated.
+  national_idnumber: Unique national identification number such as a social security
+    number.
+  organization_level: The depth of the employee in the corporate hierarchy.
+  rowguid: ROWGUIDCOL number uniquely identifying the record. Used to support a merge
+    replication sample.
+  salaried_flag: Job classification. 0 = Hourly, not exempt from collective bargaining.
+    1 = Salaried, exempt from collective bargaining.
+  sick_leave_hours: Number of available sick leave hours.
+  vacation_hours: Number of available vacation hours.
+columns:
+- name: business_entity_id
+  type: bigint
+- name: national_idnumber
+  type: text
+- name: login_id
+  type: text
+- name: job_title
+  type: text
+- name: birth_date
+  type: date
+- name: marital_status
+  type: text
+- name: gender
+  type: text
+- name: hire_date
+  type: date
+- name: salaried_flag
+  type: bool
+- name: vacation_hours
+  type: bigint
+- name: sick_leave_hours
+  type: bigint
+- name: current_flag
+  type: bool
+- name: rowguid
+  type: uniqueidentifier
+- name: modified_date
+  type: date
+- name: _dlt_load_id
+  type: text
+- name: organization_level
+  type: bigint
+description: Employee information.
+name: raw__adventure_works__employees

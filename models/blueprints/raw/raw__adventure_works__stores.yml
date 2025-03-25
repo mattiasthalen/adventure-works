@@ -1,0 +1,28 @@
+column_descriptions:
+  _dlt_load_id: Internal data loading identifier.
+  business_entity_id: Primary key. Foreign key to Customer.BusinessEntityID.
+  demographics: Demographic information about the store such as the number of employees,
+    annual sales and store type.
+  modified_date: Date and time the record was last updated.
+  name: Name of the store.
+  rowguid: ROWGUIDCOL number uniquely identifying the record. Used to support a merge
+    replication sample.
+  sales_person_id: ID of the sales person assigned to the customer. Foreign key to
+    SalesPerson.BusinessEntityID.
+columns:
+- name: business_entity_id
+  type: bigint
+- name: name
+  type: text
+- name: sales_person_id
+  type: bigint
+- name: demographics
+  type: xml
+- name: rowguid
+  type: uniqueidentifier
+- name: modified_date
+  type: date
+- name: _dlt_load_id
+  type: text
+description: Customers (resellers) of Adventure Works products.
+name: raw__adventure_works__stores

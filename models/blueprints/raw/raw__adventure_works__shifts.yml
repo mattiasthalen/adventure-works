@@ -1,0 +1,22 @@
+column_descriptions:
+  _dlt_load_id: Internal data loading identifier.
+  end_time: Shift end time. ISO duration.
+  modified_date: Date and time the record was last updated.
+  name: Shift description.
+  shift_id: Primary key for Shift records.
+  start_time: Shift start time. ISO duration.
+columns:
+- name: shift_id
+  type: bigint
+- name: name
+  type: text
+- name: start_time
+  type: text
+- name: end_time
+  type: text
+- name: modified_date
+  type: date
+- name: _dlt_load_id
+  type: text
+description: Work shift lookup table.
+name: raw__adventure_works__shifts

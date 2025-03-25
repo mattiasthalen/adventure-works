@@ -1,0 +1,26 @@
+column_descriptions:
+  _dlt_load_id: Internal data loading identifier.
+  modified_date: Date and time the record was last updated.
+  name: Shipping company name.
+  rowguid: ROWGUIDCOL number uniquely identifying the record. Used to support a merge
+    replication sample.
+  ship_base: Minimum shipping charge.
+  ship_method_id: Primary key for ShipMethod records.
+  ship_rate: Shipping charge per pound.
+columns:
+- name: ship_method_id
+  type: bigint
+- name: name
+  type: text
+- name: ship_base
+  type: double
+- name: ship_rate
+  type: double
+- name: rowguid
+  type: uniqueidentifier
+- name: modified_date
+  type: date
+- name: _dlt_load_id
+  type: text
+description: Shipping company lookup table.
+name: raw__adventure_works__ship_methods

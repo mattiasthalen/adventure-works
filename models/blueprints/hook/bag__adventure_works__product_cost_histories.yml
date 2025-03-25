@@ -1,0 +1,81 @@
+column_data_types:
+  _hook__epoch__start_date: binary
+  _hook__product: binary
+  _hook__product_cost_history: binary
+  _pit_hook__product_cost_history: binary
+  product_cost_history__end_date: date
+  product_cost_history__is_current_record: boolean
+  product_cost_history__modified_date: date
+  product_cost_history__product_id: bigint
+  product_cost_history__record_loaded_at: timestamp
+  product_cost_history__record_updated_at: timestamp
+  product_cost_history__record_valid_from: timestamp
+  product_cost_history__record_valid_to: timestamp
+  product_cost_history__record_version: int
+  product_cost_history__standard_cost: double
+  product_cost_history__start_date: timestamp
+column_descriptions:
+  _hook__epoch__start_date: 'Hook for start_date using keyset: epoch__date.'
+  _hook__product: 'Hook for product_id using keyset: product__adventure_works.'
+  _hook__product_cost_history: 'Primary hook using: _hook__product, _hook__epoch__start_date.'
+  _pit_hook__product_cost_history: Point in time version of _hook__product_cost_history.
+  product_cost_history__end_date: Product cost end date.
+  product_cost_history__is_current_record: Flag indicating if this is the current
+    valid version of the record
+  product_cost_history__modified_date: Date and time the record was last updated.
+  product_cost_history__product_id: Product identification number. Foreign key to
+    Product.ProductID.
+  product_cost_history__record_loaded_at: Timestamp when this record was loaded into
+    the system
+  product_cost_history__record_updated_at: Timestamp when this record was last updated
+  product_cost_history__record_valid_from: Timestamp from which this record version
+    is valid
+  product_cost_history__record_valid_to: Timestamp until which this record version
+    is valid
+  product_cost_history__record_version: Version number for this record
+  product_cost_history__standard_cost: Standard cost of the product.
+  product_cost_history__start_date: Product cost start date.
+column_prefix: product_cost_history
+columns:
+- _pit_hook__product_cost_history
+- _hook__product_cost_history
+- _hook__product
+- _hook__epoch__start_date
+- product_cost_history__product_id
+- product_cost_history__start_date
+- product_cost_history__end_date
+- product_cost_history__standard_cost
+- product_cost_history__modified_date
+- product_cost_history__record_loaded_at
+- product_cost_history__record_updated_at
+- product_cost_history__record_version
+- product_cost_history__record_valid_from
+- product_cost_history__record_valid_to
+- product_cost_history__is_current_record
+description: 'Hook for start_date using keyset: epoch__date.'
+grain: _pit_hook__product_cost_history
+hooks:
+- composite_key:
+  - _hook__product
+  - _hook__epoch__start_date
+  name: _hook__product_cost_history
+  primary: true
+- business_key_field: product_id
+  keyset: product__adventure_works
+  name: _hook__product
+- business_key_field: start_date
+  keyset: epoch__date
+  name: _hook__epoch__start_date
+name: bag__adventure_works__product_cost_histories
+references:
+- _hook__product
+- _hook__epoch__start_date
+source_columns:
+- product_id
+- start_date
+- end_date
+- standard_cost
+- modified_date
+source_primary_keys:
+- product_id
+source_table: raw__adventure_works__product_cost_histories

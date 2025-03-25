@@ -1,0 +1,35 @@
+column_descriptions:
+  _dlt_load_id: Internal data loading identifier.
+  actual_cost: Product cost.
+  modified_date: Date and time the record was last updated.
+  product_id: Product identification number. Foreign key to Product.ProductID.
+  quantity: Product quantity.
+  reference_order_id: Purchase order, sales order, or work order identification number.
+  reference_order_line_id: Line number associated with the purchase order, sales order,
+    or work order.
+  transaction_date: Date and time of the transaction.
+  transaction_id: Primary key for TransactionHistoryArchive records.
+  transaction_type: W = Work Order, S = Sales Order, P = Purchase Order.
+columns:
+- name: transaction_id
+  type: bigint
+- name: product_id
+  type: bigint
+- name: reference_order_id
+  type: bigint
+- name: reference_order_line_id
+  type: bigint
+- name: transaction_date
+  type: date
+- name: transaction_type
+  type: text
+- name: quantity
+  type: bigint
+- name: actual_cost
+  type: double
+- name: modified_date
+  type: date
+- name: _dlt_load_id
+  type: text
+description: Transactions for previous years.
+name: raw__adventure_works__transaction_history_archives

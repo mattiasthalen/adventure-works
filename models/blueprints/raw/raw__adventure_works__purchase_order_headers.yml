@@ -1,0 +1,48 @@
+column_descriptions:
+  _dlt_load_id: Internal data loading identifier.
+  employee_id: Employee who created the purchase order. Foreign key to Employee.BusinessEntityID.
+  freight: Shipping cost.
+  modified_date: Date and time the record was last updated.
+  order_date: Purchase order creation date.
+  purchase_order_id: Primary key.
+  revision_number: Incremental number to track changes to the purchase order over
+    time.
+  ship_date: Estimated shipment date from the vendor.
+  ship_method_id: Shipping method. Foreign key to ShipMethod.ShipMethodID.
+  status: Order current status. 1 = Pending; 2 = Approved; 3 = Rejected; 4 = Complete.
+  sub_total: Purchase order subtotal. Computed as SUM(PurchaseOrderDetail.LineTotal)
+    for the appropriate PurchaseOrderID.
+  tax_amt: Tax amount.
+  total_due: Total due to vendor. Computed as Subtotal + TaxAmt + Freight.
+  vendor_id: Vendor with whom the purchase order is placed. Foreign key to Vendor.BusinessEntityID.
+columns:
+- name: purchase_order_id
+  type: bigint
+- name: revision_number
+  type: bigint
+- name: status
+  type: bigint
+- name: employee_id
+  type: bigint
+- name: vendor_id
+  type: bigint
+- name: ship_method_id
+  type: bigint
+- name: order_date
+  type: date
+- name: ship_date
+  type: date
+- name: sub_total
+  type: double
+- name: tax_amt
+  type: double
+- name: freight
+  type: double
+- name: total_due
+  type: double
+- name: modified_date
+  type: date
+- name: _dlt_load_id
+  type: text
+description: General purchase order information. See PurchaseOrderDetail.
+name: raw__adventure_works__purchase_order_headers

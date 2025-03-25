@@ -1,0 +1,35 @@
+column_descriptions:
+  _dlt_load_id: Internal data loading identifier.
+  bill_of_materials_id: Primary key for BillOfMaterials records.
+  bomlevel: Indicates the depth the component is from its parent (AssemblyID).
+  component_id: Component identification number. Foreign key to Product.ProductID.
+  end_date: Date the component stopped being used in the assembly item.
+  modified_date: Date and time the record was last updated.
+  per_assembly_qty: Quantity of the component needed to create the assembly.
+  product_assembly_id: Parent product identification number. Foreign key to Product.ProductID.
+  start_date: Date the component started being used in the assembly item.
+  unit_measure_code: Standard code identifying the unit of measure for the quantity.
+columns:
+- name: bill_of_materials_id
+  type: bigint
+- name: product_assembly_id
+  type: bigint
+- name: component_id
+  type: bigint
+- name: start_date
+  type: date
+- name: unit_measure_code
+  type: text
+- name: bomlevel
+  type: bigint
+- name: per_assembly_qty
+  type: double
+- name: modified_date
+  type: date
+- name: _dlt_load_id
+  type: text
+- name: end_date
+  type: date
+description: Items required to make bicycles and bicycle subassemblies. It identifies
+  the hierarchical relationship between a parent product and its components.
+name: raw__adventure_works__bill_of_materials

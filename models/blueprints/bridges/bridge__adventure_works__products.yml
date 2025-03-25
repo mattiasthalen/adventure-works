@@ -1,0 +1,45 @@
+column_data_types:
+  _hook__product: binary
+  _pit_hook__bridge: binary
+  _pit_hook__product: binary
+  _pit_hook__product_category: binary
+  _pit_hook__product_subcategory: binary
+  _pit_hook__reference__product_model: binary
+  bridge__is_current_record: boolean
+  bridge__record_loaded_at: timestamp
+  bridge__record_updated_at: timestamp
+  bridge__record_valid_from: timestamp
+  bridge__record_valid_to: timestamp
+  peripheral: text
+column_descriptions:
+  _hook__product: Hook to the concept product
+  _pit_hook__bridge: Point-in-time hook for the bridge record.
+  _pit_hook__product: Point-in-time hook to the concept product
+  _pit_hook__product_category: Point-in-time hook to the concept product_category
+  _pit_hook__product_subcategory: Point-in-time hook to the concept product_subcategory
+  _pit_hook__reference__product_model: Point-in-time hook to the concept reference,
+    with qualifier product_model
+  bridge__is_current_record: Flag indicating if this is the current valid version
+    of the bridge record.
+  bridge__record_loaded_at: Timestamp when this bridge record was loaded.
+  bridge__record_updated_at: Timestamp when this bridge record was last updated.
+  bridge__record_valid_from: Timestamp from which this bridge record is valid.
+  bridge__record_valid_to: Timestamp until which this bridge record is valid.
+  peripheral: Name of the peripheral table the bridge record belongs to.
+column_prefix: product
+dependencies:
+  bridge__adventure_works__product_models:
+    inherited_hooks:
+    - _pit_hook__reference__product_model
+    primary_hook: _hook__reference__product_model
+  bridge__adventure_works__product_subcategories:
+    inherited_hooks:
+    - _pit_hook__product_subcategory
+    - _pit_hook__product_category
+    primary_hook: _hook__product_subcategory
+description: Puppini bridge for the peripheral table adventure_works__products
+hook: _hook__product
+name: bridge__adventure_works__products
+peripheral: adventure_works__products
+primary_hook: _pit_hook__product
+source_name: bag__adventure_works__products

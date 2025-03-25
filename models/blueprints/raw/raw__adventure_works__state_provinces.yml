@@ -1,0 +1,34 @@
+column_descriptions:
+  _dlt_load_id: Internal data loading identifier.
+  country_region_code: ISO standard country or region code. Foreign key to CountryRegion.CountryRegionCode.
+  is_only_state_province_flag: 0 = StateProvinceCode exists. 1 = StateProvinceCode
+    unavailable, using CountryRegionCode.
+  modified_date: Date and time the record was last updated.
+  name: State or province description.
+  rowguid: ROWGUIDCOL number uniquely identifying the record. Used to support a merge
+    replication sample.
+  state_province_code: ISO standard state or province code.
+  state_province_id: Primary key for StateProvince records.
+  territory_id: ID of the territory in which the state or province is located. Foreign
+    key to SalesTerritory.SalesTerritoryID.
+columns:
+- name: state_province_id
+  type: bigint
+- name: state_province_code
+  type: text
+- name: country_region_code
+  type: text
+- name: is_only_state_province_flag
+  type: bool
+- name: name
+  type: text
+- name: territory_id
+  type: bigint
+- name: rowguid
+  type: uniqueidentifier
+- name: modified_date
+  type: date
+- name: _dlt_load_id
+  type: text
+description: State and province lookup table.
+name: raw__adventure_works__state_provinces

@@ -1,0 +1,62 @@
+column_data_types:
+  _hook__product_category: binary
+  _pit_hook__product_category: binary
+  product_category__is_current_record: boolean
+  product_category__modified_date: date
+  product_category__name: text
+  product_category__product_category_id: bigint
+  product_category__record_loaded_at: timestamp
+  product_category__record_updated_at: timestamp
+  product_category__record_valid_from: timestamp
+  product_category__record_valid_to: timestamp
+  product_category__record_version: int
+  product_category__rowguid: uniqueidentifier
+column_descriptions:
+  _hook__product_category: 'Primary hook for product_category_id using keyset: product_category__adventure_works.'
+  _pit_hook__product_category: Point in time version of _hook__product_category.
+  product_category__is_current_record: Flag indicating if this is the current valid
+    version of the record
+  product_category__modified_date: Date and time the record was last updated.
+  product_category__name: Category description.
+  product_category__product_category_id: Primary key for ProductCategory records.
+  product_category__record_loaded_at: Timestamp when this record was loaded into the
+    system
+  product_category__record_updated_at: Timestamp when this record was last updated
+  product_category__record_valid_from: Timestamp from which this record version is
+    valid
+  product_category__record_valid_to: Timestamp until which this record version is
+    valid
+  product_category__record_version: Version number for this record
+  product_category__rowguid: ROWGUIDCOL number uniquely identifying the record. Used
+    to support a merge replication sample.
+column_prefix: product_category
+columns:
+- _pit_hook__product_category
+- _hook__product_category
+- product_category__product_category_id
+- product_category__name
+- product_category__rowguid
+- product_category__modified_date
+- product_category__record_loaded_at
+- product_category__record_updated_at
+- product_category__record_version
+- product_category__record_valid_from
+- product_category__record_valid_to
+- product_category__is_current_record
+description: 'Primary hook for product_category_id using keyset: product_category__adventure_works.'
+grain: _pit_hook__product_category
+hooks:
+- business_key_field: product_category_id
+  keyset: product_category__adventure_works
+  name: _hook__product_category
+  primary: true
+name: bag__adventure_works__product_categories
+references: []
+source_columns:
+- product_category_id
+- name
+- rowguid
+- modified_date
+source_primary_keys:
+- product_category_id
+source_table: raw__adventure_works__product_categories

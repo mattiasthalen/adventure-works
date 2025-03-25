@@ -1,0 +1,19 @@
+column_descriptions:
+  _dlt_load_id: Internal data loading identifier.
+  modified_date: Date and time the record was last updated.
+  name: Sales reason description.
+  reason_type: Category the sales reason belongs to.
+  sales_reason_id: Primary key for SalesReason records.
+columns:
+- name: sales_reason_id
+  type: bigint
+- name: name
+  type: text
+- name: reason_type
+  type: text
+- name: modified_date
+  type: date
+- name: _dlt_load_id
+  type: text
+description: Lookup table of customer purchase reasons.
+name: raw__adventure_works__sales_reasons

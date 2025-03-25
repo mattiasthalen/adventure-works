@@ -1,0 +1,28 @@
+column_descriptions:
+  _dlt_load_id: Internal data loading identifier.
+  average_rate: Average exchange rate for the day.
+  currency_rate_date: Date and time the exchange rate was obtained.
+  currency_rate_id: Primary key for CurrencyRate records.
+  end_of_day_rate: Final exchange rate for the day.
+  from_currency_code: Exchange rate was converted from this currency code.
+  modified_date: Date and time the record was last updated.
+  to_currency_code: Exchange rate was converted to this currency code.
+columns:
+- name: currency_rate_id
+  type: bigint
+- name: currency_rate_date
+  type: date
+- name: from_currency_code
+  type: text
+- name: to_currency_code
+  type: text
+- name: average_rate
+  type: double
+- name: end_of_day_rate
+  type: double
+- name: modified_date
+  type: date
+- name: _dlt_load_id
+  type: text
+description: Currency exchange rates.
+name: raw__adventure_works__currency_rates

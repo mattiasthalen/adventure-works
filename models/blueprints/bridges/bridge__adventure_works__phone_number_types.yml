@@ -1,0 +1,30 @@
+column_data_types:
+  _hook__reference__phone_number_type: binary
+  _pit_hook__bridge: binary
+  _pit_hook__reference__phone_number_type: binary
+  bridge__is_current_record: boolean
+  bridge__record_loaded_at: timestamp
+  bridge__record_updated_at: timestamp
+  bridge__record_valid_from: timestamp
+  bridge__record_valid_to: timestamp
+  peripheral: text
+column_descriptions:
+  _hook__reference__phone_number_type: Hook to the concept reference, with qualifier
+    phone_number_type
+  _pit_hook__bridge: Point-in-time hook for the bridge record.
+  _pit_hook__reference__phone_number_type: Point-in-time hook to the concept reference,
+    with qualifier phone_number_type
+  bridge__is_current_record: Flag indicating if this is the current valid version
+    of the bridge record.
+  bridge__record_loaded_at: Timestamp when this bridge record was loaded.
+  bridge__record_updated_at: Timestamp when this bridge record was last updated.
+  bridge__record_valid_from: Timestamp from which this bridge record is valid.
+  bridge__record_valid_to: Timestamp until which this bridge record is valid.
+  peripheral: Name of the peripheral table the bridge record belongs to.
+column_prefix: phone_number_type
+description: Puppini bridge for the peripheral table adventure_works__phone_number_types
+hook: _hook__reference__phone_number_type
+name: bridge__adventure_works__phone_number_types
+peripheral: adventure_works__phone_number_types
+primary_hook: _pit_hook__reference__phone_number_type
+source_name: bag__adventure_works__phone_number_types

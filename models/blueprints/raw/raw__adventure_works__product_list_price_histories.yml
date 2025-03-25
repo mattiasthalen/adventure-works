@@ -1,0 +1,22 @@
+column_descriptions:
+  _dlt_load_id: Internal data loading identifier.
+  end_date: List price end date.
+  list_price: Product list price.
+  modified_date: Date and time the record was last updated.
+  product_id: Product identification number. Foreign key to Product.ProductID.
+  start_date: List price start date.
+columns:
+- name: product_id
+  type: bigint
+- name: start_date
+  type: timestamp
+- name: end_date
+  type: date
+- name: list_price
+  type: double
+- name: modified_date
+  type: date
+- name: _dlt_load_id
+  type: text
+description: Changes in the list price of a product over time.
+name: raw__adventure_works__product_list_price_histories

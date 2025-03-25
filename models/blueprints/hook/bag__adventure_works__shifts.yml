@@ -1,0 +1,62 @@
+column_data_types:
+  _hook__reference__shift: binary
+  _pit_hook__reference__shift: binary
+  shift__end_time: text
+  shift__is_current_record: boolean
+  shift__modified_date: date
+  shift__name: text
+  shift__record_loaded_at: timestamp
+  shift__record_updated_at: timestamp
+  shift__record_valid_from: timestamp
+  shift__record_valid_to: timestamp
+  shift__record_version: int
+  shift__shift_id: bigint
+  shift__start_time: text
+column_descriptions:
+  _hook__reference__shift: 'Primary hook for shift_id using keyset: reference__shift__adventure_works.'
+  _pit_hook__reference__shift: Point in time version of _hook__reference__shift.
+  shift__end_time: Shift end time. ISO duration.
+  shift__is_current_record: Flag indicating if this is the current valid version of
+    the record
+  shift__modified_date: Date and time the record was last updated.
+  shift__name: Shift description.
+  shift__record_loaded_at: Timestamp when this record was loaded into the system
+  shift__record_updated_at: Timestamp when this record was last updated
+  shift__record_valid_from: Timestamp from which this record version is valid
+  shift__record_valid_to: Timestamp until which this record version is valid
+  shift__record_version: Version number for this record
+  shift__shift_id: Primary key for Shift records.
+  shift__start_time: Shift start time. ISO duration.
+column_prefix: shift
+columns:
+- _pit_hook__reference__shift
+- _hook__reference__shift
+- shift__shift_id
+- shift__name
+- shift__start_time
+- shift__end_time
+- shift__modified_date
+- shift__record_loaded_at
+- shift__record_updated_at
+- shift__record_version
+- shift__record_valid_from
+- shift__record_valid_to
+- shift__is_current_record
+description: 'Primary hook for shift_id using keyset: reference__shift__adventure_works.'
+grain: _pit_hook__reference__shift
+hooks:
+- business_key_field: shift_id
+  keyset: reference__shift__adventure_works
+  name: _hook__reference__shift
+  primary: true
+name: bag__adventure_works__shifts
+references: []
+source_columns:
+- shift_id
+- name
+- start_time
+- end_time
+- modified_date
+source_primary_keys:
+- shift_id
+source_table: raw__adventure_works__shifts

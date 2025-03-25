@@ -1,0 +1,124 @@
+column_data_types:
+  _hook__order__purchase: binary
+  _hook__person__employee: binary
+  _hook__ship_method: binary
+  _hook__vendor: binary
+  _pit_hook__order__purchase: binary
+  purchase_order_header__employee_id: bigint
+  purchase_order_header__freight: double
+  purchase_order_header__is_current_record: boolean
+  purchase_order_header__modified_date: date
+  purchase_order_header__order_date: date
+  purchase_order_header__purchase_order_id: bigint
+  purchase_order_header__record_loaded_at: timestamp
+  purchase_order_header__record_updated_at: timestamp
+  purchase_order_header__record_valid_from: timestamp
+  purchase_order_header__record_valid_to: timestamp
+  purchase_order_header__record_version: int
+  purchase_order_header__revision_number: bigint
+  purchase_order_header__ship_date: date
+  purchase_order_header__ship_method_id: bigint
+  purchase_order_header__status: bigint
+  purchase_order_header__sub_total: double
+  purchase_order_header__tax_amt: double
+  purchase_order_header__total_due: double
+  purchase_order_header__vendor_id: bigint
+column_descriptions:
+  _hook__order__purchase: 'Primary hook for purchase_order_id using keyset: order__purchase__adventure_works.'
+  _hook__person__employee: 'Hook for employee_id using keyset: person__employee__adventure_works.'
+  _hook__ship_method: 'Hook for ship_method_id using keyset: ship_method__adventure_works.'
+  _hook__vendor: 'Hook for vendor_id using keyset: vendor__adventure_works.'
+  _pit_hook__order__purchase: Point in time version of _hook__order__purchase.
+  purchase_order_header__employee_id: Employee who created the purchase order. Foreign
+    key to Employee.BusinessEntityID.
+  purchase_order_header__freight: Shipping cost.
+  purchase_order_header__is_current_record: Flag indicating if this is the current
+    valid version of the record
+  purchase_order_header__modified_date: Date and time the record was last updated.
+  purchase_order_header__order_date: Purchase order creation date.
+  purchase_order_header__purchase_order_id: Primary key.
+  purchase_order_header__record_loaded_at: Timestamp when this record was loaded into
+    the system
+  purchase_order_header__record_updated_at: Timestamp when this record was last updated
+  purchase_order_header__record_valid_from: Timestamp from which this record version
+    is valid
+  purchase_order_header__record_valid_to: Timestamp until which this record version
+    is valid
+  purchase_order_header__record_version: Version number for this record
+  purchase_order_header__revision_number: Incremental number to track changes to the
+    purchase order over time.
+  purchase_order_header__ship_date: Estimated shipment date from the vendor.
+  purchase_order_header__ship_method_id: Shipping method. Foreign key to ShipMethod.ShipMethodID.
+  purchase_order_header__status: Order current status. 1 = Pending; 2 = Approved;
+    3 = Rejected; 4 = Complete.
+  purchase_order_header__sub_total: Purchase order subtotal. Computed as SUM(PurchaseOrderDetail.LineTotal)
+    for the appropriate PurchaseOrderID.
+  purchase_order_header__tax_amt: Tax amount.
+  purchase_order_header__total_due: Total due to vendor. Computed as Subtotal + TaxAmt
+    + Freight.
+  purchase_order_header__vendor_id: Vendor with whom the purchase order is placed.
+    Foreign key to Vendor.BusinessEntityID.
+column_prefix: purchase_order_header
+columns:
+- _pit_hook__order__purchase
+- _hook__order__purchase
+- _hook__person__employee
+- _hook__vendor
+- _hook__ship_method
+- purchase_order_header__purchase_order_id
+- purchase_order_header__revision_number
+- purchase_order_header__status
+- purchase_order_header__employee_id
+- purchase_order_header__vendor_id
+- purchase_order_header__ship_method_id
+- purchase_order_header__order_date
+- purchase_order_header__ship_date
+- purchase_order_header__sub_total
+- purchase_order_header__tax_amt
+- purchase_order_header__freight
+- purchase_order_header__total_due
+- purchase_order_header__modified_date
+- purchase_order_header__record_loaded_at
+- purchase_order_header__record_updated_at
+- purchase_order_header__record_version
+- purchase_order_header__record_valid_from
+- purchase_order_header__record_valid_to
+- purchase_order_header__is_current_record
+description: 'Hook for ship_method_id using keyset: ship_method__adventure_works.'
+grain: _pit_hook__order__purchase
+hooks:
+- business_key_field: purchase_order_id
+  keyset: order__purchase__adventure_works
+  name: _hook__order__purchase
+  primary: true
+- business_key_field: employee_id
+  keyset: person__employee__adventure_works
+  name: _hook__person__employee
+- business_key_field: vendor_id
+  keyset: vendor__adventure_works
+  name: _hook__vendor
+- business_key_field: ship_method_id
+  keyset: ship_method__adventure_works
+  name: _hook__ship_method
+name: bag__adventure_works__purchase_order_headers
+references:
+- _hook__person__employee
+- _hook__vendor
+- _hook__ship_method
+source_columns:
+- purchase_order_id
+- revision_number
+- status
+- employee_id
+- vendor_id
+- ship_method_id
+- order_date
+- ship_date
+- sub_total
+- tax_amt
+- freight
+- total_due
+- modified_date
+source_primary_keys:
+- purchase_order_id
+source_table: raw__adventure_works__purchase_order_headers

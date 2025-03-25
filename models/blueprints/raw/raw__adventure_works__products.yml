@@ -1,0 +1,81 @@
+column_descriptions:
+  _dlt_load_id: Internal data loading identifier.
+  class: H = High, M = Medium, L = Low.
+  color: Product color.
+  days_to_manufacture: Number of days required to manufacture the product.
+  finished_goods_flag: 0 = Product is not a salable item. 1 = Product is salable.
+  list_price: Selling price.
+  make_flag: 0 = Product is purchased, 1 = Product is manufactured in-house.
+  modified_date: Date and time the record was last updated.
+  name: Name of the product.
+  product_id: Primary key for Product records.
+  product_line: R = Road, M = Mountain, T = Touring, S = Standard.
+  product_model_id: Product is a member of this product model. Foreign key to ProductModel.ProductModelID.
+  product_number: Unique product identification number.
+  product_subcategory_id: Product is a member of this product subcategory. Foreign
+    key to ProductSubCategory.ProductSubCategoryID.
+  reorder_point: Inventory level that triggers a purchase order or work order.
+  rowguid: ROWGUIDCOL number uniquely identifying the record. Used to support a merge
+    replication sample.
+  safety_stock_level: Minimum inventory quantity.
+  sell_end_date: Date the product was no longer available for sale.
+  sell_start_date: Date the product was available for sale.
+  size: Product size.
+  size_unit_measure_code: Unit of measure for Size column.
+  standard_cost: Standard cost of the product.
+  style: W = Womens, M = Mens, U = Universal.
+  weight: Product weight.
+  weight_unit_measure_code: Unit of measure for Weight column.
+columns:
+- name: product_id
+  type: bigint
+- name: name
+  type: text
+- name: product_number
+  type: text
+- name: make_flag
+  type: bool
+- name: finished_goods_flag
+  type: bool
+- name: safety_stock_level
+  type: bigint
+- name: reorder_point
+  type: bigint
+- name: standard_cost
+  type: double
+- name: list_price
+  type: double
+- name: days_to_manufacture
+  type: bigint
+- name: sell_start_date
+  type: date
+- name: rowguid
+  type: uniqueidentifier
+- name: modified_date
+  type: date
+- name: _dlt_load_id
+  type: text
+- name: color
+  type: text
+- name: class
+  type: text
+- name: weight_unit_measure_code
+  type: text
+- name: weight
+  type: double
+- name: size
+  type: text
+- name: size_unit_measure_code
+  type: text
+- name: product_line
+  type: text
+- name: style
+  type: text
+- name: product_subcategory_id
+  type: bigint
+- name: product_model_id
+  type: bigint
+- name: sell_end_date
+  type: date
+description: Products sold or used in the manufacturing of sold products.
+name: raw__adventure_works__products

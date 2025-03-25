@@ -1,0 +1,20 @@
+column_descriptions:
+  _dlt_load_id: Internal data loading identifier.
+  business_entity_id: Employee identification number if applicant was hired. Foreign
+    key to Employee.BusinessEntityID.
+  job_candidate_id: Primary key for JobCandidate records.
+  modified_date: Date and time the record was last updated.
+  resume: "R\xE9sum\xE9 in XML format."
+columns:
+- name: job_candidate_id
+  type: bigint
+- name: resume
+  type: xml
+- name: modified_date
+  type: date
+- name: _dlt_load_id
+  type: text
+- name: business_entity_id
+  type: bigint
+description: "R\xE9sum\xE9s submitted to Human Resources by job applicants."
+name: raw__adventure_works__job_candidates

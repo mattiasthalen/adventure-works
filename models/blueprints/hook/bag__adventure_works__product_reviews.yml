@@ -1,0 +1,83 @@
+column_data_types:
+  _hook__product: binary
+  _hook__product_review: binary
+  _pit_hook__product_review: binary
+  product_review__comments: text
+  product_review__email_address: text
+  product_review__is_current_record: boolean
+  product_review__modified_date: date
+  product_review__product_id: bigint
+  product_review__product_review_id: bigint
+  product_review__rating: bigint
+  product_review__record_loaded_at: timestamp
+  product_review__record_updated_at: timestamp
+  product_review__record_valid_from: timestamp
+  product_review__record_valid_to: timestamp
+  product_review__record_version: int
+  product_review__review_date: date
+  product_review__reviewer_name: text
+column_descriptions:
+  _hook__product: 'Hook for product_id using keyset: product__adventure_works.'
+  _hook__product_review: 'Primary hook for product_review_id using keyset: product__adventure_works.'
+  _pit_hook__product_review: Point in time version of _hook__product_review.
+  product_review__comments: Reviewer's comments.
+  product_review__email_address: Reviewer's e-mail address.
+  product_review__is_current_record: Flag indicating if this is the current valid
+    version of the record
+  product_review__modified_date: Date and time the record was last updated.
+  product_review__product_id: Product identification number. Foreign key to Product.ProductID.
+  product_review__product_review_id: Primary key for ProductReview records.
+  product_review__rating: Product rating given by the reviewer. Scale is 1 to 5 with
+    5 as the highest rating.
+  product_review__record_loaded_at: Timestamp when this record was loaded into the
+    system
+  product_review__record_updated_at: Timestamp when this record was last updated
+  product_review__record_valid_from: Timestamp from which this record version is valid
+  product_review__record_valid_to: Timestamp until which this record version is valid
+  product_review__record_version: Version number for this record
+  product_review__review_date: Date review was submitted.
+  product_review__reviewer_name: Name of the reviewer.
+column_prefix: product_review
+columns:
+- _pit_hook__product_review
+- _hook__product_review
+- _hook__product
+- product_review__product_review_id
+- product_review__product_id
+- product_review__reviewer_name
+- product_review__review_date
+- product_review__email_address
+- product_review__rating
+- product_review__comments
+- product_review__modified_date
+- product_review__record_loaded_at
+- product_review__record_updated_at
+- product_review__record_version
+- product_review__record_valid_from
+- product_review__record_valid_to
+- product_review__is_current_record
+description: 'Hook for product_id using keyset: product__adventure_works.'
+grain: _pit_hook__product_review
+hooks:
+- business_key_field: product_review_id
+  keyset: product__adventure_works
+  name: _hook__product_review
+  primary: true
+- business_key_field: product_id
+  keyset: product__adventure_works
+  name: _hook__product
+name: bag__adventure_works__product_reviews
+references:
+- _hook__product
+source_columns:
+- product_review_id
+- product_id
+- reviewer_name
+- review_date
+- email_address
+- rating
+- comments
+- modified_date
+source_primary_keys:
+- product_review_id
+source_table: raw__adventure_works__product_reviews

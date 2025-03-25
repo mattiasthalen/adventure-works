@@ -1,0 +1,76 @@
+column_data_types:
+  _hook__product_category: binary
+  _hook__product_subcategory: binary
+  _pit_hook__product_subcategory: binary
+  product_subcategory__is_current_record: boolean
+  product_subcategory__modified_date: date
+  product_subcategory__name: text
+  product_subcategory__product_category_id: bigint
+  product_subcategory__product_subcategory_id: bigint
+  product_subcategory__record_loaded_at: timestamp
+  product_subcategory__record_updated_at: timestamp
+  product_subcategory__record_valid_from: timestamp
+  product_subcategory__record_valid_to: timestamp
+  product_subcategory__record_version: int
+  product_subcategory__rowguid: uniqueidentifier
+column_descriptions:
+  _hook__product_category: 'Hook for product_category_id using keyset: product_category__adventure_works.'
+  _hook__product_subcategory: 'Primary hook for product_subcategory_id using keyset:
+    product_subcategory__adventure_works.'
+  _pit_hook__product_subcategory: Point in time version of _hook__product_subcategory.
+  product_subcategory__is_current_record: Flag indicating if this is the current valid
+    version of the record
+  product_subcategory__modified_date: Date and time the record was last updated.
+  product_subcategory__name: Subcategory description.
+  product_subcategory__product_category_id: Product category identification number.
+    Foreign key to ProductCategory.ProductCategoryID.
+  product_subcategory__product_subcategory_id: Primary key for ProductSubcategory
+    records.
+  product_subcategory__record_loaded_at: Timestamp when this record was loaded into
+    the system
+  product_subcategory__record_updated_at: Timestamp when this record was last updated
+  product_subcategory__record_valid_from: Timestamp from which this record version
+    is valid
+  product_subcategory__record_valid_to: Timestamp until which this record version
+    is valid
+  product_subcategory__record_version: Version number for this record
+  product_subcategory__rowguid: ROWGUIDCOL number uniquely identifying the record.
+    Used to support a merge replication sample.
+column_prefix: product_subcategory
+columns:
+- _pit_hook__product_subcategory
+- _hook__product_subcategory
+- _hook__product_category
+- product_subcategory__product_subcategory_id
+- product_subcategory__product_category_id
+- product_subcategory__name
+- product_subcategory__rowguid
+- product_subcategory__modified_date
+- product_subcategory__record_loaded_at
+- product_subcategory__record_updated_at
+- product_subcategory__record_version
+- product_subcategory__record_valid_from
+- product_subcategory__record_valid_to
+- product_subcategory__is_current_record
+description: 'Hook for product_category_id using keyset: product_category__adventure_works.'
+grain: _pit_hook__product_subcategory
+hooks:
+- business_key_field: product_subcategory_id
+  keyset: product_subcategory__adventure_works
+  name: _hook__product_subcategory
+  primary: true
+- business_key_field: product_category_id
+  keyset: product_category__adventure_works
+  name: _hook__product_category
+name: bag__adventure_works__product_subcategories
+references:
+- _hook__product_category
+source_columns:
+- product_subcategory_id
+- product_category_id
+- name
+- rowguid
+- modified_date
+source_primary_keys:
+- product_subcategory_id
+source_table: raw__adventure_works__product_subcategories

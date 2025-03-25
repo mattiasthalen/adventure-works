@@ -1,0 +1,44 @@
+column_descriptions:
+  _dlt_load_id: Internal data loading identifier.
+  actual_cost: Actual manufacturing cost.
+  actual_end_date: Actual end date.
+  actual_resource_hrs: Number of manufacturing hours used.
+  actual_start_date: Actual start date.
+  location_id: Manufacturing location where the part is processed. Foreign key to
+    Location.LocationID.
+  modified_date: Date and time the record was last updated.
+  operation_sequence: Primary key. Indicates the manufacturing process sequence.
+  planned_cost: Estimated manufacturing cost.
+  product_id: Primary key. Foreign key to Product.ProductID.
+  scheduled_end_date: Planned manufacturing end date.
+  scheduled_start_date: Planned manufacturing start date.
+  work_order_id: Primary key. Foreign key to WorkOrder.WorkOrderID.
+columns:
+- name: work_order_id
+  type: bigint
+- name: product_id
+  type: bigint
+- name: operation_sequence
+  type: bigint
+- name: location_id
+  type: bigint
+- name: scheduled_start_date
+  type: date
+- name: scheduled_end_date
+  type: date
+- name: actual_start_date
+  type: date
+- name: actual_end_date
+  type: date
+- name: actual_resource_hrs
+  type: double
+- name: planned_cost
+  type: double
+- name: actual_cost
+  type: double
+- name: modified_date
+  type: date
+- name: _dlt_load_id
+  type: text
+description: Work order details.
+name: raw__adventure_works__work_order_routings

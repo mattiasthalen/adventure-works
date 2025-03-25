@@ -1,0 +1,77 @@
+column_data_types:
+  _hook__product: binary
+  _hook__shopping_cart_item: binary
+  _pit_hook__shopping_cart_item: binary
+  shopping_cart_item__date_created: date
+  shopping_cart_item__is_current_record: boolean
+  shopping_cart_item__modified_date: date
+  shopping_cart_item__product_id: bigint
+  shopping_cart_item__quantity: bigint
+  shopping_cart_item__record_loaded_at: timestamp
+  shopping_cart_item__record_updated_at: timestamp
+  shopping_cart_item__record_valid_from: timestamp
+  shopping_cart_item__record_valid_to: timestamp
+  shopping_cart_item__record_version: int
+  shopping_cart_item__shopping_cart_id: text
+  shopping_cart_item__shopping_cart_item_id: bigint
+column_descriptions:
+  _hook__product: 'Hook for product_id using keyset: product__adventure_works.'
+  _hook__shopping_cart_item: 'Primary hook for shopping_cart_item_id using keyset:
+    reference__adventure_works.'
+  _pit_hook__shopping_cart_item: Point in time version of _hook__shopping_cart_item.
+  shopping_cart_item__date_created: Date the time the record was created.
+  shopping_cart_item__is_current_record: Flag indicating if this is the current valid
+    version of the record
+  shopping_cart_item__modified_date: Date and time the record was last updated.
+  shopping_cart_item__product_id: Product ordered. Foreign key to Product.ProductID.
+  shopping_cart_item__quantity: Product quantity ordered.
+  shopping_cart_item__record_loaded_at: Timestamp when this record was loaded into
+    the system
+  shopping_cart_item__record_updated_at: Timestamp when this record was last updated
+  shopping_cart_item__record_valid_from: Timestamp from which this record version
+    is valid
+  shopping_cart_item__record_valid_to: Timestamp until which this record version is
+    valid
+  shopping_cart_item__record_version: Version number for this record
+  shopping_cart_item__shopping_cart_id: Shopping cart identification number.
+  shopping_cart_item__shopping_cart_item_id: Primary key for ShoppingCartItem records.
+column_prefix: shopping_cart_item
+columns:
+- _pit_hook__shopping_cart_item
+- _hook__shopping_cart_item
+- _hook__product
+- shopping_cart_item__shopping_cart_item_id
+- shopping_cart_item__shopping_cart_id
+- shopping_cart_item__quantity
+- shopping_cart_item__product_id
+- shopping_cart_item__date_created
+- shopping_cart_item__modified_date
+- shopping_cart_item__record_loaded_at
+- shopping_cart_item__record_updated_at
+- shopping_cart_item__record_version
+- shopping_cart_item__record_valid_from
+- shopping_cart_item__record_valid_to
+- shopping_cart_item__is_current_record
+description: 'Hook for product_id using keyset: product__adventure_works.'
+grain: _pit_hook__shopping_cart_item
+hooks:
+- business_key_field: shopping_cart_item_id
+  keyset: reference__adventure_works
+  name: _hook__shopping_cart_item
+  primary: true
+- business_key_field: product_id
+  keyset: product__adventure_works
+  name: _hook__product
+name: bag__adventure_works__shopping_cart_items
+references:
+- _hook__product
+source_columns:
+- shopping_cart_item_id
+- shopping_cart_id
+- quantity
+- product_id
+- date_created
+- modified_date
+source_primary_keys:
+- shopping_cart_item_id
+source_table: raw__adventure_works__shopping_cart_items

@@ -1,0 +1,68 @@
+column_data_types:
+  _hook__person__sales: binary
+  _pit_hook__person__sales: binary
+  sales_person_quota_history__business_entity_id: bigint
+  sales_person_quota_history__is_current_record: boolean
+  sales_person_quota_history__modified_date: date
+  sales_person_quota_history__quota_date: date
+  sales_person_quota_history__record_loaded_at: timestamp
+  sales_person_quota_history__record_updated_at: timestamp
+  sales_person_quota_history__record_valid_from: timestamp
+  sales_person_quota_history__record_valid_to: timestamp
+  sales_person_quota_history__record_version: int
+  sales_person_quota_history__rowguid: uniqueidentifier
+  sales_person_quota_history__sales_quota: double
+column_descriptions:
+  _hook__person__sales: 'Primary hook for business_entity_id using keyset: person__sales__adventure_works.'
+  _pit_hook__person__sales: Point in time version of _hook__person__sales.
+  sales_person_quota_history__business_entity_id: Sales person identification number.
+    Foreign key to SalesPerson.BusinessEntityID.
+  sales_person_quota_history__is_current_record: Flag indicating if this is the current
+    valid version of the record
+  sales_person_quota_history__modified_date: Date and time the record was last updated.
+  sales_person_quota_history__quota_date: Sales quota date.
+  sales_person_quota_history__record_loaded_at: Timestamp when this record was loaded
+    into the system
+  sales_person_quota_history__record_updated_at: Timestamp when this record was last
+    updated
+  sales_person_quota_history__record_valid_from: Timestamp from which this record
+    version is valid
+  sales_person_quota_history__record_valid_to: Timestamp until which this record version
+    is valid
+  sales_person_quota_history__record_version: Version number for this record
+  sales_person_quota_history__rowguid: ROWGUIDCOL number uniquely identifying the
+    record. Used to support a merge replication sample.
+  sales_person_quota_history__sales_quota: Sales quota amount.
+column_prefix: sales_person_quota_history
+columns:
+- _pit_hook__person__sales
+- _hook__person__sales
+- sales_person_quota_history__business_entity_id
+- sales_person_quota_history__quota_date
+- sales_person_quota_history__sales_quota
+- sales_person_quota_history__rowguid
+- sales_person_quota_history__modified_date
+- sales_person_quota_history__record_loaded_at
+- sales_person_quota_history__record_updated_at
+- sales_person_quota_history__record_version
+- sales_person_quota_history__record_valid_from
+- sales_person_quota_history__record_valid_to
+- sales_person_quota_history__is_current_record
+description: 'Primary hook for business_entity_id using keyset: person__sales__adventure_works.'
+grain: _pit_hook__person__sales
+hooks:
+- business_key_field: business_entity_id
+  keyset: person__sales__adventure_works
+  name: _hook__person__sales
+  primary: true
+name: bag__adventure_works__sales_person_quota_histories
+references: []
+source_columns:
+- business_entity_id
+- quota_date
+- sales_quota
+- rowguid
+- modified_date
+source_primary_keys:
+- business_entity_id
+source_table: raw__adventure_works__sales_person_quota_histories

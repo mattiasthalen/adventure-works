@@ -1,0 +1,103 @@
+column_data_types:
+  _hook__person__individual: binary
+  _pit_hook__person__individual: binary
+  person__additional_contact_info: xml
+  person__business_entity_id: bigint
+  person__demographics: xml
+  person__email_promotion: bigint
+  person__first_name: text
+  person__is_current_record: boolean
+  person__last_name: text
+  person__middle_name: text
+  person__modified_date: date
+  person__name_style: bool
+  person__person_type: text
+  person__record_loaded_at: timestamp
+  person__record_updated_at: timestamp
+  person__record_valid_from: timestamp
+  person__record_valid_to: timestamp
+  person__record_version: int
+  person__rowguid: uniqueidentifier
+  person__suffix: text
+  person__title: text
+column_descriptions:
+  _hook__person__individual: 'Primary hook for business_entity_id using keyset: person__individual__adventure_works.'
+  _pit_hook__person__individual: Point in time version of _hook__person__individual.
+  person__additional_contact_info: Additional contact information about the person
+    stored in xml format.
+  person__business_entity_id: Primary key for Person records.
+  person__demographics: Personal information such as hobbies, and income collected
+    from online shoppers. Used for sales analysis.
+  person__email_promotion: 0 = Contact does not wish to receive e-mail promotions,
+    1 = Contact does wish to receive e-mail promotions from AdventureWorks, 2 = Contact
+    does wish to receive e-mail promotions from AdventureWorks and selected partners.
+  person__first_name: First name of the person.
+  person__is_current_record: Flag indicating if this is the current valid version
+    of the record
+  person__last_name: Last name of the person.
+  person__middle_name: Middle name or middle initial of the person.
+  person__modified_date: Date and time the record was last updated.
+  person__name_style: 0 = The data in FirstName and LastName are stored in western
+    style (first name, last name) order. 1 = Eastern style (last name, first name)
+    order.
+  person__person_type: 'Primary type of person: SC = Store Contact, IN = Individual
+    (retail) customer, SP = Sales person, EM = Employee (non-sales), VC = Vendor contact,
+    GC = General contact.'
+  person__record_loaded_at: Timestamp when this record was loaded into the system
+  person__record_updated_at: Timestamp when this record was last updated
+  person__record_valid_from: Timestamp from which this record version is valid
+  person__record_valid_to: Timestamp until which this record version is valid
+  person__record_version: Version number for this record
+  person__rowguid: ROWGUIDCOL number uniquely identifying the record. Used to support
+    a merge replication sample.
+  person__suffix: Surname suffix. For example, Sr. or Jr.
+  person__title: A courtesy title. For example, Mr. or Ms.
+column_prefix: person
+columns:
+- _pit_hook__person__individual
+- _hook__person__individual
+- person__business_entity_id
+- person__person_type
+- person__name_style
+- person__first_name
+- person__middle_name
+- person__last_name
+- person__email_promotion
+- person__demographics
+- person__rowguid
+- person__modified_date
+- person__title
+- person__suffix
+- person__additional_contact_info
+- person__record_loaded_at
+- person__record_updated_at
+- person__record_version
+- person__record_valid_from
+- person__record_valid_to
+- person__is_current_record
+description: 'Primary hook for business_entity_id using keyset: person__individual__adventure_works.'
+grain: _pit_hook__person__individual
+hooks:
+- business_key_field: business_entity_id
+  keyset: person__individual__adventure_works
+  name: _hook__person__individual
+  primary: true
+name: bag__adventure_works__persons
+references: []
+source_columns:
+- business_entity_id
+- person_type
+- name_style
+- first_name
+- middle_name
+- last_name
+- email_promotion
+- demographics
+- rowguid
+- modified_date
+- title
+- suffix
+- additional_contact_info
+source_primary_keys:
+- business_entity_id
+source_table: raw__adventure_works__persons

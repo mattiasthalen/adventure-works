@@ -1,0 +1,83 @@
+column_data_types:
+  _hook__employee_pay_history: binary
+  _hook__epoch__rate_change_date: binary
+  _hook__person__employee: binary
+  _pit_hook__employee_pay_history: binary
+  employee_pay_history__business_entity_id: bigint
+  employee_pay_history__is_current_record: boolean
+  employee_pay_history__modified_date: date
+  employee_pay_history__pay_frequency: bigint
+  employee_pay_history__rate: double
+  employee_pay_history__rate_change_date: timestamp
+  employee_pay_history__record_loaded_at: timestamp
+  employee_pay_history__record_updated_at: timestamp
+  employee_pay_history__record_valid_from: timestamp
+  employee_pay_history__record_valid_to: timestamp
+  employee_pay_history__record_version: int
+column_descriptions:
+  _hook__employee_pay_history: 'Primary hook using: _hook__person__employee, _hook__epoch__rate_change_date.'
+  _hook__epoch__rate_change_date: 'Hook for rate_change_date using keyset: epoch__date.'
+  _hook__person__employee: 'Hook for business_entity_id using keyset: person__employee__adventure_works.'
+  _pit_hook__employee_pay_history: Point in time version of _hook__employee_pay_history.
+  employee_pay_history__business_entity_id: Employee identification number. Foreign
+    key to Employee.BusinessEntityID.
+  employee_pay_history__is_current_record: Flag indicating if this is the current
+    valid version of the record
+  employee_pay_history__modified_date: Date and time the record was last updated.
+  employee_pay_history__pay_frequency: 1 = Salary received monthly, 2 = Salary received
+    biweekly.
+  employee_pay_history__rate: Salary hourly rate.
+  employee_pay_history__rate_change_date: Date the change in pay is effective.
+  employee_pay_history__record_loaded_at: Timestamp when this record was loaded into
+    the system
+  employee_pay_history__record_updated_at: Timestamp when this record was last updated
+  employee_pay_history__record_valid_from: Timestamp from which this record version
+    is valid
+  employee_pay_history__record_valid_to: Timestamp until which this record version
+    is valid
+  employee_pay_history__record_version: Version number for this record
+column_prefix: employee_pay_history
+columns:
+- _pit_hook__employee_pay_history
+- _hook__employee_pay_history
+- _hook__person__employee
+- _hook__epoch__rate_change_date
+- employee_pay_history__business_entity_id
+- employee_pay_history__rate_change_date
+- employee_pay_history__rate
+- employee_pay_history__pay_frequency
+- employee_pay_history__modified_date
+- employee_pay_history__record_loaded_at
+- employee_pay_history__record_updated_at
+- employee_pay_history__record_version
+- employee_pay_history__record_valid_from
+- employee_pay_history__record_valid_to
+- employee_pay_history__is_current_record
+description: 'Hook for rate_change_date using keyset: epoch__date.'
+grain: _pit_hook__employee_pay_history
+hooks:
+- composite_key:
+  - _hook__person__employee
+  - _hook__epoch__rate_change_date
+  name: _hook__employee_pay_history
+  primary: true
+- business_key_field: business_entity_id
+  keyset: person__employee__adventure_works
+  name: _hook__person__employee
+- business_key_field: rate_change_date
+  keyset: epoch__date
+  name: _hook__epoch__rate_change_date
+name: bag__adventure_works__employee_pay_histories
+references:
+- _hook__person__employee
+- _hook__epoch__rate_change_date
+source_columns:
+- business_entity_id
+- rate_change_date
+- rate
+- pay_frequency
+- modified_date
+source_primary_keys:
+- business_entity_id
+- rate_change_date
+source_table: raw__adventure_works__employee_pay_histories

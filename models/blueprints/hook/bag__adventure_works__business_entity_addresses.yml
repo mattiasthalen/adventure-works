@@ -1,0 +1,81 @@
+column_data_types:
+  _hook__address: binary
+  _hook__business_entity: binary
+  _hook__reference__address_type: binary
+  _pit_hook__address: binary
+  business_entity_address__address_id: bigint
+  business_entity_address__address_type_id: bigint
+  business_entity_address__business_entity_id: bigint
+  business_entity_address__is_current_record: boolean
+  business_entity_address__modified_date: date
+  business_entity_address__record_loaded_at: timestamp
+  business_entity_address__record_updated_at: timestamp
+  business_entity_address__record_valid_from: timestamp
+  business_entity_address__record_valid_to: timestamp
+  business_entity_address__record_version: int
+  business_entity_address__rowguid: uniqueidentifier
+column_descriptions:
+  _hook__address: 'Primary hook for address_id using keyset: address__adventure_works.'
+  _hook__business_entity: 'Hook for business_entity_id using keyset: business_entity__adventure_works.'
+  _hook__reference__address_type: 'Hook for address_type_id using keyset: reference__address_type__adventure_works.'
+  _pit_hook__address: Point in time version of _hook__address.
+  business_entity_address__address_id: Primary key. Foreign key to Address.AddressID.
+  business_entity_address__address_type_id: Primary key. Foreign key to AddressType.AddressTypeID.
+  business_entity_address__business_entity_id: Primary key. Foreign key to BusinessEntity.BusinessEntityID.
+  business_entity_address__is_current_record: Flag indicating if this is the current
+    valid version of the record
+  business_entity_address__modified_date: Date and time the record was last updated.
+  business_entity_address__record_loaded_at: Timestamp when this record was loaded
+    into the system
+  business_entity_address__record_updated_at: Timestamp when this record was last
+    updated
+  business_entity_address__record_valid_from: Timestamp from which this record version
+    is valid
+  business_entity_address__record_valid_to: Timestamp until which this record version
+    is valid
+  business_entity_address__record_version: Version number for this record
+  business_entity_address__rowguid: ROWGUIDCOL number uniquely identifying the record.
+    Used to support a merge replication sample.
+column_prefix: business_entity_address
+columns:
+- _pit_hook__address
+- _hook__address
+- _hook__business_entity
+- _hook__reference__address_type
+- business_entity_address__business_entity_id
+- business_entity_address__address_id
+- business_entity_address__address_type_id
+- business_entity_address__rowguid
+- business_entity_address__modified_date
+- business_entity_address__record_loaded_at
+- business_entity_address__record_updated_at
+- business_entity_address__record_version
+- business_entity_address__record_valid_from
+- business_entity_address__record_valid_to
+- business_entity_address__is_current_record
+description: 'Hook for address_type_id using keyset: reference__address_type__adventure_works.'
+grain: _pit_hook__address
+hooks:
+- business_key_field: address_id
+  keyset: address__adventure_works
+  name: _hook__address
+  primary: true
+- business_key_field: business_entity_id
+  keyset: business_entity__adventure_works
+  name: _hook__business_entity
+- business_key_field: address_type_id
+  keyset: reference__address_type__adventure_works
+  name: _hook__reference__address_type
+name: bag__adventure_works__business_entity_addresses
+references:
+- _hook__business_entity
+- _hook__reference__address_type
+source_columns:
+- business_entity_id
+- address_id
+- address_type_id
+- rowguid
+- modified_date
+source_primary_keys:
+- address_id
+source_table: raw__adventure_works__business_entity_addresses

@@ -1,0 +1,22 @@
+column_descriptions:
+  _dlt_load_id: Internal data loading identifier.
+  availability: Work capacity (in hours) of the manufacturing location.
+  cost_rate: Standard hourly cost of the manufacturing location.
+  location_id: Primary key for Location records.
+  modified_date: Date and time the record was last updated.
+  name: Location description.
+columns:
+- name: location_id
+  type: bigint
+- name: name
+  type: text
+- name: cost_rate
+  type: double
+- name: availability
+  type: double
+- name: modified_date
+  type: date
+- name: _dlt_load_id
+  type: text
+description: Product inventory and manufacturing locations.
+name: raw__adventure_works__locations

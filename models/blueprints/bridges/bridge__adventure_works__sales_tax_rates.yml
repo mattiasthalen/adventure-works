@@ -1,0 +1,46 @@
+column_data_types:
+  _hook__reference__sales_tax_rate: binary
+  _pit_hook__bridge: binary
+  _pit_hook__reference__country_region: binary
+  _pit_hook__reference__sales_tax_rate: binary
+  _pit_hook__reference__state_province: binary
+  _pit_hook__territory__sales: binary
+  bridge__is_current_record: boolean
+  bridge__record_loaded_at: timestamp
+  bridge__record_updated_at: timestamp
+  bridge__record_valid_from: timestamp
+  bridge__record_valid_to: timestamp
+  peripheral: text
+column_descriptions:
+  _hook__reference__sales_tax_rate: Hook to the concept reference, with qualifier
+    sales_tax_rate
+  _pit_hook__bridge: Point-in-time hook for the bridge record.
+  _pit_hook__reference__country_region: Point-in-time hook to the concept reference,
+    with qualifier country_region
+  _pit_hook__reference__sales_tax_rate: Point-in-time hook to the concept reference,
+    with qualifier sales_tax_rate
+  _pit_hook__reference__state_province: Point-in-time hook to the concept reference,
+    with qualifier state_province
+  _pit_hook__territory__sales: Point-in-time hook to the concept territory, with qualifier
+    sales
+  bridge__is_current_record: Flag indicating if this is the current valid version
+    of the bridge record.
+  bridge__record_loaded_at: Timestamp when this bridge record was loaded.
+  bridge__record_updated_at: Timestamp when this bridge record was last updated.
+  bridge__record_valid_from: Timestamp from which this bridge record is valid.
+  bridge__record_valid_to: Timestamp until which this bridge record is valid.
+  peripheral: Name of the peripheral table the bridge record belongs to.
+column_prefix: sales_tax_rate
+dependencies:
+  bridge__adventure_works__state_provinces:
+    inherited_hooks:
+    - _pit_hook__reference__state_province
+    - _pit_hook__reference__country_region
+    - _pit_hook__territory__sales
+    primary_hook: _hook__reference__state_province
+description: Puppini bridge for the peripheral table adventure_works__sales_tax_rates
+hook: _hook__reference__sales_tax_rate
+name: bridge__adventure_works__sales_tax_rates
+peripheral: adventure_works__sales_tax_rates
+primary_hook: _pit_hook__reference__sales_tax_rate
+source_name: bag__adventure_works__sales_tax_rates

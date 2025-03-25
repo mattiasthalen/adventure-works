@@ -1,0 +1,67 @@
+column_data_types:
+  _hook__person__individual: binary
+  _hook__reference__phone_number_type: binary
+  _pit_hook__person__individual: binary
+  person_phone__business_entity_id: bigint
+  person_phone__is_current_record: boolean
+  person_phone__modified_date: date
+  person_phone__phone_number: text
+  person_phone__phone_number_type_id: bigint
+  person_phone__record_loaded_at: timestamp
+  person_phone__record_updated_at: timestamp
+  person_phone__record_valid_from: timestamp
+  person_phone__record_valid_to: timestamp
+  person_phone__record_version: int
+column_descriptions:
+  _hook__person__individual: 'Primary hook for business_entity_id using keyset: person__individual__adventure_works.'
+  _hook__reference__phone_number_type: 'Hook for phone_number_type_id using keyset:
+    reference__phone_number_type__adventure_works.'
+  _pit_hook__person__individual: Point in time version of _hook__person__individual.
+  person_phone__business_entity_id: Business entity identification number. Foreign
+    key to Person.BusinessEntityID.
+  person_phone__is_current_record: Flag indicating if this is the current valid version
+    of the record
+  person_phone__modified_date: Date and time the record was last updated.
+  person_phone__phone_number: Telephone number identification number.
+  person_phone__phone_number_type_id: Kind of phone number. Foreign key to PhoneNumberType.PhoneNumberTypeID.
+  person_phone__record_loaded_at: Timestamp when this record was loaded into the system
+  person_phone__record_updated_at: Timestamp when this record was last updated
+  person_phone__record_valid_from: Timestamp from which this record version is valid
+  person_phone__record_valid_to: Timestamp until which this record version is valid
+  person_phone__record_version: Version number for this record
+column_prefix: person_phone
+columns:
+- _pit_hook__person__individual
+- _hook__person__individual
+- _hook__reference__phone_number_type
+- person_phone__business_entity_id
+- person_phone__phone_number
+- person_phone__phone_number_type_id
+- person_phone__modified_date
+- person_phone__record_loaded_at
+- person_phone__record_updated_at
+- person_phone__record_version
+- person_phone__record_valid_from
+- person_phone__record_valid_to
+- person_phone__is_current_record
+description: 'Hook for phone_number_type_id using keyset: reference__phone_number_type__adventure_works.'
+grain: _pit_hook__person__individual
+hooks:
+- business_key_field: business_entity_id
+  keyset: person__individual__adventure_works
+  name: _hook__person__individual
+  primary: true
+- business_key_field: phone_number_type_id
+  keyset: reference__phone_number_type__adventure_works
+  name: _hook__reference__phone_number_type
+name: bag__adventure_works__person_phones
+references:
+- _hook__reference__phone_number_type
+source_columns:
+- business_entity_id
+- phone_number
+- phone_number_type_id
+- modified_date
+source_primary_keys:
+- business_entity_id
+source_table: raw__adventure_works__person_phones

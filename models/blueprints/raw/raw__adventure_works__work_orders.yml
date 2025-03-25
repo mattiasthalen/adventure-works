@@ -1,0 +1,37 @@
+column_descriptions:
+  _dlt_load_id: Internal data loading identifier.
+  due_date: Work order due date.
+  end_date: Work order end date.
+  modified_date: Date and time the record was last updated.
+  order_qty: Product quantity to build.
+  product_id: Product identification number. Foreign key to Product.ProductID.
+  scrap_reason_id: Reason for inspection failure.
+  scrapped_qty: Quantity that failed inspection.
+  start_date: Work order start date.
+  stocked_qty: Quantity built and put in inventory.
+  work_order_id: Primary key for WorkOrder records.
+columns:
+- name: work_order_id
+  type: bigint
+- name: product_id
+  type: bigint
+- name: order_qty
+  type: bigint
+- name: stocked_qty
+  type: bigint
+- name: scrapped_qty
+  type: bigint
+- name: start_date
+  type: date
+- name: end_date
+  type: date
+- name: due_date
+  type: date
+- name: modified_date
+  type: date
+- name: _dlt_load_id
+  type: text
+- name: scrap_reason_id
+  type: bigint
+description: Manufacturing work orders.
+name: raw__adventure_works__work_orders

@@ -1,0 +1,80 @@
+column_data_types:
+  _hook__order__sales: binary
+  _pit_hook__bridge: binary
+  _pit_hook__credit_card: binary
+  _pit_hook__currency: binary
+  _pit_hook__customer: binary
+  _pit_hook__order__sales: binary
+  _pit_hook__person__sales: binary
+  _pit_hook__reference__country_region: binary
+  _pit_hook__ship_method: binary
+  _pit_hook__store: binary
+  _pit_hook__territory__sales: binary
+  bridge__is_current_record: boolean
+  bridge__record_loaded_at: timestamp
+  bridge__record_updated_at: timestamp
+  bridge__record_valid_from: timestamp
+  bridge__record_valid_to: timestamp
+  peripheral: text
+column_descriptions:
+  _hook__order__sales: Hook to the concept order, with qualifier sales
+  _pit_hook__bridge: Point-in-time hook for the bridge record.
+  _pit_hook__credit_card: Point-in-time hook to the concept credit_card
+  _pit_hook__currency: Point-in-time hook to the concept currency
+  _pit_hook__customer: Point-in-time hook to the concept customer
+  _pit_hook__order__sales: Point-in-time hook to the concept order, with qualifier
+    sales
+  _pit_hook__person__sales: Point-in-time hook to the concept person, with qualifier
+    sales
+  _pit_hook__reference__country_region: Point-in-time hook to the concept reference,
+    with qualifier country_region
+  _pit_hook__ship_method: Point-in-time hook to the concept ship_method
+  _pit_hook__store: Point-in-time hook to the concept store
+  _pit_hook__territory__sales: Point-in-time hook to the concept territory, with qualifier
+    sales
+  bridge__is_current_record: Flag indicating if this is the current valid version
+    of the bridge record.
+  bridge__record_loaded_at: Timestamp when this bridge record was loaded.
+  bridge__record_updated_at: Timestamp when this bridge record was last updated.
+  bridge__record_valid_from: Timestamp from which this bridge record is valid.
+  bridge__record_valid_to: Timestamp until which this bridge record is valid.
+  peripheral: Name of the peripheral table the bridge record belongs to.
+column_prefix: sales_order_header
+dependencies:
+  bridge__adventure_works__credit_cards:
+    inherited_hooks:
+    - _pit_hook__credit_card
+    primary_hook: _hook__credit_card
+  bridge__adventure_works__currencies:
+    inherited_hooks:
+    - _pit_hook__currency
+    primary_hook: _hook__currency
+  bridge__adventure_works__customers:
+    inherited_hooks:
+    - _pit_hook__customer
+    - _pit_hook__store
+    - _pit_hook__person__sales
+    - _pit_hook__territory__sales
+    - _pit_hook__reference__country_region
+    primary_hook: _hook__customer
+  bridge__adventure_works__sales_persons:
+    inherited_hooks:
+    - _pit_hook__person__sales
+    - _pit_hook__territory__sales
+    - _pit_hook__reference__country_region
+    primary_hook: _hook__person__sales
+  bridge__adventure_works__sales_territories:
+    inherited_hooks:
+    - _pit_hook__territory__sales
+    - _pit_hook__reference__country_region
+    primary_hook: _hook__territory__sales
+  bridge__adventure_works__ship_methods:
+    inherited_hooks:
+    - _pit_hook__ship_method
+    primary_hook: _hook__ship_method
+description: Puppini bridge for the peripheral table adventure_works__sales_order_headers
+hook: _hook__order__sales
+name: bridge__adventure_works__sales_order_headers
+peripheral: adventure_works__sales_order_headers
+primary_hook: _pit_hook__order__sales
+source_name: bag__adventure_works__sales_order_headers

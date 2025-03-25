@@ -1,0 +1,106 @@
+column_data_types:
+  _hook__department: binary
+  _hook__employee_department_history: binary
+  _hook__epoch__start_date: binary
+  _hook__person__employee: binary
+  _hook__reference__shift: binary
+  _pit_hook__employee_department_history: binary
+  employee_department_history__business_entity_id: bigint
+  employee_department_history__department_id: bigint
+  employee_department_history__end_date: date
+  employee_department_history__is_current_record: boolean
+  employee_department_history__modified_date: date
+  employee_department_history__record_loaded_at: timestamp
+  employee_department_history__record_updated_at: timestamp
+  employee_department_history__record_valid_from: timestamp
+  employee_department_history__record_valid_to: timestamp
+  employee_department_history__record_version: int
+  employee_department_history__shift_id: bigint
+  employee_department_history__start_date: timestamp
+column_descriptions:
+  _hook__department: 'Hook for department_id using keyset: department__adventure_works.'
+  _hook__employee_department_history: 'Primary hook using: _hook__person__employee,
+    _hook__department, _hook__reference__shift, _hook__epoch__start_date.'
+  _hook__epoch__start_date: 'Hook for start_date using keyset: epoch__date.'
+  _hook__person__employee: 'Hook for business_entity_id using keyset: person__employee__adventure_works.'
+  _hook__reference__shift: 'Hook for shift_id using keyset: reference__shift__adventure_works.'
+  _pit_hook__employee_department_history: Point in time version of _hook__employee_department_history.
+  employee_department_history__business_entity_id: Employee identification number.
+    Foreign key to Employee.BusinessEntityID.
+  employee_department_history__department_id: Department in which the employee worked
+    including currently. Foreign key to Department.DepartmentID.
+  employee_department_history__end_date: Date the employee left the department. NULL
+    = Current department.
+  employee_department_history__is_current_record: Flag indicating if this is the current
+    valid version of the record
+  employee_department_history__modified_date: Date and time the record was last updated.
+  employee_department_history__record_loaded_at: Timestamp when this record was loaded
+    into the system
+  employee_department_history__record_updated_at: Timestamp when this record was last
+    updated
+  employee_department_history__record_valid_from: Timestamp from which this record
+    version is valid
+  employee_department_history__record_valid_to: Timestamp until which this record
+    version is valid
+  employee_department_history__record_version: Version number for this record
+  employee_department_history__shift_id: Identifies which 8-hour shift the employee
+    works. Foreign key to Shift.Shift.ID.
+  employee_department_history__start_date: Date the employee started work in the department.
+column_prefix: employee_department_history
+columns:
+- _pit_hook__employee_department_history
+- _hook__employee_department_history
+- _hook__person__employee
+- _hook__department
+- _hook__reference__shift
+- _hook__epoch__start_date
+- employee_department_history__business_entity_id
+- employee_department_history__department_id
+- employee_department_history__shift_id
+- employee_department_history__start_date
+- employee_department_history__modified_date
+- employee_department_history__end_date
+- employee_department_history__record_loaded_at
+- employee_department_history__record_updated_at
+- employee_department_history__record_version
+- employee_department_history__record_valid_from
+- employee_department_history__record_valid_to
+- employee_department_history__is_current_record
+description: 'Hook for start_date using keyset: epoch__date.'
+grain: _pit_hook__employee_department_history
+hooks:
+- composite_key:
+  - _hook__person__employee
+  - _hook__department
+  - _hook__reference__shift
+  - _hook__epoch__start_date
+  name: _hook__employee_department_history
+  primary: true
+- business_key_field: business_entity_id
+  keyset: person__employee__adventure_works
+  name: _hook__person__employee
+- business_key_field: department_id
+  keyset: department__adventure_works
+  name: _hook__department
+- business_key_field: shift_id
+  keyset: reference__shift__adventure_works
+  name: _hook__reference__shift
+- business_key_field: start_date
+  keyset: epoch__date
+  name: _hook__epoch__start_date
+name: bag__adventure_works__employee_department_histories
+references:
+- _hook__person__employee
+- _hook__department
+- _hook__reference__shift
+- _hook__epoch__start_date
+source_columns:
+- business_entity_id
+- department_id
+- shift_id
+- start_date
+- modified_date
+- end_date
+source_primary_keys:
+- business_entity_id
+source_table: raw__adventure_works__employee_department_histories

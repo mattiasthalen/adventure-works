@@ -1,0 +1,33 @@
+column_descriptions:
+  _dlt_load_id: Internal data loading identifier.
+  address_id: Primary key for Address records.
+  address_line1: First street address line.
+  address_line2: Second street address line.
+  city: Name of the city.
+  modified_date: Date and time the record was last updated.
+  postal_code: Postal code for the street address.
+  rowguid: ROWGUIDCOL number uniquely identifying the record. Used to support a merge
+    replication sample.
+  state_province_id: Unique identification number for the state or province. Foreign
+    key to StateProvince table.
+columns:
+- name: address_id
+  type: bigint
+- name: address_line1
+  type: text
+- name: city
+  type: text
+- name: state_province_id
+  type: bigint
+- name: postal_code
+  type: text
+- name: rowguid
+  type: uniqueidentifier
+- name: modified_date
+  type: date
+- name: _dlt_load_id
+  type: text
+- name: address_line2
+  type: text
+description: Street address information for customers, employees, and vendors.
+name: raw__adventure_works__addresses

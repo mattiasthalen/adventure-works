@@ -1,0 +1,58 @@
+column_data_types:
+  _hook__reference__phone_number_type: binary
+  _pit_hook__reference__phone_number_type: binary
+  phone_number_type__is_current_record: boolean
+  phone_number_type__modified_date: date
+  phone_number_type__name: text
+  phone_number_type__phone_number_type_id: bigint
+  phone_number_type__record_loaded_at: timestamp
+  phone_number_type__record_updated_at: timestamp
+  phone_number_type__record_valid_from: timestamp
+  phone_number_type__record_valid_to: timestamp
+  phone_number_type__record_version: int
+column_descriptions:
+  _hook__reference__phone_number_type: 'Primary hook for phone_number_type_id using
+    keyset: reference__phone_number_type__adventure_works.'
+  _pit_hook__reference__phone_number_type: Point in time version of _hook__reference__phone_number_type.
+  phone_number_type__is_current_record: Flag indicating if this is the current valid
+    version of the record
+  phone_number_type__modified_date: Date and time the record was last updated.
+  phone_number_type__name: Name of the telephone number type.
+  phone_number_type__phone_number_type_id: Primary key for telephone number type records.
+  phone_number_type__record_loaded_at: Timestamp when this record was loaded into
+    the system
+  phone_number_type__record_updated_at: Timestamp when this record was last updated
+  phone_number_type__record_valid_from: Timestamp from which this record version is
+    valid
+  phone_number_type__record_valid_to: Timestamp until which this record version is
+    valid
+  phone_number_type__record_version: Version number for this record
+column_prefix: phone_number_type
+columns:
+- _pit_hook__reference__phone_number_type
+- _hook__reference__phone_number_type
+- phone_number_type__phone_number_type_id
+- phone_number_type__name
+- phone_number_type__modified_date
+- phone_number_type__record_loaded_at
+- phone_number_type__record_updated_at
+- phone_number_type__record_version
+- phone_number_type__record_valid_from
+- phone_number_type__record_valid_to
+- phone_number_type__is_current_record
+description: 'Primary hook for phone_number_type_id using keyset: reference__phone_number_type__adventure_works.'
+grain: _pit_hook__reference__phone_number_type
+hooks:
+- business_key_field: phone_number_type_id
+  keyset: reference__phone_number_type__adventure_works
+  name: _hook__reference__phone_number_type
+  primary: true
+name: bag__adventure_works__phone_number_types
+references: []
+source_columns:
+- phone_number_type_id
+- name
+- modified_date
+source_primary_keys:
+- phone_number_type_id
+source_table: raw__adventure_works__phone_number_types

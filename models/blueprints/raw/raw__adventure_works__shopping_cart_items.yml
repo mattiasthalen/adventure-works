@@ -1,0 +1,25 @@
+column_descriptions:
+  _dlt_load_id: Internal data loading identifier.
+  date_created: Date the time the record was created.
+  modified_date: Date and time the record was last updated.
+  product_id: Product ordered. Foreign key to Product.ProductID.
+  quantity: Product quantity ordered.
+  shopping_cart_id: Shopping cart identification number.
+  shopping_cart_item_id: Primary key for ShoppingCartItem records.
+columns:
+- name: shopping_cart_item_id
+  type: bigint
+- name: shopping_cart_id
+  type: text
+- name: quantity
+  type: bigint
+- name: product_id
+  type: bigint
+- name: date_created
+  type: date
+- name: modified_date
+  type: date
+- name: _dlt_load_id
+  type: text
+description: Contains online customer orders until the order is submitted or cancelled.
+name: raw__adventure_works__shopping_cart_items

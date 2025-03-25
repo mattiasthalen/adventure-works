@@ -1,0 +1,24 @@
+column_descriptions:
+  _dlt_load_id: Internal data loading identifier.
+  business_entity_id: Primary key. Person associated with this email address. Foreign
+    key to Person.BusinessEntityID.
+  email: E-mail address for the person.
+  email_address_id: Primary key. ID of this email address.
+  modified_date: Date and time the record was last updated.
+  rowguid: ROWGUIDCOL number uniquely identifying the record. Used to support a merge
+    replication sample.
+columns:
+- name: business_entity_id
+  type: bigint
+- name: email_address_id
+  type: bigint
+- name: email
+  type: text
+- name: rowguid
+  type: uniqueidentifier
+- name: modified_date
+  type: date
+- name: _dlt_load_id
+  type: text
+description: Where to send a person email.
+name: raw__adventure_works__email_addresses

@@ -1,0 +1,126 @@
+column_data_types:
+  _hook__order__work: binary
+  _hook__order_line__work: binary
+  _hook__product: binary
+  _hook__reference__location: binary
+  _hook__work_order_routing: binary
+  _pit_hook__work_order_routing: binary
+  work_order_routing__actual_cost: double
+  work_order_routing__actual_end_date: date
+  work_order_routing__actual_resource_hrs: double
+  work_order_routing__actual_start_date: date
+  work_order_routing__is_current_record: boolean
+  work_order_routing__location_id: bigint
+  work_order_routing__modified_date: date
+  work_order_routing__operation_sequence: bigint
+  work_order_routing__planned_cost: double
+  work_order_routing__product_id: bigint
+  work_order_routing__record_loaded_at: timestamp
+  work_order_routing__record_updated_at: timestamp
+  work_order_routing__record_valid_from: timestamp
+  work_order_routing__record_valid_to: timestamp
+  work_order_routing__record_version: int
+  work_order_routing__scheduled_end_date: date
+  work_order_routing__scheduled_start_date: date
+  work_order_routing__work_order_id: bigint
+column_descriptions:
+  _hook__order__work: 'Hook for work_order_id using keyset: order__work__adventure_works.'
+  _hook__order_line__work: 'Hook for operation_sequence using keyset: order_line__work__adventure_works.'
+  _hook__product: 'Hook for product_id using keyset: product__adventure_works.'
+  _hook__reference__location: 'Hook for location_id using keyset: reference__location__adventure_works.'
+  _hook__work_order_routing: 'Primary hook using: _hook__order_line__work, _hook__product,
+    _hook__order__work.'
+  _pit_hook__work_order_routing: Point in time version of _hook__work_order_routing.
+  work_order_routing__actual_cost: Actual manufacturing cost.
+  work_order_routing__actual_end_date: Actual end date.
+  work_order_routing__actual_resource_hrs: Number of manufacturing hours used.
+  work_order_routing__actual_start_date: Actual start date.
+  work_order_routing__is_current_record: Flag indicating if this is the current valid
+    version of the record
+  work_order_routing__location_id: Manufacturing location where the part is processed.
+    Foreign key to Location.LocationID.
+  work_order_routing__modified_date: Date and time the record was last updated.
+  work_order_routing__operation_sequence: Primary key. Indicates the manufacturing
+    process sequence.
+  work_order_routing__planned_cost: Estimated manufacturing cost.
+  work_order_routing__product_id: Primary key. Foreign key to Product.ProductID.
+  work_order_routing__record_loaded_at: Timestamp when this record was loaded into
+    the system
+  work_order_routing__record_updated_at: Timestamp when this record was last updated
+  work_order_routing__record_valid_from: Timestamp from which this record version
+    is valid
+  work_order_routing__record_valid_to: Timestamp until which this record version is
+    valid
+  work_order_routing__record_version: Version number for this record
+  work_order_routing__scheduled_end_date: Planned manufacturing end date.
+  work_order_routing__scheduled_start_date: Planned manufacturing start date.
+  work_order_routing__work_order_id: Primary key. Foreign key to WorkOrder.WorkOrderID.
+column_prefix: work_order_routing
+columns:
+- _pit_hook__work_order_routing
+- _hook__work_order_routing
+- _hook__order_line__work
+- _hook__order__work
+- _hook__product
+- _hook__reference__location
+- work_order_routing__work_order_id
+- work_order_routing__product_id
+- work_order_routing__operation_sequence
+- work_order_routing__location_id
+- work_order_routing__scheduled_start_date
+- work_order_routing__scheduled_end_date
+- work_order_routing__actual_start_date
+- work_order_routing__actual_end_date
+- work_order_routing__actual_resource_hrs
+- work_order_routing__planned_cost
+- work_order_routing__actual_cost
+- work_order_routing__modified_date
+- work_order_routing__record_loaded_at
+- work_order_routing__record_updated_at
+- work_order_routing__record_version
+- work_order_routing__record_valid_from
+- work_order_routing__record_valid_to
+- work_order_routing__is_current_record
+description: 'Hook for location_id using keyset: reference__location__adventure_works.'
+grain: _pit_hook__work_order_routing
+hooks:
+- composite_key:
+  - _hook__order_line__work
+  - _hook__product
+  - _hook__order__work
+  name: _hook__work_order_routing
+  primary: true
+- business_key_field: operation_sequence
+  keyset: order_line__work__adventure_works
+  name: _hook__order_line__work
+- business_key_field: work_order_id
+  keyset: order__work__adventure_works
+  name: _hook__order__work
+- business_key_field: product_id
+  keyset: product__adventure_works
+  name: _hook__product
+- business_key_field: location_id
+  keyset: reference__location__adventure_works
+  name: _hook__reference__location
+name: bag__adventure_works__work_order_routings
+references:
+- _hook__order_line__work
+- _hook__order__work
+- _hook__product
+- _hook__reference__location
+source_columns:
+- work_order_id
+- product_id
+- operation_sequence
+- location_id
+- scheduled_start_date
+- scheduled_end_date
+- actual_start_date
+- actual_end_date
+- actual_resource_hrs
+- planned_cost
+- actual_cost
+- modified_date
+source_primary_keys:
+- operation_sequence
+source_table: raw__adventure_works__work_order_routings
