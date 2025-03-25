@@ -182,13 +182,9 @@ def generate_hook_blueprints(hook_config_path: str, schema_path: str) -> list:
 
     return blueprints
 
-def generate_bridge_blueprints(hook_config_path: str = None, bags: list = None, leaf_bag: str = None) -> list:
-    # Support both passing bags directly or loading from a file
-    if bags is None:
-        if hook_config_path is None:
-            raise ValueError("Either hook_config_path or bags must be provided")
-        bags_config = load_yaml(hook_config_path)
-        bags = bags_config["bags"]
+def generate_bridge_blueprints(hook_config_path: str = None) -> list:
+    bags_config = load_yaml(hook_config_path)
+    bags = bags_config["bags"]
 
     # We need to generate a DAG so that we can have a cascading inheritance of hooks
     directed_acyclical_graph = nx.DiGraph()
@@ -386,10 +382,22 @@ def generate_bridge_blueprints(hook_config_path: str = None, bags: list = None, 
         peripheral = target_name.replace("bridge__", "", 1)  # Remove the bridge__ prefix
         description = f"Puppini bridge for the peripheral table {peripheral}"
         
+        # Lookup the column prefix from the bag config
+        column_prefix = None
+        for bag_config in bags:
+            if bag_config["name"] == node:
+                column_prefix = bag_config.get("column_prefix")
+                break
+        
+        # If we couldn't find a column prefix, use a default derived from the peripheral name
+        if column_prefix is None:
+            column_prefix = peripheral.replace("adventure_works", "").strip("_")
+            
         node_dict = {
             "source_name": node,
             "target_name": target_name,
             "peripheral": peripheral,
+            "column_prefix": column_prefix,
             "description": description
         }
         
