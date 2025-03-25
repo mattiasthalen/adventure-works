@@ -16,7 +16,7 @@ blueprints = generate_raw_blueprints(
 )
 
 @model(
-    "das.@{table_name}",
+    "das.@{name}",
     is_sql=True,
     kind="VIEW",
     enabled=True,
@@ -25,7 +25,7 @@ blueprints = generate_raw_blueprints(
     #column_descriptions="@{column_descriptions}"
 )
 def entrypoint(evaluator: MacroEvaluator) -> exp.Expression:
-    table_name = evaluator.var("table_name")
+    name = evaluator.var("name")
     columns = evaluator.var("columns")
 
     # Build column expressions
@@ -44,7 +44,7 @@ def entrypoint(evaluator: MacroEvaluator) -> exp.Expression:
             )
         )
     
-    iceberg_path = os.path.abspath(f"./lakehouse/das/{table_name}").lstrip('/')
+    iceberg_path = os.path.abspath(f"./lakehouse/das/{name}").lstrip('/')
     
     # Build the query with SQLGlot
     sql = exp.select(*select_columns).from_(f"ICEBERG_SCAN('file://{iceberg_path}')")
