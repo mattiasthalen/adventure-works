@@ -207,6 +207,12 @@ def entrypoint(evaluator: MacroEvaluator) -> str | exp.Expression:
     sql = (
         exp.select(*casted_columns)
         .from_(f"cte__bridge_pit")
+        .where(
+            exp.column("bridge__record_updated_at").between(
+                low=evaluator.locals["start_ts"],
+                high=evaluator.locals["end_ts"]
+            )
+        )
         .with_("cte__bridge", as_=cte__bridge)
     )
 
