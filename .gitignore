@@ -11,5 +11,5 @@ secrets.toml
 logs/
 .cache/
 .venv/
-lakehouse/*
+lakehouse/
 *.parquet
