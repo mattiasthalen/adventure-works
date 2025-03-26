@@ -37,6 +37,7 @@ def entrypoint(evaluator: MacroEvaluator) -> str | exp.Expression:
     hooks = evaluator.var("hooks")
     columns = evaluator.var("columns")
     column_data_types = evaluator.var("column_data_types")
+    column_descriptions = evaluator.var("column_descriptions")
 
     # Define source CTE
     loaded_at = exp.func(
@@ -163,7 +164,10 @@ def entrypoint(evaluator: MacroEvaluator) -> str | exp.Expression:
     for col, data_type in column_data_types.items():
         data_type = "text" if data_type in ("xml", "uniqueidentifier") else data_type
         casted_column = exp.cast(exp.column(col), exp.DataType.build(data_type))
-        
+                
+        description = column_descriptions.get(col)
+        casted_column.add_comments(comments=[description])
+
         casted_columns.append(casted_column)
 
     sql = (

@@ -22,12 +22,12 @@ export_blueprints(blueprints, "./models/blueprints/raw")
     kind="VIEW",
     enabled=True,
     blueprints=blueprints,
-    description="@{description}",
-    #column_descriptions="@{column_descriptions}"
+    description="@{description}"
 )
 def entrypoint(evaluator: MacroEvaluator) -> exp.Expression:
     name = evaluator.var("name")
     columns = evaluator.var("columns")
+    column_descriptions = evaluator.var("column_descriptions")
 
     # Build column expressions
     select_columns = []
@@ -36,14 +36,15 @@ def entrypoint(evaluator: MacroEvaluator) -> exp.Expression:
         data_type = col["type"]
 
         data_type = "text" if data_type in ("xml", "uniqueidentifier") else data_type
-        
+
         # Create a cast expression for the column
-        select_columns.append(
-            exp.cast(
-                exp.column(col_name),
-                exp.DataType.build(data_type.lower())
-            )
-        )
+        casted_column = exp.cast(exp.column(col_name), exp.DataType.build(data_type.lower()))
+        
+        description = column_descriptions.get(col_name)
+        casted_column.add_comments(comments=[description])
+        
+        select_columns.append(casted_column)
+
     
     iceberg_path = os.path.abspath(f"./lakehouse/das/{name}").lstrip('/')
     
