@@ -5,15 +5,16 @@ from sqlmesh.core.model.kind import ModelKindName
 
 # Import from our blueprint module
 try:
-    from models.blueprint_generators import generate_hook_blueprints
+    from models.blueprint_generators import generate_hook_blueprints, export_blueprints
 except:
-    from blueprint_generators import generate_hook_blueprints
+    from blueprint_generators import generate_hook_blueprints, export_blueprints
 
 # Generate blueprints
 blueprints = generate_hook_blueprints(
     hook_config_path="./models/hook__bags.yml",
     schema_path="./models/raw_schema.yaml"
 )
+export_blueprints(blueprints, "./models/blueprints/hook")
 
 @model(
     "dab.@{name}",

@@ -6,14 +6,15 @@ from sqlmesh.core.model import model
 
 # Import from our blueprint module
 try:
-    from models.blueprint_generators import generate_raw_blueprints
+    from models.blueprint_generators import generate_raw_blueprints, export_blueprints
 except:
-    from blueprint_generators import generate_raw_blueprints
+    from blueprint_generators import generate_raw_blueprints, export_blueprints
 
 # Generate blueprints
 blueprints = generate_raw_blueprints(
     schema_path="./models/raw_schema.yaml"
 )
+export_blueprints(blueprints, "./models/blueprints/raw")
 
 @model(
     "das.@{name}",

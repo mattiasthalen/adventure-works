@@ -6,14 +6,15 @@ from sqlmesh.core.model.kind import ModelKindName
 
 # Import from our blueprint module
 try:
-    from models.blueprint_generators import generate_bridge_blueprints
+    from models.blueprint_generators import generate_bridge_blueprints, export_blueprints
 except:
-    from blueprint_generators import generate_bridge_blueprints
+    from blueprint_generators import generate_bridge_blueprints, export_blueprints
 
 # Generate blueprints
 blueprints = generate_bridge_blueprints(
     hook_config_path="./models/hook__bags.yml"
 )
+export_blueprints(blueprints, "./models/blueprints/bridges")
 
 @model(
     "dar__staging.@{name}",
@@ -34,7 +35,6 @@ def entrypoint(evaluator: MacroEvaluator) -> str | exp.Expression:
     source_name = evaluator.var("source_name")
     peripheral = evaluator.var("peripheral")
     column_prefix = evaluator.var("column_prefix")
-    description = evaluator.var("description")
     primary_hook = evaluator.var("primary_hook")
     hook = evaluator.var("hook")
     dependencies = evaluator.var("dependencies")
