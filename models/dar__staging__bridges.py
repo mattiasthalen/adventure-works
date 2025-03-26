@@ -45,13 +45,21 @@ def entrypoint(evaluator: MacroEvaluator) -> str | exp.Expression:
     source_columns = [
         exp.Literal.string(peripheral).as_("peripheral"),
         exp.column(primary_hook),
-        exp.column(hook),
-        exp.column(f"{column_prefix}__record_loaded_at").as_("bridge__record_loaded_at"),
-        exp.column(f"{column_prefix}__record_updated_at").as_("bridge__record_updated_at"),
-        exp.column(f"{column_prefix}__record_valid_from").as_("bridge__record_valid_from"),
-        exp.column(f"{column_prefix}__record_valid_to").as_("bridge__record_valid_to"),
-        exp.column(f"{column_prefix}__is_current_record").as_("bridge__is_current_record"),
+        exp.column(hook)
     ]
+    if dependencies:
+        foreign_hooks = [dependency["primary_hook"] for dependency in dependencies.values()]
+        source_columns.extend([exp.column(hook) for hook in foreign_hooks])
+
+    source_columns.extend(
+        [
+            exp.column(f"{column_prefix}__record_loaded_at").as_("bridge__record_loaded_at"),
+            exp.column(f"{column_prefix}__record_updated_at").as_("bridge__record_updated_at"),
+            exp.column(f"{column_prefix}__record_valid_from").as_("bridge__record_valid_from"),
+            exp.column(f"{column_prefix}__record_valid_to").as_("bridge__record_valid_to"),
+            exp.column(f"{column_prefix}__is_current_record").as_("bridge__is_current_record"),
+        ]
+    )
 
     cte__bridge = exp.select(*source_columns).from_(f"dab.{source_name}")
     previous_cte = "cte__bridge"
@@ -75,7 +83,7 @@ def entrypoint(evaluator: MacroEvaluator) -> str | exp.Expression:
                 cte_pit_lookup__select.append(exp.column(inherited_hook, table=dependency_name))
 
             cte__pit_lookup = cte__pit_lookup.join(
-                dependency_name,
+                f"dar__staging.{dependency_name}",
                 on=exp.and_(
                     exp.EQ(
                         this=exp.column(hook_to_join_on, table="cte__bridge"),
