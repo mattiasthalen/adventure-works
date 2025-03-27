@@ -1,0 +1,55 @@
+column_data_types:
+  _pit_hook__employee_department_history: binary
+  employee_department_history__business_entity_id: bigint
+  employee_department_history__department_id: bigint
+  employee_department_history__end_date: date
+  employee_department_history__is_current_record: boolean
+  employee_department_history__modified_date: date
+  employee_department_history__record_loaded_at: timestamp
+  employee_department_history__record_updated_at: timestamp
+  employee_department_history__record_valid_from: timestamp
+  employee_department_history__record_valid_to: timestamp
+  employee_department_history__record_version: int
+  employee_department_history__shift_id: bigint
+  employee_department_history__start_date: timestamp
+column_descriptions:
+  _pit_hook__employee_department_history: Point in time version of _hook__employee_department_history.
+  employee_department_history__business_entity_id: Employee identification number.
+    Foreign key to Employee.BusinessEntityID.
+  employee_department_history__department_id: Department in which the employee worked
+    including currently. Foreign key to Department.DepartmentID.
+  employee_department_history__end_date: Date the employee left the department. NULL
+    = Current department.
+  employee_department_history__is_current_record: Flag indicating if this is the current
+    valid version of the record
+  employee_department_history__modified_date: Date and time the record was last updated.
+  employee_department_history__record_loaded_at: Timestamp when this record was loaded
+    into the system
+  employee_department_history__record_updated_at: Timestamp when this record was last
+    updated
+  employee_department_history__record_valid_from: Timestamp from which this record
+    version is valid
+  employee_department_history__record_valid_to: Timestamp until which this record
+    version is valid
+  employee_department_history__record_version: Version number for this record
+  employee_department_history__shift_id: Identifies which 8-hour shift the employee
+    works. Foreign key to Shift.Shift.ID.
+  employee_department_history__start_date: Date the employee started work in the department.
+columns:
+- _pit_hook__employee_department_history
+- employee_department_history__business_entity_id
+- employee_department_history__department_id
+- employee_department_history__shift_id
+- employee_department_history__start_date
+- employee_department_history__modified_date
+- employee_department_history__end_date
+- employee_department_history__record_loaded_at
+- employee_department_history__record_updated_at
+- employee_department_history__record_version
+- employee_department_history__record_valid_from
+- employee_department_history__record_valid_to
+- employee_department_history__is_current_record
+description: 'Hook for start_date using keyset: epoch__date.'
+grain: _pit_hook__employee_department_history
+hook_name: bag__adventure_works__employee_department_histories
+peripheral_name: adventure_works__employee_department_histories

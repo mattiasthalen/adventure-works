@@ -1,0 +1,53 @@
+column_data_types:
+  _pit_hook__customer: binary
+  customer__account_number: text
+  customer__customer_id: bigint
+  customer__is_current_record: boolean
+  customer__modified_date: date
+  customer__person_id: bigint
+  customer__record_loaded_at: timestamp
+  customer__record_updated_at: timestamp
+  customer__record_valid_from: timestamp
+  customer__record_valid_to: timestamp
+  customer__record_version: int
+  customer__rowguid: uniqueidentifier
+  customer__store_id: bigint
+  customer__territory_id: bigint
+column_descriptions:
+  _pit_hook__customer: Point in time version of _hook__customer.
+  customer__account_number: Unique number identifying the customer assigned by the
+    accounting system.
+  customer__customer_id: Primary key.
+  customer__is_current_record: Flag indicating if this is the current valid version
+    of the record
+  customer__modified_date: Date and time the record was last updated.
+  customer__person_id: Foreign key to Person.BusinessEntityID.
+  customer__record_loaded_at: Timestamp when this record was loaded into the system
+  customer__record_updated_at: Timestamp when this record was last updated
+  customer__record_valid_from: Timestamp from which this record version is valid
+  customer__record_valid_to: Timestamp until which this record version is valid
+  customer__record_version: Version number for this record
+  customer__rowguid: ROWGUIDCOL number uniquely identifying the record. Used to support
+    a merge replication sample.
+  customer__store_id: Foreign key to Store.BusinessEntityID.
+  customer__territory_id: ID of the territory in which the customer is located. Foreign
+    key to SalesTerritory.SalesTerritoryID.
+columns:
+- _pit_hook__customer
+- customer__customer_id
+- customer__store_id
+- customer__territory_id
+- customer__account_number
+- customer__rowguid
+- customer__modified_date
+- customer__person_id
+- customer__record_loaded_at
+- customer__record_updated_at
+- customer__record_version
+- customer__record_valid_from
+- customer__record_valid_to
+- customer__is_current_record
+description: 'Hook for territory_id using keyset: territory__sales__adventure_works.'
+grain: _pit_hook__customer
+hook_name: bag__adventure_works__customers
+peripheral_name: adventure_works__customers

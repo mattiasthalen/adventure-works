@@ -656,6 +656,41 @@ def generate_event_blueprints(hook_blueprint_path: str, bridge_blueprint_path: s
 
     return blueprints
 
+def generate_peripheral_blueprints(hook_blueprint_path: str) -> list:
+    
+    hook_blueprints = import_blueprints(hook_blueprint_path)
+
+    blueprints = []
+
+    for hook in hook_blueprints:
+        hook_name = hook["name"]
+        description = hook["description"]
+        peripheral_name = hook_name.replace("bag__", "")
+        grain = hook["grain"]
+        columns = [col for col in hook["columns"] if not col.startswith("_hook__")]
+        column_data_types = {col: hook["column_data_types"][col] for col in columns}
+        column_descriptions = {col: hook["column_descriptions"][col] for col in columns}
+
+        blueprint = {
+            "peripheral_name": peripheral_name,
+            "description": description,
+            "hook_name": hook_name,
+            "grain": grain,
+            "columns": columns,
+            "column_data_types": column_data_types,
+            "column_descriptions": column_descriptions
+        }
+
+        blueprints.append(blueprint)
+
+    export_blueprints(
+        blueprints,
+        name_field="peripheral_name",
+        output_path="./models/blueprints/peripherals"
+    )
+
+    return blueprints
+        
 if __name__ == "__main__":
     raw_blueprints = generate_raw_blueprints(
         schema_path="./models/raw_schema.yaml"
@@ -673,4 +708,8 @@ if __name__ == "__main__":
     event_blueprints = generate_event_blueprints(
         hook_blueprint_path="./models/blueprints/hook",
         bridge_blueprint_path="./models/blueprints/bridges"
+    )
+
+    peripheral_blueprints = generate_peripheral_blueprints(
+        hook_blueprint_path="./models/blueprints/hook"
     )

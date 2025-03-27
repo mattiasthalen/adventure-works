@@ -1,0 +1,55 @@
+column_data_types:
+  _pit_hook__vendor: binary
+  vendor__account_number: text
+  vendor__active_flag: bool
+  vendor__business_entity_id: bigint
+  vendor__credit_rating: bigint
+  vendor__is_current_record: boolean
+  vendor__modified_date: date
+  vendor__name: text
+  vendor__preferred_vendor_status: bool
+  vendor__purchasing_web_service_url: text
+  vendor__record_loaded_at: timestamp
+  vendor__record_updated_at: timestamp
+  vendor__record_valid_from: timestamp
+  vendor__record_valid_to: timestamp
+  vendor__record_version: int
+column_descriptions:
+  _pit_hook__vendor: Point in time version of _hook__vendor.
+  vendor__account_number: Vendor account (identification) number.
+  vendor__active_flag: 0 = Vendor no longer used. 1 = Vendor is actively used.
+  vendor__business_entity_id: Primary key for Vendor records. Foreign key to BusinessEntity.BusinessEntityID.
+  vendor__credit_rating: 1 = Superior, 2 = Excellent, 3 = Above average, 4 = Average,
+    5 = Below average.
+  vendor__is_current_record: Flag indicating if this is the current valid version
+    of the record
+  vendor__modified_date: Date and time the record was last updated.
+  vendor__name: Company name.
+  vendor__preferred_vendor_status: 0 = Do not use if another vendor is available.
+    1 = Preferred over other vendors supplying the same product.
+  vendor__purchasing_web_service_url: Vendor URL.
+  vendor__record_loaded_at: Timestamp when this record was loaded into the system
+  vendor__record_updated_at: Timestamp when this record was last updated
+  vendor__record_valid_from: Timestamp from which this record version is valid
+  vendor__record_valid_to: Timestamp until which this record version is valid
+  vendor__record_version: Version number for this record
+columns:
+- _pit_hook__vendor
+- vendor__business_entity_id
+- vendor__account_number
+- vendor__name
+- vendor__credit_rating
+- vendor__preferred_vendor_status
+- vendor__active_flag
+- vendor__modified_date
+- vendor__purchasing_web_service_url
+- vendor__record_loaded_at
+- vendor__record_updated_at
+- vendor__record_version
+- vendor__record_valid_from
+- vendor__record_valid_to
+- vendor__is_current_record
+description: 'Primary hook for business_entity_id using keyset: vendor__adventure_works.'
+grain: _pit_hook__vendor
+hook_name: bag__adventure_works__vendors
+peripheral_name: adventure_works__vendors

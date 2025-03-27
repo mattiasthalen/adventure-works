@@ -1,0 +1,47 @@
+column_data_types:
+  _pit_hook__person__individual: binary
+  email_address__business_entity_id: bigint
+  email_address__email: text
+  email_address__email_address_id: bigint
+  email_address__is_current_record: boolean
+  email_address__modified_date: date
+  email_address__record_loaded_at: timestamp
+  email_address__record_updated_at: timestamp
+  email_address__record_valid_from: timestamp
+  email_address__record_valid_to: timestamp
+  email_address__record_version: int
+  email_address__rowguid: uniqueidentifier
+column_descriptions:
+  _pit_hook__person__individual: Point in time version of _hook__person__individual.
+  email_address__business_entity_id: Primary key. Person associated with this email
+    address. Foreign key to Person.BusinessEntityID.
+  email_address__email: E-mail address for the person.
+  email_address__email_address_id: Primary key. ID of this email address.
+  email_address__is_current_record: Flag indicating if this is the current valid version
+    of the record
+  email_address__modified_date: Date and time the record was last updated.
+  email_address__record_loaded_at: Timestamp when this record was loaded into the
+    system
+  email_address__record_updated_at: Timestamp when this record was last updated
+  email_address__record_valid_from: Timestamp from which this record version is valid
+  email_address__record_valid_to: Timestamp until which this record version is valid
+  email_address__record_version: Version number for this record
+  email_address__rowguid: ROWGUIDCOL number uniquely identifying the record. Used
+    to support a merge replication sample.
+columns:
+- _pit_hook__person__individual
+- email_address__business_entity_id
+- email_address__email_address_id
+- email_address__email
+- email_address__rowguid
+- email_address__modified_date
+- email_address__record_loaded_at
+- email_address__record_updated_at
+- email_address__record_version
+- email_address__record_valid_from
+- email_address__record_valid_to
+- email_address__is_current_record
+description: 'Hook for email_address_id using keyset: reference__adventure_works.'
+grain: _pit_hook__person__individual
+hook_name: bag__adventure_works__email_addresses
+peripheral_name: adventure_works__email_addresses

@@ -1,0 +1,39 @@
+column_data_types:
+  _pit_hook__reference__illustration: binary
+  illustration__diagram: xml
+  illustration__illustration_id: bigint
+  illustration__is_current_record: boolean
+  illustration__modified_date: date
+  illustration__record_loaded_at: timestamp
+  illustration__record_updated_at: timestamp
+  illustration__record_valid_from: timestamp
+  illustration__record_valid_to: timestamp
+  illustration__record_version: int
+column_descriptions:
+  _pit_hook__reference__illustration: Point in time version of _hook__reference__illustration.
+  illustration__diagram: Illustrations used in manufacturing instructions. Stored
+    as XML.
+  illustration__illustration_id: Primary key for Illustration records.
+  illustration__is_current_record: Flag indicating if this is the current valid version
+    of the record
+  illustration__modified_date: Date and time the record was last updated.
+  illustration__record_loaded_at: Timestamp when this record was loaded into the system
+  illustration__record_updated_at: Timestamp when this record was last updated
+  illustration__record_valid_from: Timestamp from which this record version is valid
+  illustration__record_valid_to: Timestamp until which this record version is valid
+  illustration__record_version: Version number for this record
+columns:
+- _pit_hook__reference__illustration
+- illustration__illustration_id
+- illustration__diagram
+- illustration__modified_date
+- illustration__record_loaded_at
+- illustration__record_updated_at
+- illustration__record_version
+- illustration__record_valid_from
+- illustration__record_valid_to
+- illustration__is_current_record
+description: 'Primary hook for illustration_id using keyset: reference__illustration__adventure_works.'
+grain: _pit_hook__reference__illustration
+hook_name: bag__adventure_works__illustrations
+peripheral_name: adventure_works__illustrations

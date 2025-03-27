@@ -1,0 +1,49 @@
+column_data_types:
+  _pit_hook__employee_pay_history: binary
+  employee_pay_history__business_entity_id: bigint
+  employee_pay_history__is_current_record: boolean
+  employee_pay_history__modified_date: date
+  employee_pay_history__pay_frequency: bigint
+  employee_pay_history__rate: double
+  employee_pay_history__rate_change_date: timestamp
+  employee_pay_history__record_loaded_at: timestamp
+  employee_pay_history__record_updated_at: timestamp
+  employee_pay_history__record_valid_from: timestamp
+  employee_pay_history__record_valid_to: timestamp
+  employee_pay_history__record_version: int
+column_descriptions:
+  _pit_hook__employee_pay_history: Point in time version of _hook__employee_pay_history.
+  employee_pay_history__business_entity_id: Employee identification number. Foreign
+    key to Employee.BusinessEntityID.
+  employee_pay_history__is_current_record: Flag indicating if this is the current
+    valid version of the record
+  employee_pay_history__modified_date: Date and time the record was last updated.
+  employee_pay_history__pay_frequency: 1 = Salary received monthly, 2 = Salary received
+    biweekly.
+  employee_pay_history__rate: Salary hourly rate.
+  employee_pay_history__rate_change_date: Date the change in pay is effective.
+  employee_pay_history__record_loaded_at: Timestamp when this record was loaded into
+    the system
+  employee_pay_history__record_updated_at: Timestamp when this record was last updated
+  employee_pay_history__record_valid_from: Timestamp from which this record version
+    is valid
+  employee_pay_history__record_valid_to: Timestamp until which this record version
+    is valid
+  employee_pay_history__record_version: Version number for this record
+columns:
+- _pit_hook__employee_pay_history
+- employee_pay_history__business_entity_id
+- employee_pay_history__rate_change_date
+- employee_pay_history__rate
+- employee_pay_history__pay_frequency
+- employee_pay_history__modified_date
+- employee_pay_history__record_loaded_at
+- employee_pay_history__record_updated_at
+- employee_pay_history__record_version
+- employee_pay_history__record_valid_from
+- employee_pay_history__record_valid_to
+- employee_pay_history__is_current_record
+description: 'Hook for rate_change_date using keyset: epoch__date.'
+grain: _pit_hook__employee_pay_history
+hook_name: bag__adventure_works__employee_pay_histories
+peripheral_name: adventure_works__employee_pay_histories

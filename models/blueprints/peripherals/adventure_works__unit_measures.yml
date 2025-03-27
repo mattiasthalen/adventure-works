@@ -1,0 +1,38 @@
+column_data_types:
+  _pit_hook__reference__unit_measure: binary
+  unit_measure__is_current_record: boolean
+  unit_measure__modified_date: date
+  unit_measure__name: text
+  unit_measure__record_loaded_at: timestamp
+  unit_measure__record_updated_at: timestamp
+  unit_measure__record_valid_from: timestamp
+  unit_measure__record_valid_to: timestamp
+  unit_measure__record_version: int
+  unit_measure__unit_measure_code: text
+column_descriptions:
+  _pit_hook__reference__unit_measure: Point in time version of _hook__reference__unit_measure.
+  unit_measure__is_current_record: Flag indicating if this is the current valid version
+    of the record
+  unit_measure__modified_date: Date and time the record was last updated.
+  unit_measure__name: Unit of measure description.
+  unit_measure__record_loaded_at: Timestamp when this record was loaded into the system
+  unit_measure__record_updated_at: Timestamp when this record was last updated
+  unit_measure__record_valid_from: Timestamp from which this record version is valid
+  unit_measure__record_valid_to: Timestamp until which this record version is valid
+  unit_measure__record_version: Version number for this record
+  unit_measure__unit_measure_code: Primary key.
+columns:
+- _pit_hook__reference__unit_measure
+- unit_measure__unit_measure_code
+- unit_measure__name
+- unit_measure__modified_date
+- unit_measure__record_loaded_at
+- unit_measure__record_updated_at
+- unit_measure__record_version
+- unit_measure__record_valid_from
+- unit_measure__record_valid_to
+- unit_measure__is_current_record
+description: 'Primary hook for unit_measure_code using keyset: reference__unit_measure__adventure_works.'
+grain: _pit_hook__reference__unit_measure
+hook_name: bag__adventure_works__unit_measures
+peripheral_name: adventure_works__unit_measures

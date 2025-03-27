@@ -1,0 +1,46 @@
+column_data_types:
+  _pit_hook__reference__product_description: binary
+  product_description__description: text
+  product_description__is_current_record: boolean
+  product_description__modified_date: date
+  product_description__product_description_id: bigint
+  product_description__record_loaded_at: timestamp
+  product_description__record_updated_at: timestamp
+  product_description__record_valid_from: timestamp
+  product_description__record_valid_to: timestamp
+  product_description__record_version: int
+  product_description__rowguid: uniqueidentifier
+column_descriptions:
+  _pit_hook__reference__product_description: Point in time version of _hook__reference__product_description.
+  product_description__description: Description of the product.
+  product_description__is_current_record: Flag indicating if this is the current valid
+    version of the record
+  product_description__modified_date: Date and time the record was last updated.
+  product_description__product_description_id: Primary key for ProductDescription
+    records.
+  product_description__record_loaded_at: Timestamp when this record was loaded into
+    the system
+  product_description__record_updated_at: Timestamp when this record was last updated
+  product_description__record_valid_from: Timestamp from which this record version
+    is valid
+  product_description__record_valid_to: Timestamp until which this record version
+    is valid
+  product_description__record_version: Version number for this record
+  product_description__rowguid: ROWGUIDCOL number uniquely identifying the record.
+    Used to support a merge replication sample.
+columns:
+- _pit_hook__reference__product_description
+- product_description__product_description_id
+- product_description__description
+- product_description__rowguid
+- product_description__modified_date
+- product_description__record_loaded_at
+- product_description__record_updated_at
+- product_description__record_version
+- product_description__record_valid_from
+- product_description__record_valid_to
+- product_description__is_current_record
+description: 'Primary hook for product_description_id using keyset: reference__product_description__adventure_works.'
+grain: _pit_hook__reference__product_description
+hook_name: bag__adventure_works__product_descriptions
+peripheral_name: adventure_works__product_descriptions

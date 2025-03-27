@@ -1,0 +1,41 @@
+column_data_types:
+  _pit_hook__department: binary
+  department__department_id: bigint
+  department__group_name: text
+  department__is_current_record: boolean
+  department__modified_date: date
+  department__name: text
+  department__record_loaded_at: timestamp
+  department__record_updated_at: timestamp
+  department__record_valid_from: timestamp
+  department__record_valid_to: timestamp
+  department__record_version: int
+column_descriptions:
+  _pit_hook__department: Point in time version of _hook__department.
+  department__department_id: Primary key for Department records.
+  department__group_name: Name of the group to which the department belongs.
+  department__is_current_record: Flag indicating if this is the current valid version
+    of the record
+  department__modified_date: Date and time the record was last updated.
+  department__name: Name of the department.
+  department__record_loaded_at: Timestamp when this record was loaded into the system
+  department__record_updated_at: Timestamp when this record was last updated
+  department__record_valid_from: Timestamp from which this record version is valid
+  department__record_valid_to: Timestamp until which this record version is valid
+  department__record_version: Version number for this record
+columns:
+- _pit_hook__department
+- department__department_id
+- department__name
+- department__group_name
+- department__modified_date
+- department__record_loaded_at
+- department__record_updated_at
+- department__record_version
+- department__record_valid_from
+- department__record_valid_to
+- department__is_current_record
+description: 'Primary hook for department_id using keyset: department__adventure_works.'
+grain: _pit_hook__department
+hook_name: bag__adventure_works__departments
+peripheral_name: adventure_works__departments

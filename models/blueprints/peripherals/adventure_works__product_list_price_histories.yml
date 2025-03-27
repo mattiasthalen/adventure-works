@@ -1,0 +1,49 @@
+column_data_types:
+  _pit_hook__product_list_price_history: binary
+  product_list_price_history__end_date: date
+  product_list_price_history__is_current_record: boolean
+  product_list_price_history__list_price: double
+  product_list_price_history__modified_date: date
+  product_list_price_history__product_id: bigint
+  product_list_price_history__record_loaded_at: timestamp
+  product_list_price_history__record_updated_at: timestamp
+  product_list_price_history__record_valid_from: timestamp
+  product_list_price_history__record_valid_to: timestamp
+  product_list_price_history__record_version: int
+  product_list_price_history__start_date: timestamp
+column_descriptions:
+  _pit_hook__product_list_price_history: Point in time version of _hook__product_list_price_history.
+  product_list_price_history__end_date: List price end date.
+  product_list_price_history__is_current_record: Flag indicating if this is the current
+    valid version of the record
+  product_list_price_history__list_price: Product list price.
+  product_list_price_history__modified_date: Date and time the record was last updated.
+  product_list_price_history__product_id: Product identification number. Foreign key
+    to Product.ProductID.
+  product_list_price_history__record_loaded_at: Timestamp when this record was loaded
+    into the system
+  product_list_price_history__record_updated_at: Timestamp when this record was last
+    updated
+  product_list_price_history__record_valid_from: Timestamp from which this record
+    version is valid
+  product_list_price_history__record_valid_to: Timestamp until which this record version
+    is valid
+  product_list_price_history__record_version: Version number for this record
+  product_list_price_history__start_date: List price start date.
+columns:
+- _pit_hook__product_list_price_history
+- product_list_price_history__product_id
+- product_list_price_history__start_date
+- product_list_price_history__end_date
+- product_list_price_history__list_price
+- product_list_price_history__modified_date
+- product_list_price_history__record_loaded_at
+- product_list_price_history__record_updated_at
+- product_list_price_history__record_version
+- product_list_price_history__record_valid_from
+- product_list_price_history__record_valid_to
+- product_list_price_history__is_current_record
+description: 'Hook for start_date using keyset: epoch__date.'
+grain: _pit_hook__product_list_price_history
+hook_name: bag__adventure_works__product_list_price_histories
+peripheral_name: adventure_works__product_list_price_histories
