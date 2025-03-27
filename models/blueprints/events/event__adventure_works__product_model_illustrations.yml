@@ -1,5 +1,6 @@
 bridge_name: bridge__adventure_works__product_model_illustrations
 column_data_types:
+  _hook__epoch__date: binary
   _hook__product_model_illustration: binary
   _pit_hook__bridge: binary
   _pit_hook__product_model_illustration: binary
@@ -10,9 +11,10 @@ column_data_types:
   bridge__record_updated_at: timestamp
   bridge__record_valid_from: timestamp
   bridge__record_valid_to: timestamp
-  event__product_model_illustration__modified: date
+  event__product_model_illustration__modified: boolean
   peripheral: text
 column_descriptions:
+  _hook__epoch__date: Hook to the concept epoch, with qualifier date.
   _hook__product_model_illustration: Hook to the concept product_model_illustration
   _pit_hook__bridge: Point-in-time hook for the bridge record.
   _pit_hook__product_model_illustration: Point-in-time hook to the concept product_model_illustration
@@ -42,9 +44,10 @@ columns:
 - bridge__record_valid_to
 - peripheral
 - event__product_model_illustration__modified
+- _hook__epoch__date
 date_columns:
-- product_model_illustration__modified_date
+  product_model_illustration__modified_date: event__product_model_illustration__modified
 description: Event viewpoint of bridge__adventure_works__product_model_illustrations.
+event_name: event__adventure_works__product_model_illustrations
 hook_name: bag__adventure_works__product_model_illustrations
-name: event__adventure_works__product_model_illustrations
 primary_pit_hook: _pit_hook__product_model_illustration

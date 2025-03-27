@@ -1,5 +1,6 @@
 bridge_name: bridge__adventure_works__work_order_routings
 column_data_types:
+  _hook__epoch__date: binary
   _hook__work_order_routing: binary
   _pit_hook__bridge: binary
   _pit_hook__order__work: binary
@@ -15,13 +16,14 @@ column_data_types:
   bridge__record_updated_at: timestamp
   bridge__record_valid_from: timestamp
   bridge__record_valid_to: timestamp
-  event__work_order_routing__actual_end: date
-  event__work_order_routing__actual_start: date
-  event__work_order_routing__modified: date
-  event__work_order_routing__scheduled_end: date
-  event__work_order_routing__scheduled_start: date
+  event__work_order_routing__actual_end: boolean
+  event__work_order_routing__actual_start: boolean
+  event__work_order_routing__modified: boolean
+  event__work_order_routing__scheduled_end: boolean
+  event__work_order_routing__scheduled_start: boolean
   peripheral: text
 column_descriptions:
+  _hook__epoch__date: Hook to the concept epoch, with qualifier date.
   _hook__work_order_routing: Hook to the concept work_order_routing
   _pit_hook__bridge: Point-in-time hook for the bridge record.
   _pit_hook__order__work: Point-in-time hook to the concept order, with qualifier
@@ -74,13 +76,14 @@ columns:
 - event__work_order_routing__modified
 - event__work_order_routing__scheduled_end
 - event__work_order_routing__scheduled_start
+- _hook__epoch__date
 date_columns:
-- work_order_routing__actual_end_date
-- work_order_routing__actual_start_date
-- work_order_routing__modified_date
-- work_order_routing__scheduled_end_date
-- work_order_routing__scheduled_start_date
+  work_order_routing__actual_end_date: event__work_order_routing__actual_end
+  work_order_routing__actual_start_date: event__work_order_routing__actual_start
+  work_order_routing__modified_date: event__work_order_routing__modified
+  work_order_routing__scheduled_end_date: event__work_order_routing__scheduled_end
+  work_order_routing__scheduled_start_date: event__work_order_routing__scheduled_start
 description: Event viewpoint of bridge__adventure_works__work_order_routings.
+event_name: event__adventure_works__work_order_routings
 hook_name: bag__adventure_works__work_order_routings
-name: event__adventure_works__work_order_routings
 primary_pit_hook: _pit_hook__work_order_routing

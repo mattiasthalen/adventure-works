@@ -1,5 +1,6 @@
 bridge_name: bridge__adventure_works__special_offers
 column_data_types:
+  _hook__epoch__date: binary
   _hook__reference__special_offer: binary
   _pit_hook__bridge: binary
   _pit_hook__reference__special_offer: binary
@@ -8,11 +9,12 @@ column_data_types:
   bridge__record_updated_at: timestamp
   bridge__record_valid_from: timestamp
   bridge__record_valid_to: timestamp
-  event__special_offer__end: date
-  event__special_offer__modified: date
-  event__special_offer__start: date
+  event__special_offer__end: boolean
+  event__special_offer__modified: boolean
+  event__special_offer__start: boolean
   peripheral: text
 column_descriptions:
+  _hook__epoch__date: Hook to the concept epoch, with qualifier date.
   _hook__reference__special_offer: Hook to the concept reference, with qualifier special_offer
   _pit_hook__bridge: Point-in-time hook for the bridge record.
   _pit_hook__reference__special_offer: Point-in-time hook to the concept reference,
@@ -40,11 +42,12 @@ columns:
 - event__special_offer__end
 - event__special_offer__modified
 - event__special_offer__start
+- _hook__epoch__date
 date_columns:
-- special_offer__end_date
-- special_offer__modified_date
-- special_offer__start_date
+  special_offer__end_date: event__special_offer__end
+  special_offer__modified_date: event__special_offer__modified
+  special_offer__start_date: event__special_offer__start
 description: Event viewpoint of bridge__adventure_works__special_offers.
+event_name: event__adventure_works__special_offers
 hook_name: bag__adventure_works__special_offers
-name: event__adventure_works__special_offers
 primary_pit_hook: _pit_hook__reference__special_offer

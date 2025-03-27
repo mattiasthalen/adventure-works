@@ -1,5 +1,6 @@
 bridge_name: bridge__adventure_works__purchase_order_headers
 column_data_types:
+  _hook__epoch__date: binary
   _hook__order__purchase: binary
   _pit_hook__bridge: binary
   _pit_hook__order__purchase: binary
@@ -11,11 +12,12 @@ column_data_types:
   bridge__record_updated_at: timestamp
   bridge__record_valid_from: timestamp
   bridge__record_valid_to: timestamp
-  event__purchase_order_header__modified: date
-  event__purchase_order_header__order: date
-  event__purchase_order_header__ship: date
+  event__purchase_order_header__modified: boolean
+  event__purchase_order_header__order: boolean
+  event__purchase_order_header__ship: boolean
   peripheral: text
 column_descriptions:
+  _hook__epoch__date: Hook to the concept epoch, with qualifier date.
   _hook__order__purchase: Hook to the concept order, with qualifier purchase
   _pit_hook__bridge: Point-in-time hook for the bridge record.
   _pit_hook__order__purchase: Point-in-time hook to the concept order, with qualifier
@@ -51,11 +53,12 @@ columns:
 - event__purchase_order_header__modified
 - event__purchase_order_header__order
 - event__purchase_order_header__ship
+- _hook__epoch__date
 date_columns:
-- purchase_order_header__modified_date
-- purchase_order_header__order_date
-- purchase_order_header__ship_date
+  purchase_order_header__modified_date: event__purchase_order_header__modified
+  purchase_order_header__order_date: event__purchase_order_header__order
+  purchase_order_header__ship_date: event__purchase_order_header__ship
 description: Event viewpoint of bridge__adventure_works__purchase_order_headers.
+event_name: event__adventure_works__purchase_order_headers
 hook_name: bag__adventure_works__purchase_order_headers
-name: event__adventure_works__purchase_order_headers
 primary_pit_hook: _pit_hook__order__purchase

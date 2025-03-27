@@ -1,5 +1,6 @@
 bridge_name: bridge__adventure_works__locations
 column_data_types:
+  _hook__epoch__date: binary
   _hook__reference__location: binary
   _pit_hook__bridge: binary
   _pit_hook__reference__location: binary
@@ -8,9 +9,10 @@ column_data_types:
   bridge__record_updated_at: timestamp
   bridge__record_valid_from: timestamp
   bridge__record_valid_to: timestamp
-  event__location__modified: date
+  event__location__modified: boolean
   peripheral: text
 column_descriptions:
+  _hook__epoch__date: Hook to the concept epoch, with qualifier date.
   _hook__reference__location: Hook to the concept reference, with qualifier location
   _pit_hook__bridge: Point-in-time hook for the bridge record.
   _pit_hook__reference__location: Point-in-time hook to the concept reference, with
@@ -34,9 +36,10 @@ columns:
 - bridge__record_valid_to
 - peripheral
 - event__location__modified
+- _hook__epoch__date
 date_columns:
-- location__modified_date
+  location__modified_date: event__location__modified
 description: Event viewpoint of bridge__adventure_works__locations.
+event_name: event__adventure_works__locations
 hook_name: bag__adventure_works__locations
-name: event__adventure_works__locations
 primary_pit_hook: _pit_hook__reference__location

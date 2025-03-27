@@ -6,9 +6,9 @@ from sqlmesh.core.model.kind import ModelKindName
 
 # Import from our blueprint module
 try:
-    from models.blueprint_generators import generate_bridge_blueprints, export_blueprints
+    from models.blueprint_generators import generate_bridge_blueprints
 except:
-    from blueprint_generators import generate_bridge_blueprints, export_blueprints
+    from blueprint_generators import generate_bridge_blueprints
 
 # Generate blueprints
 blueprints = generate_bridge_blueprints(

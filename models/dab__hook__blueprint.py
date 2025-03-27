@@ -5,9 +5,9 @@ from sqlmesh.core.model.kind import ModelKindName
 
 # Import from our blueprint module
 try:
-    from models.blueprint_generators import generate_hook_blueprints, export_blueprints
+    from models.blueprint_generators import generate_hook_blueprints
 except:
-    from blueprint_generators import generate_hook_blueprints, export_blueprints
+    from blueprint_generators import generate_hook_blueprints
 
 # Generate blueprints
 blueprints = generate_hook_blueprints(

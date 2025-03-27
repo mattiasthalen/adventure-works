@@ -1,6 +1,7 @@
 bridge_name: bridge__adventure_works__employee_department_histories
 column_data_types:
   _hook__employee_department_history: binary
+  _hook__epoch__date: binary
   _pit_hook__bridge: binary
   _pit_hook__department: binary
   _pit_hook__employee_department_history: binary
@@ -11,11 +12,12 @@ column_data_types:
   bridge__record_updated_at: timestamp
   bridge__record_valid_from: timestamp
   bridge__record_valid_to: timestamp
-  event__employee_department_history__end: date
-  event__employee_department_history__modified: date
+  event__employee_department_history__end: boolean
+  event__employee_department_history__modified: boolean
   peripheral: text
 column_descriptions:
   _hook__employee_department_history: Hook to the concept employee_department_history
+  _hook__epoch__date: Hook to the concept epoch, with qualifier date.
   _pit_hook__bridge: Point-in-time hook for the bridge record.
   _pit_hook__department: Point-in-time hook to the concept department
   _pit_hook__employee_department_history: Point-in-time hook to the concept employee_department_history
@@ -48,10 +50,11 @@ columns:
 - peripheral
 - event__employee_department_history__end
 - event__employee_department_history__modified
+- _hook__epoch__date
 date_columns:
-- employee_department_history__end_date
-- employee_department_history__modified_date
+  employee_department_history__end_date: event__employee_department_history__end
+  employee_department_history__modified_date: event__employee_department_history__modified
 description: Event viewpoint of bridge__adventure_works__employee_department_histories.
+event_name: event__adventure_works__employee_department_histories
 hook_name: bag__adventure_works__employee_department_histories
-name: event__adventure_works__employee_department_histories
 primary_pit_hook: _pit_hook__employee_department_history

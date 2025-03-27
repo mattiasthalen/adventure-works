@@ -1,5 +1,6 @@
 bridge_name: bridge__adventure_works__product_subcategories
 column_data_types:
+  _hook__epoch__date: binary
   _hook__product_subcategory: binary
   _pit_hook__bridge: binary
   _pit_hook__product_category: binary
@@ -9,9 +10,10 @@ column_data_types:
   bridge__record_updated_at: timestamp
   bridge__record_valid_from: timestamp
   bridge__record_valid_to: timestamp
-  event__product_subcategory__modified: date
+  event__product_subcategory__modified: boolean
   peripheral: text
 column_descriptions:
+  _hook__epoch__date: Hook to the concept epoch, with qualifier date.
   _hook__product_subcategory: Hook to the concept product_subcategory
   _pit_hook__bridge: Point-in-time hook for the bridge record.
   _pit_hook__product_category: Point-in-time hook to the concept product_category
@@ -37,9 +39,10 @@ columns:
 - bridge__record_valid_to
 - peripheral
 - event__product_subcategory__modified
+- _hook__epoch__date
 date_columns:
-- product_subcategory__modified_date
+  product_subcategory__modified_date: event__product_subcategory__modified
 description: Event viewpoint of bridge__adventure_works__product_subcategories.
+event_name: event__adventure_works__product_subcategories
 hook_name: bag__adventure_works__product_subcategories
-name: event__adventure_works__product_subcategories
 primary_pit_hook: _pit_hook__product_subcategory

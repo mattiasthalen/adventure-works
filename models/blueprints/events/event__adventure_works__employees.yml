@@ -1,5 +1,6 @@
 bridge_name: bridge__adventure_works__employees
 column_data_types:
+  _hook__epoch__date: binary
   _hook__person__employee: binary
   _pit_hook__bridge: binary
   _pit_hook__person__employee: binary
@@ -8,11 +9,12 @@ column_data_types:
   bridge__record_updated_at: timestamp
   bridge__record_valid_from: timestamp
   bridge__record_valid_to: timestamp
-  event__employee__birth: date
-  event__employee__hire: date
-  event__employee__modified: date
+  event__employee__birth: boolean
+  event__employee__hire: boolean
+  event__employee__modified: boolean
   peripheral: text
 column_descriptions:
+  _hook__epoch__date: Hook to the concept epoch, with qualifier date.
   _hook__person__employee: Hook to the concept person, with qualifier employee
   _pit_hook__bridge: Point-in-time hook for the bridge record.
   _pit_hook__person__employee: Point-in-time hook to the concept person, with qualifier
@@ -40,11 +42,12 @@ columns:
 - event__employee__birth
 - event__employee__hire
 - event__employee__modified
+- _hook__epoch__date
 date_columns:
-- employee__birth_date
-- employee__hire_date
-- employee__modified_date
+  employee__birth_date: event__employee__birth
+  employee__hire_date: event__employee__hire
+  employee__modified_date: event__employee__modified
 description: Event viewpoint of bridge__adventure_works__employees.
+event_name: event__adventure_works__employees
 hook_name: bag__adventure_works__employees
-name: event__adventure_works__employees
 primary_pit_hook: _pit_hook__person__employee

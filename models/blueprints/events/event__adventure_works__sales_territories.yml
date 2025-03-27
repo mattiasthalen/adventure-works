@@ -1,5 +1,6 @@
 bridge_name: bridge__adventure_works__sales_territories
 column_data_types:
+  _hook__epoch__date: binary
   _hook__territory__sales: binary
   _pit_hook__bridge: binary
   _pit_hook__reference__country_region: binary
@@ -9,9 +10,10 @@ column_data_types:
   bridge__record_updated_at: timestamp
   bridge__record_valid_from: timestamp
   bridge__record_valid_to: timestamp
-  event__sales_territory__modified: date
+  event__sales_territory__modified: boolean
   peripheral: text
 column_descriptions:
+  _hook__epoch__date: Hook to the concept epoch, with qualifier date.
   _hook__territory__sales: Hook to the concept territory, with qualifier sales
   _pit_hook__bridge: Point-in-time hook for the bridge record.
   _pit_hook__reference__country_region: Point-in-time hook to the concept reference,
@@ -38,9 +40,10 @@ columns:
 - bridge__record_valid_to
 - peripheral
 - event__sales_territory__modified
+- _hook__epoch__date
 date_columns:
-- sales_territory__modified_date
+  sales_territory__modified_date: event__sales_territory__modified
 description: Event viewpoint of bridge__adventure_works__sales_territories.
+event_name: event__adventure_works__sales_territories
 hook_name: bag__adventure_works__sales_territories
-name: event__adventure_works__sales_territories
 primary_pit_hook: _pit_hook__territory__sales

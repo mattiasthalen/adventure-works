@@ -7,12 +7,12 @@ def load_yaml(path: str) -> dict:
     with open(path, 'r') as file:
         return yaml.safe_load(file)
 
-def export_blueprints(blueprints: dict, output_path: str) -> None:
+def export_blueprints(blueprints: dict, output_path: str, name_field:str = "name") -> None:
 
     os.makedirs(output_path, exist_ok=True)
     
     for blueprint in blueprints:
-        name = blueprint["name"]
+        name = blueprint[name_field]
         with open(f"{output_path}/{name}.yml", "w") as f:
             yaml.dump(blueprint, f)
 
@@ -597,7 +597,7 @@ def generate_bridge_blueprints(hook_config_path: str = None) -> list:
 
     return graph_list
 
-def generade_event_blueprints(hook_blueprint_path: str, bridge_blueprint_path: str) -> list:
+def generate_event_blueprints(hook_blueprint_path: str, bridge_blueprint_path: str) -> list:
     
     hook_blueprints = import_blueprints(hook_blueprint_path)
     bridge_blueprints = import_blueprints(bridge_blueprint_path)
@@ -615,11 +615,11 @@ def generade_event_blueprints(hook_blueprint_path: str, bridge_blueprint_path: s
 
         hook_blueprint = next((hook for hook in hook_blueprints if hook["name"] == hook_name), None)
         primary_pit_hook = hook_blueprint["grain"]
-        date_columns = [col_name for col_name, col_type in hook_blueprint["column_data_types"].items() if col_type == "date"]
-        
+
         event_rename = lambda x: f"event__{x.replace("_date", "")}"
-        columns.extend([event_rename(col) for col in date_columns])
-        column_data_types.update({event_rename(col): "date" for col in date_columns})
+        date_columns = {col_name: event_rename(col_name) for col_name, col_type in hook_blueprint["column_data_types"].items() if col_type == "date"}
+        columns.extend(date_columns.values())
+        column_data_types.update({col: "boolean" for col in date_columns.values()})
 
         event_describe = lambda x: f"Flag indicating a {event_rename(x).split("__")[2]} event for this {x.split("__")[0]}."
         column_descriptions.update(
@@ -629,9 +629,13 @@ def generade_event_blueprints(hook_blueprint_path: str, bridge_blueprint_path: s
                 in date_columns
             }
         )
+        # Add date hook
+        columns.append("_hook__epoch__date")
+        column_data_types["_hook__epoch__date"] = "binary"
+        column_descriptions["_hook__epoch__date"] = "Hook to the concept epoch, with qualifier date."
 
         blueprint = {
-            "name": event_name,
+            "event_name": event_name,
             "description": f"Event viewpoint of {bridge_name}.",
             "hook_name": hook_name,
             "bridge_name": bridge_name,
@@ -644,7 +648,11 @@ def generade_event_blueprints(hook_blueprint_path: str, bridge_blueprint_path: s
 
         blueprints.append(blueprint)
 
-    export_blueprints(blueprints, "./models/blueprints/events")
+    export_blueprints(
+        blueprints,
+        name_field="event_name",
+        output_path="./models/blueprints/events"
+    )
 
     return blueprints
 
@@ -662,7 +670,7 @@ if __name__ == "__main__":
         hook_config_path="./models/hook__bags.yml"
     )
 
-    event_blueprints = generade_event_blueprints(
+    event_blueprints = generate_event_blueprints(
         hook_blueprint_path="./models/blueprints/hook",
         bridge_blueprint_path="./models/blueprints/bridges"
     )

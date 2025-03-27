@@ -1,5 +1,6 @@
 bridge_name: bridge__adventure_works__product_reviews
 column_data_types:
+  _hook__epoch__date: binary
   _hook__product_review: binary
   _pit_hook__bridge: binary
   _pit_hook__product: binary
@@ -12,10 +13,11 @@ column_data_types:
   bridge__record_updated_at: timestamp
   bridge__record_valid_from: timestamp
   bridge__record_valid_to: timestamp
-  event__product_review__modified: date
-  event__product_review__review: date
+  event__product_review__modified: boolean
+  event__product_review__review: boolean
   peripheral: text
 column_descriptions:
+  _hook__epoch__date: Hook to the concept epoch, with qualifier date.
   _hook__product_review: Hook to the concept product_review
   _pit_hook__bridge: Point-in-time hook for the bridge record.
   _pit_hook__product: Point-in-time hook to the concept product
@@ -49,10 +51,11 @@ columns:
 - peripheral
 - event__product_review__modified
 - event__product_review__review
+- _hook__epoch__date
 date_columns:
-- product_review__modified_date
-- product_review__review_date
+  product_review__modified_date: event__product_review__modified
+  product_review__review_date: event__product_review__review
 description: Event viewpoint of bridge__adventure_works__product_reviews.
+event_name: event__adventure_works__product_reviews
 hook_name: bag__adventure_works__product_reviews
-name: event__adventure_works__product_reviews
 primary_pit_hook: _pit_hook__product_review

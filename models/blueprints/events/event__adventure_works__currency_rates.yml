@@ -1,6 +1,7 @@
 bridge_name: bridge__adventure_works__currency_rates
 column_data_types:
   _hook__currency_rate: binary
+  _hook__epoch__date: binary
   _pit_hook__bridge: binary
   _pit_hook__currency_rate: binary
   bridge__is_current_record: boolean
@@ -8,11 +9,12 @@ column_data_types:
   bridge__record_updated_at: timestamp
   bridge__record_valid_from: timestamp
   bridge__record_valid_to: timestamp
-  event__currency_rate__currency_rate: date
-  event__currency_rate__modified: date
+  event__currency_rate__currency_rate: boolean
+  event__currency_rate__modified: boolean
   peripheral: text
 column_descriptions:
   _hook__currency_rate: Hook to the concept currency_rate
+  _hook__epoch__date: Hook to the concept epoch, with qualifier date.
   _pit_hook__bridge: Point-in-time hook for the bridge record.
   _pit_hook__currency_rate: Point-in-time hook to the concept currency_rate
   bridge__is_current_record: Flag indicating if this is the current valid version
@@ -37,10 +39,11 @@ columns:
 - peripheral
 - event__currency_rate__currency_rate
 - event__currency_rate__modified
+- _hook__epoch__date
 date_columns:
-- currency_rate__currency_rate_date
-- currency_rate__modified_date
+  currency_rate__currency_rate_date: event__currency_rate__currency_rate
+  currency_rate__modified_date: event__currency_rate__modified
 description: Event viewpoint of bridge__adventure_works__currency_rates.
+event_name: event__adventure_works__currency_rates
 hook_name: bag__adventure_works__currency_rates
-name: event__adventure_works__currency_rates
 primary_pit_hook: _pit_hook__currency_rate

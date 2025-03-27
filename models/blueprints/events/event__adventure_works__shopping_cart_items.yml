@@ -1,5 +1,6 @@
 bridge_name: bridge__adventure_works__shopping_cart_items
 column_data_types:
+  _hook__epoch__date: binary
   _hook__shopping_cart_item: binary
   _pit_hook__bridge: binary
   _pit_hook__product: binary
@@ -12,10 +13,11 @@ column_data_types:
   bridge__record_updated_at: timestamp
   bridge__record_valid_from: timestamp
   bridge__record_valid_to: timestamp
-  event__shopping_cart_item__created: date
-  event__shopping_cart_item__modified: date
+  event__shopping_cart_item__created: boolean
+  event__shopping_cart_item__modified: boolean
   peripheral: text
 column_descriptions:
+  _hook__epoch__date: Hook to the concept epoch, with qualifier date.
   _hook__shopping_cart_item: Hook to the concept shopping_cart_item
   _pit_hook__bridge: Point-in-time hook for the bridge record.
   _pit_hook__product: Point-in-time hook to the concept product
@@ -49,10 +51,11 @@ columns:
 - peripheral
 - event__shopping_cart_item__created
 - event__shopping_cart_item__modified
+- _hook__epoch__date
 date_columns:
-- shopping_cart_item__date_created
-- shopping_cart_item__modified_date
+  shopping_cart_item__date_created: event__shopping_cart_item__created
+  shopping_cart_item__modified_date: event__shopping_cart_item__modified
 description: Event viewpoint of bridge__adventure_works__shopping_cart_items.
+event_name: event__adventure_works__shopping_cart_items
 hook_name: bag__adventure_works__shopping_cart_items
-name: event__adventure_works__shopping_cart_items
 primary_pit_hook: _pit_hook__shopping_cart_item

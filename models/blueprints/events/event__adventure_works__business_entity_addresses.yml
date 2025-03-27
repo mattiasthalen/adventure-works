@@ -1,6 +1,7 @@
 bridge_name: bridge__adventure_works__business_entity_addresses
 column_data_types:
   _hook__address: binary
+  _hook__epoch__date: binary
   _pit_hook__address: binary
   _pit_hook__bridge: binary
   _pit_hook__business_entity: binary
@@ -11,10 +12,11 @@ column_data_types:
   bridge__record_updated_at: timestamp
   bridge__record_valid_from: timestamp
   bridge__record_valid_to: timestamp
-  event__business_entity_address__modified: date
+  event__business_entity_address__modified: boolean
   peripheral: text
 column_descriptions:
   _hook__address: Hook to the concept address
+  _hook__epoch__date: Hook to the concept epoch, with qualifier date.
   _pit_hook__address: Point-in-time hook to the concept address
   _pit_hook__bridge: Point-in-time hook for the bridge record.
   _pit_hook__business_entity: Point-in-time hook to the concept business_entity
@@ -45,9 +47,10 @@ columns:
 - bridge__record_valid_to
 - peripheral
 - event__business_entity_address__modified
+- _hook__epoch__date
 date_columns:
-- business_entity_address__modified_date
+  business_entity_address__modified_date: event__business_entity_address__modified
 description: Event viewpoint of bridge__adventure_works__business_entity_addresses.
+event_name: event__adventure_works__business_entity_addresses
 hook_name: bag__adventure_works__business_entity_addresses
-name: event__adventure_works__business_entity_addresses
 primary_pit_hook: _pit_hook__address

@@ -1,5 +1,6 @@
 bridge_name: bridge__adventure_works__sales_person_quota_histories
 column_data_types:
+  _hook__epoch__date: binary
   _hook__person__sales: binary
   _pit_hook__bridge: binary
   _pit_hook__person__sales: binary
@@ -8,10 +9,11 @@ column_data_types:
   bridge__record_updated_at: timestamp
   bridge__record_valid_from: timestamp
   bridge__record_valid_to: timestamp
-  event__sales_person_quota_history__modified: date
-  event__sales_person_quota_history__quota: date
+  event__sales_person_quota_history__modified: boolean
+  event__sales_person_quota_history__quota: boolean
   peripheral: text
 column_descriptions:
+  _hook__epoch__date: Hook to the concept epoch, with qualifier date.
   _hook__person__sales: Hook to the concept person, with qualifier sales
   _pit_hook__bridge: Point-in-time hook for the bridge record.
   _pit_hook__person__sales: Point-in-time hook to the concept person, with qualifier
@@ -39,10 +41,11 @@ columns:
 - peripheral
 - event__sales_person_quota_history__modified
 - event__sales_person_quota_history__quota
+- _hook__epoch__date
 date_columns:
-- sales_person_quota_history__modified_date
-- sales_person_quota_history__quota_date
+  sales_person_quota_history__modified_date: event__sales_person_quota_history__modified
+  sales_person_quota_history__quota_date: event__sales_person_quota_history__quota
 description: Event viewpoint of bridge__adventure_works__sales_person_quota_histories.
+event_name: event__adventure_works__sales_person_quota_histories
 hook_name: bag__adventure_works__sales_person_quota_histories
-name: event__adventure_works__sales_person_quota_histories
 primary_pit_hook: _pit_hook__person__sales

@@ -1,5 +1,6 @@
 bridge_name: bridge__adventure_works__sales_order_details
 column_data_types:
+  _hook__epoch__date: binary
   _hook__order_line__sales: binary
   _pit_hook__bridge: binary
   _pit_hook__credit_card: binary
@@ -22,9 +23,10 @@ column_data_types:
   bridge__record_updated_at: timestamp
   bridge__record_valid_from: timestamp
   bridge__record_valid_to: timestamp
-  event__sales_order_detail__modified: date
+  event__sales_order_detail__modified: boolean
   peripheral: text
 column_descriptions:
+  _hook__epoch__date: Hook to the concept epoch, with qualifier date.
   _hook__order_line__sales: Hook to the concept order_line, with qualifier sales
   _pit_hook__bridge: Point-in-time hook for the bridge record.
   _pit_hook__credit_card: Point-in-time hook to the concept credit_card
@@ -82,9 +84,10 @@ columns:
 - bridge__record_valid_to
 - peripheral
 - event__sales_order_detail__modified
+- _hook__epoch__date
 date_columns:
-- sales_order_detail__modified_date
+  sales_order_detail__modified_date: event__sales_order_detail__modified
 description: Event viewpoint of bridge__adventure_works__sales_order_details.
+event_name: event__adventure_works__sales_order_details
 hook_name: bag__adventure_works__sales_order_details
-name: event__adventure_works__sales_order_details
 primary_pit_hook: _pit_hook__order_line__sales
