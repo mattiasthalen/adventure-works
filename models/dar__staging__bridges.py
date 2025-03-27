@@ -14,7 +14,6 @@ except:
 blueprints = generate_bridge_blueprints(
     hook_config_path="./models/hook__bags.yml"
 )
-export_blueprints(blueprints, "./models/blueprints/bridges")
 
 @model(
     "dar__staging.@{name}",

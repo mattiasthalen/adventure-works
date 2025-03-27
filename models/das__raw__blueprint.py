@@ -14,7 +14,6 @@ except:
 blueprints = generate_raw_blueprints(
     schema_path="./models/raw_schema.yaml"
 )
-export_blueprints(blueprints, "./models/blueprints/raw")
 
 @model(
     "das.@{name}",

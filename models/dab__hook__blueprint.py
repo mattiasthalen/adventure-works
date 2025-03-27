@@ -14,7 +14,6 @@ blueprints = generate_hook_blueprints(
     hook_config_path="./models/hook__bags.yml",
     schema_path="./models/raw_schema.yaml"
 )
-export_blueprints(blueprints, "./models/blueprints/hook")
 
 @model(
     "dab.@{name}",

@@ -62,6 +62,7 @@ def generate_raw_blueprints(schema_path: str) -> list:
         }
         
         blueprints.append(blueprint)
+        export_blueprints(blueprints, "./models/blueprints/raw")
     
     return blueprints
 
@@ -180,6 +181,8 @@ def generate_hook_blueprints(hook_config_path: str, schema_path: str) -> list:
         }
 
         blueprints.append(blueprint)
+
+    export_blueprints(blueprints, "./models/blueprints/hook")
 
     return blueprints
 
@@ -557,6 +560,9 @@ def generate_bridge_blueprints(hook_config_path: str = None) -> list:
             
         graph_list.append(node_dict)
 
+
+    export_blueprints(graph_list, "./models/blueprints/bridge")
+
     return graph_list
 
 def export_blueprints(blueprints: dict, output_path: str) -> None:
@@ -574,17 +580,11 @@ if __name__ == "__main__":
         schema_path="./models/raw_schema.yaml"
     )
 
-    export_blueprints(raw_blueprints, "./models/blueprints/raw")
-
     hook_blueprints = generate_hook_blueprints(
         hook_config_path="./models/hook__bags.yml",
         schema_path="./models/raw_schema.yaml"
     )
 
-    export_blueprints(hook_blueprints, "./models/blueprints/hook")
-
     bridge_blueprints = generate_bridge_blueprints(
         hook_config_path="./models/hook__bags.yml"
     )
-
-    export_blueprints(bridge_blueprints, "./models/blueprints/bridges")
