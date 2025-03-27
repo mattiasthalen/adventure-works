@@ -7,6 +7,39 @@ def load_yaml(path: str) -> dict:
     with open(path, 'r') as file:
         return yaml.safe_load(file)
 
+def export_blueprints(blueprints: dict, output_path: str) -> None:
+
+    os.makedirs(output_path, exist_ok=True)
+    
+    for blueprint in blueprints:
+        name = blueprint["name"]
+        with open(f"{output_path}/{name}.yml", "w") as f:
+            yaml.dump(blueprint, f)
+
+def import_blueprints(directory_path: str) -> list:
+    """Import all blueprint YAML files from a directory.
+    This is the inverse operation of export_blueprints.
+    """
+    blueprints = []
+    
+    # Check if the directory exists
+    if not os.path.isdir(directory_path):
+        print(f"Warning: Directory {directory_path} does not exist.")
+        return blueprints
+        
+    # List all files in the directory
+    for filename in os.listdir(directory_path):
+        # Check if the file is a YAML file
+        if filename.endswith(('.yml', '.yaml')):
+            file_path = os.path.join(directory_path, filename)
+            try:
+                blueprint = load_yaml(file_path)
+                blueprints.append(blueprint)
+            except Exception as e:
+                print(f"Error loading {file_path}: {e}")
+                
+    return blueprints
+
 def map_data_type_to_sql(data_type: str) -> str:
     """Map data types to appropriate SQL types."""
     type_map = {
@@ -560,22 +593,62 @@ def generate_bridge_blueprints(hook_config_path: str = None) -> list:
             
         graph_list.append(node_dict)
 
-
-    export_blueprints(graph_list, "./models/blueprints/bridge")
+    export_blueprints(graph_list, "./models/blueprints/bridges")
 
     return graph_list
 
-def export_blueprints(blueprints: dict, output_path: str) -> None:
-
-    os.makedirs(output_path, exist_ok=True)
+def generade_event_blueprints(hook_blueprint_path: str, bridge_blueprint_path: str) -> list:
     
-    for blueprint in blueprints:
-        name = blueprint["name"]
-        with open(f"{output_path}/{name}.yml", "w") as f:
-            yaml.dump(blueprint, f)
+    hook_blueprints = import_blueprints(hook_blueprint_path)
+    bridge_blueprints = import_blueprints(bridge_blueprint_path)
+
+    blueprints = []
+
+    for bridge in bridge_blueprints:
+        bridge_name = bridge["name"]
+        column_data_types = bridge["column_data_types"]
+        column_descriptions = bridge["column_descriptions"]
+        columns = [name for name in bridge["column_data_types"].keys()]
+
+        hook_name = bridge_name.replace("bridge__", "bag__")
+        event_name = bridge_name.replace("bridge__", "event__")
+
+        hook_blueprint = next((hook for hook in hook_blueprints if hook["name"] == hook_name), None)
+        primary_pit_hook = hook_blueprint["grain"]
+        date_columns = [col_name for col_name, col_type in hook_blueprint["column_data_types"].items() if col_type == "date"]
+        
+        event_rename = lambda x: f"event__{x.replace("_date", "")}"
+        columns.extend([event_rename(col) for col in date_columns])
+        column_data_types.update({event_rename(col): "date" for col in date_columns})
+
+        event_describe = lambda x: f"Flag indicating a {event_rename(x).split("__")[2]} event for this {x.split("__")[0]}."
+        column_descriptions.update(
+            {
+                event_rename(col): event_describe(col)
+                for col
+                in date_columns
+            }
+        )
+
+        blueprint = {
+            "name": event_name,
+            "description": f"Event viewpoint of {bridge_name}.",
+            "hook_name": hook_name,
+            "bridge_name": bridge_name,
+            "primary_pit_hook": primary_pit_hook,
+            "date_columns": date_columns,
+            "columns": columns,
+            "column_data_types": column_data_types,
+            "column_descriptions": column_descriptions
+        }
+
+        blueprints.append(blueprint)
+
+    export_blueprints(blueprints, "./models/blueprints/events")
+
+    return blueprints
 
 if __name__ == "__main__":
-
     raw_blueprints = generate_raw_blueprints(
         schema_path="./models/raw_schema.yaml"
     )
@@ -587,4 +660,9 @@ if __name__ == "__main__":
 
     bridge_blueprints = generate_bridge_blueprints(
         hook_config_path="./models/hook__bags.yml"
+    )
+
+    event_blueprints = generade_event_blueprints(
+        hook_blueprint_path="./models/blueprints/hook",
+        bridge_blueprint_path="./models/blueprints/bridges"
     )

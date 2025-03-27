@@ -1,0 +1,50 @@
+bridge_name: bridge__adventure_works__special_offers
+column_data_types:
+  _hook__reference__special_offer: binary
+  _pit_hook__bridge: binary
+  _pit_hook__reference__special_offer: binary
+  bridge__is_current_record: boolean
+  bridge__record_loaded_at: timestamp
+  bridge__record_updated_at: timestamp
+  bridge__record_valid_from: timestamp
+  bridge__record_valid_to: timestamp
+  event__special_offer__end: date
+  event__special_offer__modified: date
+  event__special_offer__start: date
+  peripheral: text
+column_descriptions:
+  _hook__reference__special_offer: Hook to the concept reference, with qualifier special_offer
+  _pit_hook__bridge: Point-in-time hook for the bridge record.
+  _pit_hook__reference__special_offer: Point-in-time hook to the concept reference,
+    with qualifier special_offer
+  bridge__is_current_record: Flag indicating if this is the current valid version
+    of the bridge record.
+  bridge__record_loaded_at: Timestamp when this bridge record was loaded.
+  bridge__record_updated_at: Timestamp when this bridge record was last updated.
+  bridge__record_valid_from: Timestamp from which this bridge record is valid.
+  bridge__record_valid_to: Timestamp until which this bridge record is valid.
+  event__special_offer__end: Flag indicating a end event for this special_offer.
+  event__special_offer__modified: Flag indicating a modified event for this special_offer.
+  event__special_offer__start: Flag indicating a start event for this special_offer.
+  peripheral: Name of the peripheral table the bridge record belongs to.
+columns:
+- _hook__reference__special_offer
+- _pit_hook__bridge
+- _pit_hook__reference__special_offer
+- bridge__is_current_record
+- bridge__record_loaded_at
+- bridge__record_updated_at
+- bridge__record_valid_from
+- bridge__record_valid_to
+- peripheral
+- event__special_offer__end
+- event__special_offer__modified
+- event__special_offer__start
+date_columns:
+- special_offer__end_date
+- special_offer__modified_date
+- special_offer__start_date
+description: Event viewpoint of bridge__adventure_works__special_offers.
+hook_name: bag__adventure_works__special_offers
+name: event__adventure_works__special_offers
+primary_pit_hook: _pit_hook__reference__special_offer

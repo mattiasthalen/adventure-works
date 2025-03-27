@@ -1,0 +1,60 @@
+bridge_name: bridge__adventure_works__transaction_histories
+column_data_types:
+  _hook__transaction_history: binary
+  _pit_hook__bridge: binary
+  _pit_hook__product: binary
+  _pit_hook__product_category: binary
+  _pit_hook__product_subcategory: binary
+  _pit_hook__reference__product_model: binary
+  _pit_hook__transaction_history: binary
+  bridge__is_current_record: boolean
+  bridge__record_loaded_at: timestamp
+  bridge__record_updated_at: timestamp
+  bridge__record_valid_from: timestamp
+  bridge__record_valid_to: timestamp
+  event__transaction_history__modified: date
+  event__transaction_history__transaction: date
+  peripheral: text
+column_descriptions:
+  _hook__transaction_history: Hook to the concept transaction_history
+  _pit_hook__bridge: Point-in-time hook for the bridge record.
+  _pit_hook__product: Point-in-time hook to the concept product
+  _pit_hook__product_category: Point-in-time hook to the concept product_category
+  _pit_hook__product_subcategory: Point-in-time hook to the concept product_subcategory
+  _pit_hook__reference__product_model: Point-in-time hook to the concept reference,
+    with qualifier product_model
+  _pit_hook__transaction_history: Point-in-time hook to the concept transaction_history
+  bridge__is_current_record: Flag indicating if this is the current valid version
+    of the bridge record.
+  bridge__record_loaded_at: Timestamp when this bridge record was loaded.
+  bridge__record_updated_at: Timestamp when this bridge record was last updated.
+  bridge__record_valid_from: Timestamp from which this bridge record is valid.
+  bridge__record_valid_to: Timestamp until which this bridge record is valid.
+  event__transaction_history__modified: Flag indicating a modified event for this
+    transaction_history.
+  event__transaction_history__transaction: Flag indicating a transaction event for
+    this transaction_history.
+  peripheral: Name of the peripheral table the bridge record belongs to.
+columns:
+- _hook__transaction_history
+- _pit_hook__bridge
+- _pit_hook__product
+- _pit_hook__product_category
+- _pit_hook__product_subcategory
+- _pit_hook__reference__product_model
+- _pit_hook__transaction_history
+- bridge__is_current_record
+- bridge__record_loaded_at
+- bridge__record_updated_at
+- bridge__record_valid_from
+- bridge__record_valid_to
+- peripheral
+- event__transaction_history__modified
+- event__transaction_history__transaction
+date_columns:
+- transaction_history__modified_date
+- transaction_history__transaction_date
+description: Event viewpoint of bridge__adventure_works__transaction_histories.
+hook_name: bag__adventure_works__transaction_histories
+name: event__adventure_works__transaction_histories
+primary_pit_hook: _pit_hook__transaction_history
