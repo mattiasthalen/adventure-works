@@ -84,7 +84,7 @@ dar_path = "./lakehouse/dar"
 
 # Load the bridge
 bridge_df = pl.scan_iceberg(
-    get_latest_metadata(f"{dar_path}/_bridge__as_of")
+    get_latest_metadata(f"{dar_path}/_puppini_bridge__as_of")
 ).collect().filter(
     pl.col("bridge__is_current_record") == True,
     #pl.col("peripheral").is_in(peripherals)
@@ -127,7 +127,7 @@ def create_metric_summary(df, group_by_col=None, sort_by=None):
     
     event_cols = [
         col for col in df.columns
-       if col.startswith(("event__", "measure__"))
+        if col.startswith(("event__", "measure__"))
         and not col.endswith("_modified")
     ]
     aggregations = []
@@ -150,18 +150,21 @@ def create_metric_summary(df, group_by_col=None, sort_by=None):
     if group_by_col:
         metric_df = df.group_by(group_by_col).agg(aggregations)
 
-    metric_df = metric_df.with_columns(
-        (
-            pl.col("metric__sales_order_headers_from_new_customers")
-            / pl.col("metric__sales_order_headers_placed")
-            * 100
-        ).alias("metric__sales_order_headers_from_new_customers__percentage"),
+    try:
+        metric_df = metric_df.with_columns(
+            (
+                pl.col("metric__sales_order_headers_from_new_customers")
+                / pl.col("metric__sales_order_headers_placed")
+                * 100
+            ).alias("metric__sales_order_headers_from_new_customers__percentage"),
         (
             pl.col("metric__sales_order_headers_from_returning_customers")
             / pl.col("metric__sales_order_headers_placed")
             * 100
         ).alias("metric__sales_order_headers_from_returning_customers__percentage")
     )
+    except:
+        pass
         
     metric_df = metric_df.sort(
         sort_by,
