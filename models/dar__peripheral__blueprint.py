@@ -5,9 +5,9 @@ from sqlmesh.core.model.kind import ModelKindName
 
 # Import from our blueprint module
 try:
-    from models.blueprint_generators import generate_peripheral_blueprints
+    from models._blueprint_generators import generate_peripheral_blueprints
 except:
-    from blueprint_generators import generate_peripheral_blueprints
+    from _blueprint_generators import generate_peripheral_blueprints
 
 # Generate blueprints
 blueprints = generate_peripheral_blueprints(
