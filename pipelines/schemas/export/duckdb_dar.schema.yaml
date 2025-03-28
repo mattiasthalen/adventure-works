@@ -1,5 +1,5 @@
-version: 4
-version_hash: w8uN+zkTcesuBhXhj7tL1pdIKtD1L8OWgW6YqUY4v0c=
+version: 3
+version_hash: xUptfsAv6EQPiARCuxRXavdBanfNtZxBdIXYp4VGP+8=
 engine_version: 11
 name: duckdb_dar
 tables:
@@ -47,6 +47,334 @@ tables:
     resource: _dlt_loads
     description: Created by DLT. Tracks completed loads
   addresses:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: addresses
+  address_types:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: address_types
+  bill_of_materials:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: bill_of_materials
+  business_entity_addresses:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: business_entity_addresses
+  business_entity_contacts:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: business_entity_contacts
+  contact_types:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: contact_types
+  country_regions:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: country_regions
+  credit_cards:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: credit_cards
+  cultures:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: cultures
+  currencies:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: currencies
+  currency_rates:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: currency_rates
+  customers:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: customers
+  departments:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: departments
+  email_addresses:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: email_addresses
+  employees:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: employees
+  employee_department_histories:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: employee_department_histories
+  employee_pay_histories:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: employee_pay_histories
+  illustrations:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: illustrations
+  job_candidates:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: job_candidates
+  locations:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: locations
+  persons:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: persons
+  person_phones:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: person_phones
+  phone_number_types:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: phone_number_types
+  products:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: products
+  product_categories:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: product_categories
+  product_cost_histories:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: product_cost_histories
+  product_descriptions:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: product_descriptions
+  product_inventories:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: product_inventories
+  product_list_price_histories:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: product_list_price_histories
+  product_models:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: product_models
+  product_model_illustrations:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: product_model_illustrations
+  product_photos:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: product_photos
+  product_reviews:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: product_reviews
+  product_subcategories:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: product_subcategories
+  product_vendors:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: product_vendors
+  purchase_order_details:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: purchase_order_details
+  purchase_order_headers:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: purchase_order_headers
+  sales_order_details:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: sales_order_details
+  sales_order_headers:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: sales_order_headers
+  sales_persons:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: sales_persons
+  sales_person_quota_histories:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: sales_person_quota_histories
+  sales_reasons:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: sales_reasons
+  sales_tax_rates:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: sales_tax_rates
+  sales_territories:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: sales_territories
+  sales_territory_histories:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: sales_territory_histories
+  scrap_reasons:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: scrap_reasons
+  shifts:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: shifts
+  ship_methods:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: ship_methods
+  shopping_cart_items:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: shopping_cart_items
+  special_offers:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: special_offers
+  state_provinces:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: state_provinces
+  stores:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: stores
+  transaction_histories:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: transaction_histories
+  transaction_history_archives:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: transaction_history_archives
+  unit_measures:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: unit_measures
+  vendors:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: vendors
+  work_orders:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: work_orders
+  work_order_routings:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: work_order_routings
+  _bridge__as_of:
+    columns: {}
+    write_disposition: replace
+    table_format: iceberg
+    resource: _bridge__as_of
+  _dlt_pipeline_state:
+    columns:
+      version:
+        data_type: bigint
+        nullable: false
+      engine_version:
+        data_type: bigint
+        nullable: false
+      pipeline_name:
+        data_type: text
+        nullable: false
+      state:
+        data_type: text
+        nullable: false
+      created_at:
+        data_type: timestamp
+        nullable: false
+      version_hash:
+        data_type: text
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+    write_disposition: append
+    file_format: preferred
+    resource: _dlt_pipeline_state
+    x-normalizer:
+      seen-data: true
+  adventure_works__addresses:
     columns:
       _pit_hook__address:
         data_type: text
@@ -79,7 +407,7 @@ tables:
         data_type: timestamp
         nullable: true
       address__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       address__record_valid_from:
         data_type: timestamp
@@ -103,10 +431,10 @@ tables:
         nullable: true
     write_disposition: replace
     table_format: iceberg
-    resource: addresses
+    resource: adventure_works__addresses
     x-normalizer:
       seen-data: true
-  address_types:
+  adventure_works__address_types:
     columns:
       _pit_hook__reference__address_type:
         data_type: text
@@ -130,7 +458,7 @@ tables:
         data_type: timestamp
         nullable: true
       address_type__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       address_type__record_valid_from:
         data_type: timestamp
@@ -151,10 +479,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: address_types
+    resource: adventure_works__address_types
     x-normalizer:
       seen-data: true
-  bill_of_materials:
+  adventure_works__bill_of_materials:
     columns:
       _pit_hook__bill_of_materials:
         data_type: text
@@ -187,7 +515,7 @@ tables:
         data_type: timestamp
         nullable: true
       bill_of_material__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       bill_of_material__record_valid_from:
         data_type: timestamp
@@ -214,10 +542,10 @@ tables:
         nullable: true
     write_disposition: replace
     table_format: iceberg
-    resource: bill_of_materials
+    resource: adventure_works__bill_of_materials
     x-normalizer:
       seen-data: true
-  business_entity_addresses:
+  adventure_works__business_entity_addresses:
     columns:
       _pit_hook__address:
         data_type: text
@@ -244,7 +572,7 @@ tables:
         data_type: timestamp
         nullable: true
       business_entity_address__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       business_entity_address__record_valid_from:
         data_type: timestamp
@@ -265,10 +593,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: business_entity_addresses
+    resource: adventure_works__business_entity_addresses
     x-normalizer:
       seen-data: true
-  business_entity_contacts:
+  adventure_works__business_entity_contacts:
     columns:
       _pit_hook__business_entity:
         data_type: text
@@ -295,7 +623,7 @@ tables:
         data_type: timestamp
         nullable: true
       business_entity_contact__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       business_entity_contact__record_valid_from:
         data_type: timestamp
@@ -316,10 +644,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: business_entity_contacts
+    resource: adventure_works__business_entity_contacts
     x-normalizer:
       seen-data: true
-  contact_types:
+  adventure_works__contact_types:
     columns:
       _pit_hook__reference__contact_type:
         data_type: text
@@ -340,7 +668,7 @@ tables:
         data_type: timestamp
         nullable: true
       contact_type__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       contact_type__record_valid_from:
         data_type: timestamp
@@ -361,10 +689,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: contact_types
+    resource: adventure_works__contact_types
     x-normalizer:
       seen-data: true
-  country_regions:
+  adventure_works__country_regions:
     columns:
       _pit_hook__reference__country_region:
         data_type: text
@@ -385,7 +713,7 @@ tables:
         data_type: timestamp
         nullable: true
       country_region__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       country_region__record_valid_from:
         data_type: timestamp
@@ -406,10 +734,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: country_regions
+    resource: adventure_works__country_regions
     x-normalizer:
       seen-data: true
-  credit_cards:
+  adventure_works__credit_cards:
     columns:
       _pit_hook__credit_card:
         data_type: text
@@ -439,7 +767,7 @@ tables:
         data_type: timestamp
         nullable: true
       credit_card__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       credit_card__record_valid_from:
         data_type: timestamp
@@ -460,10 +788,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: credit_cards
+    resource: adventure_works__credit_cards
     x-normalizer:
       seen-data: true
-  cultures:
+  adventure_works__cultures:
     columns:
       _pit_hook__reference__culture:
         data_type: text
@@ -484,7 +812,7 @@ tables:
         data_type: timestamp
         nullable: true
       culture__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       culture__record_valid_from:
         data_type: timestamp
@@ -505,10 +833,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: cultures
+    resource: adventure_works__cultures
     x-normalizer:
       seen-data: true
-  currencies:
+  adventure_works__currencies:
     columns:
       _pit_hook__currency:
         data_type: text
@@ -529,7 +857,7 @@ tables:
         data_type: timestamp
         nullable: true
       currency__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       currency__record_valid_from:
         data_type: timestamp
@@ -550,10 +878,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: currencies
+    resource: adventure_works__currencies
     x-normalizer:
       seen-data: true
-  currency_rates:
+  adventure_works__currency_rates:
     columns:
       _pit_hook__currency_rate:
         data_type: text
@@ -586,7 +914,7 @@ tables:
         data_type: timestamp
         nullable: true
       currency_rate__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       currency_rate__record_valid_from:
         data_type: timestamp
@@ -607,10 +935,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: currency_rates
+    resource: adventure_works__currency_rates
     x-normalizer:
       seen-data: true
-  customers:
+  adventure_works__customers:
     columns:
       _pit_hook__customer:
         data_type: text
@@ -640,7 +968,7 @@ tables:
         data_type: timestamp
         nullable: true
       customer__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       customer__record_valid_from:
         data_type: timestamp
@@ -664,10 +992,10 @@ tables:
         nullable: true
     write_disposition: replace
     table_format: iceberg
-    resource: customers
+    resource: adventure_works__customers
     x-normalizer:
       seen-data: true
-  departments:
+  adventure_works__departments:
     columns:
       _pit_hook__department:
         data_type: text
@@ -691,7 +1019,7 @@ tables:
         data_type: timestamp
         nullable: true
       department__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       department__record_valid_from:
         data_type: timestamp
@@ -712,10 +1040,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: departments
+    resource: adventure_works__departments
     x-normalizer:
       seen-data: true
-  email_addresses:
+  adventure_works__email_addresses:
     columns:
       _pit_hook__person__individual:
         data_type: text
@@ -742,7 +1070,7 @@ tables:
         data_type: timestamp
         nullable: true
       email_address__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       email_address__record_valid_from:
         data_type: timestamp
@@ -763,10 +1091,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: email_addresses
+    resource: adventure_works__email_addresses
     x-normalizer:
       seen-data: true
-  employees:
+  adventure_works__employees:
     columns:
       _pit_hook__person__employee:
         data_type: text
@@ -810,11 +1138,11 @@ tables:
       employee__rowguid:
         data_type: text
         nullable: true
-      employee__organization_level:
-        data_type: bigint
-        nullable: true
       employee__modified_date:
         data_type: timestamp
+        nullable: true
+      employee__organization_level:
+        data_type: bigint
         nullable: true
       employee__record_loaded_at:
         data_type: timestamp
@@ -823,7 +1151,7 @@ tables:
         data_type: timestamp
         nullable: true
       employee__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       employee__record_valid_from:
         data_type: timestamp
@@ -844,10 +1172,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: employees
+    resource: adventure_works__employees
     x-normalizer:
       seen-data: true
-  employee_department_histories:
+  adventure_works__employee_department_histories:
     columns:
       _pit_hook__employee_department_history:
         data_type: text
@@ -864,10 +1192,10 @@ tables:
       employee_department_history__start_date:
         data_type: timestamp
         nullable: true
-      employee_department_history__end_date:
+      employee_department_history__modified_date:
         data_type: timestamp
         nullable: true
-      employee_department_history__modified_date:
+      employee_department_history__end_date:
         data_type: timestamp
         nullable: true
       employee_department_history__record_loaded_at:
@@ -877,7 +1205,7 @@ tables:
         data_type: timestamp
         nullable: true
       employee_department_history__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       employee_department_history__record_valid_from:
         data_type: timestamp
@@ -898,10 +1226,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: employee_department_histories
+    resource: adventure_works__employee_department_histories
     x-normalizer:
       seen-data: true
-  employee_pay_histories:
+  adventure_works__employee_pay_histories:
     columns:
       _pit_hook__employee_pay_history:
         data_type: text
@@ -928,7 +1256,7 @@ tables:
         data_type: timestamp
         nullable: true
       employee_pay_history__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       employee_pay_history__record_valid_from:
         data_type: timestamp
@@ -949,10 +1277,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: employee_pay_histories
+    resource: adventure_works__employee_pay_histories
     x-normalizer:
       seen-data: true
-  illustrations:
+  adventure_works__illustrations:
     columns:
       _pit_hook__reference__illustration:
         data_type: text
@@ -973,7 +1301,7 @@ tables:
         data_type: timestamp
         nullable: true
       illustration__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       illustration__record_valid_from:
         data_type: timestamp
@@ -994,10 +1322,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: illustrations
+    resource: adventure_works__illustrations
     x-normalizer:
       seen-data: true
-  job_candidates:
+  adventure_works__job_candidates:
     columns:
       _pit_hook__job_candidate:
         data_type: text
@@ -1007,9 +1335,6 @@ tables:
         nullable: true
       job_candidate__resume:
         data_type: text
-        nullable: true
-      job_candidate__business_entity_id:
-        data_type: bigint
         nullable: true
       job_candidate__modified_date:
         data_type: timestamp
@@ -1021,7 +1346,7 @@ tables:
         data_type: timestamp
         nullable: true
       job_candidate__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       job_candidate__record_valid_from:
         data_type: timestamp
@@ -1040,12 +1365,15 @@ tables:
         nullable: false
         unique: true
         row_key: true
+      job_candidate__business_entity_id:
+        data_type: bigint
+        nullable: true
     write_disposition: replace
     table_format: iceberg
-    resource: job_candidates
+    resource: adventure_works__job_candidates
     x-normalizer:
       seen-data: true
-  locations:
+  adventure_works__locations:
     columns:
       _pit_hook__reference__location:
         data_type: text
@@ -1072,7 +1400,7 @@ tables:
         data_type: timestamp
         nullable: true
       location__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       location__record_valid_from:
         data_type: timestamp
@@ -1093,10 +1421,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: locations
+    resource: adventure_works__locations
     x-normalizer:
       seen-data: true
-  persons:
+  adventure_works__persons:
     columns:
       _pit_hook__person__individual:
         data_type: text
@@ -1138,7 +1466,7 @@ tables:
         data_type: timestamp
         nullable: true
       person__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       person__record_valid_from:
         data_type: timestamp
@@ -1168,10 +1496,10 @@ tables:
         nullable: true
     write_disposition: replace
     table_format: iceberg
-    resource: persons
+    resource: adventure_works__persons
     x-normalizer:
       seen-data: true
-  person_phones:
+  adventure_works__person_phones:
     columns:
       _pit_hook__person__individual:
         data_type: text
@@ -1195,7 +1523,7 @@ tables:
         data_type: timestamp
         nullable: true
       person_phone__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       person_phone__record_valid_from:
         data_type: timestamp
@@ -1216,10 +1544,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: person_phones
+    resource: adventure_works__person_phones
     x-normalizer:
       seen-data: true
-  phone_number_types:
+  adventure_works__phone_number_types:
     columns:
       _pit_hook__reference__phone_number_type:
         data_type: text
@@ -1240,7 +1568,7 @@ tables:
         data_type: timestamp
         nullable: true
       phone_number_type__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       phone_number_type__record_valid_from:
         data_type: timestamp
@@ -1261,10 +1589,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: phone_number_types
+    resource: adventure_works__phone_number_types
     x-normalizer:
       seen-data: true
-  products:
+  adventure_works__products:
     columns:
       _pit_hook__product:
         data_type: text
@@ -1308,6 +1636,9 @@ tables:
       product__modified_date:
         data_type: timestamp
         nullable: true
+      product__color:
+        data_type: text
+        nullable: true
       product__record_loaded_at:
         data_type: timestamp
         nullable: true
@@ -1315,7 +1646,7 @@ tables:
         data_type: timestamp
         nullable: true
       product__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       product__record_valid_from:
         data_type: timestamp
@@ -1337,15 +1668,6 @@ tables:
       product__class:
         data_type: text
         nullable: true
-      product__weight_unit_measure_code:
-        data_type: text
-        nullable: true
-      product__weight:
-        data_type: double
-        nullable: true
-      product__color:
-        data_type: text
-        nullable: true
       product__size:
         data_type: text
         nullable: true
@@ -1361,18 +1683,24 @@ tables:
       product__product_model_id:
         data_type: bigint
         nullable: true
-      product__sell_end_date:
-        data_type: timestamp
+      product__weight_unit_measure_code:
+        data_type: text
+        nullable: true
+      product__weight:
+        data_type: double
         nullable: true
       product__size_unit_measure_code:
         data_type: text
         nullable: true
+      product__sell_end_date:
+        data_type: timestamp
+        nullable: true
     write_disposition: replace
     table_format: iceberg
-    resource: products
+    resource: adventure_works__products
     x-normalizer:
       seen-data: true
-  product_categories:
+  adventure_works__product_categories:
     columns:
       _pit_hook__product_category:
         data_type: text
@@ -1396,7 +1724,7 @@ tables:
         data_type: timestamp
         nullable: true
       product_category__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       product_category__record_valid_from:
         data_type: timestamp
@@ -1417,10 +1745,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: product_categories
+    resource: adventure_works__product_categories
     x-normalizer:
       seen-data: true
-  product_cost_histories:
+  adventure_works__product_cost_histories:
     columns:
       _pit_hook__product_cost_history:
         data_type: text
@@ -1429,6 +1757,9 @@ tables:
         data_type: bigint
         nullable: true
       product_cost_history__start_date:
+        data_type: timestamp
+        nullable: true
+      product_cost_history__end_date:
         data_type: timestamp
         nullable: true
       product_cost_history__standard_cost:
@@ -1444,7 +1775,7 @@ tables:
         data_type: timestamp
         nullable: true
       product_cost_history__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       product_cost_history__record_valid_from:
         data_type: timestamp
@@ -1463,15 +1794,12 @@ tables:
         nullable: false
         unique: true
         row_key: true
-      product_cost_history__end_date:
-        data_type: timestamp
-        nullable: true
     write_disposition: replace
     table_format: iceberg
-    resource: product_cost_histories
+    resource: adventure_works__product_cost_histories
     x-normalizer:
       seen-data: true
-  product_descriptions:
+  adventure_works__product_descriptions:
     columns:
       _pit_hook__reference__product_description:
         data_type: text
@@ -1495,7 +1823,7 @@ tables:
         data_type: timestamp
         nullable: true
       product_description__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       product_description__record_valid_from:
         data_type: timestamp
@@ -1516,10 +1844,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: product_descriptions
+    resource: adventure_works__product_descriptions
     x-normalizer:
       seen-data: true
-  product_inventories:
+  adventure_works__product_inventories:
     columns:
       _pit_hook__reference__product_location:
         data_type: text
@@ -1552,7 +1880,7 @@ tables:
         data_type: timestamp
         nullable: true
       product_inventory__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       product_inventory__record_valid_from:
         data_type: timestamp
@@ -1573,10 +1901,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: product_inventories
+    resource: adventure_works__product_inventories
     x-normalizer:
       seen-data: true
-  product_list_price_histories:
+  adventure_works__product_list_price_histories:
     columns:
       _pit_hook__product_list_price_history:
         data_type: text
@@ -1585,6 +1913,9 @@ tables:
         data_type: bigint
         nullable: true
       product_list_price_history__start_date:
+        data_type: timestamp
+        nullable: true
+      product_list_price_history__end_date:
         data_type: timestamp
         nullable: true
       product_list_price_history__list_price:
@@ -1600,7 +1931,7 @@ tables:
         data_type: timestamp
         nullable: true
       product_list_price_history__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       product_list_price_history__record_valid_from:
         data_type: timestamp
@@ -1619,15 +1950,12 @@ tables:
         nullable: false
         unique: true
         row_key: true
-      product_list_price_history__end_date:
-        data_type: timestamp
-        nullable: true
     write_disposition: replace
     table_format: iceberg
-    resource: product_list_price_histories
+    resource: adventure_works__product_list_price_histories
     x-normalizer:
       seen-data: true
-  product_models:
+  adventure_works__product_models:
     columns:
       _pit_hook__reference__product_model:
         data_type: text
@@ -1641,9 +1969,6 @@ tables:
       product_model__rowguid:
         data_type: text
         nullable: true
-      product_model__instructions:
-        data_type: text
-        nullable: true
       product_model__modified_date:
         data_type: timestamp
         nullable: true
@@ -1654,7 +1979,7 @@ tables:
         data_type: timestamp
         nullable: true
       product_model__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       product_model__record_valid_from:
         data_type: timestamp
@@ -1676,12 +2001,15 @@ tables:
       product_model__catalog_description:
         data_type: text
         nullable: true
+      product_model__instructions:
+        data_type: text
+        nullable: true
     write_disposition: replace
     table_format: iceberg
-    resource: product_models
+    resource: adventure_works__product_models
     x-normalizer:
       seen-data: true
-  product_model_illustrations:
+  adventure_works__product_model_illustrations:
     columns:
       _pit_hook__product_model_illustration:
         data_type: text
@@ -1702,7 +2030,7 @@ tables:
         data_type: timestamp
         nullable: true
       product_model_illustration__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       product_model_illustration__record_valid_from:
         data_type: timestamp
@@ -1723,10 +2051,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: product_model_illustrations
+    resource: adventure_works__product_model_illustrations
     x-normalizer:
       seen-data: true
-  product_photos:
+  adventure_works__product_photos:
     columns:
       _pit_hook__reference__product_photo:
         data_type: text
@@ -1756,7 +2084,7 @@ tables:
         data_type: timestamp
         nullable: true
       product_photo__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       product_photo__record_valid_from:
         data_type: timestamp
@@ -1777,10 +2105,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: product_photos
+    resource: adventure_works__product_photos
     x-normalizer:
       seen-data: true
-  product_reviews:
+  adventure_works__product_reviews:
     columns:
       _pit_hook__product_review:
         data_type: text
@@ -1816,7 +2144,7 @@ tables:
         data_type: timestamp
         nullable: true
       product_review__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       product_review__record_valid_from:
         data_type: timestamp
@@ -1837,10 +2165,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: product_reviews
+    resource: adventure_works__product_reviews
     x-normalizer:
       seen-data: true
-  product_subcategories:
+  adventure_works__product_subcategories:
     columns:
       _pit_hook__product_subcategory:
         data_type: text
@@ -1867,7 +2195,7 @@ tables:
         data_type: timestamp
         nullable: true
       product_subcategory__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       product_subcategory__record_valid_from:
         data_type: timestamp
@@ -1888,10 +2216,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: product_subcategories
+    resource: adventure_works__product_subcategories
     x-normalizer:
       seen-data: true
-  product_vendors:
+  adventure_works__product_vendors:
     columns:
       _pit_hook__product_vendor:
         data_type: text
@@ -1933,7 +2261,7 @@ tables:
         data_type: timestamp
         nullable: true
       product_vendor__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       product_vendor__record_valid_from:
         data_type: timestamp
@@ -1957,10 +2285,10 @@ tables:
         nullable: true
     write_disposition: replace
     table_format: iceberg
-    resource: product_vendors
+    resource: adventure_works__product_vendors
     x-normalizer:
       seen-data: true
-  purchase_order_details:
+  adventure_works__purchase_order_details:
     columns:
       _pit_hook__order_line__purchase:
         data_type: text
@@ -2005,7 +2333,7 @@ tables:
         data_type: timestamp
         nullable: true
       purchase_order_detail__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       purchase_order_detail__record_valid_from:
         data_type: timestamp
@@ -2026,10 +2354,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: purchase_order_details
+    resource: adventure_works__purchase_order_details
     x-normalizer:
       seen-data: true
-  purchase_order_headers:
+  adventure_works__purchase_order_headers:
     columns:
       _pit_hook__order__purchase:
         data_type: text
@@ -2080,7 +2408,7 @@ tables:
         data_type: timestamp
         nullable: true
       purchase_order_header__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       purchase_order_header__record_valid_from:
         data_type: timestamp
@@ -2101,10 +2429,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: purchase_order_headers
+    resource: adventure_works__purchase_order_headers
     x-normalizer:
       seen-data: true
-  sales_order_details:
+  adventure_works__sales_order_details:
     columns:
       _pit_hook__order_line__sales:
         data_type: text
@@ -2146,7 +2474,7 @@ tables:
         data_type: timestamp
         nullable: true
       sales_order_detail__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       sales_order_detail__record_valid_from:
         data_type: timestamp
@@ -2170,10 +2498,10 @@ tables:
         nullable: true
     write_disposition: replace
     table_format: iceberg
-    resource: sales_order_details
+    resource: adventure_works__sales_order_details
     x-normalizer:
       seen-data: true
-  sales_order_headers:
+  adventure_works__sales_order_headers:
     columns:
       _pit_hook__order__sales:
         data_type: text
@@ -2250,6 +2578,9 @@ tables:
       sales_order_header__modified_date:
         data_type: timestamp
         nullable: true
+      sales_order_header__currency_rate_id:
+        data_type: bigint
+        nullable: true
       sales_order_header__record_loaded_at:
         data_type: timestamp
         nullable: true
@@ -2257,7 +2588,7 @@ tables:
         data_type: timestamp
         nullable: true
       sales_order_header__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       sales_order_header__record_valid_from:
         data_type: timestamp
@@ -2276,21 +2607,12 @@ tables:
         nullable: false
         unique: true
         row_key: true
-      sales_order_header__currency_rate_id:
-        data_type: bigint
-        nullable: true
-      sales_order_header__customer_order_sequence:
-        data_type: bigint
-        nullable: true
-      sales_order_header__first_order:
-        data_type: bool
-        nullable: true
     write_disposition: replace
     table_format: iceberg
-    resource: sales_order_headers
+    resource: adventure_works__sales_order_headers
     x-normalizer:
       seen-data: true
-  sales_persons:
+  adventure_works__sales_persons:
     columns:
       _pit_hook__person__sales:
         data_type: text
@@ -2323,7 +2645,7 @@ tables:
         data_type: timestamp
         nullable: true
       sales_person__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       sales_person__record_valid_from:
         data_type: timestamp
@@ -2350,10 +2672,10 @@ tables:
         nullable: true
     write_disposition: replace
     table_format: iceberg
-    resource: sales_persons
+    resource: adventure_works__sales_persons
     x-normalizer:
       seen-data: true
-  sales_person_quota_histories:
+  adventure_works__sales_person_quota_histories:
     columns:
       _pit_hook__person__sales:
         data_type: text
@@ -2380,7 +2702,7 @@ tables:
         data_type: timestamp
         nullable: true
       sales_person_quota_history__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       sales_person_quota_history__record_valid_from:
         data_type: timestamp
@@ -2401,10 +2723,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: sales_person_quota_histories
+    resource: adventure_works__sales_person_quota_histories
     x-normalizer:
       seen-data: true
-  sales_reasons:
+  adventure_works__sales_reasons:
     columns:
       _pit_hook__reference__sales_reason:
         data_type: text
@@ -2428,7 +2750,7 @@ tables:
         data_type: timestamp
         nullable: true
       sales_reason__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       sales_reason__record_valid_from:
         data_type: timestamp
@@ -2449,10 +2771,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: sales_reasons
+    resource: adventure_works__sales_reasons
     x-normalizer:
       seen-data: true
-  sales_tax_rates:
+  adventure_works__sales_tax_rates:
     columns:
       _pit_hook__reference__sales_tax_rate:
         data_type: text
@@ -2485,7 +2807,7 @@ tables:
         data_type: timestamp
         nullable: true
       sales_tax_rate__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       sales_tax_rate__record_valid_from:
         data_type: timestamp
@@ -2506,10 +2828,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: sales_tax_rates
+    resource: adventure_works__sales_tax_rates
     x-normalizer:
       seen-data: true
-  sales_territories:
+  adventure_works__sales_territories:
     columns:
       _pit_hook__territory__sales:
         data_type: text
@@ -2551,7 +2873,7 @@ tables:
         data_type: timestamp
         nullable: true
       sales_territory__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       sales_territory__record_valid_from:
         data_type: timestamp
@@ -2572,10 +2894,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: sales_territories
+    resource: adventure_works__sales_territories
     x-normalizer:
       seen-data: true
-  sales_territory_histories:
+  adventure_works__sales_territory_histories:
     columns:
       _pit_hook__person__sales:
         data_type: text
@@ -2602,7 +2924,7 @@ tables:
         data_type: timestamp
         nullable: true
       sales_territory_history__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       sales_territory_history__record_valid_from:
         data_type: timestamp
@@ -2626,10 +2948,10 @@ tables:
         nullable: true
     write_disposition: replace
     table_format: iceberg
-    resource: sales_territory_histories
+    resource: adventure_works__sales_territory_histories
     x-normalizer:
       seen-data: true
-  scrap_reasons:
+  adventure_works__scrap_reasons:
     columns:
       _pit_hook__reference__scrap_reason:
         data_type: text
@@ -2650,7 +2972,7 @@ tables:
         data_type: timestamp
         nullable: true
       scrap_reason__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       scrap_reason__record_valid_from:
         data_type: timestamp
@@ -2671,10 +2993,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: scrap_reasons
+    resource: adventure_works__scrap_reasons
     x-normalizer:
       seen-data: true
-  shifts:
+  adventure_works__shifts:
     columns:
       _pit_hook__reference__shift:
         data_type: text
@@ -2701,7 +3023,7 @@ tables:
         data_type: timestamp
         nullable: true
       shift__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       shift__record_valid_from:
         data_type: timestamp
@@ -2722,10 +3044,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: shifts
+    resource: adventure_works__shifts
     x-normalizer:
       seen-data: true
-  ship_methods:
+  adventure_works__ship_methods:
     columns:
       _pit_hook__ship_method:
         data_type: text
@@ -2755,7 +3077,7 @@ tables:
         data_type: timestamp
         nullable: true
       ship_method__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       ship_method__record_valid_from:
         data_type: timestamp
@@ -2776,10 +3098,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: ship_methods
+    resource: adventure_works__ship_methods
     x-normalizer:
       seen-data: true
-  shopping_cart_items:
+  adventure_works__shopping_cart_items:
     columns:
       _pit_hook__shopping_cart_item:
         data_type: text
@@ -2797,7 +3119,7 @@ tables:
         data_type: bigint
         nullable: true
       shopping_cart_item__date_created:
-        data_type: text
+        data_type: timestamp
         nullable: true
       shopping_cart_item__modified_date:
         data_type: timestamp
@@ -2809,7 +3131,7 @@ tables:
         data_type: timestamp
         nullable: true
       shopping_cart_item__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       shopping_cart_item__record_valid_from:
         data_type: timestamp
@@ -2830,10 +3152,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: shopping_cart_items
+    resource: adventure_works__shopping_cart_items
     x-normalizer:
       seen-data: true
-  special_offers:
+  adventure_works__special_offers:
     columns:
       _pit_hook__reference__special_offer:
         data_type: text
@@ -2868,6 +3190,9 @@ tables:
       special_offer__modified_date:
         data_type: timestamp
         nullable: true
+      special_offer__maximum_quantity:
+        data_type: bigint
+        nullable: true
       special_offer__record_loaded_at:
         data_type: timestamp
         nullable: true
@@ -2875,7 +3200,7 @@ tables:
         data_type: timestamp
         nullable: true
       special_offer__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       special_offer__record_valid_from:
         data_type: timestamp
@@ -2894,15 +3219,12 @@ tables:
         nullable: false
         unique: true
         row_key: true
-      special_offer__maximum_quantity:
-        data_type: bigint
-        nullable: true
     write_disposition: replace
     table_format: iceberg
-    resource: special_offers
+    resource: adventure_works__special_offers
     x-normalizer:
       seen-data: true
-  state_provinces:
+  adventure_works__state_provinces:
     columns:
       _pit_hook__reference__state_province:
         data_type: text
@@ -2938,7 +3260,7 @@ tables:
         data_type: timestamp
         nullable: true
       state_province__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       state_province__record_valid_from:
         data_type: timestamp
@@ -2959,10 +3281,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: state_provinces
+    resource: adventure_works__state_provinces
     x-normalizer:
       seen-data: true
-  stores:
+  adventure_works__stores:
     columns:
       _pit_hook__store:
         data_type: text
@@ -2992,7 +3314,7 @@ tables:
         data_type: timestamp
         nullable: true
       store__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       store__record_valid_from:
         data_type: timestamp
@@ -3013,10 +3335,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: stores
+    resource: adventure_works__stores
     x-normalizer:
       seen-data: true
-  transaction_histories:
+  adventure_works__transaction_histories:
     columns:
       _pit_hook__transaction_history:
         data_type: text
@@ -3055,7 +3377,7 @@ tables:
         data_type: timestamp
         nullable: true
       transaction_history__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       transaction_history__record_valid_from:
         data_type: timestamp
@@ -3076,10 +3398,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: transaction_histories
+    resource: adventure_works__transaction_histories
     x-normalizer:
       seen-data: true
-  transaction_history_archives:
+  adventure_works__transaction_history_archives:
     columns:
       _pit_hook__transaction_history_archive:
         data_type: text
@@ -3118,7 +3440,7 @@ tables:
         data_type: timestamp
         nullable: true
       transaction_history_archive__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       transaction_history_archive__record_valid_from:
         data_type: timestamp
@@ -3139,10 +3461,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: transaction_history_archives
+    resource: adventure_works__transaction_history_archives
     x-normalizer:
       seen-data: true
-  unit_measures:
+  adventure_works__unit_measures:
     columns:
       _pit_hook__reference__unit_measure:
         data_type: text
@@ -3163,7 +3485,7 @@ tables:
         data_type: timestamp
         nullable: true
       unit_measure__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       unit_measure__record_valid_from:
         data_type: timestamp
@@ -3184,10 +3506,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: unit_measures
+    resource: adventure_works__unit_measures
     x-normalizer:
       seen-data: true
-  vendors:
+  adventure_works__vendors:
     columns:
       _pit_hook__vendor:
         data_type: text
@@ -3220,7 +3542,7 @@ tables:
         data_type: timestamp
         nullable: true
       vendor__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       vendor__record_valid_from:
         data_type: timestamp
@@ -3244,10 +3566,10 @@ tables:
         nullable: true
     write_disposition: replace
     table_format: iceberg
-    resource: vendors
+    resource: adventure_works__vendors
     x-normalizer:
       seen-data: true
-  work_orders:
+  adventure_works__work_orders:
     columns:
       _pit_hook__order__work:
         data_type: text
@@ -3286,7 +3608,7 @@ tables:
         data_type: timestamp
         nullable: true
       work_order__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       work_order__record_valid_from:
         data_type: timestamp
@@ -3310,10 +3632,10 @@ tables:
         nullable: true
     write_disposition: replace
     table_format: iceberg
-    resource: work_orders
+    resource: adventure_works__work_orders
     x-normalizer:
       seen-data: true
-  work_order_routings:
+  adventure_works__work_order_routings:
     columns:
       _pit_hook__work_order_routing:
         data_type: text
@@ -3361,7 +3683,7 @@ tables:
         data_type: timestamp
         nullable: true
       work_order_routing__record_version:
-        data_type: text
+        data_type: bigint
         nullable: true
       work_order_routing__record_valid_from:
         data_type: timestamp
@@ -3382,559 +3704,7 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: work_order_routings
-    x-normalizer:
-      seen-data: true
-  _bridge__as_of:
-    columns:
-      peripheral:
-        data_type: text
-        nullable: true
-      _pit_hook__bridge:
-        data_type: text
-        nullable: true
-      _pit_hook__reference__address_type:
-        data_type: text
-        nullable: true
-      _hook__epoch__date:
-        data_type: text
-        nullable: true
-      event__address_types_modified:
-        data_type: bigint
-        nullable: true
-      bridge__record_loaded_at:
-        data_type: timestamp
-        nullable: true
-      bridge__record_updated_at:
-        data_type: timestamp
-        nullable: true
-      bridge__record_valid_from:
-        data_type: timestamp
-        nullable: true
-      bridge__record_valid_to:
-        data_type: timestamp
-        nullable: true
-      bridge__is_current_record:
-        data_type: bool
-        nullable: true
-      _dlt_load_id:
-        data_type: text
-        nullable: false
-      _dlt_id:
-        data_type: text
-        nullable: false
-        unique: true
-        row_key: true
-      _pit_hook__address:
-        data_type: text
-        nullable: true
-      _pit_hook__reference__country_region:
-        data_type: text
-        nullable: true
-      _pit_hook__reference__state_province:
-        data_type: text
-        nullable: true
-      _pit_hook__territory__sales:
-        data_type: text
-        nullable: true
-      event__addresses_modified:
-        data_type: bigint
-        nullable: true
-      _pit_hook__bill_of_materials:
-        data_type: text
-        nullable: true
-      _pit_hook__reference__unit_measure:
-        data_type: text
-        nullable: true
-      event__bill_of_materials_started:
-        data_type: bigint
-        nullable: true
-      event__bill_of_materials_ended:
-        data_type: bigint
-        nullable: true
-      event__bill_of_materials_modified:
-        data_type: bigint
-        nullable: true
-      _pit_hook__business_entity:
-        data_type: text
-        nullable: true
-      _pit_hook__reference__contact_type:
-        data_type: text
-        nullable: true
-      event__business_entity_addresses_modified:
-        data_type: bigint
-        nullable: true
-      event__business_entity_contacts_modified:
-        data_type: bigint
-        nullable: true
-      event__contact_types_modified:
-        data_type: bigint
-        nullable: true
-      event__country_regions_modified:
-        data_type: bigint
-        nullable: true
-      _pit_hook__credit_card:
-        data_type: text
-        nullable: true
-      event__credit_cards_modified:
-        data_type: bigint
-        nullable: true
-      _pit_hook__reference__culture:
-        data_type: text
-        nullable: true
-      event__cultures_modified:
-        data_type: bigint
-        nullable: true
-      _pit_hook__currency:
-        data_type: text
-        nullable: true
-      event__currencies_modified:
-        data_type: bigint
-        nullable: true
-      _pit_hook__currency_rate:
-        data_type: text
-        nullable: true
-      event__currency_rates_currency_rate:
-        data_type: bigint
-        nullable: true
-      event__currency_rates_modified:
-        data_type: bigint
-        nullable: true
-      _pit_hook__customer:
-        data_type: text
-        nullable: true
-      _pit_hook__store:
-        data_type: text
-        nullable: true
-      event__customers_modified:
-        data_type: bigint
-        nullable: true
-      _pit_hook__department:
-        data_type: text
-        nullable: true
-      event__departments_modified:
-        data_type: bigint
-        nullable: true
-      _pit_hook__person__individual:
-        data_type: text
-        nullable: true
-      event__email_addresses_modified:
-        data_type: bigint
-        nullable: true
-      _pit_hook__employee_department_history:
-        data_type: text
-        nullable: true
-      _pit_hook__person__employee:
-        data_type: text
-        nullable: true
-      _pit_hook__reference__shift:
-        data_type: text
-        nullable: true
-      event__employee_department_histories_ended:
-        data_type: bigint
-        nullable: true
-      event__employee_department_histories_started:
-        data_type: bigint
-        nullable: true
-      event__employee_department_histories_modified:
-        data_type: bigint
-        nullable: true
-      _pit_hook__employee_pay_history:
-        data_type: text
-        nullable: true
-      event__employee_pay_histories_rate_change:
-        data_type: bigint
-        nullable: true
-      event__employee_pay_histories_modified:
-        data_type: bigint
-        nullable: true
-      event__employees_modified:
-        data_type: bigint
-        nullable: true
-      event__employees_hire:
-        data_type: bigint
-        nullable: true
-      event__employees_birth:
-        data_type: bigint
-        nullable: true
-      _pit_hook__reference__illustration:
-        data_type: text
-        nullable: true
-      event__illustrations_modified:
-        data_type: bigint
-        nullable: true
-      _pit_hook__job_candidate:
-        data_type: text
-        nullable: true
-      event__job_candidates_modified:
-        data_type: bigint
-        nullable: true
-      _pit_hook__reference__location:
-        data_type: text
-        nullable: true
-      event__locations_modified:
-        data_type: bigint
-        nullable: true
-      _pit_hook__reference__phone_number_type:
-        data_type: text
-        nullable: true
-      event__person_phones_modified:
-        data_type: bigint
-        nullable: true
-      event__persons_modified:
-        data_type: bigint
-        nullable: true
-      event__phone_number_types_modified:
-        data_type: bigint
-        nullable: true
-      _pit_hook__product_category:
-        data_type: text
-        nullable: true
-      event__product_categories_modified:
-        data_type: bigint
-        nullable: true
-      _pit_hook__product:
-        data_type: text
-        nullable: true
-      _pit_hook__product_cost_history:
-        data_type: text
-        nullable: true
-      _pit_hook__product_subcategory:
-        data_type: text
-        nullable: true
-      _pit_hook__reference__product_model:
-        data_type: text
-        nullable: true
-      event__product_cost_histories_ended:
-        data_type: bigint
-        nullable: true
-      event__product_cost_histories_modified:
-        data_type: bigint
-        nullable: true
-      event__product_cost_histories_started:
-        data_type: bigint
-        nullable: true
-      _pit_hook__reference__product_description:
-        data_type: text
-        nullable: true
-      event__product_descriptions_modified:
-        data_type: bigint
-        nullable: true
-      _pit_hook__reference__product_location:
-        data_type: text
-        nullable: true
-      event__product_inventories_modified:
-        data_type: bigint
-        nullable: true
-      _pit_hook__product_list_price_history:
-        data_type: text
-        nullable: true
-      event__product_list_price_histories_ended:
-        data_type: bigint
-        nullable: true
-      event__product_list_price_histories_modified:
-        data_type: bigint
-        nullable: true
-      event__product_list_price_histories_started:
-        data_type: bigint
-        nullable: true
-      _pit_hook__product_model_illustration:
-        data_type: text
-        nullable: true
-      event__product_model_illustrations_modified:
-        data_type: bigint
-        nullable: true
-      event__product_models_modified:
-        data_type: bigint
-        nullable: true
-      _pit_hook__reference__product_photo:
-        data_type: text
-        nullable: true
-      event__product_photos_modified:
-        data_type: bigint
-        nullable: true
-      _pit_hook__product_review:
-        data_type: text
-        nullable: true
-      event__product_reviews_modified:
-        data_type: bigint
-        nullable: true
-      event__product_reviews_review:
-        data_type: bigint
-        nullable: true
-      event__product_subcategories_modified:
-        data_type: bigint
-        nullable: true
-      _pit_hook__product_vendor:
-        data_type: text
-        nullable: true
-      _pit_hook__vendor:
-        data_type: text
-        nullable: true
-      event__product_vendors_last_receipt:
-        data_type: bigint
-        nullable: true
-      event__product_vendors_modified:
-        data_type: bigint
-        nullable: true
-      event__products_ended:
-        data_type: bigint
-        nullable: true
-      event__products_modified:
-        data_type: bigint
-        nullable: true
-      event__products_started:
-        data_type: bigint
-        nullable: true
-      _pit_hook__order__purchase:
-        data_type: text
-        nullable: true
-      _pit_hook__order_line__purchase:
-        data_type: text
-        nullable: true
-      _pit_hook__ship_method:
-        data_type: text
-        nullable: true
-      event__purchase_order_details_due:
-        data_type: bigint
-        nullable: true
-      event__purchase_order_details_modified:
-        data_type: bigint
-        nullable: true
-      event__purchase_order_headers_modified:
-        data_type: bigint
-        nullable: true
-      event__purchase_order_headers_shipped:
-        data_type: bigint
-        nullable: true
-      event__purchase_order_headers_placed:
-        data_type: bigint
-        nullable: true
-      _pit_hook__order__sales:
-        data_type: text
-        nullable: true
-      _pit_hook__order_line__sales:
-        data_type: text
-        nullable: true
-      _pit_hook__reference__special_offer:
-        data_type: text
-        nullable: true
-      event__sales_order_details_modified:
-        data_type: bigint
-        nullable: true
-      event__sales_order_headers_due:
-        data_type: bigint
-        nullable: true
-      event__sales_order_headers_modified:
-        data_type: bigint
-        nullable: true
-      event__sales_order_headers_shipped:
-        data_type: bigint
-        nullable: true
-      event__sales_order_headers_placed:
-        data_type: bigint
-        nullable: true
-      _pit_hook__person__sales:
-        data_type: text
-        nullable: true
-      event__sales_person_quota_histories_modified:
-        data_type: bigint
-        nullable: true
-      event__sales_person_quota_histories_quota:
-        data_type: bigint
-        nullable: true
-      event__sales_persons_modified:
-        data_type: bigint
-        nullable: true
-      _pit_hook__reference__sales_reason:
-        data_type: text
-        nullable: true
-      event__sales_reasons_modified:
-        data_type: bigint
-        nullable: true
-      _pit_hook__reference__sales_tax_rate:
-        data_type: text
-        nullable: true
-      event__sales_tax_rates_modified:
-        data_type: bigint
-        nullable: true
-      event__sales_territories_modified:
-        data_type: bigint
-        nullable: true
-      event__sales_territory_histories_started:
-        data_type: bigint
-        nullable: true
-      event__sales_territory_histories_ended:
-        data_type: bigint
-        nullable: true
-      event__sales_territory_histories_modified:
-        data_type: bigint
-        nullable: true
-      _pit_hook__reference__scrap_reason:
-        data_type: text
-        nullable: true
-      event__scrap_reasons_modified:
-        data_type: bigint
-        nullable: true
-      event__shifts_modified:
-        data_type: bigint
-        nullable: true
-      event__ship_methods_modified:
-        data_type: bigint
-        nullable: true
-      _pit_hook__shopping_cart_item:
-        data_type: text
-        nullable: true
-      event__shopping_cart_items_modified:
-        data_type: bigint
-        nullable: true
-      event__special_offers_ended:
-        data_type: bigint
-        nullable: true
-      event__special_offers_started:
-        data_type: bigint
-        nullable: true
-      event__special_offers_modified:
-        data_type: bigint
-        nullable: true
-      event__state_provinces_modified:
-        data_type: bigint
-        nullable: true
-      event__stores_modified:
-        data_type: bigint
-        nullable: true
-      _pit_hook__transaction_history:
-        data_type: text
-        nullable: true
-      event__transaction_histories_modified:
-        data_type: bigint
-        nullable: true
-      event__transaction_histories_transaction:
-        data_type: bigint
-        nullable: true
-      _pit_hook__transaction_history_archive:
-        data_type: text
-        nullable: true
-      event__transaction_history_archives_modified:
-        data_type: bigint
-        nullable: true
-      event__transaction_history_archives_transaction:
-        data_type: bigint
-        nullable: true
-      event__unit_measures_modified:
-        data_type: bigint
-        nullable: true
-      event__vendors_modified:
-        data_type: bigint
-        nullable: true
-      _pit_hook__order__work:
-        data_type: text
-        nullable: true
-      _pit_hook__work_order_routing:
-        data_type: text
-        nullable: true
-      event__work_order_routings_actual_ended:
-        data_type: bigint
-        nullable: true
-      event__work_order_routings_modified:
-        data_type: bigint
-        nullable: true
-      event__work_order_routings_scheduled_ended:
-        data_type: bigint
-        nullable: true
-      event__work_order_routings_scheduled_started:
-        data_type: bigint
-        nullable: true
-      event__work_order_routings_actual_started:
-        data_type: bigint
-        nullable: true
-      event__work_orders_ended:
-        data_type: bigint
-        nullable: true
-      event__work_orders_modified:
-        data_type: bigint
-        nullable: true
-      event__work_orders_due:
-        data_type: bigint
-        nullable: true
-      event__work_orders_started:
-        data_type: bigint
-        nullable: true
-      event__sales_order_lines_due:
-        data_type: bigint
-        nullable: true
-      measure__sales_order_line_qty_due:
-        data_type: bigint
-        nullable: true
-      measure__sales_order_line_total_due:
-        data_type: double
-        nullable: true
-      event__sales_order_lines_modified:
-        data_type: bigint
-        nullable: true
-      event__sales_order_lines_shipped:
-        data_type: bigint
-        nullable: true
-      measure__sales_order_line_qty_shipped:
-        data_type: bigint
-        nullable: true
-      measure__sales_order_line_total_shipped:
-        data_type: double
-        nullable: true
-      event__sales_order_lines_placed:
-        data_type: bigint
-        nullable: true
-      measure__sales_order_line_qty_placed:
-        data_type: bigint
-        nullable: true
-      measure__sales_order_line_total_placed:
-        data_type: double
-        nullable: true
-      measure__sales_order_headers_from_returning_customers:
-        data_type: bigint
-        nullable: true
-      measure__sales_order_headers_from_new_customers:
-        data_type: bigint
-        nullable: true
-      event__shopping_cart_items_created:
-        data_type: bigint
-        nullable: true
-    write_disposition: replace
-    table_format: iceberg
-    resource: _bridge__as_of
-    x-normalizer:
-      seen-data: true
-  _dlt_pipeline_state:
-    columns:
-      version:
-        data_type: bigint
-        nullable: false
-      engine_version:
-        data_type: bigint
-        nullable: false
-      pipeline_name:
-        data_type: text
-        nullable: false
-      state:
-        data_type: text
-        nullable: false
-      created_at:
-        data_type: timestamp
-        nullable: false
-      version_hash:
-        data_type: text
-        nullable: true
-      _dlt_load_id:
-        data_type: text
-        nullable: false
-      _dlt_id:
-        data_type: text
-        nullable: false
-        unique: true
-        row_key: true
-    write_disposition: append
-    file_format: preferred
-    resource: _dlt_pipeline_state
+    resource: adventure_works__work_order_routings
     x-normalizer:
       seen-data: true
   calendar:
@@ -4003,6 +3773,477 @@ tables:
     resource: calendar
     x-normalizer:
       seen-data: true
+  _puppini_bridge__as_of:
+    columns:
+      peripheral:
+        data_type: text
+        nullable: true
+      _pit_hook__bridge:
+        data_type: text
+        nullable: true
+      _pit_hook__address:
+        data_type: text
+        nullable: true
+      _pit_hook__bill_of_materials:
+        data_type: text
+        nullable: true
+      _pit_hook__business_entity:
+        data_type: text
+        nullable: true
+      _pit_hook__credit_card:
+        data_type: text
+        nullable: true
+      _pit_hook__currency:
+        data_type: text
+        nullable: true
+      _pit_hook__currency_rate:
+        data_type: text
+        nullable: true
+      _pit_hook__customer:
+        data_type: text
+        nullable: true
+      _pit_hook__department:
+        data_type: text
+        nullable: true
+      _pit_hook__employee_department_history:
+        data_type: text
+        nullable: true
+      _pit_hook__employee_pay_history:
+        data_type: text
+        nullable: true
+      _pit_hook__job_candidate:
+        data_type: text
+        nullable: true
+      _pit_hook__order__purchase:
+        data_type: text
+        nullable: true
+      _pit_hook__order__sales:
+        data_type: text
+        nullable: true
+      _pit_hook__order__work:
+        data_type: text
+        nullable: true
+      _pit_hook__order_line__purchase:
+        data_type: text
+        nullable: true
+      _pit_hook__order_line__sales:
+        data_type: text
+        nullable: true
+      _pit_hook__person__employee:
+        data_type: text
+        nullable: true
+      _pit_hook__person__individual:
+        data_type: text
+        nullable: true
+      _pit_hook__person__sales:
+        data_type: text
+        nullable: true
+      _pit_hook__product:
+        data_type: text
+        nullable: true
+      _pit_hook__product_category:
+        data_type: text
+        nullable: true
+      _pit_hook__product_cost_history:
+        data_type: text
+        nullable: true
+      _pit_hook__product_list_price_history:
+        data_type: text
+        nullable: true
+      _pit_hook__product_model_illustration:
+        data_type: text
+        nullable: true
+      _pit_hook__product_review:
+        data_type: text
+        nullable: true
+      _pit_hook__product_subcategory:
+        data_type: text
+        nullable: true
+      _pit_hook__product_vendor:
+        data_type: text
+        nullable: true
+      _pit_hook__reference__address_type:
+        data_type: text
+        nullable: true
+      _pit_hook__reference__contact_type:
+        data_type: text
+        nullable: true
+      _pit_hook__reference__country_region:
+        data_type: text
+        nullable: true
+      _pit_hook__reference__culture:
+        data_type: text
+        nullable: true
+      _pit_hook__reference__illustration:
+        data_type: text
+        nullable: true
+      _pit_hook__reference__location:
+        data_type: text
+        nullable: true
+      _pit_hook__reference__phone_number_type:
+        data_type: text
+        nullable: true
+      _pit_hook__reference__product_description:
+        data_type: text
+        nullable: true
+      _pit_hook__reference__product_location:
+        data_type: text
+        nullable: true
+      _pit_hook__reference__product_model:
+        data_type: text
+        nullable: true
+      _pit_hook__reference__product_photo:
+        data_type: text
+        nullable: true
+      _pit_hook__reference__sales_reason:
+        data_type: text
+        nullable: true
+      _pit_hook__reference__sales_tax_rate:
+        data_type: text
+        nullable: true
+      _pit_hook__reference__scrap_reason:
+        data_type: text
+        nullable: true
+      _pit_hook__reference__shift:
+        data_type: text
+        nullable: true
+      _pit_hook__reference__special_offer:
+        data_type: text
+        nullable: true
+      _pit_hook__reference__state_province:
+        data_type: text
+        nullable: true
+      _pit_hook__reference__unit_measure:
+        data_type: text
+        nullable: true
+      _pit_hook__ship_method:
+        data_type: text
+        nullable: true
+      _pit_hook__shopping_cart_item:
+        data_type: text
+        nullable: true
+      _pit_hook__store:
+        data_type: text
+        nullable: true
+      _pit_hook__territory__sales:
+        data_type: text
+        nullable: true
+      _pit_hook__transaction_history:
+        data_type: text
+        nullable: true
+      _pit_hook__transaction_history_archive:
+        data_type: text
+        nullable: true
+      _pit_hook__vendor:
+        data_type: text
+        nullable: true
+      _pit_hook__work_order_routing:
+        data_type: text
+        nullable: true
+      _hook__epoch__date:
+        data_type: text
+        nullable: true
+      event__product_subcategory__modified:
+        data_type: bool
+        nullable: true
+      bridge__record_loaded_at:
+        data_type: timestamp
+        nullable: true
+      bridge__record_updated_at:
+        data_type: timestamp
+        nullable: true
+      bridge__record_valid_from:
+        data_type: timestamp
+        nullable: true
+      bridge__record_valid_to:
+        data_type: timestamp
+        nullable: true
+      bridge__is_current_record:
+        data_type: bool
+        nullable: true
+      _dlt_load_id:
+        data_type: text
+        nullable: false
+      _dlt_id:
+        data_type: text
+        nullable: false
+        unique: true
+        row_key: true
+      event__scrap_reason__modified:
+        data_type: bool
+        nullable: true
+      event__product_review__modified:
+        data_type: bool
+        nullable: true
+      event__product_review__review:
+        data_type: bool
+        nullable: true
+      event__product_inventory__modified:
+        data_type: bool
+        nullable: true
+      event__store__modified:
+        data_type: bool
+        nullable: true
+      event__currency__modified:
+        data_type: bool
+        nullable: true
+      event__product_model_illustration__modified:
+        data_type: bool
+        nullable: true
+      event__sales_tax_rate__modified:
+        data_type: bool
+        nullable: true
+      event__state_province__modified:
+        data_type: bool
+        nullable: true
+      event__product_list_price_history__end:
+        data_type: bool
+        nullable: true
+      event__product_list_price_history__modified:
+        data_type: bool
+        nullable: true
+      event__address__modified:
+        data_type: bool
+        nullable: true
+      event__address_type__modified:
+        data_type: bool
+        nullable: true
+      event__customer__modified:
+        data_type: bool
+        nullable: true
+      event__sales_reason__modified:
+        data_type: bool
+        nullable: true
+      event__product_photo__modified:
+        data_type: bool
+        nullable: true
+      event__phone_number_type__modified:
+        data_type: bool
+        nullable: true
+      event__credit_card__modified:
+        data_type: bool
+        nullable: true
+      event__shift__modified:
+        data_type: bool
+        nullable: true
+      event__currency_rate__currency_rate:
+        data_type: bool
+        nullable: true
+      event__currency_rate__modified:
+        data_type: bool
+        nullable: true
+      event__person_phone__modified:
+        data_type: bool
+        nullable: true
+      event__sales_person__modified:
+        data_type: bool
+        nullable: true
+      event__product_cost_history__end:
+        data_type: bool
+        nullable: true
+      event__product_cost_history__modified:
+        data_type: bool
+        nullable: true
+      event__sales_territory_history__end:
+        data_type: bool
+        nullable: true
+      event__sales_territory_history__modified:
+        data_type: bool
+        nullable: true
+      event__sales_territory_history__start:
+        data_type: bool
+        nullable: true
+      event__work_order_routing__actual_end:
+        data_type: bool
+        nullable: true
+      event__work_order_routing__actual_start:
+        data_type: bool
+        nullable: true
+      event__work_order_routing__modified:
+        data_type: bool
+        nullable: true
+      event__work_order_routing__scheduled_end:
+        data_type: bool
+        nullable: true
+      event__work_order_routing__scheduled_start:
+        data_type: bool
+        nullable: true
+      event__email_address__modified:
+        data_type: bool
+        nullable: true
+      event__product_description__modified:
+        data_type: bool
+        nullable: true
+      event__shopping_cart_item__created:
+        data_type: bool
+        nullable: true
+      event__shopping_cart_item__modified:
+        data_type: bool
+        nullable: true
+      event__product__modified:
+        data_type: bool
+        nullable: true
+      event__product__sell_end:
+        data_type: bool
+        nullable: true
+      event__product__sell_start:
+        data_type: bool
+        nullable: true
+      event__business_entity_address__modified:
+        data_type: bool
+        nullable: true
+      event__department__modified:
+        data_type: bool
+        nullable: true
+      event__transaction_history_archive__modified:
+        data_type: bool
+        nullable: true
+      event__transaction_history_archive__transaction:
+        data_type: bool
+        nullable: true
+      event__purchase_order_detail__due:
+        data_type: bool
+        nullable: true
+      event__purchase_order_detail__modified:
+        data_type: bool
+        nullable: true
+      event__employee_department_history__end:
+        data_type: bool
+        nullable: true
+      event__employee_department_history__modified:
+        data_type: bool
+        nullable: true
+      event__product_vendor__last_receipt:
+        data_type: bool
+        nullable: true
+      event__product_vendor__modified:
+        data_type: bool
+        nullable: true
+      event__employee_pay_history__modified:
+        data_type: bool
+        nullable: true
+      event__bill_of_material__end:
+        data_type: bool
+        nullable: true
+      event__bill_of_material__modified:
+        data_type: bool
+        nullable: true
+      event__bill_of_material__start:
+        data_type: bool
+        nullable: true
+      event__product_category__modified:
+        data_type: bool
+        nullable: true
+      event__sales_person_quota_history__modified:
+        data_type: bool
+        nullable: true
+      event__sales_person_quota_history__quota:
+        data_type: bool
+        nullable: true
+      event__work_order__due:
+        data_type: bool
+        nullable: true
+      event__work_order__end:
+        data_type: bool
+        nullable: true
+      event__work_order__modified:
+        data_type: bool
+        nullable: true
+      event__work_order__start:
+        data_type: bool
+        nullable: true
+      event__product_model__modified:
+        data_type: bool
+        nullable: true
+      event__purchase_order_header__modified:
+        data_type: bool
+        nullable: true
+      event__purchase_order_header__order:
+        data_type: bool
+        nullable: true
+      event__purchase_order_header__ship:
+        data_type: bool
+        nullable: true
+      event__location__modified:
+        data_type: bool
+        nullable: true
+      event__business_entity_contact__modified:
+        data_type: bool
+        nullable: true
+      event__job_candidate__modified:
+        data_type: bool
+        nullable: true
+      event__illustration__modified:
+        data_type: bool
+        nullable: true
+      event__special_offer__end:
+        data_type: bool
+        nullable: true
+      event__special_offer__modified:
+        data_type: bool
+        nullable: true
+      event__special_offer__start:
+        data_type: bool
+        nullable: true
+      event__ship_method__modified:
+        data_type: bool
+        nullable: true
+      event__sales_order_detail__modified:
+        data_type: bool
+        nullable: true
+      event__vendor__modified:
+        data_type: bool
+        nullable: true
+      event__unit_measure__modified:
+        data_type: bool
+        nullable: true
+      event__sales_order_header__due:
+        data_type: bool
+        nullable: true
+      event__sales_order_header__modified:
+        data_type: bool
+        nullable: true
+      event__sales_order_header__order:
+        data_type: bool
+        nullable: true
+      event__sales_order_header__ship:
+        data_type: bool
+        nullable: true
+      event__transaction_history__modified:
+        data_type: bool
+        nullable: true
+      event__transaction_history__transaction:
+        data_type: bool
+        nullable: true
+      event__sales_territory__modified:
+        data_type: bool
+        nullable: true
+      event__culture__modified:
+        data_type: bool
+        nullable: true
+      event__employee__birth:
+        data_type: bool
+        nullable: true
+      event__employee__hire:
+        data_type: bool
+        nullable: true
+      event__employee__modified:
+        data_type: bool
+        nullable: true
+      event__country_region__modified:
+        data_type: bool
+        nullable: true
+      event__contact_type__modified:
+        data_type: bool
+        nullable: true
+      event__person__modified:
+        data_type: bool
+        nullable: true
+    write_disposition: replace
+    table_format: iceberg
+    resource: _puppini_bridge__as_of
+    x-normalizer:
+      seen-data: true
 settings:
   detections:
   - iso_timestamp
@@ -4026,7 +4267,6 @@ normalizers:
   json:
     module: dlt.common.normalizers.json.relational
 previous_hashes:
-- BHzrVV2rSPL327I6UYvxwlj0PYxf9E9T11GFfQp66Wc=
-- fLV0evMKNAtLTPKSWJpPa2VwzGRsoLJcFHlP3gYaF9U=
+- e8TOOpGD2fsNOympviY6xHCVecMJE01JWrwdoF4HWa4=
 - ek7waLBztHfLgsBGPzkKz5PbYJRzCPYF35rsL65XNTA=
 - C4U3fkUTtWhIQ9Jzu0YkToPogUpAohe5eR3nDAELo+U=
