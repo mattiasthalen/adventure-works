@@ -11,7 +11,7 @@ MODEL (
 WITH cte__dates AS (
   SELECT
     string_split(_hook__epoch__date::TEXT, '|')[-1]::DATE AS date
-  FROM dar._bridge__as_of
+  FROM dar._puppini_bridge__as_of
   WHERE 1 = 1
   AND _hook__epoch__date IS NOT NULL
   AND bridge__record_updated_at BETWEEN @start_dt AND @end_dt
