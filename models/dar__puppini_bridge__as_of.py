@@ -43,7 +43,8 @@ def entrypoint(evaluator: MacroEvaluator) -> str | exp.Expression:
     columns = [
         "peripheral", 
         "_pit_hook__bridge", 
-        *pit_hook_columns, 
+        *pit_hook_columns,
+        "_hook__epoch__date",
         *event_columns,
         "bridge__record_loaded_at",
         "bridge__record_updated_at",
