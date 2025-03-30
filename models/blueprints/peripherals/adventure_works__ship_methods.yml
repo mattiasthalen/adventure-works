@@ -44,5 +44,5 @@ columns:
 - ship_method__is_current_record
 description: 'Primary hook for ship_method_id using keyset: ship_method__adventure_works.'
 grain: _pit_hook__ship_method
-hook_name: bag__adventure_works__ship_methods
+hook_name: frame__adventure_works__ship_methods
 peripheral_name: adventure_works__ship_methods

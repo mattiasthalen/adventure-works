@@ -66,5 +66,5 @@ columns:
 - work_order_routing__is_current_record
 description: 'Hook for location_id using keyset: reference__location__adventure_works.'
 grain: _pit_hook__work_order_routing
-hook_name: bag__adventure_works__work_order_routings
+hook_name: frame__adventure_works__work_order_routings
 peripheral_name: adventure_works__work_order_routings

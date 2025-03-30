@@ -73,5 +73,5 @@ columns:
 - employee__is_current_record
 description: 'Primary hook for business_entity_id using keyset: person__employee__adventure_works.'
 grain: _pit_hook__person__employee
-hook_name: bag__adventure_works__employees
+hook_name: frame__adventure_works__employees
 peripheral_name: adventure_works__employees

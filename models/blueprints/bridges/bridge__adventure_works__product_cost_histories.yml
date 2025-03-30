@@ -42,4 +42,4 @@ hook: _hook__product_cost_history
 name: bridge__adventure_works__product_cost_histories
 peripheral: adventure_works__product_cost_histories
 primary_hook: _pit_hook__product_cost_history
-source_name: bag__adventure_works__product_cost_histories
+source_name: frame__adventure_works__product_cost_histories

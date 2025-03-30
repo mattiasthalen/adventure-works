@@ -27,4 +27,4 @@ hook: _hook__reference__phone_number_type
 name: bridge__adventure_works__phone_number_types
 peripheral: adventure_works__phone_number_types
 primary_hook: _pit_hook__reference__phone_number_type
-source_name: bag__adventure_works__phone_number_types
+source_name: frame__adventure_works__phone_number_types

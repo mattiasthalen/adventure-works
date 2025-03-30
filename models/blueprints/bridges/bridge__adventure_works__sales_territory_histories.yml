@@ -38,4 +38,4 @@ hook: _hook__person__sales
 name: bridge__adventure_works__sales_territory_histories
 peripheral: adventure_works__sales_territory_histories
 primary_hook: _pit_hook__person__sales
-source_name: bag__adventure_works__sales_territory_histories
+source_name: frame__adventure_works__sales_territory_histories

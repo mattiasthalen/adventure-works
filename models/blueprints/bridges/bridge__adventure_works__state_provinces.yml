@@ -43,4 +43,4 @@ hook: _hook__reference__state_province
 name: bridge__adventure_works__state_provinces
 peripheral: adventure_works__state_provinces
 primary_hook: _pit_hook__reference__state_province
-source_name: bag__adventure_works__state_provinces
+source_name: frame__adventure_works__state_provinces

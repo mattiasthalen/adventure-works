@@ -26,4 +26,4 @@ hook: _hook__person__individual
 name: bridge__adventure_works__email_addresses
 peripheral: adventure_works__email_addresses
 primary_hook: _pit_hook__person__individual
-source_name: bag__adventure_works__email_addresses
+source_name: frame__adventure_works__email_addresses

@@ -58,5 +58,5 @@ date_columns:
   product_cost_history__modified_date: event__product_cost_history__modified
 description: Event viewpoint of bridge__adventure_works__product_cost_histories.
 event_name: event__adventure_works__product_cost_histories
-hook_name: bag__adventure_works__product_cost_histories
+hook_name: frame__adventure_works__product_cost_histories
 primary_pit_hook: _pit_hook__product_cost_history

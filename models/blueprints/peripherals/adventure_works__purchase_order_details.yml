@@ -65,5 +65,5 @@ columns:
 - purchase_order_detail__is_current_record
 description: 'Hook for product_id using keyset: product__adventure_works.'
 grain: _pit_hook__order_line__purchase
-hook_name: bag__adventure_works__purchase_order_details
+hook_name: frame__adventure_works__purchase_order_details
 peripheral_name: adventure_works__purchase_order_details

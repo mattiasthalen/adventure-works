@@ -34,5 +34,5 @@ columns:
 - scrap_reason__is_current_record
 description: 'Primary hook for scrap_reason_id using keyset: reference__scrap_reason__adventure_works.'
 grain: _pit_hook__reference__scrap_reason
-hook_name: bag__adventure_works__scrap_reasons
+hook_name: frame__adventure_works__scrap_reasons
 peripheral_name: adventure_works__scrap_reasons

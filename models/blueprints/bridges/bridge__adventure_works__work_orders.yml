@@ -50,4 +50,4 @@ hook: _hook__order__work
 name: bridge__adventure_works__work_orders
 peripheral: adventure_works__work_orders
 primary_hook: _pit_hook__order__work
-source_name: bag__adventure_works__work_orders
+source_name: frame__adventure_works__work_orders

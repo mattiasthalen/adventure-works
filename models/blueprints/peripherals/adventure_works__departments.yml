@@ -37,5 +37,5 @@ columns:
 - department__is_current_record
 description: 'Primary hook for department_id using keyset: department__adventure_works.'
 grain: _pit_hook__department
-hook_name: bag__adventure_works__departments
+hook_name: frame__adventure_works__departments
 peripheral_name: adventure_works__departments

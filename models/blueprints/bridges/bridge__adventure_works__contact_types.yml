@@ -26,4 +26,4 @@ hook: _hook__reference__contact_type
 name: bridge__adventure_works__contact_types
 peripheral: adventure_works__contact_types
 primary_hook: _pit_hook__reference__contact_type
-source_name: bag__adventure_works__contact_types
+source_name: frame__adventure_works__contact_types

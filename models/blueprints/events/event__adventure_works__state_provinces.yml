@@ -50,5 +50,5 @@ date_columns:
   state_province__modified_date: event__state_province__modified
 description: Event viewpoint of bridge__adventure_works__state_provinces.
 event_name: event__adventure_works__state_provinces
-hook_name: bag__adventure_works__state_provinces
+hook_name: frame__adventure_works__state_provinces
 primary_pit_hook: _pit_hook__reference__state_province

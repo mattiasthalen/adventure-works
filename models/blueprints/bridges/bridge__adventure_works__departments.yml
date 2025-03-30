@@ -25,4 +25,4 @@ hook: _hook__department
 name: bridge__adventure_works__departments
 peripheral: adventure_works__departments
 primary_hook: _pit_hook__department
-source_name: bag__adventure_works__departments
+source_name: frame__adventure_works__departments

@@ -54,5 +54,5 @@ columns:
 - state_province__is_current_record
 description: 'Hook for territory_id using keyset: territory__sales__adventure_works.'
 grain: _pit_hook__reference__state_province
-hook_name: bag__adventure_works__state_provinces
+hook_name: frame__adventure_works__state_provinces
 peripheral_name: adventure_works__state_provinces

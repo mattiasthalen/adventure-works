@@ -41,4 +41,4 @@ hook: _hook__store
 name: bridge__adventure_works__stores
 peripheral: adventure_works__stores
 primary_hook: _pit_hook__store
-source_name: bag__adventure_works__stores
+source_name: frame__adventure_works__stores

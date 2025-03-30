@@ -45,5 +45,5 @@ date_columns:
   employee_pay_history__modified_date: event__employee_pay_history__modified
 description: Event viewpoint of bridge__adventure_works__employee_pay_histories.
 event_name: event__adventure_works__employee_pay_histories
-hook_name: bag__adventure_works__employee_pay_histories
+hook_name: frame__adventure_works__employee_pay_histories
 primary_pit_hook: _pit_hook__employee_pay_history

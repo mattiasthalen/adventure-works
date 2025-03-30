@@ -25,4 +25,4 @@ hook: _hook__currency
 name: bridge__adventure_works__currencies
 peripheral: adventure_works__currencies
 primary_hook: _pit_hook__currency
-source_name: bag__adventure_works__currencies
+source_name: frame__adventure_works__currencies

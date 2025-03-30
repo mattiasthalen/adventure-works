@@ -55,5 +55,5 @@ date_columns:
   customer__modified_date: event__customer__modified
 description: Event viewpoint of bridge__adventure_works__customers.
 event_name: event__adventure_works__customers
-hook_name: bag__adventure_works__customers
+hook_name: frame__adventure_works__customers
 primary_pit_hook: _pit_hook__customer

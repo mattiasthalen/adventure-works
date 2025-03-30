@@ -42,4 +42,4 @@ hook: _hook__transaction_history
 name: bridge__adventure_works__transaction_histories
 peripheral: adventure_works__transaction_histories
 primary_hook: _pit_hook__transaction_history
-source_name: bag__adventure_works__transaction_histories
+source_name: frame__adventure_works__transaction_histories

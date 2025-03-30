@@ -25,4 +25,4 @@ hook: _hook__ship_method
 name: bridge__adventure_works__ship_methods
 peripheral: adventure_works__ship_methods
 primary_hook: _pit_hook__ship_method
-source_name: bag__adventure_works__ship_methods
+source_name: frame__adventure_works__ship_methods

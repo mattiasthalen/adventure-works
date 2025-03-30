@@ -52,5 +52,5 @@ date_columns:
   address__modified_date: event__address__modified
 description: Event viewpoint of bridge__adventure_works__addresses.
 event_name: event__adventure_works__addresses
-hook_name: bag__adventure_works__addresses
+hook_name: frame__adventure_works__addresses
 primary_pit_hook: _pit_hook__address

@@ -43,4 +43,4 @@ hook: _hook__reference__sales_tax_rate
 name: bridge__adventure_works__sales_tax_rates
 peripheral: adventure_works__sales_tax_rates
 primary_hook: _pit_hook__reference__sales_tax_rate
-source_name: bag__adventure_works__sales_tax_rates
+source_name: frame__adventure_works__sales_tax_rates

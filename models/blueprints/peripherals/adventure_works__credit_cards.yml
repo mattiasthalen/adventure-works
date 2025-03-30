@@ -43,5 +43,5 @@ columns:
 - credit_card__is_current_record
 description: 'Primary hook for credit_card_id using keyset: credit_card__adventure_works.'
 grain: _pit_hook__credit_card
-hook_name: bag__adventure_works__credit_cards
+hook_name: frame__adventure_works__credit_cards
 peripheral_name: adventure_works__credit_cards

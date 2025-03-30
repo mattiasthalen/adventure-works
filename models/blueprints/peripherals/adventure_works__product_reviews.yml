@@ -51,5 +51,5 @@ columns:
 - product_review__is_current_record
 description: 'Hook for product_id using keyset: product__adventure_works.'
 grain: _pit_hook__product_review
-hook_name: bag__adventure_works__product_reviews
+hook_name: frame__adventure_works__product_reviews
 peripheral_name: adventure_works__product_reviews

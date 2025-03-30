@@ -40,5 +40,5 @@ columns:
 - shift__is_current_record
 description: 'Primary hook for shift_id using keyset: reference__shift__adventure_works.'
 grain: _pit_hook__reference__shift
-hook_name: bag__adventure_works__shifts
+hook_name: frame__adventure_works__shifts
 peripheral_name: adventure_works__shifts

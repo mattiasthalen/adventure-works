@@ -42,4 +42,4 @@ hook: _hook__shopping_cart_item
 name: bridge__adventure_works__shopping_cart_items
 peripheral: adventure_works__shopping_cart_items
 primary_hook: _pit_hook__shopping_cart_item
-source_name: bag__adventure_works__shopping_cart_items
+source_name: frame__adventure_works__shopping_cart_items

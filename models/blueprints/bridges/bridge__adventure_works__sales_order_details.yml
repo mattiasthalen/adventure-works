@@ -84,4 +84,4 @@ hook: _hook__order_line__sales
 name: bridge__adventure_works__sales_order_details
 peripheral: adventure_works__sales_order_details
 primary_hook: _pit_hook__order_line__sales
-source_name: bag__adventure_works__sales_order_details
+source_name: frame__adventure_works__sales_order_details

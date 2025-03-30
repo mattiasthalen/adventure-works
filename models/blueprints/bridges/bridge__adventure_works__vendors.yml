@@ -25,4 +25,4 @@ hook: _hook__vendor
 name: bridge__adventure_works__vendors
 peripheral: adventure_works__vendors
 primary_hook: _pit_hook__vendor
-source_name: bag__adventure_works__vendors
+source_name: frame__adventure_works__vendors

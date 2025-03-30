@@ -70,5 +70,5 @@ date_columns:
   work_order__start_date: event__work_order__start
 description: Event viewpoint of bridge__adventure_works__work_orders.
 event_name: event__adventure_works__work_orders
-hook_name: bag__adventure_works__work_orders
+hook_name: frame__adventure_works__work_orders
 primary_pit_hook: _pit_hook__order__work

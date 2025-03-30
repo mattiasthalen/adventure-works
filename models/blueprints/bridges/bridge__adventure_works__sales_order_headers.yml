@@ -77,4 +77,4 @@ hook: _hook__order__sales
 name: bridge__adventure_works__sales_order_headers
 peripheral: adventure_works__sales_order_headers
 primary_hook: _pit_hook__order__sales
-source_name: bag__adventure_works__sales_order_headers
+source_name: frame__adventure_works__sales_order_headers

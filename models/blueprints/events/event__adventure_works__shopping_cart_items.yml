@@ -57,5 +57,5 @@ date_columns:
   shopping_cart_item__modified_date: event__shopping_cart_item__modified
 description: Event viewpoint of bridge__adventure_works__shopping_cart_items.
 event_name: event__adventure_works__shopping_cart_items
-hook_name: bag__adventure_works__shopping_cart_items
+hook_name: frame__adventure_works__shopping_cart_items
 primary_pit_hook: _pit_hook__shopping_cart_item

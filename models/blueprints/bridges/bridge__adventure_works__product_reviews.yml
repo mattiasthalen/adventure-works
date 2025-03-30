@@ -42,4 +42,4 @@ hook: _hook__product_review
 name: bridge__adventure_works__product_reviews
 peripheral: adventure_works__product_reviews
 primary_hook: _pit_hook__product_review
-source_name: bag__adventure_works__product_reviews
+source_name: frame__adventure_works__product_reviews

@@ -46,5 +46,5 @@ columns:
 - store__is_current_record
 description: 'Hook for sales_person_id using keyset: person__sales__adventure_works.'
 grain: _pit_hook__store
-hook_name: bag__adventure_works__stores
+hook_name: frame__adventure_works__stores
 peripheral_name: adventure_works__stores

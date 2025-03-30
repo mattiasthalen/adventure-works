@@ -33,4 +33,4 @@ hook: _hook__job_candidate
 name: bridge__adventure_works__job_candidates
 peripheral: adventure_works__job_candidates
 primary_hook: _pit_hook__job_candidate
-source_name: bag__adventure_works__job_candidates
+source_name: frame__adventure_works__job_candidates

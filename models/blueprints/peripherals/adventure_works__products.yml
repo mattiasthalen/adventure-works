@@ -101,5 +101,5 @@ columns:
 - product__is_current_record
 description: 'Hook for product_model_id using keyset: reference__product_model__adventure_works.'
 grain: _pit_hook__product
-hook_name: bag__adventure_works__products
+hook_name: frame__adventure_works__products
 peripheral_name: adventure_works__products

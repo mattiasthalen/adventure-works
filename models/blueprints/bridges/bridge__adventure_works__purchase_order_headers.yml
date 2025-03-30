@@ -46,4 +46,4 @@ hook: _hook__order__purchase
 name: bridge__adventure_works__purchase_order_headers
 peripheral: adventure_works__purchase_order_headers
 primary_hook: _pit_hook__order__purchase
-source_name: bag__adventure_works__purchase_order_headers
+source_name: frame__adventure_works__purchase_order_headers

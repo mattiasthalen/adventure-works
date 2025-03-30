@@ -45,5 +45,5 @@ columns:
 - product_list_price_history__is_current_record
 description: 'Hook for start_date using keyset: epoch__date.'
 grain: _pit_hook__product_list_price_history
-hook_name: bag__adventure_works__product_list_price_histories
+hook_name: frame__adventure_works__product_list_price_histories
 peripheral_name: adventure_works__product_list_price_histories

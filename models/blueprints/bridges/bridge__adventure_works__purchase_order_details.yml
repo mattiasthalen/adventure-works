@@ -60,4 +60,4 @@ hook: _hook__order_line__purchase
 name: bridge__adventure_works__purchase_order_details
 peripheral: adventure_works__purchase_order_details
 primary_hook: _pit_hook__order_line__purchase
-source_name: bag__adventure_works__purchase_order_details
+source_name: frame__adventure_works__purchase_order_details

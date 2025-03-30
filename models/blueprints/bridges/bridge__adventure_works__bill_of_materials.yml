@@ -33,4 +33,4 @@ hook: _hook__bill_of_materials
 name: bridge__adventure_works__bill_of_materials
 peripheral: adventure_works__bill_of_materials
 primary_hook: _pit_hook__bill_of_materials
-source_name: bag__adventure_works__bill_of_materials
+source_name: frame__adventure_works__bill_of_materials

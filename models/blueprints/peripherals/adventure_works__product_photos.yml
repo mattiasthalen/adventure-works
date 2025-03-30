@@ -44,5 +44,5 @@ columns:
 - product_photo__is_current_record
 description: 'Primary hook for product_photo_id using keyset: reference__product_photo__adventure_works.'
 grain: _pit_hook__reference__product_photo
-hook_name: bag__adventure_works__product_photos
+hook_name: frame__adventure_works__product_photos
 peripheral_name: adventure_works__product_photos

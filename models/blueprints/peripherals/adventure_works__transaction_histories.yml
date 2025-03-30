@@ -57,5 +57,5 @@ columns:
 - transaction_history__is_current_record
 description: 'Hook for reference_order_id using keyset: order__adventure_works.'
 grain: _pit_hook__transaction_history
-hook_name: bag__adventure_works__transaction_histories
+hook_name: frame__adventure_works__transaction_histories
 peripheral_name: adventure_works__transaction_histories

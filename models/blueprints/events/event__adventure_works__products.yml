@@ -58,5 +58,5 @@ date_columns:
   product__sell_start_date: event__product__sell_start
 description: Event viewpoint of bridge__adventure_works__products.
 event_name: event__adventure_works__products
-hook_name: bag__adventure_works__products
+hook_name: frame__adventure_works__products
 primary_pit_hook: _pit_hook__product

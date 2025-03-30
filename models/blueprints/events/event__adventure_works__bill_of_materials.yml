@@ -52,5 +52,5 @@ date_columns:
   bill_of_material__start_date: event__bill_of_material__start
 description: Event viewpoint of bridge__adventure_works__bill_of_materials.
 event_name: event__adventure_works__bill_of_materials
-hook_name: bag__adventure_works__bill_of_materials
+hook_name: frame__adventure_works__bill_of_materials
 primary_pit_hook: _pit_hook__bill_of_materials

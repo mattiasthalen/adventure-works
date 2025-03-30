@@ -11,7 +11,7 @@ except:
 
 # Generate blueprints
 blueprints = generate_hook_blueprints(
-    hook_config_path="./models/hook__bags.yml",
+    hook_config_path="./models/hook__frames.yml",
     schema_path="./models/raw_schema.yaml"
 )
 

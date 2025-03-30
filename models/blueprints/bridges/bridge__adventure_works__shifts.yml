@@ -26,4 +26,4 @@ hook: _hook__reference__shift
 name: bridge__adventure_works__shifts
 peripheral: adventure_works__shifts
 primary_hook: _pit_hook__reference__shift
-source_name: bag__adventure_works__shifts
+source_name: frame__adventure_works__shifts

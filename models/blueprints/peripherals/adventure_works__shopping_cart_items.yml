@@ -46,5 +46,5 @@ columns:
 - shopping_cart_item__is_current_record
 description: 'Hook for product_id using keyset: product__adventure_works.'
 grain: _pit_hook__shopping_cart_item
-hook_name: bag__adventure_works__shopping_cart_items
+hook_name: frame__adventure_works__shopping_cart_items
 peripheral_name: adventure_works__shopping_cart_items

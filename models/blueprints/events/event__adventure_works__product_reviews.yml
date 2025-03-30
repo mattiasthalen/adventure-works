@@ -57,5 +57,5 @@ date_columns:
   product_review__review_date: event__product_review__review
 description: Event viewpoint of bridge__adventure_works__product_reviews.
 event_name: event__adventure_works__product_reviews
-hook_name: bag__adventure_works__product_reviews
+hook_name: frame__adventure_works__product_reviews
 primary_pit_hook: _pit_hook__product_review

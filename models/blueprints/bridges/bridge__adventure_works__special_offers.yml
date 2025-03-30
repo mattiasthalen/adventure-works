@@ -26,4 +26,4 @@ hook: _hook__reference__special_offer
 name: bridge__adventure_works__special_offers
 peripheral: adventure_works__special_offers
 primary_hook: _pit_hook__reference__special_offer
-source_name: bag__adventure_works__special_offers
+source_name: frame__adventure_works__special_offers

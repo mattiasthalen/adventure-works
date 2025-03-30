@@ -12,7 +12,7 @@ except:
 
 # Generate blueprints
 blueprints = generate_bridge_blueprints(
-    hook_config_path="./models/hook__bags.yml"
+    hook_config_path="./models/hook__frames.yml"
 )
 
 @model(

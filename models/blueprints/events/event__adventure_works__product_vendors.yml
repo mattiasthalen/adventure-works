@@ -65,5 +65,5 @@ date_columns:
   product_vendor__modified_date: event__product_vendor__modified
 description: Event viewpoint of bridge__adventure_works__product_vendors.
 event_name: event__adventure_works__product_vendors
-hook_name: bag__adventure_works__product_vendors
+hook_name: frame__adventure_works__product_vendors
 primary_pit_hook: _pit_hook__product_vendor

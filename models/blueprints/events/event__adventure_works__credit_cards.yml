@@ -40,5 +40,5 @@ date_columns:
   credit_card__modified_date: event__credit_card__modified
 description: Event viewpoint of bridge__adventure_works__credit_cards.
 event_name: event__adventure_works__credit_cards
-hook_name: bag__adventure_works__credit_cards
+hook_name: frame__adventure_works__credit_cards
 primary_pit_hook: _pit_hook__credit_card

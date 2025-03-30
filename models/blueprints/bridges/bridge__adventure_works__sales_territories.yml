@@ -34,4 +34,4 @@ hook: _hook__territory__sales
 name: bridge__adventure_works__sales_territories
 peripheral: adventure_works__sales_territories
 primary_hook: _pit_hook__territory__sales
-source_name: bag__adventure_works__sales_territories
+source_name: frame__adventure_works__sales_territories

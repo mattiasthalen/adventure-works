@@ -25,4 +25,4 @@ hook: _hook__credit_card
 name: bridge__adventure_works__credit_cards
 peripheral: adventure_works__credit_cards
 primary_hook: _pit_hook__credit_card
-source_name: bag__adventure_works__credit_cards
+source_name: frame__adventure_works__credit_cards

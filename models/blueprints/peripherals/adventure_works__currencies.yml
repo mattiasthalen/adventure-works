@@ -34,5 +34,5 @@ columns:
 - currency__is_current_record
 description: 'Primary hook for currency_code using keyset: currency__adventure_works.'
 grain: _pit_hook__currency
-hook_name: bag__adventure_works__currencies
+hook_name: frame__adventure_works__currencies
 peripheral_name: adventure_works__currencies

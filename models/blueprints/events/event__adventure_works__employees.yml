@@ -49,5 +49,5 @@ date_columns:
   employee__modified_date: event__employee__modified
 description: Event viewpoint of bridge__adventure_works__employees.
 event_name: event__adventure_works__employees
-hook_name: bag__adventure_works__employees
+hook_name: frame__adventure_works__employees
 primary_pit_hook: _pit_hook__person__employee

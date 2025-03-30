@@ -46,5 +46,5 @@ columns:
 - sales_person_quota_history__is_current_record
 description: 'Primary hook for business_entity_id using keyset: person__sales__adventure_works.'
 grain: _pit_hook__person__sales
-hook_name: bag__adventure_works__sales_person_quota_histories
+hook_name: frame__adventure_works__sales_person_quota_histories
 peripheral_name: adventure_works__sales_person_quota_histories

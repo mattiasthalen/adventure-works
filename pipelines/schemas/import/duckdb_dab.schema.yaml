@@ -46,296 +46,296 @@ tables:
     write_disposition: skip
     resource: _dlt_loads
     description: Created by DLT. Tracks completed loads
-  bag__adventure_works__addresses:
+  frame__adventure_works__addresses:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__addresses
-  bag__adventure_works__address_types:
+    resource: frame__adventure_works__addresses
+  frame__adventure_works__address_types:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__address_types
-  bag__adventure_works__bill_of_materials:
+    resource: frame__adventure_works__address_types
+  frame__adventure_works__bill_of_materials:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__bill_of_materials
-  bag__adventure_works__business_entity_addresses:
+    resource: frame__adventure_works__bill_of_materials
+  frame__adventure_works__business_entity_addresses:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__business_entity_addresses
-  bag__adventure_works__business_entity_contacts:
+    resource: frame__adventure_works__business_entity_addresses
+  frame__adventure_works__business_entity_contacts:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__business_entity_contacts
-  bag__adventure_works__contact_types:
+    resource: frame__adventure_works__business_entity_contacts
+  frame__adventure_works__contact_types:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__contact_types
-  bag__adventure_works__country_regions:
+    resource: frame__adventure_works__contact_types
+  frame__adventure_works__country_regions:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__country_regions
-  bag__adventure_works__credit_cards:
+    resource: frame__adventure_works__country_regions
+  frame__adventure_works__credit_cards:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__credit_cards
-  bag__adventure_works__cultures:
+    resource: frame__adventure_works__credit_cards
+  frame__adventure_works__cultures:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__cultures
-  bag__adventure_works__currencies:
+    resource: frame__adventure_works__cultures
+  frame__adventure_works__currencies:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__currencies
-  bag__adventure_works__currency_rates:
+    resource: frame__adventure_works__currencies
+  frame__adventure_works__currency_rates:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__currency_rates
-  bag__adventure_works__customers:
+    resource: frame__adventure_works__currency_rates
+  frame__adventure_works__customers:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__customers
-  bag__adventure_works__departments:
+    resource: frame__adventure_works__customers
+  frame__adventure_works__departments:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__departments
-  bag__adventure_works__email_addresses:
+    resource: frame__adventure_works__departments
+  frame__adventure_works__email_addresses:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__email_addresses
-  bag__adventure_works__employees:
+    resource: frame__adventure_works__email_addresses
+  frame__adventure_works__employees:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__employees
-  bag__adventure_works__employee_department_histories:
+    resource: frame__adventure_works__employees
+  frame__adventure_works__employee_department_histories:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__employee_department_histories
-  bag__adventure_works__employee_pay_histories:
+    resource: frame__adventure_works__employee_department_histories
+  frame__adventure_works__employee_pay_histories:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__employee_pay_histories
-  bag__adventure_works__illustrations:
+    resource: frame__adventure_works__employee_pay_histories
+  frame__adventure_works__illustrations:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__illustrations
-  bag__adventure_works__job_candidates:
+    resource: frame__adventure_works__illustrations
+  frame__adventure_works__job_candidates:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__job_candidates
-  bag__adventure_works__locations:
+    resource: frame__adventure_works__job_candidates
+  frame__adventure_works__locations:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__locations
-  bag__adventure_works__persons:
+    resource: frame__adventure_works__locations
+  frame__adventure_works__persons:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__persons
-  bag__adventure_works__person_phones:
+    resource: frame__adventure_works__persons
+  frame__adventure_works__person_phones:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__person_phones
-  bag__adventure_works__phone_number_types:
+    resource: frame__adventure_works__person_phones
+  frame__adventure_works__phone_number_types:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__phone_number_types
-  bag__adventure_works__products:
+    resource: frame__adventure_works__phone_number_types
+  frame__adventure_works__products:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__products
-  bag__adventure_works__product_categories:
+    resource: frame__adventure_works__products
+  frame__adventure_works__product_categories:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__product_categories
-  bag__adventure_works__product_cost_histories:
+    resource: frame__adventure_works__product_categories
+  frame__adventure_works__product_cost_histories:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__product_cost_histories
-  bag__adventure_works__product_descriptions:
+    resource: frame__adventure_works__product_cost_histories
+  frame__adventure_works__product_descriptions:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__product_descriptions
-  bag__adventure_works__product_inventories:
+    resource: frame__adventure_works__product_descriptions
+  frame__adventure_works__product_inventories:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__product_inventories
-  bag__adventure_works__product_list_price_histories:
+    resource: frame__adventure_works__product_inventories
+  frame__adventure_works__product_list_price_histories:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__product_list_price_histories
-  bag__adventure_works__product_models:
+    resource: frame__adventure_works__product_list_price_histories
+  frame__adventure_works__product_models:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__product_models
-  bag__adventure_works__product_model_illustrations:
+    resource: frame__adventure_works__product_models
+  frame__adventure_works__product_model_illustrations:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__product_model_illustrations
-  bag__adventure_works__product_photos:
+    resource: frame__adventure_works__product_model_illustrations
+  frame__adventure_works__product_photos:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__product_photos
-  bag__adventure_works__product_reviews:
+    resource: frame__adventure_works__product_photos
+  frame__adventure_works__product_reviews:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__product_reviews
-  bag__adventure_works__product_subcategories:
+    resource: frame__adventure_works__product_reviews
+  frame__adventure_works__product_subcategories:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__product_subcategories
-  bag__adventure_works__product_vendors:
+    resource: frame__adventure_works__product_subcategories
+  frame__adventure_works__product_vendors:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__product_vendors
-  bag__adventure_works__purchase_order_details:
+    resource: frame__adventure_works__product_vendors
+  frame__adventure_works__purchase_order_details:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__purchase_order_details
-  bag__adventure_works__purchase_order_headers:
+    resource: frame__adventure_works__purchase_order_details
+  frame__adventure_works__purchase_order_headers:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__purchase_order_headers
-  bag__adventure_works__sales_order_details:
+    resource: frame__adventure_works__purchase_order_headers
+  frame__adventure_works__sales_order_details:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__sales_order_details
-  bag__adventure_works__sales_order_headers:
+    resource: frame__adventure_works__sales_order_details
+  frame__adventure_works__sales_order_headers:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__sales_order_headers
-  bag__adventure_works__sales_persons:
+    resource: frame__adventure_works__sales_order_headers
+  frame__adventure_works__sales_persons:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__sales_persons
-  bag__adventure_works__sales_person_quota_histories:
+    resource: frame__adventure_works__sales_persons
+  frame__adventure_works__sales_person_quota_histories:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__sales_person_quota_histories
-  bag__adventure_works__sales_reasons:
+    resource: frame__adventure_works__sales_person_quota_histories
+  frame__adventure_works__sales_reasons:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__sales_reasons
-  bag__adventure_works__sales_tax_rates:
+    resource: frame__adventure_works__sales_reasons
+  frame__adventure_works__sales_tax_rates:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__sales_tax_rates
-  bag__adventure_works__sales_territories:
+    resource: frame__adventure_works__sales_tax_rates
+  frame__adventure_works__sales_territories:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__sales_territories
-  bag__adventure_works__sales_territory_histories:
+    resource: frame__adventure_works__sales_territories
+  frame__adventure_works__sales_territory_histories:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__sales_territory_histories
-  bag__adventure_works__scrap_reasons:
+    resource: frame__adventure_works__sales_territory_histories
+  frame__adventure_works__scrap_reasons:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__scrap_reasons
-  bag__adventure_works__shifts:
+    resource: frame__adventure_works__scrap_reasons
+  frame__adventure_works__shifts:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__shifts
-  bag__adventure_works__ship_methods:
+    resource: frame__adventure_works__shifts
+  frame__adventure_works__ship_methods:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__ship_methods
-  bag__adventure_works__shopping_cart_items:
+    resource: frame__adventure_works__ship_methods
+  frame__adventure_works__shopping_cart_items:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__shopping_cart_items
-  bag__adventure_works__special_offers:
+    resource: frame__adventure_works__shopping_cart_items
+  frame__adventure_works__special_offers:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__special_offers
-  bag__adventure_works__state_provinces:
+    resource: frame__adventure_works__special_offers
+  frame__adventure_works__state_provinces:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__state_provinces
-  bag__adventure_works__stores:
+    resource: frame__adventure_works__state_provinces
+  frame__adventure_works__stores:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__stores
-  bag__adventure_works__transaction_histories:
+    resource: frame__adventure_works__stores
+  frame__adventure_works__transaction_histories:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__transaction_histories
-  bag__adventure_works__transaction_history_archives:
+    resource: frame__adventure_works__transaction_histories
+  frame__adventure_works__transaction_history_archives:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__transaction_history_archives
-  bag__adventure_works__unit_measures:
+    resource: frame__adventure_works__transaction_history_archives
+  frame__adventure_works__unit_measures:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__unit_measures
-  bag__adventure_works__vendors:
+    resource: frame__adventure_works__unit_measures
+  frame__adventure_works__vendors:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__vendors
-  bag__adventure_works__work_orders:
+    resource: frame__adventure_works__vendors
+  frame__adventure_works__work_orders:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__work_orders
-  bag__adventure_works__work_order_routings:
+    resource: frame__adventure_works__work_orders
+  frame__adventure_works__work_order_routings:
     columns: {}
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__work_order_routings
+    resource: frame__adventure_works__work_order_routings
   _dlt_pipeline_state:
     columns:
       version:

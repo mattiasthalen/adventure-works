@@ -27,4 +27,4 @@ hook: _hook__reference__product_description
 name: bridge__adventure_works__product_descriptions
 peripheral: adventure_works__product_descriptions
 primary_hook: _pit_hook__reference__product_description
-source_name: bag__adventure_works__product_descriptions
+source_name: frame__adventure_works__product_descriptions

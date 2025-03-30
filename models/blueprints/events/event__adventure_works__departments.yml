@@ -40,5 +40,5 @@ date_columns:
   department__modified_date: event__department__modified
 description: Event viewpoint of bridge__adventure_works__departments.
 event_name: event__adventure_works__departments
-hook_name: bag__adventure_works__departments
+hook_name: frame__adventure_works__departments
 primary_pit_hook: _pit_hook__department

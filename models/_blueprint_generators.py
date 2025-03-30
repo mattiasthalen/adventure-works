@@ -104,16 +104,16 @@ def generate_hook_blueprints(hook_config_path: str, schema_path: str) -> list:
     Generate a list of blueprint dictionaries for hook models from 
     the hook configuration and schema YAML files.
     """
-    bags_config = load_yaml(hook_config_path)
+    frames_config = load_yaml(hook_config_path)
     raw_schema = load_yaml(schema_path)
 
     blueprints = []
 
-    for bag in bags_config["bags"]:
-        name = bag["name"]
-        source_table = bag['source_table']
-        column_prefix = bag['column_prefix']
-        hooks = bag['hooks']
+    for frame in frames_config["frames"]:
+        name = frame["name"]
+        source_table = frame['source_table']
+        column_prefix = frame['column_prefix']
+        hooks = frame['hooks']
         schema = raw_schema["tables"][source_table]
 
         description = schema["description"]
@@ -220,52 +220,52 @@ def generate_hook_blueprints(hook_config_path: str, schema_path: str) -> list:
     return blueprints
 
 def generate_bridge_blueprints(hook_config_path: str = None) -> list:
-    bags_config = load_yaml(hook_config_path)
-    bags = bags_config["bags"]
+    frames_config = load_yaml(hook_config_path)
+    frames = frames_config["frames"]
 
     # We need to generate a DAG so that we can have a cascading inheritance of hooks
     directed_acyclical_graph = nx.DiGraph()
 
-    # We also need to keep track of the primary hook in each bag
+    # We also need to keep track of the primary hook in each frame
     primary_hooks = {}
 
-    # First we need to register each bag as a node in the DAG and capture the primary hook
-    for bag in bags:
-        bag_name = bag["name"]
+    # First we need to register each frame as a node in the DAG and capture the primary hook
+    for frame in frames:
+        frame_name = frame["name"]
 
-        directed_acyclical_graph.add_node(bag_name)
+        directed_acyclical_graph.add_node(frame_name)
 
-        primary_hook = next((hook["name"] for hook in bag["hooks"] if hook.get("primary", False)))
-        primary_hooks[bag_name] = primary_hook
+        primary_hook = next((hook["name"] for hook in frame["hooks"] if hook.get("primary", False)))
+        primary_hooks[frame_name] = primary_hook
     
-    # Then we need to register the hooks as edges - representing dependencies between bags
-    # The direction should be: A bag with a foreign hook depends on a bag where that hook is primary
-    for bag in bags:
-        from_bag = bag["name"]  # The bag containing the reference (depends on others)
+    # Then we need to register the hooks as edges - representing dependencies between frames
+    # The direction should be: A frame with a foreign hook depends on a frame where that hook is primary
+    for frame in frames:
+        from_frame = frame["name"]  # The frame containing the reference (depends on others)
         
-        for hook in bag["hooks"]:
-            # Skip the primary hook of this bag
+        for hook in frame["hooks"]:
+            # Skip the primary hook of this frame
             if hook.get("primary", False):
                 continue
             
             foreign_hook = hook["name"]
             
-            # Find the bag where this foreign hook is defined as a primary hook
-            to_bag = None
-            for target_bag in bags:
-                primary_hook = next((h["name"] for h in target_bag["hooks"] if h.get("primary", False)), None)
+            # Find the frame where this foreign hook is defined as a primary hook
+            to_frame = None
+            for target_frame in frames:
+                primary_hook = next((h["name"] for h in target_frame["hooks"] if h.get("primary", False)), None)
                 if primary_hook == foreign_hook:
-                    to_bag = target_bag["name"]
+                    to_frame = target_frame["name"]
                     break
             
-            # Skip if we couldn't find a bag with this primary hook
-            if not to_bag:
+            # Skip if we couldn't find a frame with this primary hook
+            if not to_frame:
                 continue
                 
-            # Add an edge: from_bag -> to_bag means from_bag DEPENDS ON to_bag
+            # Add an edge: from_frame -> to_frame means from_frame DEPENDS ON to_frame
             directed_acyclical_graph.add_edge(
-                u_of_edge=from_bag,      # This bag depends on...
-                v_of_edge=to_bag,        # ...this bag
+                u_of_edge=from_frame,      # This frame depends on...
+                v_of_edge=to_frame,        # ...this frame
                 name=foreign_hook
             )
 
@@ -332,42 +332,42 @@ def generate_bridge_blueprints(hook_config_path: str = None) -> list:
         graph_dict[node]["all_upstream_nodes"] = sorted(list(all_upstream_flat))
         graph_dict[node]["upstream_tree"] = upstream_tree
         
-        # Create a mapping of upstream bags to the hooks they provide
+        # Create a mapping of upstream frames to the hooks they provide
         all_upstream_hooks = {}
         
         # Add direct hooks (from immediate dependencies)
-        for upstream_bag, hook_name in graph_dict[node]["direct_upstream_nodes"]:
-            if upstream_bag not in all_upstream_hooks:
-                all_upstream_hooks[upstream_bag] = []
-            all_upstream_hooks[upstream_bag].append(hook_name)
+        for upstream_frame, hook_name in graph_dict[node]["direct_upstream_nodes"]:
+            if upstream_frame not in all_upstream_hooks:
+                all_upstream_hooks[upstream_frame] = []
+            all_upstream_hooks[upstream_frame].append(hook_name)
         
         # Add inherited hooks from indirect dependencies
-        for upstream_bag in all_upstream_flat:
+        for upstream_frame in all_upstream_flat:
             # Skip direct dependencies (already handled)
-            if upstream_bag in [direct[0] for direct in graph_dict[node]["direct_upstream_nodes"]]:
+            if upstream_frame in [direct[0] for direct in graph_dict[node]["direct_upstream_nodes"]]:
                 continue
                 
-            # Get the primary hook for this upstream bag
-            for bag in bags:
-                if bag["name"] == upstream_bag:
-                    primary_hook = next((hook["name"] for hook in bag["hooks"] if hook.get("primary", False)), None)
+            # Get the primary hook for this upstream frame
+            for frame in frames:
+                if frame["name"] == upstream_frame:
+                    primary_hook = next((hook["name"] for hook in frame["hooks"] if hook.get("primary", False)), None)
                     if primary_hook:
-                        if upstream_bag not in all_upstream_hooks:
-                            all_upstream_hooks[upstream_bag] = []
-                        all_upstream_hooks[upstream_bag].append(primary_hook)
+                        if upstream_frame not in all_upstream_hooks:
+                            all_upstream_hooks[upstream_frame] = []
+                        all_upstream_hooks[upstream_frame].append(primary_hook)
                     break
         
         graph_dict[node]["all_upstream_hooks"] = all_upstream_hooks
         
-        # Create a structure that maps each hook to the bags that provide it
-        hooks_to_bags = {}
-        for upstream_bag, hooks in all_upstream_hooks.items():
+        # Create a structure that maps each hook to the frames that provide it
+        hooks_to_frames = {}
+        for upstream_frame, hooks in all_upstream_hooks.items():
             for hook in hooks:
-                if hook not in hooks_to_bags:
-                    hooks_to_bags[hook] = []
-                hooks_to_bags[hook].append(upstream_bag)
+                if hook not in hooks_to_frames:
+                    hooks_to_frames[hook] = []
+                hooks_to_frames[hook].append(upstream_frame)
         
-        graph_dict[node]["hooks_to_bags"] = hooks_to_bags
+        graph_dict[node]["hooks_to_frames"] = hooks_to_frames
         
         # Create a structured dependencies mapping with primary hook and inherited hooks
         dependencies = {}
@@ -383,9 +383,9 @@ def generate_bridge_blueprints(hook_config_path: str = None) -> list:
             all_hooks = [direct_hook]  # Start with the direct hook (for tracking)
             
             # Check each edge in the graph to find dependencies of this upstream
-            def collect_all_hooks(current_bag):
-                # Find this bag's direct dependencies in the graph
-                for u, v, edge_data in directed_acyclical_graph.edges(current_bag, data=True):
+            def collect_all_hooks(current_frame):
+                # Find this frame's direct dependencies in the graph
+                for u, v, edge_data in directed_acyclical_graph.edges(current_frame, data=True):
                     # The hook name is stored in the edge data
                     hook_name = edge_data.get('name', 'unnamed')
                     if hook_name not in all_hooks:
@@ -412,18 +412,18 @@ def generate_bridge_blueprints(hook_config_path: str = None) -> list:
     graph_list = []
     
     for node in graph_dict:
-        # Create target_name by replacing 'bag' prefix with 'bridge'
-        target_name = node.replace('bag__', 'bridge__', 1)
+        # Create target_name by replacing 'frame' prefix with 'bridge'
+        target_name = node.replace('frame__', 'bridge__', 1)
         
         # Create a new dictionary with source_name, target_name, peripheral, description, and column_description fields
         peripheral = target_name.replace("bridge__", "", 1)  # Remove the bridge__ prefix
         description = f"Puppini bridge for the peripheral table {peripheral}"
         
-        # Lookup the column prefix from the bag config
+        # Lookup the column prefix from the frame config
         column_prefix = None
-        for bag_config in bags:
-            if bag_config["name"] == node:
-                column_prefix = bag_config.get("column_prefix")
+        for frame_config in frames:
+            if frame_config["name"] == node:
+                column_prefix = frame_config.get("column_prefix")
                 break
         
         # If we couldn't find a column prefix, use a default derived from the peripheral name
@@ -451,10 +451,10 @@ def generate_bridge_blueprints(hook_config_path: str = None) -> list:
         # Find the hook for this node (if it exists)
         hook_value = None
         pit_hook = None
-        for bag in bags:
-            if bag["name"] == node:
-                # Find the primary hook for this bag
-                for hook in bag.get("hooks", []):
+        for frame in frames:
+            if frame["name"] == node:
+                # Find the primary hook for this frame
+                for hook in frame.get("hooks", []):
                     if hook.get("primary", False):
                         hook_value = hook["name"]
                         break
@@ -494,8 +494,8 @@ def generate_bridge_blueprints(hook_config_path: str = None) -> list:
         # Create the dependencies structure
         dependencies = {}
         for direct_upstream, dependency in graph_dict[node].get("dependencies", {}).items():
-            # Replace bag__ with bridge__ in dependency reference
-            bridge_dependency = direct_upstream.replace("bag__", "bridge__", 1)
+            # Replace frame__ with bridge__ in dependency reference
+            bridge_dependency = direct_upstream.replace("frame__", "bridge__", 1)
             
             # Get the peripheral name for this dependency
             dep_peripheral = bridge_dependency.replace("bridge__", "", 1)
@@ -610,7 +610,7 @@ def generate_event_blueprints(hook_blueprint_path: str, bridge_blueprint_path: s
         column_descriptions = bridge["column_descriptions"]
         columns = [name for name in bridge["column_data_types"].keys()]
 
-        hook_name = bridge_name.replace("bridge__", "bag__")
+        hook_name = bridge_name.replace("bridge__", "frame__")
         event_name = bridge_name.replace("bridge__", "event__")
 
         hook_blueprint = next((hook for hook in hook_blueprints if hook["name"] == hook_name), None)
@@ -665,7 +665,7 @@ def generate_peripheral_blueprints(hook_blueprint_path: str) -> list:
     for hook in hook_blueprints:
         hook_name = hook["name"]
         description = hook["description"]
-        peripheral_name = hook_name.replace("bag__", "")
+        peripheral_name = hook_name.replace("frame__", "")
         grain = hook["grain"]
         columns = [col for col in hook["columns"] if not col.startswith("_hook__")]
         column_data_types = {col: hook["column_data_types"][col] for col in columns}
@@ -697,12 +697,12 @@ if __name__ == "__main__":
     )
 
     hook_blueprints = generate_hook_blueprints(
-        hook_config_path="./models/hook__bags.yml",
+        hook_config_path="./models/hook__frames.yml",
         schema_path="./models/raw_schema.yaml"
     )
 
     bridge_blueprints = generate_bridge_blueprints(
-        hook_config_path="./models/hook__bags.yml"
+        hook_config_path="./models/hook__frames.yml"
     )
 
     event_blueprints = generate_event_blueprints(

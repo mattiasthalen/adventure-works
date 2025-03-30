@@ -58,5 +58,5 @@ date_columns:
   sales_territory_history__start_date: event__sales_territory_history__start
 description: Event viewpoint of bridge__adventure_works__sales_territory_histories.
 event_name: event__adventure_works__sales_territory_histories
-hook_name: bag__adventure_works__sales_territory_histories
+hook_name: frame__adventure_works__sales_territory_histories
 primary_pit_hook: _pit_hook__person__sales

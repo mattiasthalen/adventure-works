@@ -89,5 +89,5 @@ date_columns:
   sales_order_detail__modified_date: event__sales_order_detail__modified
 description: Event viewpoint of bridge__adventure_works__sales_order_details.
 event_name: event__adventure_works__sales_order_details
-hook_name: bag__adventure_works__sales_order_details
+hook_name: frame__adventure_works__sales_order_details
 primary_pit_hook: _pit_hook__order_line__sales

@@ -45,5 +45,5 @@ date_columns:
   currency_rate__modified_date: event__currency_rate__modified
 description: Event viewpoint of bridge__adventure_works__currency_rates.
 event_name: event__adventure_works__currency_rates
-hook_name: bag__adventure_works__currency_rates
+hook_name: frame__adventure_works__currency_rates
 primary_pit_hook: _pit_hook__currency_rate

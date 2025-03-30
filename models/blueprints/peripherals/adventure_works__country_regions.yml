@@ -35,5 +35,5 @@ columns:
 - country_region__is_current_record
 description: 'Primary hook for country_region_code using keyset: reference__country_region__adventure_works.'
 grain: _pit_hook__reference__country_region
-hook_name: bag__adventure_works__country_regions
+hook_name: frame__adventure_works__country_regions
 peripheral_name: adventure_works__country_regions

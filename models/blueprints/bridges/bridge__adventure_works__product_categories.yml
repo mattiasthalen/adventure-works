@@ -25,4 +25,4 @@ hook: _hook__product_category
 name: bridge__adventure_works__product_categories
 peripheral: adventure_works__product_categories
 primary_hook: _pit_hook__product_category
-source_name: bag__adventure_works__product_categories
+source_name: frame__adventure_works__product_categories

@@ -42,5 +42,5 @@ columns:
 - product_description__is_current_record
 description: 'Primary hook for product_description_id using keyset: reference__product_description__adventure_works.'
 grain: _pit_hook__reference__product_description
-hook_name: bag__adventure_works__product_descriptions
+hook_name: frame__adventure_works__product_descriptions
 peripheral_name: adventure_works__product_descriptions

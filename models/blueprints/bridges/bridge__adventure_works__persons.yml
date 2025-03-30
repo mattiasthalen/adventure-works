@@ -26,4 +26,4 @@ hook: _hook__person__individual
 name: bridge__adventure_works__persons
 peripheral: adventure_works__persons
 primary_hook: _pit_hook__person__individual
-source_name: bag__adventure_works__persons
+source_name: frame__adventure_works__persons

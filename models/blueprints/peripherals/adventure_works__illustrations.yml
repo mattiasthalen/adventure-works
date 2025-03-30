@@ -35,5 +35,5 @@ columns:
 - illustration__is_current_record
 description: 'Primary hook for illustration_id using keyset: reference__illustration__adventure_works.'
 grain: _pit_hook__reference__illustration
-hook_name: bag__adventure_works__illustrations
+hook_name: frame__adventure_works__illustrations
 peripheral_name: adventure_works__illustrations

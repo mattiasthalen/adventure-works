@@ -44,5 +44,5 @@ date_columns:
   job_candidate__modified_date: event__job_candidate__modified
 description: Event viewpoint of bridge__adventure_works__job_candidates.
 event_name: event__adventure_works__job_candidates
-hook_name: bag__adventure_works__job_candidates
+hook_name: frame__adventure_works__job_candidates
 primary_pit_hook: _pit_hook__job_candidate

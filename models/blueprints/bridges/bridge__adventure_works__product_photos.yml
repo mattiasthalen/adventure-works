@@ -26,4 +26,4 @@ hook: _hook__reference__product_photo
 name: bridge__adventure_works__product_photos
 peripheral: adventure_works__product_photos
 primary_hook: _pit_hook__reference__product_photo
-source_name: bag__adventure_works__product_photos
+source_name: frame__adventure_works__product_photos

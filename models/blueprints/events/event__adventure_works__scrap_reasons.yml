@@ -41,5 +41,5 @@ date_columns:
   scrap_reason__modified_date: event__scrap_reason__modified
 description: Event viewpoint of bridge__adventure_works__scrap_reasons.
 event_name: event__adventure_works__scrap_reasons
-hook_name: bag__adventure_works__scrap_reasons
+hook_name: frame__adventure_works__scrap_reasons
 primary_pit_hook: _pit_hook__reference__scrap_reason

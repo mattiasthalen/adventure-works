@@ -49,4 +49,4 @@ hook: _hook__customer
 name: bridge__adventure_works__customers
 peripheral: adventure_works__customers
 primary_hook: _pit_hook__customer
-source_name: bag__adventure_works__customers
+source_name: frame__adventure_works__customers

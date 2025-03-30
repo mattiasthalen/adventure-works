@@ -43,5 +43,5 @@ columns:
 - email_address__is_current_record
 description: 'Hook for email_address_id using keyset: reference__adventure_works.'
 grain: _pit_hook__person__individual
-hook_name: bag__adventure_works__email_addresses
+hook_name: frame__adventure_works__email_addresses
 peripheral_name: adventure_works__email_addresses

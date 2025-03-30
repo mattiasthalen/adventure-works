@@ -26,4 +26,4 @@ hook: _hook__reference__scrap_reason
 name: bridge__adventure_works__scrap_reasons
 peripheral: adventure_works__scrap_reasons
 primary_hook: _pit_hook__reference__scrap_reason
-source_name: bag__adventure_works__scrap_reasons
+source_name: frame__adventure_works__scrap_reasons

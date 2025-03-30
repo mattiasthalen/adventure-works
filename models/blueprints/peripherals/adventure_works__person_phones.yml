@@ -38,5 +38,5 @@ columns:
 - person_phone__is_current_record
 description: 'Hook for phone_number_type_id using keyset: reference__phone_number_type__adventure_works.'
 grain: _pit_hook__person__individual
-hook_name: bag__adventure_works__person_phones
+hook_name: frame__adventure_works__person_phones
 peripheral_name: adventure_works__person_phones

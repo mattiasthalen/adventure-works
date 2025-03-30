@@ -51,5 +51,5 @@ columns:
 - employee_department_history__is_current_record
 description: 'Hook for start_date using keyset: epoch__date.'
 grain: _pit_hook__employee_department_history
-hook_name: bag__adventure_works__employee_department_histories
+hook_name: frame__adventure_works__employee_department_histories
 peripheral_name: adventure_works__employee_department_histories

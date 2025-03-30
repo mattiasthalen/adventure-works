@@ -42,4 +42,4 @@ hook: _hook__product
 name: bridge__adventure_works__products
 peripheral: adventure_works__products
 primary_hook: _pit_hook__product
-source_name: bag__adventure_works__products
+source_name: frame__adventure_works__products

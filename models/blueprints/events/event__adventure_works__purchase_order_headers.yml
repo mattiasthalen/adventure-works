@@ -60,5 +60,5 @@ date_columns:
   purchase_order_header__ship_date: event__purchase_order_header__ship
 description: Event viewpoint of bridge__adventure_works__purchase_order_headers.
 event_name: event__adventure_works__purchase_order_headers
-hook_name: bag__adventure_works__purchase_order_headers
+hook_name: frame__adventure_works__purchase_order_headers
 primary_pit_hook: _pit_hook__order__purchase

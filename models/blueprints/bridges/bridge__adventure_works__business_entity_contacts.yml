@@ -33,4 +33,4 @@ hook: _hook__business_entity
 name: bridge__adventure_works__business_entity_contacts
 peripheral: adventure_works__business_entity_contacts
 primary_hook: _pit_hook__business_entity
-source_name: bag__adventure_works__business_entity_contacts
+source_name: frame__adventure_works__business_entity_contacts

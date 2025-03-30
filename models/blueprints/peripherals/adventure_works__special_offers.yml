@@ -60,5 +60,5 @@ columns:
 - special_offer__is_current_record
 description: 'Primary hook for special_offer_id using keyset: reference__special_offer__adventure_works.'
 grain: _pit_hook__reference__special_offer
-hook_name: bag__adventure_works__special_offers
+hook_name: frame__adventure_works__special_offers
 peripheral_name: adventure_works__special_offers

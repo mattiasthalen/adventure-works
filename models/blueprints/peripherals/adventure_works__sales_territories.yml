@@ -59,5 +59,5 @@ columns:
 - sales_territory__is_current_record
 description: 'Hook for country_region_code using keyset: reference__country_region__adventure_works.'
 grain: _pit_hook__territory__sales
-hook_name: bag__adventure_works__sales_territories
+hook_name: frame__adventure_works__sales_territories
 peripheral_name: adventure_works__sales_territories

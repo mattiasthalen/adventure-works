@@ -51,5 +51,5 @@ columns:
 - sales_tax_rate__is_current_record
 description: 'Hook for state_province_id using keyset: reference__state_province__adventure_works.'
 grain: _pit_hook__reference__sales_tax_rate
-hook_name: bag__adventure_works__sales_tax_rates
+hook_name: frame__adventure_works__sales_tax_rates
 peripheral_name: adventure_works__sales_tax_rates

@@ -26,4 +26,4 @@ hook: _hook__reference__unit_measure
 name: bridge__adventure_works__unit_measures
 peripheral: adventure_works__unit_measures
 primary_hook: _pit_hook__reference__unit_measure
-source_name: bag__adventure_works__unit_measures
+source_name: frame__adventure_works__unit_measures

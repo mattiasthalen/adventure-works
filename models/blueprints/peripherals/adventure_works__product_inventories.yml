@@ -51,5 +51,5 @@ columns:
 - product_inventory__is_current_record
 description: 'Hook for product_id using keyset: product__adventure_works.'
 grain: _pit_hook__reference__product_location
-hook_name: bag__adventure_works__product_inventories
+hook_name: frame__adventure_works__product_inventories
 peripheral_name: adventure_works__product_inventories

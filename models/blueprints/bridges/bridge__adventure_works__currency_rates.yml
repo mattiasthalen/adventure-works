@@ -25,4 +25,4 @@ hook: _hook__currency_rate
 name: bridge__adventure_works__currency_rates
 peripheral: adventure_works__currency_rates
 primary_hook: _pit_hook__currency_rate
-source_name: bag__adventure_works__currency_rates
+source_name: frame__adventure_works__currency_rates

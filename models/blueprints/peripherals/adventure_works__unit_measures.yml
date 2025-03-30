@@ -34,5 +34,5 @@ columns:
 - unit_measure__is_current_record
 description: 'Primary hook for unit_measure_code using keyset: reference__unit_measure__adventure_works.'
 grain: _pit_hook__reference__unit_measure
-hook_name: bag__adventure_works__unit_measures
+hook_name: frame__adventure_works__unit_measures
 peripheral_name: adventure_works__unit_measures

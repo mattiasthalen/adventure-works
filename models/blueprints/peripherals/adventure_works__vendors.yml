@@ -51,5 +51,5 @@ columns:
 - vendor__is_current_record
 description: 'Primary hook for business_entity_id using keyset: vendor__adventure_works.'
 grain: _pit_hook__vendor
-hook_name: bag__adventure_works__vendors
+hook_name: frame__adventure_works__vendors
 peripheral_name: adventure_works__vendors

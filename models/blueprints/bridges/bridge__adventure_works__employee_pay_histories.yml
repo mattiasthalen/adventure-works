@@ -33,4 +33,4 @@ hook: _hook__employee_pay_history
 name: bridge__adventure_works__employee_pay_histories
 peripheral: adventure_works__employee_pay_histories
 primary_hook: _pit_hook__employee_pay_history
-source_name: bag__adventure_works__employee_pay_histories
+source_name: frame__adventure_works__employee_pay_histories

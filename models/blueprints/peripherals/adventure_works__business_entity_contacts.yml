@@ -45,5 +45,5 @@ columns:
 - business_entity_contact__is_current_record
 description: 'Hook for contact_type_id using keyset: reference__contact_type__adventure_works.'
 grain: _pit_hook__business_entity
-hook_name: bag__adventure_works__business_entity_contacts
+hook_name: frame__adventure_works__business_entity_contacts
 peripheral_name: adventure_works__business_entity_contacts
