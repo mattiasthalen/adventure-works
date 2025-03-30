@@ -1,0 +1,61 @@
+bridge_name: bridge__adventure_works__product_reviews
+column_data_types:
+  _hook__epoch__date: binary
+  _hook__product_review: binary
+  _pit_hook__bridge: binary
+  _pit_hook__product: binary
+  _pit_hook__product_category: binary
+  _pit_hook__product_review: binary
+  _pit_hook__product_subcategory: binary
+  _pit_hook__reference__product_model: binary
+  bridge__is_current_record: boolean
+  bridge__record_loaded_at: timestamp
+  bridge__record_updated_at: timestamp
+  bridge__record_valid_from: timestamp
+  bridge__record_valid_to: timestamp
+  event__product_review__modified: boolean
+  event__product_review__review: boolean
+  peripheral: text
+column_descriptions:
+  _hook__epoch__date: Hook to the concept epoch, with qualifier date.
+  _hook__product_review: Hook to the concept product_review
+  _pit_hook__bridge: Point-in-time hook for the bridge record.
+  _pit_hook__product: Point-in-time hook to the concept product
+  _pit_hook__product_category: Point-in-time hook to the concept product_category
+  _pit_hook__product_review: Point-in-time hook to the concept product_review
+  _pit_hook__product_subcategory: Point-in-time hook to the concept product_subcategory
+  _pit_hook__reference__product_model: Point-in-time hook to the concept reference,
+    with qualifier product_model
+  bridge__is_current_record: Flag indicating if this is the current valid version
+    of the bridge record.
+  bridge__record_loaded_at: Timestamp when this bridge record was loaded.
+  bridge__record_updated_at: Timestamp when this bridge record was last updated.
+  bridge__record_valid_from: Timestamp from which this bridge record is valid.
+  bridge__record_valid_to: Timestamp until which this bridge record is valid.
+  event__product_review__modified: Flag indicating a modified event for this product_review.
+  event__product_review__review: Flag indicating a review event for this product_review.
+  peripheral: Name of the peripheral table the bridge record belongs to.
+columns:
+- _hook__product_review
+- _pit_hook__bridge
+- _pit_hook__product
+- _pit_hook__product_category
+- _pit_hook__product_review
+- _pit_hook__product_subcategory
+- _pit_hook__reference__product_model
+- bridge__is_current_record
+- bridge__record_loaded_at
+- bridge__record_updated_at
+- bridge__record_valid_from
+- bridge__record_valid_to
+- peripheral
+- event__product_review__modified
+- event__product_review__review
+- _hook__epoch__date
+date_columns:
+  product_review__modified_date: event__product_review__modified
+  product_review__review_date: event__product_review__review
+description: Event viewpoint of bridge__adventure_works__product_reviews.
+event_name: event__adventure_works__product_reviews
+hook_name: frame__adventure_works__product_reviews
+primary_pit_hook: _pit_hook__product_review

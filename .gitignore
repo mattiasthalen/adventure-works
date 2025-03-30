@@ -11,6 +11,5 @@ secrets.toml
 logs/
 .cache/
 .venv/
-lakehouse/*
-!lakehouse/state.duckdb
+lakehouse/
 *.parquet

@@ -1,0 +1,16 @@
+column_descriptions:
+  _dlt_load_id: Internal data loading identifier.
+  modified_date: Date and time the record was last updated.
+  name: Failure description.
+  scrap_reason_id: Primary key for ScrapReason records.
+columns:
+- name: scrap_reason_id
+  type: bigint
+- name: name
+  type: text
+- name: modified_date
+  type: date
+- name: _dlt_load_id
+  type: text
+description: Manufacturing failure reasons lookup table.
+name: raw__adventure_works__scrap_reasons

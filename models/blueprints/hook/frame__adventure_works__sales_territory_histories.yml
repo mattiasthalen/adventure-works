@@ -1,0 +1,82 @@
+column_data_types:
+  _hook__person__sales: binary
+  _hook__territory__sales: binary
+  _pit_hook__person__sales: binary
+  sales_territory_history__business_entity_id: bigint
+  sales_territory_history__end_date: date
+  sales_territory_history__is_current_record: boolean
+  sales_territory_history__modified_date: date
+  sales_territory_history__record_loaded_at: timestamp
+  sales_territory_history__record_updated_at: timestamp
+  sales_territory_history__record_valid_from: timestamp
+  sales_territory_history__record_valid_to: timestamp
+  sales_territory_history__record_version: int
+  sales_territory_history__rowguid: uniqueidentifier
+  sales_territory_history__start_date: date
+  sales_territory_history__territory_id: bigint
+column_descriptions:
+  _hook__person__sales: 'Primary hook for business_entity_id using keyset: person__sales__adventure_works.'
+  _hook__territory__sales: 'Hook for territory_id using keyset: territory__sales__adventure_works.'
+  _pit_hook__person__sales: Point in time version of _hook__person__sales.
+  sales_territory_history__business_entity_id: Primary key. The sales rep. Foreign
+    key to SalesPerson.BusinessEntityID.
+  sales_territory_history__end_date: Date the sales representative left work in the
+    territory.
+  sales_territory_history__is_current_record: Flag indicating if this is the current
+    valid version of the record
+  sales_territory_history__modified_date: Date and time the record was last updated.
+  sales_territory_history__record_loaded_at: Timestamp when this record was loaded
+    into the system
+  sales_territory_history__record_updated_at: Timestamp when this record was last
+    updated
+  sales_territory_history__record_valid_from: Timestamp from which this record version
+    is valid
+  sales_territory_history__record_valid_to: Timestamp until which this record version
+    is valid
+  sales_territory_history__record_version: Version number for this record
+  sales_territory_history__rowguid: ROWGUIDCOL number uniquely identifying the record.
+    Used to support a merge replication sample.
+  sales_territory_history__start_date: Primary key. Date the sales representative
+    started work in the territory.
+  sales_territory_history__territory_id: Primary key. Territory identification number.
+    Foreign key to SalesTerritory.SalesTerritoryID.
+column_prefix: sales_territory_history
+columns:
+- _pit_hook__person__sales
+- _hook__person__sales
+- _hook__territory__sales
+- sales_territory_history__business_entity_id
+- sales_territory_history__territory_id
+- sales_territory_history__start_date
+- sales_territory_history__rowguid
+- sales_territory_history__modified_date
+- sales_territory_history__end_date
+- sales_territory_history__record_loaded_at
+- sales_territory_history__record_updated_at
+- sales_territory_history__record_version
+- sales_territory_history__record_valid_from
+- sales_territory_history__record_valid_to
+- sales_territory_history__is_current_record
+description: 'Hook for territory_id using keyset: territory__sales__adventure_works.'
+grain: _pit_hook__person__sales
+hooks:
+- business_key_field: business_entity_id
+  keyset: person__sales__adventure_works
+  name: _hook__person__sales
+  primary: true
+- business_key_field: territory_id
+  keyset: territory__sales__adventure_works
+  name: _hook__territory__sales
+name: frame__adventure_works__sales_territory_histories
+references:
+- _hook__territory__sales
+source_columns:
+- business_entity_id
+- territory_id
+- start_date
+- rowguid
+- modified_date
+- end_date
+source_primary_keys:
+- business_entity_id
+source_table: raw__adventure_works__sales_territory_histories

@@ -1,0 +1,108 @@
+column_data_types:
+  _hook__order__purchase: binary
+  _hook__order_line__purchase: binary
+  _hook__product: binary
+  _pit_hook__order_line__purchase: binary
+  purchase_order_detail__due_date: date
+  purchase_order_detail__is_current_record: boolean
+  purchase_order_detail__line_total: double
+  purchase_order_detail__modified_date: date
+  purchase_order_detail__order_qty: bigint
+  purchase_order_detail__product_id: bigint
+  purchase_order_detail__purchase_order_detail_id: bigint
+  purchase_order_detail__purchase_order_id: bigint
+  purchase_order_detail__received_qty: double
+  purchase_order_detail__record_loaded_at: timestamp
+  purchase_order_detail__record_updated_at: timestamp
+  purchase_order_detail__record_valid_from: timestamp
+  purchase_order_detail__record_valid_to: timestamp
+  purchase_order_detail__record_version: int
+  purchase_order_detail__rejected_qty: double
+  purchase_order_detail__stocked_qty: double
+  purchase_order_detail__unit_price: double
+column_descriptions:
+  _hook__order__purchase: 'Hook for purchase_order_id using keyset: order__purchase__adventure_works.'
+  _hook__order_line__purchase: 'Primary hook for purchase_order_detail_id using keyset:
+    order_line__purchase__adventure_works.'
+  _hook__product: 'Hook for product_id using keyset: product__adventure_works.'
+  _pit_hook__order_line__purchase: Point in time version of _hook__order_line__purchase.
+  purchase_order_detail__due_date: Date the product is expected to be received.
+  purchase_order_detail__is_current_record: Flag indicating if this is the current
+    valid version of the record
+  purchase_order_detail__line_total: Per product subtotal. Computed as OrderQty *
+    UnitPrice.
+  purchase_order_detail__modified_date: Date and time the record was last updated.
+  purchase_order_detail__order_qty: Quantity ordered.
+  purchase_order_detail__product_id: Product identification number. Foreign key to
+    Product.ProductID.
+  purchase_order_detail__purchase_order_detail_id: Primary key. One line number per
+    purchased product.
+  purchase_order_detail__purchase_order_id: Primary key. Foreign key to PurchaseOrderHeader.PurchaseOrderID.
+  purchase_order_detail__received_qty: Quantity actually received from the vendor.
+  purchase_order_detail__record_loaded_at: Timestamp when this record was loaded into
+    the system
+  purchase_order_detail__record_updated_at: Timestamp when this record was last updated
+  purchase_order_detail__record_valid_from: Timestamp from which this record version
+    is valid
+  purchase_order_detail__record_valid_to: Timestamp until which this record version
+    is valid
+  purchase_order_detail__record_version: Version number for this record
+  purchase_order_detail__rejected_qty: Quantity rejected during inspection.
+  purchase_order_detail__stocked_qty: Quantity accepted into inventory. Computed as
+    ReceivedQty - RejectedQty.
+  purchase_order_detail__unit_price: Vendor's selling price of a single product.
+column_prefix: purchase_order_detail
+columns:
+- _pit_hook__order_line__purchase
+- _hook__order_line__purchase
+- _hook__order__purchase
+- _hook__product
+- purchase_order_detail__purchase_order_id
+- purchase_order_detail__purchase_order_detail_id
+- purchase_order_detail__due_date
+- purchase_order_detail__order_qty
+- purchase_order_detail__product_id
+- purchase_order_detail__unit_price
+- purchase_order_detail__line_total
+- purchase_order_detail__received_qty
+- purchase_order_detail__rejected_qty
+- purchase_order_detail__stocked_qty
+- purchase_order_detail__modified_date
+- purchase_order_detail__record_loaded_at
+- purchase_order_detail__record_updated_at
+- purchase_order_detail__record_version
+- purchase_order_detail__record_valid_from
+- purchase_order_detail__record_valid_to
+- purchase_order_detail__is_current_record
+description: 'Hook for product_id using keyset: product__adventure_works.'
+grain: _pit_hook__order_line__purchase
+hooks:
+- business_key_field: purchase_order_detail_id
+  keyset: order_line__purchase__adventure_works
+  name: _hook__order_line__purchase
+  primary: true
+- business_key_field: purchase_order_id
+  keyset: order__purchase__adventure_works
+  name: _hook__order__purchase
+- business_key_field: product_id
+  keyset: product__adventure_works
+  name: _hook__product
+name: frame__adventure_works__purchase_order_details
+references:
+- _hook__order__purchase
+- _hook__product
+source_columns:
+- purchase_order_id
+- purchase_order_detail_id
+- due_date
+- order_qty
+- product_id
+- unit_price
+- line_total
+- received_qty
+- rejected_qty
+- stocked_qty
+- modified_date
+source_primary_keys:
+- purchase_order_detail_id
+source_table: raw__adventure_works__purchase_order_details

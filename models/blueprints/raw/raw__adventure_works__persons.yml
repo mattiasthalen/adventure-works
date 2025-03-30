@@ -1,0 +1,55 @@
+column_descriptions:
+  _dlt_load_id: Internal data loading identifier.
+  additional_contact_info: Additional contact information about the person stored
+    in xml format.
+  business_entity_id: Primary key for Person records.
+  demographics: Personal information such as hobbies, and income collected from online
+    shoppers. Used for sales analysis.
+  email_promotion: 0 = Contact does not wish to receive e-mail promotions, 1 = Contact
+    does wish to receive e-mail promotions from AdventureWorks, 2 = Contact does wish
+    to receive e-mail promotions from AdventureWorks and selected partners.
+  first_name: First name of the person.
+  last_name: Last name of the person.
+  middle_name: Middle name or middle initial of the person.
+  modified_date: Date and time the record was last updated.
+  name_style: 0 = The data in FirstName and LastName are stored in western style (first
+    name, last name) order. 1 = Eastern style (last name, first name) order.
+  person_type: 'Primary type of person: SC = Store Contact, IN = Individual (retail)
+    customer, SP = Sales person, EM = Employee (non-sales), VC = Vendor contact, GC
+    = General contact.'
+  rowguid: ROWGUIDCOL number uniquely identifying the record. Used to support a merge
+    replication sample.
+  suffix: Surname suffix. For example, Sr. or Jr.
+  title: A courtesy title. For example, Mr. or Ms.
+columns:
+- name: business_entity_id
+  type: bigint
+- name: person_type
+  type: text
+- name: name_style
+  type: bool
+- name: first_name
+  type: text
+- name: middle_name
+  type: text
+- name: last_name
+  type: text
+- name: email_promotion
+  type: bigint
+- name: demographics
+  type: xml
+- name: rowguid
+  type: uniqueidentifier
+- name: modified_date
+  type: date
+- name: _dlt_load_id
+  type: text
+- name: title
+  type: text
+- name: suffix
+  type: text
+- name: additional_contact_info
+  type: xml
+description: 'Human beings involved with AdventureWorks: employees, customer contacts,
+  and vendor contacts.'
+name: raw__adventure_works__persons

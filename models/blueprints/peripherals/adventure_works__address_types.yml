@@ -1,0 +1,42 @@
+column_data_types:
+  _pit_hook__reference__address_type: binary
+  address_type__address_type_id: bigint
+  address_type__is_current_record: boolean
+  address_type__modified_date: date
+  address_type__name: text
+  address_type__record_loaded_at: timestamp
+  address_type__record_updated_at: timestamp
+  address_type__record_valid_from: timestamp
+  address_type__record_valid_to: timestamp
+  address_type__record_version: int
+  address_type__rowguid: uniqueidentifier
+column_descriptions:
+  _pit_hook__reference__address_type: Point in time version of _hook__reference__address_type.
+  address_type__address_type_id: Primary key for AddressType records.
+  address_type__is_current_record: Flag indicating if this is the current valid version
+    of the record
+  address_type__modified_date: Date and time the record was last updated.
+  address_type__name: Address type description. For example, Billing, Home, or Shipping.
+  address_type__record_loaded_at: Timestamp when this record was loaded into the system
+  address_type__record_updated_at: Timestamp when this record was last updated
+  address_type__record_valid_from: Timestamp from which this record version is valid
+  address_type__record_valid_to: Timestamp until which this record version is valid
+  address_type__record_version: Version number for this record
+  address_type__rowguid: ROWGUIDCOL number uniquely identifying the record. Used to
+    support a merge replication sample.
+columns:
+- _pit_hook__reference__address_type
+- address_type__address_type_id
+- address_type__name
+- address_type__rowguid
+- address_type__modified_date
+- address_type__record_loaded_at
+- address_type__record_updated_at
+- address_type__record_version
+- address_type__record_valid_from
+- address_type__record_valid_to
+- address_type__is_current_record
+description: 'Primary hook for address_type_id using keyset: reference__address_type__adventure_works.'
+grain: _pit_hook__reference__address_type
+hook_name: frame__adventure_works__address_types
+peripheral_name: adventure_works__address_types

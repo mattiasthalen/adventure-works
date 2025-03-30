@@ -1,0 +1,91 @@
+column_data_types:
+  _hook__product: binary
+  _hook__reference__location: binary
+  _hook__reference__product_location: binary
+  _pit_hook__reference__product_location: binary
+  product_inventory__bin: bigint
+  product_inventory__is_current_record: boolean
+  product_inventory__location_id: bigint
+  product_inventory__modified_date: date
+  product_inventory__product_id: bigint
+  product_inventory__quantity: bigint
+  product_inventory__record_loaded_at: timestamp
+  product_inventory__record_updated_at: timestamp
+  product_inventory__record_valid_from: timestamp
+  product_inventory__record_valid_to: timestamp
+  product_inventory__record_version: int
+  product_inventory__rowguid: uniqueidentifier
+  product_inventory__shelf: text
+column_descriptions:
+  _hook__product: 'Hook for product_id using keyset: product__adventure_works.'
+  _hook__reference__location: 'Hook for location_id using keyset: reference__location__adventure_works.'
+  _hook__reference__product_location: 'Primary hook using: _hook__reference__location,
+    _hook__product.'
+  _pit_hook__reference__product_location: Point in time version of _hook__reference__product_location.
+  product_inventory__bin: Storage container on a shelf in an inventory location.
+  product_inventory__is_current_record: Flag indicating if this is the current valid
+    version of the record
+  product_inventory__location_id: Inventory location identification number. Foreign
+    key to Location.LocationID.
+  product_inventory__modified_date: Date and time the record was last updated.
+  product_inventory__product_id: Product identification number. Foreign key to Product.ProductID.
+  product_inventory__quantity: Quantity of products in the inventory location.
+  product_inventory__record_loaded_at: Timestamp when this record was loaded into
+    the system
+  product_inventory__record_updated_at: Timestamp when this record was last updated
+  product_inventory__record_valid_from: Timestamp from which this record version is
+    valid
+  product_inventory__record_valid_to: Timestamp until which this record version is
+    valid
+  product_inventory__record_version: Version number for this record
+  product_inventory__rowguid: ROWGUIDCOL number uniquely identifying the record. Used
+    to support a merge replication sample.
+  product_inventory__shelf: Storage compartment within an inventory location.
+column_prefix: product_inventory
+columns:
+- _pit_hook__reference__product_location
+- _hook__reference__product_location
+- _hook__reference__location
+- _hook__product
+- product_inventory__product_id
+- product_inventory__location_id
+- product_inventory__shelf
+- product_inventory__bin
+- product_inventory__quantity
+- product_inventory__rowguid
+- product_inventory__modified_date
+- product_inventory__record_loaded_at
+- product_inventory__record_updated_at
+- product_inventory__record_version
+- product_inventory__record_valid_from
+- product_inventory__record_valid_to
+- product_inventory__is_current_record
+description: 'Hook for product_id using keyset: product__adventure_works.'
+grain: _pit_hook__reference__product_location
+hooks:
+- composite_key:
+  - _hook__reference__location
+  - _hook__product
+  name: _hook__reference__product_location
+  primary: true
+- business_key_field: location_id
+  keyset: reference__location__adventure_works
+  name: _hook__reference__location
+- business_key_field: product_id
+  keyset: product__adventure_works
+  name: _hook__product
+name: frame__adventure_works__product_inventories
+references:
+- _hook__reference__location
+- _hook__product
+source_columns:
+- product_id
+- location_id
+- shelf
+- bin
+- quantity
+- rowguid
+- modified_date
+source_primary_keys:
+- location_id
+source_table: raw__adventure_works__product_inventories

@@ -1,0 +1,40 @@
+column_descriptions:
+  _dlt_load_id: Internal data loading identifier.
+  due_date: Date the product is expected to be received.
+  line_total: Per product subtotal. Computed as OrderQty * UnitPrice.
+  modified_date: Date and time the record was last updated.
+  order_qty: Quantity ordered.
+  product_id: Product identification number. Foreign key to Product.ProductID.
+  purchase_order_detail_id: Primary key. One line number per purchased product.
+  purchase_order_id: Primary key. Foreign key to PurchaseOrderHeader.PurchaseOrderID.
+  received_qty: Quantity actually received from the vendor.
+  rejected_qty: Quantity rejected during inspection.
+  stocked_qty: Quantity accepted into inventory. Computed as ReceivedQty - RejectedQty.
+  unit_price: Vendor's selling price of a single product.
+columns:
+- name: purchase_order_id
+  type: bigint
+- name: purchase_order_detail_id
+  type: bigint
+- name: due_date
+  type: date
+- name: order_qty
+  type: bigint
+- name: product_id
+  type: bigint
+- name: unit_price
+  type: double
+- name: line_total
+  type: double
+- name: received_qty
+  type: double
+- name: rejected_qty
+  type: double
+- name: stocked_qty
+  type: double
+- name: modified_date
+  type: date
+- name: _dlt_load_id
+  type: text
+description: Individual products associated with a specific purchase order. See PurchaseOrderHeader.
+name: raw__adventure_works__purchase_order_details

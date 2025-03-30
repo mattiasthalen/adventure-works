@@ -1,0 +1,41 @@
+column_descriptions:
+  _dlt_load_id: Internal data loading identifier.
+  average_lead_time: The average span of time (in days) between placing an order with
+    the vendor and receiving the purchased product.
+  business_entity_id: Primary key. Foreign key to Vendor.BusinessEntityID.
+  last_receipt_cost: The selling price when last purchased.
+  last_receipt_date: Date the product was last received by the vendor.
+  max_order_qty: The maximum quantity that should be ordered.
+  min_order_qty: The minimum quantity that should be ordered.
+  modified_date: Date and time the record was last updated.
+  on_order_qty: The quantity currently on order.
+  product_id: Primary key. Foreign key to Product.ProductID.
+  standard_price: The vendor's usual selling price.
+  unit_measure_code: The product's unit of measure.
+columns:
+- name: product_id
+  type: bigint
+- name: business_entity_id
+  type: bigint
+- name: average_lead_time
+  type: bigint
+- name: standard_price
+  type: double
+- name: last_receipt_cost
+  type: double
+- name: last_receipt_date
+  type: date
+- name: min_order_qty
+  type: bigint
+- name: max_order_qty
+  type: bigint
+- name: unit_measure_code
+  type: text
+- name: modified_date
+  type: date
+- name: _dlt_load_id
+  type: text
+- name: on_order_qty
+  type: bigint
+description: Cross-reference table mapping vendors with the products they supply.
+name: raw__adventure_works__product_vendors

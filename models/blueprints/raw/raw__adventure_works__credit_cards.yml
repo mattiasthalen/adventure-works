@@ -1,0 +1,25 @@
+column_descriptions:
+  _dlt_load_id: Internal data loading identifier.
+  card_number: Credit card number.
+  card_type: Credit card name.
+  credit_card_id: Primary key for CreditCard records.
+  exp_month: Credit card expiration month.
+  exp_year: Credit card expiration year.
+  modified_date: Date and time the record was last updated.
+columns:
+- name: credit_card_id
+  type: bigint
+- name: card_type
+  type: text
+- name: card_number
+  type: text
+- name: exp_month
+  type: bigint
+- name: exp_year
+  type: bigint
+- name: modified_date
+  type: date
+- name: _dlt_load_id
+  type: text
+description: Customer credit card information.
+name: raw__adventure_works__credit_cards

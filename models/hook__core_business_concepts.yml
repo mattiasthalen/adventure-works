@@ -1,0 +1,171 @@
+core_business_concepts:
+  - name: business_entity
+    description: "A foundational entity that participates in business activities"
+    taxonomy:
+      - organization
+      - person
+    keysets:
+      - business_entity__adventure_works
+    frames:
+      - frame__adventure_works__business_entity_addresses
+      - frame__adventure_works__business_entity_contacts
+  
+  - name: department
+    description: "An organizational unit within Adventure Works"
+    keysets:
+      - department__adventure_works
+    frames:
+      - frame__adventure_works__departments
+      - frame__adventure_works__employee_department_histories
+  
+  - name: order
+    description: "A transaction for goods or services"
+    taxonomy:
+      - purchase_order
+      - sales_order
+      - work_order
+    keysets:
+      - order__adventure_works
+      - order__sales__adventure_works
+      - order__purchase__adventure_works
+      - order__work__adventure_works
+    frames:
+      - frame__adventure_works__sales_order_headers
+      - frame__adventure_works__purchase_order_headers
+      - frame__adventure_works__work_orders
+  
+  - name: order_line
+    description: "An individual item within an order"
+    taxonomy:
+      - purchase_order_line
+      - sales_order_line
+      - work_order_line
+    keysets:
+      - order_line__adventure_works
+      - order_line__sales__adventure_works
+      - order_line__purchase__adventure_works
+      - order_line__work__adventure_works
+    frames:
+      - frame__adventure_works__sales_order_details
+      - frame__adventure_works__purchase_order_details
+      - frame__adventure_works__work_order_routings
+  
+  - name: organization
+    description: "A business entity that interacts with Adventure Works"
+    taxonomy:
+      - customer
+      - store
+      - vendor
+    keysets:
+      - organization__adventure_works
+      - organization__customer__adventure_works
+      - organization__store__adventure_works
+      - organization__vendor__adventure_works
+    frames:
+      - frame__adventure_works__customers
+      - frame__adventure_works__stores
+      - frame__adventure_works__vendors
+  
+  - name: person
+    description: "An individual who interacts with the Adventure Works organization in any capacity"
+    taxonomy:
+      - customer_contact
+      - employee
+      - sales_person
+      - vendor_contact
+    keysets:
+      - person__adventure_works
+      - person__employee__adventure_works
+      - person__sales_person__adventure_works
+      - person__customer_contact__adventure_works
+      - person__vendor_contact__adventure_works
+    frames:
+      - frame__adventure_works__persons
+      - frame__adventure_works__employees
+      - frame__adventure_works__sales_persons
+      - frame__adventure_works__job_candidates
+      - frame__adventure_works__employee_pay_histories
+      - frame__adventure_works__sales_person_quota_histories
+      - frame__adventure_works__email_addresses
+      - frame__adventure_works__person_phones
+      - frame__adventure_works__sales_territory_histories
+  
+  - name: product
+    description: "Items manufactured or sold by Adventure Works"
+    taxonomy:
+      - product_category:
+          product_subcategory:
+            product
+      - product_model
+    keysets:
+      - product__adventure_works
+      - product_category__adventure_works
+      - product_subcategory__adventure_works
+      - product_model__adventure_works
+    frames:
+      - frame__adventure_works__products
+      - frame__adventure_works__product_categories
+      - frame__adventure_works__product_subcategories
+      - frame__adventure_works__product_models
+      - frame__adventure_works__product_photos
+      - frame__adventure_works__product_reviews
+      - frame__adventure_works__product_descriptions
+      - frame__adventure_works__product_inventories
+      - frame__adventure_works__product_vendors
+      - frame__adventure_works__product_cost_histories
+      - frame__adventure_works__product_list_price_histories
+      - frame__adventure_works__product_model_illustrations
+      - frame__adventure_works__bill_of_materials
+      - frame__adventure_works__transaction_histories
+      - frame__adventure_works__transaction_history_archives
+      - frame__adventure_works__shopping_cart_items
+  
+  - name: reference
+    description: "Reference data used across the organization"
+    taxonomy:
+      - address:
+          address_type
+      - contact_type
+      - country_region:
+          state_province
+      - credit_card
+      - culture
+      - currency:
+          currency_rate
+      - illustration
+      - location
+      - phone_number_type
+      - product_photo
+      - sales_reason
+      - sales_tax_rate
+      - scrap_reason
+      - ship_method
+      - shift
+      - territory:
+          sales_territory
+      - unit_measure
+      - special_offer
+    keysets:
+      - reference__adventure_works
+    frames:
+      - frame__adventure_works__addresses
+      - frame__adventure_works__address_types
+      - frame__adventure_works__contact_types
+      - frame__adventure_works__country_regions
+      - frame__adventure_works__state_provinces
+      - frame__adventure_works__credit_cards
+      - frame__adventure_works__cultures
+      - frame__adventure_works__currencies
+      - frame__adventure_works__currency_rates
+      - frame__adventure_works__illustrations
+      - frame__adventure_works__locations
+      - frame__adventure_works__phone_number_types
+      - frame__adventure_works__product_photos
+      - frame__adventure_works__sales_reasons
+      - frame__adventure_works__sales_tax_rates
+      - frame__adventure_works__scrap_reasons
+      - frame__adventure_works__ship_methods
+      - frame__adventure_works__shifts
+      - frame__adventure_works__sales_territories
+      - frame__adventure_works__unit_measures
+      - frame__adventure_works__special_offers

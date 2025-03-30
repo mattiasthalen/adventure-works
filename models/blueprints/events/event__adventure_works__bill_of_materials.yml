@@ -1,0 +1,56 @@
+bridge_name: bridge__adventure_works__bill_of_materials
+column_data_types:
+  _hook__bill_of_materials: binary
+  _hook__epoch__date: binary
+  _pit_hook__bill_of_materials: binary
+  _pit_hook__bridge: binary
+  _pit_hook__reference__unit_measure: binary
+  bridge__is_current_record: boolean
+  bridge__record_loaded_at: timestamp
+  bridge__record_updated_at: timestamp
+  bridge__record_valid_from: timestamp
+  bridge__record_valid_to: timestamp
+  event__bill_of_material__end: boolean
+  event__bill_of_material__modified: boolean
+  event__bill_of_material__start: boolean
+  peripheral: text
+column_descriptions:
+  _hook__bill_of_materials: Hook to the concept bill_of_materials
+  _hook__epoch__date: Hook to the concept epoch, with qualifier date.
+  _pit_hook__bill_of_materials: Point-in-time hook to the concept bill_of_materials
+  _pit_hook__bridge: Point-in-time hook for the bridge record.
+  _pit_hook__reference__unit_measure: Point-in-time hook to the concept reference,
+    with qualifier unit_measure
+  bridge__is_current_record: Flag indicating if this is the current valid version
+    of the bridge record.
+  bridge__record_loaded_at: Timestamp when this bridge record was loaded.
+  bridge__record_updated_at: Timestamp when this bridge record was last updated.
+  bridge__record_valid_from: Timestamp from which this bridge record is valid.
+  bridge__record_valid_to: Timestamp until which this bridge record is valid.
+  event__bill_of_material__end: Flag indicating a end event for this bill_of_material.
+  event__bill_of_material__modified: Flag indicating a modified event for this bill_of_material.
+  event__bill_of_material__start: Flag indicating a start event for this bill_of_material.
+  peripheral: Name of the peripheral table the bridge record belongs to.
+columns:
+- _hook__bill_of_materials
+- _pit_hook__bill_of_materials
+- _pit_hook__bridge
+- _pit_hook__reference__unit_measure
+- bridge__is_current_record
+- bridge__record_loaded_at
+- bridge__record_updated_at
+- bridge__record_valid_from
+- bridge__record_valid_to
+- peripheral
+- event__bill_of_material__end
+- event__bill_of_material__modified
+- event__bill_of_material__start
+- _hook__epoch__date
+date_columns:
+  bill_of_material__end_date: event__bill_of_material__end
+  bill_of_material__modified_date: event__bill_of_material__modified
+  bill_of_material__start_date: event__bill_of_material__start
+description: Event viewpoint of bridge__adventure_works__bill_of_materials.
+event_name: event__adventure_works__bill_of_materials
+hook_name: frame__adventure_works__bill_of_materials
+primary_pit_hook: _pit_hook__bill_of_materials

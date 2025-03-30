@@ -18,65 +18,65 @@ def get_latest_metadata(iceberg_path):
         raise FileNotFoundError(f"No JSON metadata files found in {metadata_dir}")
 
 peripherals = [
-    #"addresses",
-    #"address_types",
-    #"bill_of_materials",
-    #"business_entity_addresses",
-    #"business_entity_contacts",
     "calendar",
-    #"contact_types",
-    #"country_regions",
-    #"credit_cards",
-    #"cultures",
-    #"currencies",
-    #"currency_rates",
-    #"customers",
-    #"departments",
-    #"email_addresses",
-    #"employees",
-    #"employee_department_histories",
-    #"employee_pay_histories",
-    #"illustrations",
-    #"job_candidates",
-    #"locations",
-    #"persons",
-    #"person_phones",
-    #"phone_number_types",
-    #"products",
-    #"product_categories",
-    #"product_cost_histories",
-    #"product_descriptions",
-    #"product_inventories",
-    #"product_list_price_histories",
-    #"product_models",
-    #"product_model_illustrations",
-    #"product_photos",
-    #"product_reviews",
-    #"product_subcategories",
-    #"product_vendors",
-    #"purchase_order_details",
-    #"purchase_order_headers",
-    #"sales_order_details",
-    #"sales_order_headers",
-    #"sales_persons",
-    #"sales_person_quota_histories",
-    #"sales_reasons",
-    #"sales_tax_rates",
-    #"sales_territories",
-    #"sales_territory_histories",
-    #"scrap_reasons",
-    #"shifts",
-    #"ship_methods",
-    #"shopping_cart_items",
-    #"special_offers",
-    #"state_provinces",
-    #"stores",
-    #"transaction_histories",
-    #"transaction_history_archives",
-    #"unit_measures",
-    #"vendors",
-    #"work_orders",
-    #"work_order_routings",
+    #"adventure_works__addresses",
+    #"adventure_works__address_types",
+    #"adventure_works__bill_of_materials",
+    #"adventure_works__business_entity_addresses",
+    #"adventure_works__business_entity_contacts",
+    #"adventure_works__contact_types",
+    #"adventure_works__country_regions",
+    #"adventure_works__credit_cards",
+    #"adventure_works__cultures",
+    #"adventure_works__currencies",
+    #"adventure_works__currency_rates",
+    #"adventure_works__customers",
+    #"adventure_works__departments",
+    #"adventure_works__email_addresses",
+    #"adventure_works__employees",
+    #"adventure_works__employee_department_histories",
+    #"adventure_works__employee_pay_histories",
+    #"adventure_works__illustrations",
+    #"adventure_works__job_candidates",
+    #"adventure_works__locations",
+    #"adventure_works__persons",
+    #"adventure_works__person_phones",
+    #"adventure_works__phone_number_types",
+    #"adventure_works__products",
+    #"adventure_works__product_categories",
+    #"adventure_works__product_cost_histories",
+    #"adventure_works__product_descriptions",
+    #"adventure_works__product_inventories",
+    #"adventure_works__product_list_price_histories",
+    #"adventure_works__product_models",
+    #"adventure_works__product_model_illustrations",
+    #"adventure_works__product_photos",
+    #"adventure_works__product_reviews",
+    #"adventure_works__product_subcategories",
+    #"adventure_works__product_vendors",
+    #"adventure_works__purchase_order_details",
+    #"adventure_works__purchase_order_headers",
+    #"adventure_works__sales_order_details",
+    #"adventure_works__sales_order_headers",
+    #"adventure_works__sales_persons",
+    #"adventure_works__sales_person_quota_histories",
+    #"adventure_works__sales_reasons",
+    #"adventure_works__sales_tax_rates",
+    #"adventure_works__sales_territories",
+    #"adventure_works__sales_territory_histories",
+    #"adventure_works__scrap_reasons",
+    #"adventure_works__shifts",
+    #"adventure_works__ship_methods",
+    #"adventure_works__shopping_cart_items",
+    #"adventure_works__special_offers",
+    #"adventure_works__state_provinces",
+    #"adventure_works__stores",
+    #"adventure_works__transaction_histories",
+    #"adventure_works__transaction_history_archives",
+    #"adventure_works__unit_measures",
+    #"adventure_works__vendors",
+    #"adventure_works__work_orders",
+    #"adventure_works__work_order_routings",
 ]
 n_weeks = 52
 
@@ -84,7 +84,7 @@ dar_path = "./lakehouse/dar"
 
 # Load the bridge
 bridge_df = pl.scan_iceberg(
-    get_latest_metadata(f"{dar_path}/_bridge__as_of")
+    get_latest_metadata(f"{dar_path}/_puppini_bridge__as_of")
 ).collect().filter(
     pl.col("bridge__is_current_record") == True,
     #pl.col("peripheral").is_in(peripherals)
@@ -127,7 +127,7 @@ def create_metric_summary(df, group_by_col=None, sort_by=None):
     
     event_cols = [
         col for col in df.columns
-       if col.startswith(("event__", "measure__"))
+        if col.startswith(("event__", "measure__"))
         and not col.endswith("_modified")
     ]
     aggregations = []
@@ -150,18 +150,21 @@ def create_metric_summary(df, group_by_col=None, sort_by=None):
     if group_by_col:
         metric_df = df.group_by(group_by_col).agg(aggregations)
 
-    metric_df = metric_df.with_columns(
-        (
-            pl.col("metric__sales_order_headers_from_new_customers")
-            / pl.col("metric__sales_order_headers_placed")
-            * 100
-        ).alias("metric__sales_order_headers_from_new_customers__percentage"),
+    try:
+        metric_df = metric_df.with_columns(
+            (
+                pl.col("metric__sales_order_headers_from_new_customers")
+                / pl.col("metric__sales_order_headers_placed")
+                * 100
+            ).alias("metric__sales_order_headers_from_new_customers__percentage"),
         (
             pl.col("metric__sales_order_headers_from_returning_customers")
             / pl.col("metric__sales_order_headers_placed")
             * 100
         ).alias("metric__sales_order_headers_from_returning_customers__percentage")
     )
+    except:
+        pass
         
     metric_df = metric_df.sort(
         sort_by,

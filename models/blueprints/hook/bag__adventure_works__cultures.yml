@@ -1,0 +1,54 @@
+column_data_types:
+  _hook__reference__culture: binary
+  _pit_hook__reference__culture: binary
+  culture__culture_id: text
+  culture__is_current_record: boolean
+  culture__modified_date: date
+  culture__name: text
+  culture__record_loaded_at: timestamp
+  culture__record_updated_at: timestamp
+  culture__record_valid_from: timestamp
+  culture__record_valid_to: timestamp
+  culture__record_version: int
+column_descriptions:
+  _hook__reference__culture: 'Primary hook for culture_id using keyset: reference__culture__adventure_works.'
+  _pit_hook__reference__culture: Point in time version of _hook__reference__culture.
+  culture__culture_id: Primary key for Culture records.
+  culture__is_current_record: Flag indicating if this is the current valid version
+    of the record
+  culture__modified_date: Date and time the record was last updated.
+  culture__name: Culture description.
+  culture__record_loaded_at: Timestamp when this record was loaded into the system
+  culture__record_updated_at: Timestamp when this record was last updated
+  culture__record_valid_from: Timestamp from which this record version is valid
+  culture__record_valid_to: Timestamp until which this record version is valid
+  culture__record_version: Version number for this record
+column_prefix: culture
+columns:
+- _pit_hook__reference__culture
+- _hook__reference__culture
+- culture__culture_id
+- culture__name
+- culture__modified_date
+- culture__record_loaded_at
+- culture__record_updated_at
+- culture__record_version
+- culture__record_valid_from
+- culture__record_valid_to
+- culture__is_current_record
+description: 'Primary hook for culture_id using keyset: reference__culture__adventure_works.'
+grain: _pit_hook__reference__culture
+hooks:
+- business_key_field: culture_id
+  keyset: reference__culture__adventure_works
+  name: _hook__reference__culture
+  primary: true
+name: frame__adventure_works__cultures
+references: []
+source_columns:
+- culture_id
+- name
+- modified_date
+source_primary_keys:
+- culture_id
+source_table: raw__adventure_works__cultures

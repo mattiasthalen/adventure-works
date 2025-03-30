@@ -1,0 +1,83 @@
+column_data_types:
+  _hook__address: binary
+  _hook__reference__state_province: binary
+  _pit_hook__address: binary
+  address__address_id: bigint
+  address__address_line1: text
+  address__address_line2: text
+  address__city: text
+  address__is_current_record: boolean
+  address__modified_date: date
+  address__postal_code: text
+  address__record_loaded_at: timestamp
+  address__record_updated_at: timestamp
+  address__record_valid_from: timestamp
+  address__record_valid_to: timestamp
+  address__record_version: int
+  address__rowguid: uniqueidentifier
+  address__state_province_id: bigint
+column_descriptions:
+  _hook__address: 'Primary hook for address_id using keyset: address__adventure_works.'
+  _hook__reference__state_province: 'Hook for state_province_id using keyset: reference__state_province__adventure_works.'
+  _pit_hook__address: Point in time version of _hook__address.
+  address__address_id: Primary key for Address records.
+  address__address_line1: First street address line.
+  address__address_line2: Second street address line.
+  address__city: Name of the city.
+  address__is_current_record: Flag indicating if this is the current valid version
+    of the record
+  address__modified_date: Date and time the record was last updated.
+  address__postal_code: Postal code for the street address.
+  address__record_loaded_at: Timestamp when this record was loaded into the system
+  address__record_updated_at: Timestamp when this record was last updated
+  address__record_valid_from: Timestamp from which this record version is valid
+  address__record_valid_to: Timestamp until which this record version is valid
+  address__record_version: Version number for this record
+  address__rowguid: ROWGUIDCOL number uniquely identifying the record. Used to support
+    a merge replication sample.
+  address__state_province_id: Unique identification number for the state or province.
+    Foreign key to StateProvince table.
+column_prefix: address
+columns:
+- _pit_hook__address
+- _hook__address
+- _hook__reference__state_province
+- address__address_id
+- address__address_line1
+- address__city
+- address__state_province_id
+- address__postal_code
+- address__rowguid
+- address__modified_date
+- address__address_line2
+- address__record_loaded_at
+- address__record_updated_at
+- address__record_version
+- address__record_valid_from
+- address__record_valid_to
+- address__is_current_record
+description: 'Hook for state_province_id using keyset: reference__state_province__adventure_works.'
+grain: _pit_hook__address
+hooks:
+- business_key_field: address_id
+  keyset: address__adventure_works
+  name: _hook__address
+  primary: true
+- business_key_field: state_province_id
+  keyset: reference__state_province__adventure_works
+  name: _hook__reference__state_province
+name: frame__adventure_works__addresses
+references:
+- _hook__reference__state_province
+source_columns:
+- address_id
+- address_line1
+- city
+- state_province_id
+- postal_code
+- rowguid
+- modified_date
+- address_line2
+source_primary_keys:
+- address_id
+source_table: raw__adventure_works__addresses

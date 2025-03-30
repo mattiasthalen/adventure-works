@@ -1,0 +1,42 @@
+column_descriptions:
+  _dlt_load_id: Internal data loading identifier.
+  carrier_tracking_number: Shipment tracking number supplied by the shipper.
+  line_total: Per product subtotal. Computed as UnitPrice * (1 - UnitPriceDiscount)
+    * OrderQty.
+  modified_date: Date and time the record was last updated.
+  order_qty: Quantity ordered per product.
+  product_id: Product sold to customer. Foreign key to Product.ProductID.
+  rowguid: ROWGUIDCOL number uniquely identifying the record. Used to support a merge
+    replication sample.
+  sales_order_detail_id: Primary key. One incremental unique number per product sold.
+  sales_order_id: Primary key. Foreign key to SalesOrderHeader.SalesOrderID.
+  special_offer_id: Promotional code. Foreign key to SpecialOffer.SpecialOfferID.
+  unit_price: Selling price of a single product.
+  unit_price_discount: Discount amount.
+columns:
+- name: sales_order_id
+  type: bigint
+- name: sales_order_detail_id
+  type: bigint
+- name: carrier_tracking_number
+  type: text
+- name: order_qty
+  type: bigint
+- name: product_id
+  type: bigint
+- name: special_offer_id
+  type: bigint
+- name: unit_price
+  type: double
+- name: unit_price_discount
+  type: double
+- name: line_total
+  type: double
+- name: rowguid
+  type: uniqueidentifier
+- name: modified_date
+  type: date
+- name: _dlt_load_id
+  type: text
+description: Individual products associated with a specific sales order. See SalesOrderHeader.
+name: raw__adventure_works__sales_order_details

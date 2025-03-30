@@ -1,0 +1,63 @@
+column_data_types:
+  _hook__order_line__purchase: binary
+  _pit_hook__bridge: binary
+  _pit_hook__order__purchase: binary
+  _pit_hook__order_line__purchase: binary
+  _pit_hook__person__employee: binary
+  _pit_hook__product: binary
+  _pit_hook__product_category: binary
+  _pit_hook__product_subcategory: binary
+  _pit_hook__reference__product_model: binary
+  _pit_hook__ship_method: binary
+  _pit_hook__vendor: binary
+  bridge__is_current_record: boolean
+  bridge__record_loaded_at: timestamp
+  bridge__record_updated_at: timestamp
+  bridge__record_valid_from: timestamp
+  bridge__record_valid_to: timestamp
+  peripheral: text
+column_descriptions:
+  _hook__order_line__purchase: Hook to the concept order_line, with qualifier purchase
+  _pit_hook__bridge: Point-in-time hook for the bridge record.
+  _pit_hook__order__purchase: Point-in-time hook to the concept order, with qualifier
+    purchase
+  _pit_hook__order_line__purchase: Point-in-time hook to the concept order_line, with
+    qualifier purchase
+  _pit_hook__person__employee: Point-in-time hook to the concept person, with qualifier
+    employee
+  _pit_hook__product: Point-in-time hook to the concept product
+  _pit_hook__product_category: Point-in-time hook to the concept product_category
+  _pit_hook__product_subcategory: Point-in-time hook to the concept product_subcategory
+  _pit_hook__reference__product_model: Point-in-time hook to the concept reference,
+    with qualifier product_model
+  _pit_hook__ship_method: Point-in-time hook to the concept ship_method
+  _pit_hook__vendor: Point-in-time hook to the concept vendor
+  bridge__is_current_record: Flag indicating if this is the current valid version
+    of the bridge record.
+  bridge__record_loaded_at: Timestamp when this bridge record was loaded.
+  bridge__record_updated_at: Timestamp when this bridge record was last updated.
+  bridge__record_valid_from: Timestamp from which this bridge record is valid.
+  bridge__record_valid_to: Timestamp until which this bridge record is valid.
+  peripheral: Name of the peripheral table the bridge record belongs to.
+column_prefix: purchase_order_detail
+dependencies:
+  bridge__adventure_works__products:
+    inherited_hooks:
+    - _pit_hook__product
+    - _pit_hook__product_subcategory
+    - _pit_hook__product_category
+    - _pit_hook__reference__product_model
+    primary_hook: _hook__product
+  bridge__adventure_works__purchase_order_headers:
+    inherited_hooks:
+    - _pit_hook__order__purchase
+    - _pit_hook__person__employee
+    - _pit_hook__vendor
+    - _pit_hook__ship_method
+    primary_hook: _hook__order__purchase
+description: Puppini bridge for the peripheral table adventure_works__purchase_order_details
+hook: _hook__order_line__purchase
+name: bridge__adventure_works__purchase_order_details
+peripheral: adventure_works__purchase_order_details
+primary_hook: _pit_hook__order_line__purchase
+source_name: frame__adventure_works__purchase_order_details

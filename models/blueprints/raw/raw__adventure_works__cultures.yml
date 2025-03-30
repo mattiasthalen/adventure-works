@@ -1,0 +1,17 @@
+column_descriptions:
+  _dlt_load_id: Internal data loading identifier.
+  culture_id: Primary key for Culture records.
+  modified_date: Date and time the record was last updated.
+  name: Culture description.
+columns:
+- name: culture_id
+  type: text
+- name: name
+  type: text
+- name: modified_date
+  type: date
+- name: _dlt_load_id
+  type: text
+description: Lookup table containing the languages in which some AdventureWorks data
+  is stored.
+name: raw__adventure_works__cultures

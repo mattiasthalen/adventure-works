@@ -1,0 +1,49 @@
+column_data_types:
+  _hook__employee_department_history: binary
+  _pit_hook__bridge: binary
+  _pit_hook__department: binary
+  _pit_hook__employee_department_history: binary
+  _pit_hook__person__employee: binary
+  _pit_hook__reference__shift: binary
+  bridge__is_current_record: boolean
+  bridge__record_loaded_at: timestamp
+  bridge__record_updated_at: timestamp
+  bridge__record_valid_from: timestamp
+  bridge__record_valid_to: timestamp
+  peripheral: text
+column_descriptions:
+  _hook__employee_department_history: Hook to the concept employee_department_history
+  _pit_hook__bridge: Point-in-time hook for the bridge record.
+  _pit_hook__department: Point-in-time hook to the concept department
+  _pit_hook__employee_department_history: Point-in-time hook to the concept employee_department_history
+  _pit_hook__person__employee: Point-in-time hook to the concept person, with qualifier
+    employee
+  _pit_hook__reference__shift: Point-in-time hook to the concept reference, with qualifier
+    shift
+  bridge__is_current_record: Flag indicating if this is the current valid version
+    of the bridge record.
+  bridge__record_loaded_at: Timestamp when this bridge record was loaded.
+  bridge__record_updated_at: Timestamp when this bridge record was last updated.
+  bridge__record_valid_from: Timestamp from which this bridge record is valid.
+  bridge__record_valid_to: Timestamp until which this bridge record is valid.
+  peripheral: Name of the peripheral table the bridge record belongs to.
+column_prefix: employee_department_history
+dependencies:
+  bridge__adventure_works__departments:
+    inherited_hooks:
+    - _pit_hook__department
+    primary_hook: _hook__department
+  bridge__adventure_works__employees:
+    inherited_hooks:
+    - _pit_hook__person__employee
+    primary_hook: _hook__person__employee
+  bridge__adventure_works__shifts:
+    inherited_hooks:
+    - _pit_hook__reference__shift
+    primary_hook: _hook__reference__shift
+description: Puppini bridge for the peripheral table adventure_works__employee_department_histories
+hook: _hook__employee_department_history
+name: bridge__adventure_works__employee_department_histories
+peripheral: adventure_works__employee_department_histories
+primary_hook: _pit_hook__employee_department_history
+source_name: frame__adventure_works__employee_department_histories

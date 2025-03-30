@@ -1,0 +1,64 @@
+column_data_types:
+  _pit_hook__reference__special_offer: binary
+  special_offer__category: text
+  special_offer__description: text
+  special_offer__discount_percentage: double
+  special_offer__end_date: date
+  special_offer__is_current_record: boolean
+  special_offer__maximum_quantity: bigint
+  special_offer__minimum_quantity: bigint
+  special_offer__modified_date: date
+  special_offer__record_loaded_at: timestamp
+  special_offer__record_updated_at: timestamp
+  special_offer__record_valid_from: timestamp
+  special_offer__record_valid_to: timestamp
+  special_offer__record_version: int
+  special_offer__rowguid: uniqueidentifier
+  special_offer__special_offer_id: bigint
+  special_offer__start_date: date
+  special_offer__type: text
+column_descriptions:
+  _pit_hook__reference__special_offer: Point in time version of _hook__reference__special_offer.
+  special_offer__category: Group the discount applies to such as Reseller or Customer.
+  special_offer__description: Discount description.
+  special_offer__discount_percentage: Discount percentage.
+  special_offer__end_date: Discount end date.
+  special_offer__is_current_record: Flag indicating if this is the current valid version
+    of the record
+  special_offer__maximum_quantity: Maximum discount percent allowed.
+  special_offer__minimum_quantity: Minimum discount percent allowed.
+  special_offer__modified_date: Date and time the record was last updated.
+  special_offer__record_loaded_at: Timestamp when this record was loaded into the
+    system
+  special_offer__record_updated_at: Timestamp when this record was last updated
+  special_offer__record_valid_from: Timestamp from which this record version is valid
+  special_offer__record_valid_to: Timestamp until which this record version is valid
+  special_offer__record_version: Version number for this record
+  special_offer__rowguid: ROWGUIDCOL number uniquely identifying the record. Used
+    to support a merge replication sample.
+  special_offer__special_offer_id: Primary key for SpecialOffer records.
+  special_offer__start_date: Discount start date.
+  special_offer__type: Discount type category.
+columns:
+- _pit_hook__reference__special_offer
+- special_offer__special_offer_id
+- special_offer__description
+- special_offer__discount_percentage
+- special_offer__type
+- special_offer__category
+- special_offer__start_date
+- special_offer__end_date
+- special_offer__minimum_quantity
+- special_offer__rowguid
+- special_offer__modified_date
+- special_offer__maximum_quantity
+- special_offer__record_loaded_at
+- special_offer__record_updated_at
+- special_offer__record_version
+- special_offer__record_valid_from
+- special_offer__record_valid_to
+- special_offer__is_current_record
+description: 'Primary hook for special_offer_id using keyset: reference__special_offer__adventure_works.'
+grain: _pit_hook__reference__special_offer
+hook_name: frame__adventure_works__special_offers
+peripheral_name: adventure_works__special_offers

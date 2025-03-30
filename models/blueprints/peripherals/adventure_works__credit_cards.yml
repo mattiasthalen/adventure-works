@@ -1,0 +1,47 @@
+column_data_types:
+  _pit_hook__credit_card: binary
+  credit_card__card_number: text
+  credit_card__card_type: text
+  credit_card__credit_card_id: bigint
+  credit_card__exp_month: bigint
+  credit_card__exp_year: bigint
+  credit_card__is_current_record: boolean
+  credit_card__modified_date: date
+  credit_card__record_loaded_at: timestamp
+  credit_card__record_updated_at: timestamp
+  credit_card__record_valid_from: timestamp
+  credit_card__record_valid_to: timestamp
+  credit_card__record_version: int
+column_descriptions:
+  _pit_hook__credit_card: Point in time version of _hook__credit_card.
+  credit_card__card_number: Credit card number.
+  credit_card__card_type: Credit card name.
+  credit_card__credit_card_id: Primary key for CreditCard records.
+  credit_card__exp_month: Credit card expiration month.
+  credit_card__exp_year: Credit card expiration year.
+  credit_card__is_current_record: Flag indicating if this is the current valid version
+    of the record
+  credit_card__modified_date: Date and time the record was last updated.
+  credit_card__record_loaded_at: Timestamp when this record was loaded into the system
+  credit_card__record_updated_at: Timestamp when this record was last updated
+  credit_card__record_valid_from: Timestamp from which this record version is valid
+  credit_card__record_valid_to: Timestamp until which this record version is valid
+  credit_card__record_version: Version number for this record
+columns:
+- _pit_hook__credit_card
+- credit_card__credit_card_id
+- credit_card__card_type
+- credit_card__card_number
+- credit_card__exp_month
+- credit_card__exp_year
+- credit_card__modified_date
+- credit_card__record_loaded_at
+- credit_card__record_updated_at
+- credit_card__record_version
+- credit_card__record_valid_from
+- credit_card__record_valid_to
+- credit_card__is_current_record
+description: 'Primary hook for credit_card_id using keyset: credit_card__adventure_works.'
+grain: _pit_hook__credit_card
+hook_name: frame__adventure_works__credit_cards
+peripheral_name: adventure_works__credit_cards

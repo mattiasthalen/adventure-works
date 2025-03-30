@@ -1,0 +1,32 @@
+column_descriptions:
+  _dlt_load_id: Internal data loading identifier.
+  comments: Reviewer's comments.
+  email_address: Reviewer's e-mail address.
+  modified_date: Date and time the record was last updated.
+  product_id: Product identification number. Foreign key to Product.ProductID.
+  product_review_id: Primary key for ProductReview records.
+  rating: Product rating given by the reviewer. Scale is 1 to 5 with 5 as the highest
+    rating.
+  review_date: Date review was submitted.
+  reviewer_name: Name of the reviewer.
+columns:
+- name: product_review_id
+  type: bigint
+- name: product_id
+  type: bigint
+- name: reviewer_name
+  type: text
+- name: review_date
+  type: date
+- name: email_address
+  type: text
+- name: rating
+  type: bigint
+- name: comments
+  type: text
+- name: modified_date
+  type: date
+- name: _dlt_load_id
+  type: text
+description: Customer reviews of products they have purchased.
+name: raw__adventure_works__product_reviews

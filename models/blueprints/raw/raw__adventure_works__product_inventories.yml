@@ -1,0 +1,29 @@
+column_descriptions:
+  _dlt_load_id: Internal data loading identifier.
+  bin: Storage container on a shelf in an inventory location.
+  location_id: Inventory location identification number. Foreign key to Location.LocationID.
+  modified_date: Date and time the record was last updated.
+  product_id: Product identification number. Foreign key to Product.ProductID.
+  quantity: Quantity of products in the inventory location.
+  rowguid: ROWGUIDCOL number uniquely identifying the record. Used to support a merge
+    replication sample.
+  shelf: Storage compartment within an inventory location.
+columns:
+- name: product_id
+  type: bigint
+- name: location_id
+  type: bigint
+- name: shelf
+  type: text
+- name: bin
+  type: bigint
+- name: quantity
+  type: bigint
+- name: rowguid
+  type: uniqueidentifier
+- name: modified_date
+  type: date
+- name: _dlt_load_id
+  type: text
+description: Product inventory information.
+name: raw__adventure_works__product_inventories

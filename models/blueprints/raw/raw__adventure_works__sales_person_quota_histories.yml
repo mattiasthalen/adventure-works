@@ -1,0 +1,23 @@
+column_descriptions:
+  _dlt_load_id: Internal data loading identifier.
+  business_entity_id: Sales person identification number. Foreign key to SalesPerson.BusinessEntityID.
+  modified_date: Date and time the record was last updated.
+  quota_date: Sales quota date.
+  rowguid: ROWGUIDCOL number uniquely identifying the record. Used to support a merge
+    replication sample.
+  sales_quota: Sales quota amount.
+columns:
+- name: business_entity_id
+  type: bigint
+- name: quota_date
+  type: date
+- name: sales_quota
+  type: double
+- name: rowguid
+  type: uniqueidentifier
+- name: modified_date
+  type: date
+- name: _dlt_load_id
+  type: text
+description: Sales performance tracking.
+name: raw__adventure_works__sales_person_quota_histories

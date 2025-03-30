@@ -1,0 +1,24 @@
+column_descriptions:
+  _dlt_load_id: Internal data loading identifier.
+  address_id: Primary key. Foreign key to Address.AddressID.
+  address_type_id: Primary key. Foreign key to AddressType.AddressTypeID.
+  business_entity_id: Primary key. Foreign key to BusinessEntity.BusinessEntityID.
+  modified_date: Date and time the record was last updated.
+  rowguid: ROWGUIDCOL number uniquely identifying the record. Used to support a merge
+    replication sample.
+columns:
+- name: business_entity_id
+  type: bigint
+- name: address_id
+  type: bigint
+- name: address_type_id
+  type: bigint
+- name: rowguid
+  type: uniqueidentifier
+- name: modified_date
+  type: date
+- name: _dlt_load_id
+  type: text
+description: Cross-reference table mapping customers, vendors, and employees to their
+  addresses.
+name: raw__adventure_works__business_entity_addresses

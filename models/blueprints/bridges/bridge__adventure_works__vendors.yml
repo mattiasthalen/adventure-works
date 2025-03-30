@@ -1,0 +1,28 @@
+column_data_types:
+  _hook__vendor: binary
+  _pit_hook__bridge: binary
+  _pit_hook__vendor: binary
+  bridge__is_current_record: boolean
+  bridge__record_loaded_at: timestamp
+  bridge__record_updated_at: timestamp
+  bridge__record_valid_from: timestamp
+  bridge__record_valid_to: timestamp
+  peripheral: text
+column_descriptions:
+  _hook__vendor: Hook to the concept vendor
+  _pit_hook__bridge: Point-in-time hook for the bridge record.
+  _pit_hook__vendor: Point-in-time hook to the concept vendor
+  bridge__is_current_record: Flag indicating if this is the current valid version
+    of the bridge record.
+  bridge__record_loaded_at: Timestamp when this bridge record was loaded.
+  bridge__record_updated_at: Timestamp when this bridge record was last updated.
+  bridge__record_valid_from: Timestamp from which this bridge record is valid.
+  bridge__record_valid_to: Timestamp until which this bridge record is valid.
+  peripheral: Name of the peripheral table the bridge record belongs to.
+column_prefix: vendor
+description: Puppini bridge for the peripheral table adventure_works__vendors
+hook: _hook__vendor
+name: bridge__adventure_works__vendors
+peripheral: adventure_works__vendors
+primary_hook: _pit_hook__vendor
+source_name: frame__adventure_works__vendors

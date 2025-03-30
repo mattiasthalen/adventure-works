@@ -1,0 +1,35 @@
+column_descriptions:
+  _dlt_load_id: Internal data loading identifier.
+  bonus: Bonus due if quota is met.
+  business_entity_id: Primary key for SalesPerson records. Foreign key to Employee.BusinessEntityID.
+  commission_pct: Commission percent received per sale.
+  modified_date: Date and time the record was last updated.
+  rowguid: ROWGUIDCOL number uniquely identifying the record. Used to support a merge
+    replication sample.
+  sales_last_year: Sales total of previous year.
+  sales_quota: Projected yearly sales.
+  sales_ytd: Sales total year to date.
+  territory_id: Territory currently assigned to. Foreign key to SalesTerritory.SalesTerritoryID.
+columns:
+- name: business_entity_id
+  type: bigint
+- name: bonus
+  type: double
+- name: commission_pct
+  type: double
+- name: sales_ytd
+  type: double
+- name: sales_last_year
+  type: double
+- name: rowguid
+  type: uniqueidentifier
+- name: modified_date
+  type: date
+- name: _dlt_load_id
+  type: text
+- name: territory_id
+  type: bigint
+- name: sales_quota
+  type: double
+description: Sales representative current information.
+name: raw__adventure_works__sales_persons

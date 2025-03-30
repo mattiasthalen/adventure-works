@@ -1,0 +1,96 @@
+column_data_types:
+  _hook__order__work: binary
+  _hook__product: binary
+  _hook__reference__scrap_reason: binary
+  _pit_hook__order__work: binary
+  work_order__due_date: date
+  work_order__end_date: date
+  work_order__is_current_record: boolean
+  work_order__modified_date: date
+  work_order__order_qty: bigint
+  work_order__product_id: bigint
+  work_order__record_loaded_at: timestamp
+  work_order__record_updated_at: timestamp
+  work_order__record_valid_from: timestamp
+  work_order__record_valid_to: timestamp
+  work_order__record_version: int
+  work_order__scrap_reason_id: bigint
+  work_order__scrapped_qty: bigint
+  work_order__start_date: date
+  work_order__stocked_qty: bigint
+  work_order__work_order_id: bigint
+column_descriptions:
+  _hook__order__work: 'Primary hook for work_order_id using keyset: order__work__adventure_works.'
+  _hook__product: 'Hook for product_id using keyset: product__adventure_works.'
+  _hook__reference__scrap_reason: 'Hook for scrap_reason_id using keyset: reference__scrap_reason__adventure_works.'
+  _pit_hook__order__work: Point in time version of _hook__order__work.
+  work_order__due_date: Work order due date.
+  work_order__end_date: Work order end date.
+  work_order__is_current_record: Flag indicating if this is the current valid version
+    of the record
+  work_order__modified_date: Date and time the record was last updated.
+  work_order__order_qty: Product quantity to build.
+  work_order__product_id: Product identification number. Foreign key to Product.ProductID.
+  work_order__record_loaded_at: Timestamp when this record was loaded into the system
+  work_order__record_updated_at: Timestamp when this record was last updated
+  work_order__record_valid_from: Timestamp from which this record version is valid
+  work_order__record_valid_to: Timestamp until which this record version is valid
+  work_order__record_version: Version number for this record
+  work_order__scrap_reason_id: Reason for inspection failure.
+  work_order__scrapped_qty: Quantity that failed inspection.
+  work_order__start_date: Work order start date.
+  work_order__stocked_qty: Quantity built and put in inventory.
+  work_order__work_order_id: Primary key for WorkOrder records.
+column_prefix: work_order
+columns:
+- _pit_hook__order__work
+- _hook__order__work
+- _hook__product
+- _hook__reference__scrap_reason
+- work_order__work_order_id
+- work_order__product_id
+- work_order__order_qty
+- work_order__stocked_qty
+- work_order__scrapped_qty
+- work_order__start_date
+- work_order__end_date
+- work_order__due_date
+- work_order__modified_date
+- work_order__scrap_reason_id
+- work_order__record_loaded_at
+- work_order__record_updated_at
+- work_order__record_version
+- work_order__record_valid_from
+- work_order__record_valid_to
+- work_order__is_current_record
+description: 'Hook for scrap_reason_id using keyset: reference__scrap_reason__adventure_works.'
+grain: _pit_hook__order__work
+hooks:
+- business_key_field: work_order_id
+  keyset: order__work__adventure_works
+  name: _hook__order__work
+  primary: true
+- business_key_field: product_id
+  keyset: product__adventure_works
+  name: _hook__product
+- business_key_field: scrap_reason_id
+  keyset: reference__scrap_reason__adventure_works
+  name: _hook__reference__scrap_reason
+name: frame__adventure_works__work_orders
+references:
+- _hook__product
+- _hook__reference__scrap_reason
+source_columns:
+- work_order_id
+- product_id
+- order_qty
+- stocked_qty
+- scrapped_qty
+- start_date
+- end_date
+- due_date
+- modified_date
+- scrap_reason_id
+source_primary_keys:
+- work_order_id
+source_table: raw__adventure_works__work_orders

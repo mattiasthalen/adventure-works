@@ -1,0 +1,22 @@
+column_descriptions:
+  _dlt_load_id: Internal data loading identifier.
+  end_date: Product cost end date.
+  modified_date: Date and time the record was last updated.
+  product_id: Product identification number. Foreign key to Product.ProductID.
+  standard_cost: Standard cost of the product.
+  start_date: Product cost start date.
+columns:
+- name: product_id
+  type: bigint
+- name: start_date
+  type: timestamp
+- name: end_date
+  type: date
+- name: standard_cost
+  type: double
+- name: modified_date
+  type: date
+- name: _dlt_load_id
+  type: text
+description: Changes in the cost of a product over time.
+name: raw__adventure_works__product_cost_histories

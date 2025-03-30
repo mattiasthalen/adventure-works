@@ -1,0 +1,41 @@
+column_descriptions:
+  _dlt_load_id: Internal data loading identifier.
+  category: Group the discount applies to such as Reseller or Customer.
+  description: Discount description.
+  discount_percentage: Discount percentage.
+  end_date: Discount end date.
+  maximum_quantity: Maximum discount percent allowed.
+  minimum_quantity: Minimum discount percent allowed.
+  modified_date: Date and time the record was last updated.
+  rowguid: ROWGUIDCOL number uniquely identifying the record. Used to support a merge
+    replication sample.
+  special_offer_id: Primary key for SpecialOffer records.
+  start_date: Discount start date.
+  type: Discount type category.
+columns:
+- name: special_offer_id
+  type: bigint
+- name: description
+  type: text
+- name: discount_percentage
+  type: double
+- name: type
+  type: text
+- name: category
+  type: text
+- name: start_date
+  type: date
+- name: end_date
+  type: date
+- name: minimum_quantity
+  type: bigint
+- name: rowguid
+  type: uniqueidentifier
+- name: modified_date
+  type: date
+- name: _dlt_load_id
+  type: text
+- name: maximum_quantity
+  type: bigint
+description: Sale discounts lookup table.
+name: raw__adventure_works__special_offers

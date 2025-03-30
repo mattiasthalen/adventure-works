@@ -1,0 +1,77 @@
+column_data_types:
+  _pit_hook__person__employee: binary
+  employee__birth_date: date
+  employee__business_entity_id: bigint
+  employee__current_flag: bool
+  employee__gender: text
+  employee__hire_date: date
+  employee__is_current_record: boolean
+  employee__job_title: text
+  employee__login_id: text
+  employee__marital_status: text
+  employee__modified_date: date
+  employee__national_idnumber: text
+  employee__organization_level: bigint
+  employee__record_loaded_at: timestamp
+  employee__record_updated_at: timestamp
+  employee__record_valid_from: timestamp
+  employee__record_valid_to: timestamp
+  employee__record_version: int
+  employee__rowguid: uniqueidentifier
+  employee__salaried_flag: bool
+  employee__sick_leave_hours: bigint
+  employee__vacation_hours: bigint
+column_descriptions:
+  _pit_hook__person__employee: Point in time version of _hook__person__employee.
+  employee__birth_date: Date of birth.
+  employee__business_entity_id: Primary key for Employee records. Foreign key to BusinessEntity.BusinessEntityID.
+  employee__current_flag: 0 = Inactive, 1 = Active.
+  employee__gender: M = Male, F = Female.
+  employee__hire_date: Employee hired on this date.
+  employee__is_current_record: Flag indicating if this is the current valid version
+    of the record
+  employee__job_title: Work title such as Buyer or Sales Representative.
+  employee__login_id: Network login.
+  employee__marital_status: M = Married, S = Single.
+  employee__modified_date: Date and time the record was last updated.
+  employee__national_idnumber: Unique national identification number such as a social
+    security number.
+  employee__organization_level: The depth of the employee in the corporate hierarchy.
+  employee__record_loaded_at: Timestamp when this record was loaded into the system
+  employee__record_updated_at: Timestamp when this record was last updated
+  employee__record_valid_from: Timestamp from which this record version is valid
+  employee__record_valid_to: Timestamp until which this record version is valid
+  employee__record_version: Version number for this record
+  employee__rowguid: ROWGUIDCOL number uniquely identifying the record. Used to support
+    a merge replication sample.
+  employee__salaried_flag: Job classification. 0 = Hourly, not exempt from collective
+    bargaining. 1 = Salaried, exempt from collective bargaining.
+  employee__sick_leave_hours: Number of available sick leave hours.
+  employee__vacation_hours: Number of available vacation hours.
+columns:
+- _pit_hook__person__employee
+- employee__business_entity_id
+- employee__national_idnumber
+- employee__login_id
+- employee__job_title
+- employee__birth_date
+- employee__marital_status
+- employee__gender
+- employee__hire_date
+- employee__salaried_flag
+- employee__vacation_hours
+- employee__sick_leave_hours
+- employee__current_flag
+- employee__rowguid
+- employee__modified_date
+- employee__organization_level
+- employee__record_loaded_at
+- employee__record_updated_at
+- employee__record_version
+- employee__record_valid_from
+- employee__record_valid_to
+- employee__is_current_record
+description: 'Primary hook for business_entity_id using keyset: person__employee__adventure_works.'
+grain: _pit_hook__person__employee
+hook_name: frame__adventure_works__employees
+peripheral_name: adventure_works__employees

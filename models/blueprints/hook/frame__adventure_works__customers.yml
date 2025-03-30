@@ -1,0 +1,94 @@
+column_data_types:
+  _hook__customer: binary
+  _hook__person__customer: binary
+  _hook__store: binary
+  _hook__territory__sales: binary
+  _pit_hook__customer: binary
+  customer__account_number: text
+  customer__customer_id: bigint
+  customer__is_current_record: boolean
+  customer__modified_date: date
+  customer__person_id: bigint
+  customer__record_loaded_at: timestamp
+  customer__record_updated_at: timestamp
+  customer__record_valid_from: timestamp
+  customer__record_valid_to: timestamp
+  customer__record_version: int
+  customer__rowguid: uniqueidentifier
+  customer__store_id: bigint
+  customer__territory_id: bigint
+column_descriptions:
+  _hook__customer: 'Primary hook for customer_id using keyset: customer__adventure_works.'
+  _hook__person__customer: 'Hook for person_id using keyset: person__customer__adventure_works.'
+  _hook__store: 'Hook for store_id using keyset: store__adventure_works.'
+  _hook__territory__sales: 'Hook for territory_id using keyset: territory__sales__adventure_works.'
+  _pit_hook__customer: Point in time version of _hook__customer.
+  customer__account_number: Unique number identifying the customer assigned by the
+    accounting system.
+  customer__customer_id: Primary key.
+  customer__is_current_record: Flag indicating if this is the current valid version
+    of the record
+  customer__modified_date: Date and time the record was last updated.
+  customer__person_id: Foreign key to Person.BusinessEntityID.
+  customer__record_loaded_at: Timestamp when this record was loaded into the system
+  customer__record_updated_at: Timestamp when this record was last updated
+  customer__record_valid_from: Timestamp from which this record version is valid
+  customer__record_valid_to: Timestamp until which this record version is valid
+  customer__record_version: Version number for this record
+  customer__rowguid: ROWGUIDCOL number uniquely identifying the record. Used to support
+    a merge replication sample.
+  customer__store_id: Foreign key to Store.BusinessEntityID.
+  customer__territory_id: ID of the territory in which the customer is located. Foreign
+    key to SalesTerritory.SalesTerritoryID.
+column_prefix: customer
+columns:
+- _pit_hook__customer
+- _hook__customer
+- _hook__person__customer
+- _hook__store
+- _hook__territory__sales
+- customer__customer_id
+- customer__store_id
+- customer__territory_id
+- customer__account_number
+- customer__rowguid
+- customer__modified_date
+- customer__person_id
+- customer__record_loaded_at
+- customer__record_updated_at
+- customer__record_version
+- customer__record_valid_from
+- customer__record_valid_to
+- customer__is_current_record
+description: 'Hook for territory_id using keyset: territory__sales__adventure_works.'
+grain: _pit_hook__customer
+hooks:
+- business_key_field: customer_id
+  keyset: customer__adventure_works
+  name: _hook__customer
+  primary: true
+- business_key_field: person_id
+  keyset: person__customer__adventure_works
+  name: _hook__person__customer
+- business_key_field: store_id
+  keyset: store__adventure_works
+  name: _hook__store
+- business_key_field: territory_id
+  keyset: territory__sales__adventure_works
+  name: _hook__territory__sales
+name: frame__adventure_works__customers
+references:
+- _hook__person__customer
+- _hook__store
+- _hook__territory__sales
+source_columns:
+- customer_id
+- store_id
+- territory_id
+- account_number
+- rowguid
+- modified_date
+- person_id
+source_primary_keys:
+- customer_id
+source_table: raw__adventure_works__customers

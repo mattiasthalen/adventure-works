@@ -1,0 +1,37 @@
+column_data_types:
+  _hook__territory__sales: binary
+  _pit_hook__bridge: binary
+  _pit_hook__reference__country_region: binary
+  _pit_hook__territory__sales: binary
+  bridge__is_current_record: boolean
+  bridge__record_loaded_at: timestamp
+  bridge__record_updated_at: timestamp
+  bridge__record_valid_from: timestamp
+  bridge__record_valid_to: timestamp
+  peripheral: text
+column_descriptions:
+  _hook__territory__sales: Hook to the concept territory, with qualifier sales
+  _pit_hook__bridge: Point-in-time hook for the bridge record.
+  _pit_hook__reference__country_region: Point-in-time hook to the concept reference,
+    with qualifier country_region
+  _pit_hook__territory__sales: Point-in-time hook to the concept territory, with qualifier
+    sales
+  bridge__is_current_record: Flag indicating if this is the current valid version
+    of the bridge record.
+  bridge__record_loaded_at: Timestamp when this bridge record was loaded.
+  bridge__record_updated_at: Timestamp when this bridge record was last updated.
+  bridge__record_valid_from: Timestamp from which this bridge record is valid.
+  bridge__record_valid_to: Timestamp until which this bridge record is valid.
+  peripheral: Name of the peripheral table the bridge record belongs to.
+column_prefix: sales_territory
+dependencies:
+  bridge__adventure_works__country_regions:
+    inherited_hooks:
+    - _pit_hook__reference__country_region
+    primary_hook: _hook__reference__country_region
+description: Puppini bridge for the peripheral table adventure_works__sales_territories
+hook: _hook__territory__sales
+name: bridge__adventure_works__sales_territories
+peripheral: adventure_works__sales_territories
+primary_hook: _pit_hook__territory__sales
+source_name: frame__adventure_works__sales_territories

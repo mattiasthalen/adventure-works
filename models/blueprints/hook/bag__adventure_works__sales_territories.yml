@@ -1,0 +1,93 @@
+column_data_types:
+  _hook__reference__country_region: binary
+  _hook__territory__sales: binary
+  _pit_hook__territory__sales: binary
+  sales_territory__cost_last_year: double
+  sales_territory__cost_ytd: double
+  sales_territory__country_region_code: text
+  sales_territory__group: text
+  sales_territory__is_current_record: boolean
+  sales_territory__modified_date: date
+  sales_territory__name: text
+  sales_territory__record_loaded_at: timestamp
+  sales_territory__record_updated_at: timestamp
+  sales_territory__record_valid_from: timestamp
+  sales_territory__record_valid_to: timestamp
+  sales_territory__record_version: int
+  sales_territory__rowguid: uniqueidentifier
+  sales_territory__sales_last_year: double
+  sales_territory__sales_ytd: double
+  sales_territory__territory_id: bigint
+column_descriptions:
+  _hook__reference__country_region: 'Hook for country_region_code using keyset: reference__country_region__adventure_works.'
+  _hook__territory__sales: 'Primary hook for territory_id using keyset: territory__sales__adventure_works.'
+  _pit_hook__territory__sales: Point in time version of _hook__territory__sales.
+  sales_territory__cost_last_year: Business costs in the territory the previous year.
+  sales_territory__cost_ytd: Business costs in the territory year to date.
+  sales_territory__country_region_code: ISO standard country or region code. Foreign
+    key to CountryRegion.CountryRegionCode.
+  sales_territory__group: Geographic area to which the sales territory belongs.
+  sales_territory__is_current_record: Flag indicating if this is the current valid
+    version of the record
+  sales_territory__modified_date: Date and time the record was last updated.
+  sales_territory__name: Sales territory description.
+  sales_territory__record_loaded_at: Timestamp when this record was loaded into the
+    system
+  sales_territory__record_updated_at: Timestamp when this record was last updated
+  sales_territory__record_valid_from: Timestamp from which this record version is
+    valid
+  sales_territory__record_valid_to: Timestamp until which this record version is valid
+  sales_territory__record_version: Version number for this record
+  sales_territory__rowguid: ROWGUIDCOL number uniquely identifying the record. Used
+    to support a merge replication sample.
+  sales_territory__sales_last_year: Sales in the territory the previous year.
+  sales_territory__sales_ytd: Sales in the territory year to date.
+  sales_territory__territory_id: Primary key for SalesTerritory records.
+column_prefix: sales_territory
+columns:
+- _pit_hook__territory__sales
+- _hook__territory__sales
+- _hook__reference__country_region
+- sales_territory__territory_id
+- sales_territory__name
+- sales_territory__country_region_code
+- sales_territory__group
+- sales_territory__sales_ytd
+- sales_territory__sales_last_year
+- sales_territory__cost_ytd
+- sales_territory__cost_last_year
+- sales_territory__rowguid
+- sales_territory__modified_date
+- sales_territory__record_loaded_at
+- sales_territory__record_updated_at
+- sales_territory__record_version
+- sales_territory__record_valid_from
+- sales_territory__record_valid_to
+- sales_territory__is_current_record
+description: 'Hook for country_region_code using keyset: reference__country_region__adventure_works.'
+grain: _pit_hook__territory__sales
+hooks:
+- business_key_field: territory_id
+  keyset: territory__sales__adventure_works
+  name: _hook__territory__sales
+  primary: true
+- business_key_field: country_region_code
+  keyset: reference__country_region__adventure_works
+  name: _hook__reference__country_region
+name: frame__adventure_works__sales_territories
+references:
+- _hook__reference__country_region
+source_columns:
+- territory_id
+- name
+- country_region_code
+- group
+- sales_ytd
+- sales_last_year
+- cost_ytd
+- cost_last_year
+- rowguid
+- modified_date
+source_primary_keys:
+- territory_id
+source_table: raw__adventure_works__sales_territories

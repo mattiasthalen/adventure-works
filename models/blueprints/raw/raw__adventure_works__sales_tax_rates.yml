@@ -1,0 +1,30 @@
+column_descriptions:
+  _dlt_load_id: Internal data loading identifier.
+  modified_date: Date and time the record was last updated.
+  name: Tax rate description.
+  rowguid: ROWGUIDCOL number uniquely identifying the record. Used to support a merge
+    replication sample.
+  sales_tax_rate_id: Primary key for SalesTaxRate records.
+  state_province_id: State, province, or country/region the sales tax applies to.
+  tax_rate: Tax rate amount.
+  tax_type: 1 = Tax applied to retail transactions, 2 = Tax applied to wholesale transactions,
+    3 = Tax applied to all sales (retail and wholesale) transactions.
+columns:
+- name: sales_tax_rate_id
+  type: bigint
+- name: state_province_id
+  type: bigint
+- name: tax_type
+  type: bigint
+- name: tax_rate
+  type: double
+- name: name
+  type: text
+- name: rowguid
+  type: uniqueidentifier
+- name: modified_date
+  type: date
+- name: _dlt_load_id
+  type: text
+description: Tax rate lookup table.
+name: raw__adventure_works__sales_tax_rates

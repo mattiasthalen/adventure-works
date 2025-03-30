@@ -1,0 +1,69 @@
+column_data_types:
+  _pit_hook__order_line__sales: binary
+  sales_order_detail__carrier_tracking_number: text
+  sales_order_detail__is_current_record: boolean
+  sales_order_detail__line_total: double
+  sales_order_detail__modified_date: date
+  sales_order_detail__order_qty: bigint
+  sales_order_detail__product_id: bigint
+  sales_order_detail__record_loaded_at: timestamp
+  sales_order_detail__record_updated_at: timestamp
+  sales_order_detail__record_valid_from: timestamp
+  sales_order_detail__record_valid_to: timestamp
+  sales_order_detail__record_version: int
+  sales_order_detail__rowguid: uniqueidentifier
+  sales_order_detail__sales_order_detail_id: bigint
+  sales_order_detail__sales_order_id: bigint
+  sales_order_detail__special_offer_id: bigint
+  sales_order_detail__unit_price: double
+  sales_order_detail__unit_price_discount: double
+column_descriptions:
+  _pit_hook__order_line__sales: Point in time version of _hook__order_line__sales.
+  sales_order_detail__carrier_tracking_number: Shipment tracking number supplied by
+    the shipper.
+  sales_order_detail__is_current_record: Flag indicating if this is the current valid
+    version of the record
+  sales_order_detail__line_total: Per product subtotal. Computed as UnitPrice * (1
+    - UnitPriceDiscount) * OrderQty.
+  sales_order_detail__modified_date: Date and time the record was last updated.
+  sales_order_detail__order_qty: Quantity ordered per product.
+  sales_order_detail__product_id: Product sold to customer. Foreign key to Product.ProductID.
+  sales_order_detail__record_loaded_at: Timestamp when this record was loaded into
+    the system
+  sales_order_detail__record_updated_at: Timestamp when this record was last updated
+  sales_order_detail__record_valid_from: Timestamp from which this record version
+    is valid
+  sales_order_detail__record_valid_to: Timestamp until which this record version is
+    valid
+  sales_order_detail__record_version: Version number for this record
+  sales_order_detail__rowguid: ROWGUIDCOL number uniquely identifying the record.
+    Used to support a merge replication sample.
+  sales_order_detail__sales_order_detail_id: Primary key. One incremental unique number
+    per product sold.
+  sales_order_detail__sales_order_id: Primary key. Foreign key to SalesOrderHeader.SalesOrderID.
+  sales_order_detail__special_offer_id: Promotional code. Foreign key to SpecialOffer.SpecialOfferID.
+  sales_order_detail__unit_price: Selling price of a single product.
+  sales_order_detail__unit_price_discount: Discount amount.
+columns:
+- _pit_hook__order_line__sales
+- sales_order_detail__sales_order_id
+- sales_order_detail__sales_order_detail_id
+- sales_order_detail__carrier_tracking_number
+- sales_order_detail__order_qty
+- sales_order_detail__product_id
+- sales_order_detail__special_offer_id
+- sales_order_detail__unit_price
+- sales_order_detail__unit_price_discount
+- sales_order_detail__line_total
+- sales_order_detail__rowguid
+- sales_order_detail__modified_date
+- sales_order_detail__record_loaded_at
+- sales_order_detail__record_updated_at
+- sales_order_detail__record_version
+- sales_order_detail__record_valid_from
+- sales_order_detail__record_valid_to
+- sales_order_detail__is_current_record
+description: 'Hook for special_offer_id using keyset: reference__special_offer__adventure_works.'
+grain: _pit_hook__order_line__sales
+hook_name: frame__adventure_works__sales_order_details
+peripheral_name: adventure_works__sales_order_details

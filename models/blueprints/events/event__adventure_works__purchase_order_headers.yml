@@ -1,0 +1,64 @@
+bridge_name: bridge__adventure_works__purchase_order_headers
+column_data_types:
+  _hook__epoch__date: binary
+  _hook__order__purchase: binary
+  _pit_hook__bridge: binary
+  _pit_hook__order__purchase: binary
+  _pit_hook__person__employee: binary
+  _pit_hook__ship_method: binary
+  _pit_hook__vendor: binary
+  bridge__is_current_record: boolean
+  bridge__record_loaded_at: timestamp
+  bridge__record_updated_at: timestamp
+  bridge__record_valid_from: timestamp
+  bridge__record_valid_to: timestamp
+  event__purchase_order_header__modified: boolean
+  event__purchase_order_header__order: boolean
+  event__purchase_order_header__ship: boolean
+  peripheral: text
+column_descriptions:
+  _hook__epoch__date: Hook to the concept epoch, with qualifier date.
+  _hook__order__purchase: Hook to the concept order, with qualifier purchase
+  _pit_hook__bridge: Point-in-time hook for the bridge record.
+  _pit_hook__order__purchase: Point-in-time hook to the concept order, with qualifier
+    purchase
+  _pit_hook__person__employee: Point-in-time hook to the concept person, with qualifier
+    employee
+  _pit_hook__ship_method: Point-in-time hook to the concept ship_method
+  _pit_hook__vendor: Point-in-time hook to the concept vendor
+  bridge__is_current_record: Flag indicating if this is the current valid version
+    of the bridge record.
+  bridge__record_loaded_at: Timestamp when this bridge record was loaded.
+  bridge__record_updated_at: Timestamp when this bridge record was last updated.
+  bridge__record_valid_from: Timestamp from which this bridge record is valid.
+  bridge__record_valid_to: Timestamp until which this bridge record is valid.
+  event__purchase_order_header__modified: Flag indicating a modified event for this
+    purchase_order_header.
+  event__purchase_order_header__order: Flag indicating a order event for this purchase_order_header.
+  event__purchase_order_header__ship: Flag indicating a ship event for this purchase_order_header.
+  peripheral: Name of the peripheral table the bridge record belongs to.
+columns:
+- _hook__order__purchase
+- _pit_hook__bridge
+- _pit_hook__order__purchase
+- _pit_hook__person__employee
+- _pit_hook__ship_method
+- _pit_hook__vendor
+- bridge__is_current_record
+- bridge__record_loaded_at
+- bridge__record_updated_at
+- bridge__record_valid_from
+- bridge__record_valid_to
+- peripheral
+- event__purchase_order_header__modified
+- event__purchase_order_header__order
+- event__purchase_order_header__ship
+- _hook__epoch__date
+date_columns:
+  purchase_order_header__modified_date: event__purchase_order_header__modified
+  purchase_order_header__order_date: event__purchase_order_header__order
+  purchase_order_header__ship_date: event__purchase_order_header__ship
+description: Event viewpoint of bridge__adventure_works__purchase_order_headers.
+event_name: event__adventure_works__purchase_order_headers
+hook_name: frame__adventure_works__purchase_order_headers
+primary_pit_hook: _pit_hook__order__purchase

@@ -1,0 +1,94 @@
+column_data_types:
+  _hook__reference__country_region: binary
+  _hook__reference__state_province: binary
+  _hook__territory__sales: binary
+  _pit_hook__reference__state_province: binary
+  state_province__country_region_code: text
+  state_province__is_current_record: boolean
+  state_province__is_only_state_province_flag: bool
+  state_province__modified_date: date
+  state_province__name: text
+  state_province__record_loaded_at: timestamp
+  state_province__record_updated_at: timestamp
+  state_province__record_valid_from: timestamp
+  state_province__record_valid_to: timestamp
+  state_province__record_version: int
+  state_province__rowguid: uniqueidentifier
+  state_province__state_province_code: text
+  state_province__state_province_id: bigint
+  state_province__territory_id: bigint
+column_descriptions:
+  _hook__reference__country_region: 'Hook for country_region_code using keyset: reference__country_region__adventure_works.'
+  _hook__reference__state_province: 'Primary hook for state_province_id using keyset:
+    reference__state_province__adventure_works.'
+  _hook__territory__sales: 'Hook for territory_id using keyset: territory__sales__adventure_works.'
+  _pit_hook__reference__state_province: Point in time version of _hook__reference__state_province.
+  state_province__country_region_code: ISO standard country or region code. Foreign
+    key to CountryRegion.CountryRegionCode.
+  state_province__is_current_record: Flag indicating if this is the current valid
+    version of the record
+  state_province__is_only_state_province_flag: 0 = StateProvinceCode exists. 1 = StateProvinceCode
+    unavailable, using CountryRegionCode.
+  state_province__modified_date: Date and time the record was last updated.
+  state_province__name: State or province description.
+  state_province__record_loaded_at: Timestamp when this record was loaded into the
+    system
+  state_province__record_updated_at: Timestamp when this record was last updated
+  state_province__record_valid_from: Timestamp from which this record version is valid
+  state_province__record_valid_to: Timestamp until which this record version is valid
+  state_province__record_version: Version number for this record
+  state_province__rowguid: ROWGUIDCOL number uniquely identifying the record. Used
+    to support a merge replication sample.
+  state_province__state_province_code: ISO standard state or province code.
+  state_province__state_province_id: Primary key for StateProvince records.
+  state_province__territory_id: ID of the territory in which the state or province
+    is located. Foreign key to SalesTerritory.SalesTerritoryID.
+column_prefix: state_province
+columns:
+- _pit_hook__reference__state_province
+- _hook__reference__state_province
+- _hook__reference__country_region
+- _hook__territory__sales
+- state_province__state_province_id
+- state_province__state_province_code
+- state_province__country_region_code
+- state_province__is_only_state_province_flag
+- state_province__name
+- state_province__territory_id
+- state_province__rowguid
+- state_province__modified_date
+- state_province__record_loaded_at
+- state_province__record_updated_at
+- state_province__record_version
+- state_province__record_valid_from
+- state_province__record_valid_to
+- state_province__is_current_record
+description: 'Hook for territory_id using keyset: territory__sales__adventure_works.'
+grain: _pit_hook__reference__state_province
+hooks:
+- business_key_field: state_province_id
+  keyset: reference__state_province__adventure_works
+  name: _hook__reference__state_province
+  primary: true
+- business_key_field: country_region_code
+  keyset: reference__country_region__adventure_works
+  name: _hook__reference__country_region
+- business_key_field: territory_id
+  keyset: territory__sales__adventure_works
+  name: _hook__territory__sales
+name: frame__adventure_works__state_provinces
+references:
+- _hook__reference__country_region
+- _hook__territory__sales
+source_columns:
+- state_province_id
+- state_province_code
+- country_region_code
+- is_only_state_province_flag
+- name
+- territory_id
+- rowguid
+- modified_date
+source_primary_keys:
+- state_province_id
+source_table: raw__adventure_works__state_provinces

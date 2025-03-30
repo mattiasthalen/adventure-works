@@ -46,7 +46,7 @@ tables:
     write_disposition: skip
     resource: _dlt_loads
     description: Created by DLT. Tracks completed loads
-  bag__adventure_works__addresses:
+  frame__adventure_works__addresses:
     columns:
       _pit_hook__address:
         data_type: text
@@ -109,10 +109,10 @@ tables:
         nullable: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__addresses
+    resource: frame__adventure_works__addresses
     x-normalizer:
       seen-data: true
-  bag__adventure_works__address_types:
+  frame__adventure_works__address_types:
     columns:
       _pit_hook__reference__address_type:
         data_type: text
@@ -160,10 +160,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__address_types
+    resource: frame__adventure_works__address_types
     x-normalizer:
       seen-data: true
-  bag__adventure_works__bill_of_materials:
+  frame__adventure_works__bill_of_materials:
     columns:
       _pit_hook__bill_of_materials:
         data_type: text
@@ -235,10 +235,10 @@ tables:
         nullable: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__bill_of_materials
+    resource: frame__adventure_works__bill_of_materials
     x-normalizer:
       seen-data: true
-  bag__adventure_works__business_entity_addresses:
+  frame__adventure_works__business_entity_addresses:
     columns:
       _pit_hook__address:
         data_type: text
@@ -295,10 +295,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__business_entity_addresses
+    resource: frame__adventure_works__business_entity_addresses
     x-normalizer:
       seen-data: true
-  bag__adventure_works__business_entity_contacts:
+  frame__adventure_works__business_entity_contacts:
     columns:
       _pit_hook__business_entity:
         data_type: text
@@ -355,10 +355,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__business_entity_contacts
+    resource: frame__adventure_works__business_entity_contacts
     x-normalizer:
       seen-data: true
-  bag__adventure_works__contact_types:
+  frame__adventure_works__contact_types:
     columns:
       _pit_hook__reference__contact_type:
         data_type: text
@@ -403,10 +403,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__contact_types
+    resource: frame__adventure_works__contact_types
     x-normalizer:
       seen-data: true
-  bag__adventure_works__country_regions:
+  frame__adventure_works__country_regions:
     columns:
       _pit_hook__reference__country_region:
         data_type: text
@@ -451,10 +451,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__country_regions
+    resource: frame__adventure_works__country_regions
     x-normalizer:
       seen-data: true
-  bag__adventure_works__credit_cards:
+  frame__adventure_works__credit_cards:
     columns:
       _pit_hook__credit_card:
         data_type: text
@@ -508,10 +508,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__credit_cards
+    resource: frame__adventure_works__credit_cards
     x-normalizer:
       seen-data: true
-  bag__adventure_works__cultures:
+  frame__adventure_works__cultures:
     columns:
       _pit_hook__reference__culture:
         data_type: text
@@ -556,10 +556,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__cultures
+    resource: frame__adventure_works__cultures
     x-normalizer:
       seen-data: true
-  bag__adventure_works__currencies:
+  frame__adventure_works__currencies:
     columns:
       _pit_hook__currency:
         data_type: text
@@ -604,10 +604,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__currencies
+    resource: frame__adventure_works__currencies
     x-normalizer:
       seen-data: true
-  bag__adventure_works__currency_rates:
+  frame__adventure_works__currency_rates:
     columns:
       _pit_hook__currency_rate:
         data_type: text
@@ -670,10 +670,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__currency_rates
+    resource: frame__adventure_works__currency_rates
     x-normalizer:
       seen-data: true
-  bag__adventure_works__customers:
+  frame__adventure_works__customers:
     columns:
       _pit_hook__customer:
         data_type: text
@@ -739,10 +739,10 @@ tables:
         nullable: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__customers
+    resource: frame__adventure_works__customers
     x-normalizer:
       seen-data: true
-  bag__adventure_works__departments:
+  frame__adventure_works__departments:
     columns:
       _pit_hook__department:
         data_type: text
@@ -790,10 +790,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__departments
+    resource: frame__adventure_works__departments
     x-normalizer:
       seen-data: true
-  bag__adventure_works__email_addresses:
+  frame__adventure_works__email_addresses:
     columns:
       _pit_hook__person__individual:
         data_type: text
@@ -847,10 +847,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__email_addresses
+    resource: frame__adventure_works__email_addresses
     x-normalizer:
       seen-data: true
-  bag__adventure_works__employees:
+  frame__adventure_works__employees:
     columns:
       _pit_hook__person__employee:
         data_type: text
@@ -931,10 +931,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__employees
+    resource: frame__adventure_works__employees
     x-normalizer:
       seen-data: true
-  bag__adventure_works__employee_department_histories:
+  frame__adventure_works__employee_department_histories:
     columns:
       _pit_hook__employee_department_history:
         data_type: text
@@ -1000,10 +1000,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__employee_department_histories
+    resource: frame__adventure_works__employee_department_histories
     x-normalizer:
       seen-data: true
-  bag__adventure_works__employee_pay_histories:
+  frame__adventure_works__employee_pay_histories:
     columns:
       _pit_hook__employee_pay_history:
         data_type: text
@@ -1060,10 +1060,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__employee_pay_histories
+    resource: frame__adventure_works__employee_pay_histories
     x-normalizer:
       seen-data: true
-  bag__adventure_works__illustrations:
+  frame__adventure_works__illustrations:
     columns:
       _pit_hook__reference__illustration:
         data_type: text
@@ -1108,10 +1108,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__illustrations
+    resource: frame__adventure_works__illustrations
     x-normalizer:
       seen-data: true
-  bag__adventure_works__job_candidates:
+  frame__adventure_works__job_candidates:
     columns:
       _pit_hook__job_candidate:
         data_type: text
@@ -1162,10 +1162,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__job_candidates
+    resource: frame__adventure_works__job_candidates
     x-normalizer:
       seen-data: true
-  bag__adventure_works__locations:
+  frame__adventure_works__locations:
     columns:
       _pit_hook__reference__location:
         data_type: text
@@ -1216,10 +1216,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__locations
+    resource: frame__adventure_works__locations
     x-normalizer:
       seen-data: true
-  bag__adventure_works__persons:
+  frame__adventure_works__persons:
     columns:
       _pit_hook__person__individual:
         data_type: text
@@ -1294,10 +1294,10 @@ tables:
         nullable: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__persons
+    resource: frame__adventure_works__persons
     x-normalizer:
       seen-data: true
-  bag__adventure_works__person_phones:
+  frame__adventure_works__person_phones:
     columns:
       _pit_hook__person__individual:
         data_type: text
@@ -1348,10 +1348,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__person_phones
+    resource: frame__adventure_works__person_phones
     x-normalizer:
       seen-data: true
-  bag__adventure_works__phone_number_types:
+  frame__adventure_works__phone_number_types:
     columns:
       _pit_hook__reference__phone_number_type:
         data_type: text
@@ -1396,10 +1396,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__phone_number_types
+    resource: frame__adventure_works__phone_number_types
     x-normalizer:
       seen-data: true
-  bag__adventure_works__products:
+  frame__adventure_works__products:
     columns:
       _pit_hook__product:
         data_type: text
@@ -1513,10 +1513,10 @@ tables:
         nullable: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__products
+    resource: frame__adventure_works__products
     x-normalizer:
       seen-data: true
-  bag__adventure_works__product_categories:
+  frame__adventure_works__product_categories:
     columns:
       _pit_hook__product_category:
         data_type: text
@@ -1564,10 +1564,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__product_categories
+    resource: frame__adventure_works__product_categories
     x-normalizer:
       seen-data: true
-  bag__adventure_works__product_cost_histories:
+  frame__adventure_works__product_cost_histories:
     columns:
       _pit_hook__product_cost_history:
         data_type: text
@@ -1624,10 +1624,10 @@ tables:
         nullable: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__product_cost_histories
+    resource: frame__adventure_works__product_cost_histories
     x-normalizer:
       seen-data: true
-  bag__adventure_works__product_descriptions:
+  frame__adventure_works__product_descriptions:
     columns:
       _pit_hook__reference__product_description:
         data_type: text
@@ -1675,10 +1675,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__product_descriptions
+    resource: frame__adventure_works__product_descriptions
     x-normalizer:
       seen-data: true
-  bag__adventure_works__product_inventories:
+  frame__adventure_works__product_inventories:
     columns:
       _pit_hook__reference__product_location:
         data_type: text
@@ -1741,10 +1741,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__product_inventories
+    resource: frame__adventure_works__product_inventories
     x-normalizer:
       seen-data: true
-  bag__adventure_works__product_list_price_histories:
+  frame__adventure_works__product_list_price_histories:
     columns:
       _pit_hook__product_list_price_history:
         data_type: text
@@ -1801,10 +1801,10 @@ tables:
         nullable: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__product_list_price_histories
+    resource: frame__adventure_works__product_list_price_histories
     x-normalizer:
       seen-data: true
-  bag__adventure_works__product_models:
+  frame__adventure_works__product_models:
     columns:
       _pit_hook__reference__product_model:
         data_type: text
@@ -1858,10 +1858,10 @@ tables:
         nullable: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__product_models
+    resource: frame__adventure_works__product_models
     x-normalizer:
       seen-data: true
-  bag__adventure_works__product_model_illustrations:
+  frame__adventure_works__product_model_illustrations:
     columns:
       _pit_hook__product_model_illustration:
         data_type: text
@@ -1912,10 +1912,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__product_model_illustrations
+    resource: frame__adventure_works__product_model_illustrations
     x-normalizer:
       seen-data: true
-  bag__adventure_works__product_photos:
+  frame__adventure_works__product_photos:
     columns:
       _pit_hook__reference__product_photo:
         data_type: text
@@ -1969,10 +1969,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__product_photos
+    resource: frame__adventure_works__product_photos
     x-normalizer:
       seen-data: true
-  bag__adventure_works__product_reviews:
+  frame__adventure_works__product_reviews:
     columns:
       _pit_hook__product_review:
         data_type: text
@@ -2035,10 +2035,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__product_reviews
+    resource: frame__adventure_works__product_reviews
     x-normalizer:
       seen-data: true
-  bag__adventure_works__product_subcategories:
+  frame__adventure_works__product_subcategories:
     columns:
       _pit_hook__product_subcategory:
         data_type: text
@@ -2092,10 +2092,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__product_subcategories
+    resource: frame__adventure_works__product_subcategories
     x-normalizer:
       seen-data: true
-  bag__adventure_works__product_vendors:
+  frame__adventure_works__product_vendors:
     columns:
       _pit_hook__product_vendor:
         data_type: text
@@ -2173,10 +2173,10 @@ tables:
         nullable: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__product_vendors
+    resource: frame__adventure_works__product_vendors
     x-normalizer:
       seen-data: true
-  bag__adventure_works__purchase_order_details:
+  frame__adventure_works__purchase_order_details:
     columns:
       _pit_hook__order_line__purchase:
         data_type: text
@@ -2251,10 +2251,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__purchase_order_details
+    resource: frame__adventure_works__purchase_order_details
     x-normalizer:
       seen-data: true
-  bag__adventure_works__purchase_order_headers:
+  frame__adventure_works__purchase_order_headers:
     columns:
       _pit_hook__order__purchase:
         data_type: text
@@ -2338,10 +2338,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__purchase_order_headers
+    resource: frame__adventure_works__purchase_order_headers
     x-normalizer:
       seen-data: true
-  bag__adventure_works__sales_order_details:
+  frame__adventure_works__sales_order_details:
     columns:
       _pit_hook__order_line__sales:
         data_type: text
@@ -2419,10 +2419,10 @@ tables:
         nullable: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__sales_order_details
+    resource: frame__adventure_works__sales_order_details
     x-normalizer:
       seen-data: true
-  bag__adventure_works__sales_order_headers:
+  frame__adventure_works__sales_order_headers:
     columns:
       _pit_hook__order__sales:
         data_type: text
@@ -2563,10 +2563,10 @@ tables:
         nullable: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__sales_order_headers
+    resource: frame__adventure_works__sales_order_headers
     x-normalizer:
       seen-data: true
-  bag__adventure_works__sales_persons:
+  frame__adventure_works__sales_persons:
     columns:
       _pit_hook__person__sales:
         data_type: text
@@ -2632,10 +2632,10 @@ tables:
         nullable: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__sales_persons
+    resource: frame__adventure_works__sales_persons
     x-normalizer:
       seen-data: true
-  bag__adventure_works__sales_person_quota_histories:
+  frame__adventure_works__sales_person_quota_histories:
     columns:
       _pit_hook__person__sales:
         data_type: text
@@ -2686,10 +2686,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__sales_person_quota_histories
+    resource: frame__adventure_works__sales_person_quota_histories
     x-normalizer:
       seen-data: true
-  bag__adventure_works__sales_reasons:
+  frame__adventure_works__sales_reasons:
     columns:
       _pit_hook__reference__sales_reason:
         data_type: text
@@ -2737,10 +2737,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__sales_reasons
+    resource: frame__adventure_works__sales_reasons
     x-normalizer:
       seen-data: true
-  bag__adventure_works__sales_tax_rates:
+  frame__adventure_works__sales_tax_rates:
     columns:
       _pit_hook__reference__sales_tax_rate:
         data_type: text
@@ -2800,10 +2800,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__sales_tax_rates
+    resource: frame__adventure_works__sales_tax_rates
     x-normalizer:
       seen-data: true
-  bag__adventure_works__sales_territories:
+  frame__adventure_works__sales_territories:
     columns:
       _pit_hook__territory__sales:
         data_type: text
@@ -2872,10 +2872,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__sales_territories
+    resource: frame__adventure_works__sales_territories
     x-normalizer:
       seen-data: true
-  bag__adventure_works__sales_territory_histories:
+  frame__adventure_works__sales_territory_histories:
     columns:
       _pit_hook__person__sales:
         data_type: text
@@ -2932,10 +2932,10 @@ tables:
         nullable: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__sales_territory_histories
+    resource: frame__adventure_works__sales_territory_histories
     x-normalizer:
       seen-data: true
-  bag__adventure_works__scrap_reasons:
+  frame__adventure_works__scrap_reasons:
     columns:
       _pit_hook__reference__scrap_reason:
         data_type: text
@@ -2980,10 +2980,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__scrap_reasons
+    resource: frame__adventure_works__scrap_reasons
     x-normalizer:
       seen-data: true
-  bag__adventure_works__shifts:
+  frame__adventure_works__shifts:
     columns:
       _pit_hook__reference__shift:
         data_type: text
@@ -3034,10 +3034,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__shifts
+    resource: frame__adventure_works__shifts
     x-normalizer:
       seen-data: true
-  bag__adventure_works__ship_methods:
+  frame__adventure_works__ship_methods:
     columns:
       _pit_hook__ship_method:
         data_type: text
@@ -3091,10 +3091,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__ship_methods
+    resource: frame__adventure_works__ship_methods
     x-normalizer:
       seen-data: true
-  bag__adventure_works__shopping_cart_items:
+  frame__adventure_works__shopping_cart_items:
     columns:
       _pit_hook__shopping_cart_item:
         data_type: text
@@ -3151,10 +3151,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__shopping_cart_items
+    resource: frame__adventure_works__shopping_cart_items
     x-normalizer:
       seen-data: true
-  bag__adventure_works__special_offers:
+  frame__adventure_works__special_offers:
     columns:
       _pit_hook__reference__special_offer:
         data_type: text
@@ -3223,10 +3223,10 @@ tables:
         nullable: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__special_offers
+    resource: frame__adventure_works__special_offers
     x-normalizer:
       seen-data: true
-  bag__adventure_works__state_provinces:
+  frame__adventure_works__state_provinces:
     columns:
       _pit_hook__reference__state_province:
         data_type: text
@@ -3292,10 +3292,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__state_provinces
+    resource: frame__adventure_works__state_provinces
     x-normalizer:
       seen-data: true
-  bag__adventure_works__stores:
+  frame__adventure_works__stores:
     columns:
       _pit_hook__store:
         data_type: text
@@ -3352,10 +3352,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__stores
+    resource: frame__adventure_works__stores
     x-normalizer:
       seen-data: true
-  bag__adventure_works__transaction_histories:
+  frame__adventure_works__transaction_histories:
     columns:
       _pit_hook__transaction_history:
         data_type: text
@@ -3424,10 +3424,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__transaction_histories
+    resource: frame__adventure_works__transaction_histories
     x-normalizer:
       seen-data: true
-  bag__adventure_works__transaction_history_archives:
+  frame__adventure_works__transaction_history_archives:
     columns:
       _pit_hook__transaction_history_archive:
         data_type: text
@@ -3496,10 +3496,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__transaction_history_archives
+    resource: frame__adventure_works__transaction_history_archives
     x-normalizer:
       seen-data: true
-  bag__adventure_works__unit_measures:
+  frame__adventure_works__unit_measures:
     columns:
       _pit_hook__reference__unit_measure:
         data_type: text
@@ -3544,10 +3544,10 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__unit_measures
+    resource: frame__adventure_works__unit_measures
     x-normalizer:
       seen-data: true
-  bag__adventure_works__vendors:
+  frame__adventure_works__vendors:
     columns:
       _pit_hook__vendor:
         data_type: text
@@ -3607,10 +3607,10 @@ tables:
         nullable: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__vendors
+    resource: frame__adventure_works__vendors
     x-normalizer:
       seen-data: true
-  bag__adventure_works__work_orders:
+  frame__adventure_works__work_orders:
     columns:
       _pit_hook__order__work:
         data_type: text
@@ -3682,10 +3682,10 @@ tables:
         nullable: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__work_orders
+    resource: frame__adventure_works__work_orders
     x-normalizer:
       seen-data: true
-  bag__adventure_works__work_order_routings:
+  frame__adventure_works__work_order_routings:
     columns:
       _pit_hook__work_order_routing:
         data_type: text
@@ -3769,7 +3769,7 @@ tables:
         row_key: true
     write_disposition: replace
     table_format: iceberg
-    resource: bag__adventure_works__work_order_routings
+    resource: frame__adventure_works__work_order_routings
     x-normalizer:
       seen-data: true
   _dlt_pipeline_state:

@@ -1,0 +1,20 @@
+column_descriptions:
+  _dlt_load_id: Internal data loading identifier.
+  description: Description of the product.
+  modified_date: Date and time the record was last updated.
+  product_description_id: Primary key for ProductDescription records.
+  rowguid: ROWGUIDCOL number uniquely identifying the record. Used to support a merge
+    replication sample.
+columns:
+- name: product_description_id
+  type: bigint
+- name: description
+  type: text
+- name: rowguid
+  type: uniqueidentifier
+- name: modified_date
+  type: date
+- name: _dlt_load_id
+  type: text
+description: Product descriptions in several languages.
+name: raw__adventure_works__product_descriptions

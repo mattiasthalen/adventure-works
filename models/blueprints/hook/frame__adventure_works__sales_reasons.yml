@@ -1,0 +1,59 @@
+column_data_types:
+  _hook__reference__sales_reason: binary
+  _pit_hook__reference__sales_reason: binary
+  sales_reason__is_current_record: boolean
+  sales_reason__modified_date: date
+  sales_reason__name: text
+  sales_reason__reason_type: text
+  sales_reason__record_loaded_at: timestamp
+  sales_reason__record_updated_at: timestamp
+  sales_reason__record_valid_from: timestamp
+  sales_reason__record_valid_to: timestamp
+  sales_reason__record_version: int
+  sales_reason__sales_reason_id: bigint
+column_descriptions:
+  _hook__reference__sales_reason: 'Primary hook for sales_reason_id using keyset:
+    reference__sales_reason__adventure_works.'
+  _pit_hook__reference__sales_reason: Point in time version of _hook__reference__sales_reason.
+  sales_reason__is_current_record: Flag indicating if this is the current valid version
+    of the record
+  sales_reason__modified_date: Date and time the record was last updated.
+  sales_reason__name: Sales reason description.
+  sales_reason__reason_type: Category the sales reason belongs to.
+  sales_reason__record_loaded_at: Timestamp when this record was loaded into the system
+  sales_reason__record_updated_at: Timestamp when this record was last updated
+  sales_reason__record_valid_from: Timestamp from which this record version is valid
+  sales_reason__record_valid_to: Timestamp until which this record version is valid
+  sales_reason__record_version: Version number for this record
+  sales_reason__sales_reason_id: Primary key for SalesReason records.
+column_prefix: sales_reason
+columns:
+- _pit_hook__reference__sales_reason
+- _hook__reference__sales_reason
+- sales_reason__sales_reason_id
+- sales_reason__name
+- sales_reason__reason_type
+- sales_reason__modified_date
+- sales_reason__record_loaded_at
+- sales_reason__record_updated_at
+- sales_reason__record_version
+- sales_reason__record_valid_from
+- sales_reason__record_valid_to
+- sales_reason__is_current_record
+description: 'Primary hook for sales_reason_id using keyset: reference__sales_reason__adventure_works.'
+grain: _pit_hook__reference__sales_reason
+hooks:
+- business_key_field: sales_reason_id
+  keyset: reference__sales_reason__adventure_works
+  name: _hook__reference__sales_reason
+  primary: true
+name: frame__adventure_works__sales_reasons
+references: []
+source_columns:
+- sales_reason_id
+- name
+- reason_type
+- modified_date
+source_primary_keys:
+- sales_reason_id
+source_table: raw__adventure_works__sales_reasons

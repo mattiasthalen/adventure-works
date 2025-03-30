@@ -1,0 +1,36 @@
+column_data_types:
+  _hook__bill_of_materials: binary
+  _pit_hook__bill_of_materials: binary
+  _pit_hook__bridge: binary
+  _pit_hook__reference__unit_measure: binary
+  bridge__is_current_record: boolean
+  bridge__record_loaded_at: timestamp
+  bridge__record_updated_at: timestamp
+  bridge__record_valid_from: timestamp
+  bridge__record_valid_to: timestamp
+  peripheral: text
+column_descriptions:
+  _hook__bill_of_materials: Hook to the concept bill_of_materials
+  _pit_hook__bill_of_materials: Point-in-time hook to the concept bill_of_materials
+  _pit_hook__bridge: Point-in-time hook for the bridge record.
+  _pit_hook__reference__unit_measure: Point-in-time hook to the concept reference,
+    with qualifier unit_measure
+  bridge__is_current_record: Flag indicating if this is the current valid version
+    of the bridge record.
+  bridge__record_loaded_at: Timestamp when this bridge record was loaded.
+  bridge__record_updated_at: Timestamp when this bridge record was last updated.
+  bridge__record_valid_from: Timestamp from which this bridge record is valid.
+  bridge__record_valid_to: Timestamp until which this bridge record is valid.
+  peripheral: Name of the peripheral table the bridge record belongs to.
+column_prefix: bill_of_material
+dependencies:
+  bridge__adventure_works__unit_measures:
+    inherited_hooks:
+    - _pit_hook__reference__unit_measure
+    primary_hook: _hook__reference__unit_measure
+description: Puppini bridge for the peripheral table adventure_works__bill_of_materials
+hook: _hook__bill_of_materials
+name: bridge__adventure_works__bill_of_materials
+peripheral: adventure_works__bill_of_materials
+primary_hook: _pit_hook__bill_of_materials
+source_name: frame__adventure_works__bill_of_materials

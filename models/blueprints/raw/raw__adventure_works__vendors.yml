@@ -1,0 +1,33 @@
+column_descriptions:
+  _dlt_load_id: Internal data loading identifier.
+  account_number: Vendor account (identification) number.
+  active_flag: 0 = Vendor no longer used. 1 = Vendor is actively used.
+  business_entity_id: Primary key for Vendor records. Foreign key to BusinessEntity.BusinessEntityID.
+  credit_rating: 1 = Superior, 2 = Excellent, 3 = Above average, 4 = Average, 5 =
+    Below average.
+  modified_date: Date and time the record was last updated.
+  name: Company name.
+  preferred_vendor_status: 0 = Do not use if another vendor is available. 1 = Preferred
+    over other vendors supplying the same product.
+  purchasing_web_service_url: Vendor URL.
+columns:
+- name: business_entity_id
+  type: bigint
+- name: account_number
+  type: text
+- name: name
+  type: text
+- name: credit_rating
+  type: bigint
+- name: preferred_vendor_status
+  type: bool
+- name: active_flag
+  type: bool
+- name: modified_date
+  type: date
+- name: _dlt_load_id
+  type: text
+- name: purchasing_web_service_url
+  type: text
+description: Companies from whom Adventure Works Cycles purchases parts or other goods.
+name: raw__adventure_works__vendors

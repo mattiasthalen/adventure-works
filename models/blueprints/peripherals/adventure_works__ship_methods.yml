@@ -1,0 +1,48 @@
+column_data_types:
+  _pit_hook__ship_method: binary
+  ship_method__is_current_record: boolean
+  ship_method__modified_date: date
+  ship_method__name: text
+  ship_method__record_loaded_at: timestamp
+  ship_method__record_updated_at: timestamp
+  ship_method__record_valid_from: timestamp
+  ship_method__record_valid_to: timestamp
+  ship_method__record_version: int
+  ship_method__rowguid: uniqueidentifier
+  ship_method__ship_base: double
+  ship_method__ship_method_id: bigint
+  ship_method__ship_rate: double
+column_descriptions:
+  _pit_hook__ship_method: Point in time version of _hook__ship_method.
+  ship_method__is_current_record: Flag indicating if this is the current valid version
+    of the record
+  ship_method__modified_date: Date and time the record was last updated.
+  ship_method__name: Shipping company name.
+  ship_method__record_loaded_at: Timestamp when this record was loaded into the system
+  ship_method__record_updated_at: Timestamp when this record was last updated
+  ship_method__record_valid_from: Timestamp from which this record version is valid
+  ship_method__record_valid_to: Timestamp until which this record version is valid
+  ship_method__record_version: Version number for this record
+  ship_method__rowguid: ROWGUIDCOL number uniquely identifying the record. Used to
+    support a merge replication sample.
+  ship_method__ship_base: Minimum shipping charge.
+  ship_method__ship_method_id: Primary key for ShipMethod records.
+  ship_method__ship_rate: Shipping charge per pound.
+columns:
+- _pit_hook__ship_method
+- ship_method__ship_method_id
+- ship_method__name
+- ship_method__ship_base
+- ship_method__ship_rate
+- ship_method__rowguid
+- ship_method__modified_date
+- ship_method__record_loaded_at
+- ship_method__record_updated_at
+- ship_method__record_version
+- ship_method__record_valid_from
+- ship_method__record_valid_to
+- ship_method__is_current_record
+description: 'Primary hook for ship_method_id using keyset: ship_method__adventure_works.'
+grain: _pit_hook__ship_method
+hook_name: frame__adventure_works__ship_methods
+peripheral_name: adventure_works__ship_methods

@@ -1,0 +1,50 @@
+column_data_types:
+  _pit_hook__store: binary
+  store__business_entity_id: bigint
+  store__demographics: xml
+  store__is_current_record: boolean
+  store__modified_date: date
+  store__name: text
+  store__record_loaded_at: timestamp
+  store__record_updated_at: timestamp
+  store__record_valid_from: timestamp
+  store__record_valid_to: timestamp
+  store__record_version: int
+  store__rowguid: uniqueidentifier
+  store__sales_person_id: bigint
+column_descriptions:
+  _pit_hook__store: Point in time version of _hook__store.
+  store__business_entity_id: Primary key. Foreign key to Customer.BusinessEntityID.
+  store__demographics: Demographic information about the store such as the number
+    of employees, annual sales and store type.
+  store__is_current_record: Flag indicating if this is the current valid version of
+    the record
+  store__modified_date: Date and time the record was last updated.
+  store__name: Name of the store.
+  store__record_loaded_at: Timestamp when this record was loaded into the system
+  store__record_updated_at: Timestamp when this record was last updated
+  store__record_valid_from: Timestamp from which this record version is valid
+  store__record_valid_to: Timestamp until which this record version is valid
+  store__record_version: Version number for this record
+  store__rowguid: ROWGUIDCOL number uniquely identifying the record. Used to support
+    a merge replication sample.
+  store__sales_person_id: ID of the sales person assigned to the customer. Foreign
+    key to SalesPerson.BusinessEntityID.
+columns:
+- _pit_hook__store
+- store__business_entity_id
+- store__name
+- store__sales_person_id
+- store__demographics
+- store__rowguid
+- store__modified_date
+- store__record_loaded_at
+- store__record_updated_at
+- store__record_version
+- store__record_valid_from
+- store__record_valid_to
+- store__is_current_record
+description: 'Hook for sales_person_id using keyset: person__sales__adventure_works.'
+grain: _pit_hook__store
+hook_name: frame__adventure_works__stores
+peripheral_name: adventure_works__stores

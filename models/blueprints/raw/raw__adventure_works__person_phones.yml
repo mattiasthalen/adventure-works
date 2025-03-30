@@ -1,0 +1,19 @@
+column_descriptions:
+  _dlt_load_id: Internal data loading identifier.
+  business_entity_id: Business entity identification number. Foreign key to Person.BusinessEntityID.
+  modified_date: Date and time the record was last updated.
+  phone_number: Telephone number identification number.
+  phone_number_type_id: Kind of phone number. Foreign key to PhoneNumberType.PhoneNumberTypeID.
+columns:
+- name: business_entity_id
+  type: bigint
+- name: phone_number
+  type: text
+- name: phone_number_type_id
+  type: bigint
+- name: modified_date
+  type: date
+- name: _dlt_load_id
+  type: text
+description: Telephone number and type of a person.
+name: raw__adventure_works__person_phones

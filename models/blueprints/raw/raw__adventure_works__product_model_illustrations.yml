@@ -1,0 +1,16 @@
+column_descriptions:
+  _dlt_load_id: Internal data loading identifier.
+  illustration_id: Primary key. Foreign key to Illustration.IllustrationID.
+  modified_date: Date and time the record was last updated.
+  product_model_id: Primary key. Foreign key to ProductModel.ProductModelID.
+columns:
+- name: product_model_id
+  type: bigint
+- name: illustration_id
+  type: bigint
+- name: modified_date
+  type: date
+- name: _dlt_load_id
+  type: text
+description: Cross-reference table mapping product models and illustrations.
+name: raw__adventure_works__product_model_illustrations

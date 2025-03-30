@@ -1,0 +1,215 @@
+column_data_types:
+  _hook__address__billing: binary
+  _hook__address__shipping: binary
+  _hook__credit_card: binary
+  _hook__currency: binary
+  _hook__customer: binary
+  _hook__order__sales: binary
+  _hook__person__sales: binary
+  _hook__ship_method: binary
+  _hook__territory__sales: binary
+  _pit_hook__order__sales: binary
+  sales_order_header__account_number: text
+  sales_order_header__bill_to_address_id: bigint
+  sales_order_header__credit_card_approval_code: text
+  sales_order_header__credit_card_id: bigint
+  sales_order_header__currency_rate_id: bigint
+  sales_order_header__customer_id: bigint
+  sales_order_header__due_date: date
+  sales_order_header__freight: double
+  sales_order_header__is_current_record: boolean
+  sales_order_header__modified_date: date
+  sales_order_header__online_order_flag: bool
+  sales_order_header__order_date: date
+  sales_order_header__purchase_order_number: text
+  sales_order_header__record_loaded_at: timestamp
+  sales_order_header__record_updated_at: timestamp
+  sales_order_header__record_valid_from: timestamp
+  sales_order_header__record_valid_to: timestamp
+  sales_order_header__record_version: int
+  sales_order_header__revision_number: bigint
+  sales_order_header__rowguid: uniqueidentifier
+  sales_order_header__sales_order_id: bigint
+  sales_order_header__sales_order_number: text
+  sales_order_header__sales_person_id: bigint
+  sales_order_header__ship_date: date
+  sales_order_header__ship_method_id: bigint
+  sales_order_header__ship_to_address_id: bigint
+  sales_order_header__status: bigint
+  sales_order_header__sub_total: double
+  sales_order_header__tax_amt: double
+  sales_order_header__territory_id: bigint
+  sales_order_header__total_due: double
+column_descriptions:
+  _hook__address__billing: 'Hook for bill_to_address_id using keyset: address__adventure_works.'
+  _hook__address__shipping: 'Hook for ship_to_address_id using keyset: address__adventure_works.'
+  _hook__credit_card: 'Hook for credit_card_id using keyset: credit_card__adventure_works.'
+  _hook__currency: 'Hook for currency_rate_id using keyset: currency__adventure_works.'
+  _hook__customer: 'Hook for customer_id using keyset: customer__adventure_works.'
+  _hook__order__sales: 'Primary hook for sales_order_id using keyset: order__sales__adventure_works.'
+  _hook__person__sales: 'Hook for sales_person_id using keyset: person__sales__adventure_works.'
+  _hook__ship_method: 'Hook for ship_method_id using keyset: ship_method__adventure_works.'
+  _hook__territory__sales: 'Hook for territory_id using keyset: territory__sales__adventure_works.'
+  _pit_hook__order__sales: Point in time version of _hook__order__sales.
+  sales_order_header__account_number: Financial accounting number reference.
+  sales_order_header__bill_to_address_id: Customer billing address. Foreign key to
+    Address.AddressID.
+  sales_order_header__credit_card_approval_code: Approval code provided by the credit
+    card company.
+  sales_order_header__credit_card_id: Credit card identification number. Foreign key
+    to CreditCard.CreditCardID.
+  sales_order_header__currency_rate_id: Currency exchange rate used. Foreign key to
+    CurrencyRate.CurrencyRateID.
+  sales_order_header__customer_id: Customer identification number. Foreign key to
+    Customer.BusinessEntityID.
+  sales_order_header__due_date: Date the order is due to the customer.
+  sales_order_header__freight: Shipping cost.
+  sales_order_header__is_current_record: Flag indicating if this is the current valid
+    version of the record
+  sales_order_header__modified_date: Date and time the record was last updated.
+  sales_order_header__online_order_flag: 0 = Order placed by sales person. 1 = Order
+    placed online by customer.
+  sales_order_header__order_date: Dates the sales order was created.
+  sales_order_header__purchase_order_number: Customer purchase order number reference.
+  sales_order_header__record_loaded_at: Timestamp when this record was loaded into
+    the system
+  sales_order_header__record_updated_at: Timestamp when this record was last updated
+  sales_order_header__record_valid_from: Timestamp from which this record version
+    is valid
+  sales_order_header__record_valid_to: Timestamp until which this record version is
+    valid
+  sales_order_header__record_version: Version number for this record
+  sales_order_header__revision_number: Incremental number to track changes to the
+    sales order over time.
+  sales_order_header__rowguid: ROWGUIDCOL number uniquely identifying the record.
+    Used to support a merge replication sample.
+  sales_order_header__sales_order_id: Primary key.
+  sales_order_header__sales_order_number: Unique sales order identification number.
+  sales_order_header__sales_person_id: Sales person who created the sales order. Foreign
+    key to SalesPerson.BusinessEntityID.
+  sales_order_header__ship_date: Date the order was shipped to the customer.
+  sales_order_header__ship_method_id: Shipping method. Foreign key to ShipMethod.ShipMethodID.
+  sales_order_header__ship_to_address_id: Customer shipping address. Foreign key to
+    Address.AddressID.
+  sales_order_header__status: Order current status. 1 = In process; 2 = Approved;
+    3 = Backordered; 4 = Rejected; 5 = Shipped; 6 = Cancelled.
+  sales_order_header__sub_total: Sales subtotal. Computed as SUM(SalesOrderDetail.LineTotal)
+    for the appropriate SalesOrderID.
+  sales_order_header__tax_amt: Tax amount.
+  sales_order_header__territory_id: Territory in which the sale was made. Foreign
+    key to SalesTerritory.SalesTerritoryID.
+  sales_order_header__total_due: Total due from customer. Computed as Subtotal + TaxAmt
+    + Freight.
+column_prefix: sales_order_header
+columns:
+- _pit_hook__order__sales
+- _hook__order__sales
+- _hook__customer
+- _hook__person__sales
+- _hook__territory__sales
+- _hook__address__billing
+- _hook__address__shipping
+- _hook__ship_method
+- _hook__credit_card
+- _hook__currency
+- sales_order_header__sales_order_id
+- sales_order_header__revision_number
+- sales_order_header__order_date
+- sales_order_header__due_date
+- sales_order_header__ship_date
+- sales_order_header__status
+- sales_order_header__online_order_flag
+- sales_order_header__sales_order_number
+- sales_order_header__purchase_order_number
+- sales_order_header__account_number
+- sales_order_header__customer_id
+- sales_order_header__sales_person_id
+- sales_order_header__territory_id
+- sales_order_header__bill_to_address_id
+- sales_order_header__ship_to_address_id
+- sales_order_header__ship_method_id
+- sales_order_header__credit_card_id
+- sales_order_header__credit_card_approval_code
+- sales_order_header__sub_total
+- sales_order_header__tax_amt
+- sales_order_header__freight
+- sales_order_header__total_due
+- sales_order_header__rowguid
+- sales_order_header__modified_date
+- sales_order_header__currency_rate_id
+- sales_order_header__record_loaded_at
+- sales_order_header__record_updated_at
+- sales_order_header__record_version
+- sales_order_header__record_valid_from
+- sales_order_header__record_valid_to
+- sales_order_header__is_current_record
+description: 'Hook for currency_rate_id using keyset: currency__adventure_works.'
+grain: _pit_hook__order__sales
+hooks:
+- business_key_field: sales_order_id
+  keyset: order__sales__adventure_works
+  name: _hook__order__sales
+  primary: true
+- business_key_field: customer_id
+  keyset: customer__adventure_works
+  name: _hook__customer
+- business_key_field: sales_person_id
+  keyset: person__sales__adventure_works
+  name: _hook__person__sales
+- business_key_field: territory_id
+  keyset: territory__sales__adventure_works
+  name: _hook__territory__sales
+- business_key_field: bill_to_address_id
+  keyset: address__adventure_works
+  name: _hook__address__billing
+- business_key_field: ship_to_address_id
+  keyset: address__adventure_works
+  name: _hook__address__shipping
+- business_key_field: ship_method_id
+  keyset: ship_method__adventure_works
+  name: _hook__ship_method
+- business_key_field: credit_card_id
+  keyset: credit_card__adventure_works
+  name: _hook__credit_card
+- business_key_field: currency_rate_id
+  keyset: currency__adventure_works
+  name: _hook__currency
+name: frame__adventure_works__sales_order_headers
+references:
+- _hook__customer
+- _hook__person__sales
+- _hook__territory__sales
+- _hook__address__billing
+- _hook__address__shipping
+- _hook__ship_method
+- _hook__credit_card
+- _hook__currency
+source_columns:
+- sales_order_id
+- revision_number
+- order_date
+- due_date
+- ship_date
+- status
+- online_order_flag
+- sales_order_number
+- purchase_order_number
+- account_number
+- customer_id
+- sales_person_id
+- territory_id
+- bill_to_address_id
+- ship_to_address_id
+- ship_method_id
+- credit_card_id
+- credit_card_approval_code
+- sub_total
+- tax_amt
+- freight
+- total_due
+- rowguid
+- modified_date
+- currency_rate_id
+source_primary_keys:
+- sales_order_id
+source_table: raw__adventure_works__sales_order_headers

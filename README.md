@@ -38,7 +38,7 @@ The DAB layer implements the [HOOK methodology](https://hookcookbook.substack.co
 
 - **Core Business Concepts (CBCs)**: Define the fundamental entities that the business cares about
 - **Hooks**: Provide integration points aligned with business concepts
-- **Bags**: Contain source-aligned data with references to hooks
+- **Frames**: Contain source-aligned data with references to hooks
 - **KeySets**: Qualify business keys to prevent collisions between sources
 
 This approach allows source data to remain unchanged while providing clear business alignment through the hook layer. This significantly simplifies data transformation and governance.
@@ -105,7 +105,7 @@ flowchart LR
     end
 
     subgraph dab["db.dab"]
-        hook(["HOOK Bags [58]"]):::silver
+        hook(["HOOK Frames [58]"]):::silver
     end
 
     subgraph dar_stg["db.dar__staging"]
@@ -145,10 +145,10 @@ flowchart LR
     end
     
     subgraph db.dab["db.dab"]
-        bag__adventure_works__product_categories(["bag__adventure_works__product_categories"]):::silver
-        bag__adventure_works__product_subcategories(["bag__adventure_works__product_subcategories"]):::silver
-        bag__adventure_works__products(["bag__adventure_works__products"]):::silver
-        bag__adventure_works__sales_order_details(["bag__adventure_works__sales_order_details"]):::silver
+        frame__adventure_works__product_categories(["frame__adventure_works__product_categories"]):::silver
+        frame__adventure_works__product_subcategories(["frame__adventure_works__product_subcategories"]):::silver
+        frame__adventure_works__products(["frame__adventure_works__products"]):::silver
+        frame__adventure_works__sales_order_details(["frame__adventure_works__sales_order_details"]):::silver
     end
     
     subgraph db.dar__staging["db.dar__staging"]
@@ -167,17 +167,17 @@ flowchart LR
         unified_bridge(["_bridge__as_of"]):::gold
     end
 
-    raw__adventure_works__product_categories --> bag__adventure_works__product_categories --> bridge__product_categories --> bridge__product_subcategories --> bridge__products --> bridge__sales_order_details
-    raw__adventure_works__product_subcategories --> bag__adventure_works__product_subcategories --> bridge__product_subcategories
-    raw__adventure_works__products --> bag__adventure_works__products --> bridge__products
-    raw__adventure_works__sales_order_details --> bag__adventure_works__sales_order_details --> bridge__sales_order_details
+    raw__adventure_works__product_categories --> frame__adventure_works__product_categories --> bridge__product_categories --> bridge__product_subcategories --> bridge__products --> bridge__sales_order_details
+    raw__adventure_works__product_subcategories --> frame__adventure_works__product_subcategories --> bridge__product_subcategories
+    raw__adventure_works__products --> frame__adventure_works__products --> bridge__products
+    raw__adventure_works__sales_order_details --> frame__adventure_works__sales_order_details --> bridge__sales_order_details
 
     bridge__product_categories -----> events__product_categories --> unified_bridge
     bridge__product_subcategories ----> events__product_subcategories --> unified_bridge
     bridge__products ---> events__products --> unified_bridge
     bridge__sales_order_details --> events__sales_order_details --> unified_bridge
 ```
-The alternative would have been to connect all the associated bags to the bridge, but that would increase the computational demands since each join requires a `left.valid_from BETWEEN right.valid_from AND right.valid_to`. And the only benefit is that the bridges can be built independently. I prefer lower computational cost in this case.
+The alternative would have been to connect all the associated frames to the bridge, but that would increase the computational demands since each join requires a `left.valid_from BETWEEN right.valid_from AND right.valid_to`. And the only benefit is that the bridges can be built independently. I prefer lower computational cost in this case.
 ```mermaid
 flowchart LR
     classDef bronze fill:#CD7F32,color:black
@@ -192,10 +192,10 @@ flowchart LR
     end
     
     subgraph db.dab["db.dab"]
-        bag__adventure_works__product_categories(["bag__adventure_works__product_categories"]):::silver
-        bag__adventure_works__product_subcategories(["bag__adventure_works__product_subcategories"]):::silver
-        bag__adventure_works__products(["bag__adventure_works__products"]):::silver
-        bag__adventure_works__sales_order_details(["bag__adventure_works__sales_order_details"]):::silver
+        frame__adventure_works__product_categories(["frame__adventure_works__product_categories"]):::silver
+        frame__adventure_works__product_subcategories(["frame__adventure_works__product_subcategories"]):::silver
+        frame__adventure_works__products(["frame__adventure_works__products"]):::silver
+        frame__adventure_works__sales_order_details(["frame__adventure_works__sales_order_details"]):::silver
     end
     
     subgraph db.dar__staging["db.dar__staging"]
@@ -214,19 +214,19 @@ flowchart LR
         unified_bridge(["_bridge__as_of"]):::gold
     end
 
-       raw__adventure_works__product_categories --> bag__adventure_works__product_categories --> bridge__product_categories
-    bag__adventure_works__product_categories --> bridge__product_subcategories
-    bag__adventure_works__product_categories --> bridge__products
-    bag__adventure_works__product_categories --> bridge__sales_order_details
+       raw__adventure_works__product_categories --> frame__adventure_works__product_categories --> bridge__product_categories
+    frame__adventure_works__product_categories --> bridge__product_subcategories
+    frame__adventure_works__product_categories --> bridge__products
+    frame__adventure_works__product_categories --> bridge__sales_order_details
  
-    raw__adventure_works__product_subcategories --> bag__adventure_works__product_subcategories --> bridge__product_subcategories
-    bag__adventure_works__product_subcategories --> bridge__products
-    bag__adventure_works__product_subcategories --> bridge__sales_order_details
+    raw__adventure_works__product_subcategories --> frame__adventure_works__product_subcategories --> bridge__product_subcategories
+    frame__adventure_works__product_subcategories --> bridge__products
+    frame__adventure_works__product_subcategories --> bridge__sales_order_details
     
-    raw__adventure_works__products --> bag__adventure_works__products --> bridge__products
-    bag__adventure_works__products --> bridge__sales_order_details    
+    raw__adventure_works__products --> frame__adventure_works__products --> bridge__products
+    frame__adventure_works__products --> bridge__sales_order_details    
     
-    raw__adventure_works__sales_order_details --> bag__adventure_works__sales_order_details --> bridge__sales_order_details
+    raw__adventure_works__sales_order_details --> frame__adventure_works__sales_order_details --> bridge__sales_order_details
     bridge__product_categories --> events__product_categories --> unified_bridge
     bridge__product_subcategories --> events__product_subcategories --> unified_bridge
     bridge__products --> events__products --> unified_bridge

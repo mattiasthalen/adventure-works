@@ -1,0 +1,23 @@
+column_descriptions:
+  _dlt_load_id: Internal data loading identifier.
+  business_entity_id: Primary key. Foreign key to BusinessEntity.BusinessEntityID.
+  contact_type_id: Primary key. Foreign key to ContactType.ContactTypeID.
+  modified_date: Date and time the record was last updated.
+  person_id: Primary key. Foreign key to Person.BusinessEntityID.
+  rowguid: ROWGUIDCOL number uniquely identifying the record. Used to support a merge
+    replication sample.
+columns:
+- name: business_entity_id
+  type: bigint
+- name: person_id
+  type: bigint
+- name: contact_type_id
+  type: bigint
+- name: rowguid
+  type: uniqueidentifier
+- name: modified_date
+  type: date
+- name: _dlt_load_id
+  type: text
+description: Cross-reference table mapping stores, vendors, and employees to people.
+name: raw__adventure_works__business_entity_contacts

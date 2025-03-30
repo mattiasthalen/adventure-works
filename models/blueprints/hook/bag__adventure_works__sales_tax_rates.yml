@@ -1,0 +1,83 @@
+column_data_types:
+  _hook__reference__sales_tax_rate: binary
+  _hook__reference__state_province: binary
+  _pit_hook__reference__sales_tax_rate: binary
+  sales_tax_rate__is_current_record: boolean
+  sales_tax_rate__modified_date: date
+  sales_tax_rate__name: text
+  sales_tax_rate__record_loaded_at: timestamp
+  sales_tax_rate__record_updated_at: timestamp
+  sales_tax_rate__record_valid_from: timestamp
+  sales_tax_rate__record_valid_to: timestamp
+  sales_tax_rate__record_version: int
+  sales_tax_rate__rowguid: uniqueidentifier
+  sales_tax_rate__sales_tax_rate_id: bigint
+  sales_tax_rate__state_province_id: bigint
+  sales_tax_rate__tax_rate: double
+  sales_tax_rate__tax_type: bigint
+column_descriptions:
+  _hook__reference__sales_tax_rate: 'Primary hook for sales_tax_rate_id using keyset:
+    reference__sales_tax_rate__adventure_works.'
+  _hook__reference__state_province: 'Hook for state_province_id using keyset: reference__state_province__adventure_works.'
+  _pit_hook__reference__sales_tax_rate: Point in time version of _hook__reference__sales_tax_rate.
+  sales_tax_rate__is_current_record: Flag indicating if this is the current valid
+    version of the record
+  sales_tax_rate__modified_date: Date and time the record was last updated.
+  sales_tax_rate__name: Tax rate description.
+  sales_tax_rate__record_loaded_at: Timestamp when this record was loaded into the
+    system
+  sales_tax_rate__record_updated_at: Timestamp when this record was last updated
+  sales_tax_rate__record_valid_from: Timestamp from which this record version is valid
+  sales_tax_rate__record_valid_to: Timestamp until which this record version is valid
+  sales_tax_rate__record_version: Version number for this record
+  sales_tax_rate__rowguid: ROWGUIDCOL number uniquely identifying the record. Used
+    to support a merge replication sample.
+  sales_tax_rate__sales_tax_rate_id: Primary key for SalesTaxRate records.
+  sales_tax_rate__state_province_id: State, province, or country/region the sales
+    tax applies to.
+  sales_tax_rate__tax_rate: Tax rate amount.
+  sales_tax_rate__tax_type: 1 = Tax applied to retail transactions, 2 = Tax applied
+    to wholesale transactions, 3 = Tax applied to all sales (retail and wholesale)
+    transactions.
+column_prefix: sales_tax_rate
+columns:
+- _pit_hook__reference__sales_tax_rate
+- _hook__reference__sales_tax_rate
+- _hook__reference__state_province
+- sales_tax_rate__sales_tax_rate_id
+- sales_tax_rate__state_province_id
+- sales_tax_rate__tax_type
+- sales_tax_rate__tax_rate
+- sales_tax_rate__name
+- sales_tax_rate__rowguid
+- sales_tax_rate__modified_date
+- sales_tax_rate__record_loaded_at
+- sales_tax_rate__record_updated_at
+- sales_tax_rate__record_version
+- sales_tax_rate__record_valid_from
+- sales_tax_rate__record_valid_to
+- sales_tax_rate__is_current_record
+description: 'Hook for state_province_id using keyset: reference__state_province__adventure_works.'
+grain: _pit_hook__reference__sales_tax_rate
+hooks:
+- business_key_field: sales_tax_rate_id
+  keyset: reference__sales_tax_rate__adventure_works
+  name: _hook__reference__sales_tax_rate
+  primary: true
+- business_key_field: state_province_id
+  keyset: reference__state_province__adventure_works
+  name: _hook__reference__state_province
+name: frame__adventure_works__sales_tax_rates
+references:
+- _hook__reference__state_province
+source_columns:
+- sales_tax_rate_id
+- state_province_id
+- tax_type
+- tax_rate
+- name
+- rowguid
+- modified_date
+source_primary_keys:
+- sales_tax_rate_id
+source_table: raw__adventure_works__sales_tax_rates
