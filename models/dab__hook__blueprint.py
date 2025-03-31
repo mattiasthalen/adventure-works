@@ -3,6 +3,9 @@ from sqlmesh.core.macros import MacroEvaluator
 from sqlmesh.core.model import model
 from sqlmesh.core.model.kind import ModelKindName
 
+# Import shared utility functions
+from models._blueprint_utils import create_casted_columns, create_source_cte, create_scd_columns
+
 # Import from our blueprint module
 try:
     from models._blueprint_generators import generate_hook_blueprints
@@ -29,6 +32,10 @@ blueprints = generate_hook_blueprints(
     #column_descriptions="@{column_descriptions}"
 )
 def entrypoint(evaluator: MacroEvaluator) -> str | exp.Expression:
+    """
+    Main entry point function for the hook blueprint model.
+    """
+    # Extract variables from the evaluator
     source_table = evaluator.var("source_table")
     source_primary_keys = evaluator.var("source_primary_keys")
     source_columns = evaluator.var("source_columns")
@@ -38,65 +45,20 @@ def entrypoint(evaluator: MacroEvaluator) -> str | exp.Expression:
     column_data_types = evaluator.var("column_data_types")
     column_descriptions = evaluator.var("column_descriptions")
 
-    # Define source CTE
+    # Create additional column for record_loaded_at
     loaded_at = exp.func(
         "TO_TIMESTAMP", 
         exp.cast(exp.column("_dlt_load_id"), exp.DataType.build("decimal"))
     ).as_("record_loaded_at")
 
-    cte__source = exp.select(*source_columns, loaded_at).from_(f"das.{source_table}")
+    # Create source CTE directly using the shared utility function
+    cte__source = create_source_cte(source_name=source_table, schema="das", columns=source_columns, additional_columns=[loaded_at])
 
-    # Add SCD Type 2 fields CTE
-    partition_clause = [exp.column(col) for col in source_primary_keys]
-
-    record_version = exp.Window(
-        this=exp.RowNumber(),
-        partition_by=partition_clause,
-        order=exp.Order(expressions=[exp.column("record_loaded_at")])
-    ).as_("record_version")
-
-    record_valid_from = (
-        exp.Case()
-        .when(
-            condition=exp.column("record_version").eq(exp.Literal.number(1)),
-            then=exp.cast(exp.Literal.string("1970-01-01 00:00:00"), exp.DataType.build("timestamp"))
-        )
-        .else_(exp.column("record_loaded_at"))
-    ).as_("record_valid_from")
-
-    record_valid_to = exp.func(
-        "COALESCE",
-        exp.Window(
-            this=exp.Lead(this=exp.column("record_loaded_at")),
-            partition_by=partition_clause,
-            order=exp.Order(expressions=[exp.column("record_loaded_at")])
-        ),
-        exp.cast(exp.Literal.string("9999-12-31 23:59:59"), exp.DataType.build("timestamp"))
-    ).as_("record_valid_to")
-    
-    is_current_record = (
-        exp.Case()
-        .when(
-            condition=exp.column("record_valid_to").eq(exp.cast(exp.Literal.string("9999-12-31 23:59:59"), exp.DataType.build("timestamp"))),
-            then=exp.true()
-        )
-        .else_(exp.false())
-    ).as_("is_current_record")
-
-    record_updated_at = (
-        exp.Case()
-        .when(
-            condition=exp.column("is_current_record"),
-            then=exp.column("record_loaded_at")
-        )
-        .else_(exp.column("record_valid_to"))
-    ).as_("record_updated_at")
-    
-    scd_columns = [record_version, record_valid_from, record_valid_to, is_current_record, record_updated_at]
-
+    # Create SCD columns and SCD CTE
+    scd_columns = create_scd_columns(source_primary_keys)
     cte__scd = exp.select(exp.Star(), *scd_columns).from_("cte__source")
 
-    # Define hooks CTE
+    # Process hooks to generate hook CTEs - inlined from original _process_hooks function
     hook_selects = []
     composite_hook_selects = []
     primary_hook_select = None
@@ -136,39 +98,29 @@ def entrypoint(evaluator: MacroEvaluator) -> str | exp.Expression:
                 exp.Literal.string("~epoch__valid_from|"),
                 exp.cast(exp.column("record_valid_from"), exp.DataType.build("text"))
             ).as_(pit_hook_name)
-
     cte__hooks = exp.select(*hook_selects, exp.Star()).from_("cte__scd")
     cte__composite_hooks = exp.select(*composite_hook_selects, exp.Star()).from_("cte__hooks")
     cte__primary_hooks = exp.select(primary_hook_select, exp.Star()).from_("cte__composite_hooks")
-    
 
-    # Prefix all fields CTE
+    # Create prefixed column CTE - inlined from original _create_prefixed_columns function
     prefixed_columns = []
 
     for col in columns:
         if col.startswith(("_hook__", "_pit_hook__")):
             column = exp.column(col)
-
-        if col.startswith(column_prefix):
+        elif col.startswith(column_prefix):
             stripped_column = col.removeprefix(column_prefix)
             column = exp.column(stripped_column).as_(col)
+        else:
+            column = exp.column(col)
 
         prefixed_columns.append(column)
-
     cte__prefixed = exp.select(*prefixed_columns).from_("cte__primary_hooks")
 
-    # Final query - Explicitly cast all fields
-    casted_columns = []
+    # Create properly casted columns for the final query
+    casted_columns = create_casted_columns(column_data_types, column_descriptions)
 
-    for col, data_type in column_data_types.items():
-        data_type = "text" if data_type in ("xml", "uniqueidentifier") else data_type
-        casted_column = exp.cast(exp.column(col), exp.DataType.build(data_type))
-                
-        description = column_descriptions.get(col)
-        casted_column.add_comments(comments=[description])
-
-        casted_columns.append(casted_column)
-
+    # Assemble the final query
     sql = (
         exp.select(*casted_columns)
         .from_("cte__prefixed")

@@ -4,6 +4,9 @@ from sqlglot import exp
 from sqlmesh.core.macros import MacroEvaluator
 from sqlmesh.core.model import model
 
+# Import shared utility functions
+from models._blueprint_utils import create_casted_columns
+
 # Import from our blueprint module
 try:
     from models._blueprint_generators import generate_raw_blueprints
@@ -24,27 +27,31 @@ blueprints = generate_raw_blueprints(
     description="@{description}"
 )
 def entrypoint(evaluator: MacroEvaluator) -> exp.Expression:
-    name = evaluator.var("name")
-    columns = evaluator.var("columns")
-    column_descriptions = evaluator.var("column_descriptions")
-
-    # Build column expressions
-    select_columns = []
-    for col in columns:
-        col_name = col["name"]
-        data_type = col["type"]
-
-        data_type = "text" if data_type in ("xml", "uniqueidentifier") else data_type
-
-        # Create a cast expression for the column
-        casted_column = exp.cast(exp.column(col_name), exp.DataType.build(data_type.lower()))
-        
-        description = column_descriptions.get(col_name)
-        casted_column.add_comments(comments=[description])
-        
-        select_columns.append(casted_column)
-
+    """
+    Main entry point function for the raw blueprint model.
     
+    Args:
+        evaluator: MacroEvaluator providing access to template variables
+        
+    Returns:
+        SQLGlot expression for the raw model
+    """
+    # Extract variables from the evaluator with defaults to prevent None errors
+    name = evaluator.var("name") or ""
+    columns = evaluator.var("columns") or []
+    column_descriptions = evaluator.var("column_descriptions") or {}
+
+    # Validate required parameters
+    if not name or not columns:
+        raise ValueError(f"Missing required variables: name={name}, columns={len(columns)}")
+    
+    # Create the column_data_types dictionary from the columns list
+    column_data_types = {col["name"]: col["type"].lower() for col in columns}
+    
+    # Use the shared function to create casted columns
+    select_columns = create_casted_columns(column_data_types, column_descriptions)
+    
+    # Generate the Iceberg table path directly
     iceberg_path = os.path.abspath(f"./lakehouse/das/{name}").lstrip('/')
     
     # Build the query with SQLGlot
