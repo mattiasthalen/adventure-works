@@ -64,7 +64,7 @@ columns:
 - sales_territory__record_valid_from
 - sales_territory__record_valid_to
 - sales_territory__is_current_record
-description: 'Hook for country_region_code using keyset: reference__country_region__adventure_works.'
+description: Sales territory lookup table.
 grain: _pit_hook__territory__sales
 hooks:
 - business_key_field: territory_id

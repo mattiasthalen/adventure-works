@@ -40,7 +40,7 @@ columns:
 - phone_number_type__record_valid_from
 - phone_number_type__record_valid_to
 - phone_number_type__is_current_record
-description: 'Primary hook for phone_number_type_id using keyset: reference__phone_number_type__adventure_works.'
+description: Type of phone number of a person.
 grain: _pit_hook__reference__phone_number_type
 hooks:
 - business_key_field: phone_number_type_id

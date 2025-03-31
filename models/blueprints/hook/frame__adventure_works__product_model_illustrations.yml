@@ -47,7 +47,7 @@ columns:
 - product_model_illustration__record_valid_from
 - product_model_illustration__record_valid_to
 - product_model_illustration__is_current_record
-description: 'Hook for product_model_id using keyset: reference__product_model__adventure_works.'
+description: Cross-reference table mapping product models and illustrations.
 grain: _pit_hook__product_model_illustration
 hooks:
 - composite_key:

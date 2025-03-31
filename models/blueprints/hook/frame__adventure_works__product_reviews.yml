@@ -56,7 +56,7 @@ columns:
 - product_review__record_valid_from
 - product_review__record_valid_to
 - product_review__is_current_record
-description: 'Hook for product_id using keyset: product__adventure_works.'
+description: Customer reviews of products they have purchased.
 grain: _pit_hook__product_review
 hooks:
 - business_key_field: product_review_id

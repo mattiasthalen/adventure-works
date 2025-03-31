@@ -36,7 +36,7 @@ columns:
 - currency__record_valid_from
 - currency__record_valid_to
 - currency__is_current_record
-description: 'Primary hook for currency_code using keyset: currency__adventure_works.'
+description: Lookup table containing standard ISO currencies.
 grain: _pit_hook__currency
 hooks:
 - business_key_field: currency_code

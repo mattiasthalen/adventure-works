@@ -36,7 +36,8 @@ columns:
 - culture__record_valid_from
 - culture__record_valid_to
 - culture__is_current_record
-description: 'Primary hook for culture_id using keyset: reference__culture__adventure_works.'
+description: Lookup table containing the languages in which some AdventureWorks data
+  is stored.
 grain: _pit_hook__reference__culture
 hooks:
 - business_key_field: culture_id

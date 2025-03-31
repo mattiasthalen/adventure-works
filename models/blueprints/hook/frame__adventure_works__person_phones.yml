@@ -44,7 +44,7 @@ columns:
 - person_phone__record_valid_from
 - person_phone__record_valid_to
 - person_phone__is_current_record
-description: 'Hook for phone_number_type_id using keyset: reference__phone_number_type__adventure_works.'
+description: Telephone number and type of a person.
 grain: _pit_hook__person__individual
 hooks:
 - business_key_field: business_entity_id

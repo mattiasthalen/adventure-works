@@ -63,7 +63,7 @@ columns:
 - state_province__record_valid_from
 - state_province__record_valid_to
 - state_province__is_current_record
-description: 'Hook for territory_id using keyset: territory__sales__adventure_works.'
+description: State and province lookup table.
 grain: _pit_hook__reference__state_province
 hooks:
 - business_key_field: state_province_id
