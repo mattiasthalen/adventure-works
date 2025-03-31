@@ -1,3 +1,4 @@
+from typing import Dict, List, Union, Any
 from sqlglot import exp
 from sqlmesh.core.macros import MacroEvaluator
 from sqlmesh.core.model import model
@@ -31,9 +32,23 @@ blueprints = generate_hook_blueprints(
     description="@{description}",
     #column_descriptions="@{column_descriptions}"
 )
-def entrypoint(evaluator: MacroEvaluator) -> str | exp.Expression:
+def entrypoint(evaluator: MacroEvaluator) -> Union[str, exp.Expression]:
     """
     Main entry point function for the hook blueprint model.
+    
+    This function processes hook definitions and constructs the SQL query for hook data.
+    It performs the following operations:
+    1. Extracts configuration variables from the evaluator
+    2. Creates the source CTE with columns from the source table
+    3. Processes hooks to create binary representations
+    4. Adds SCD Type 2 columns for versioning
+    5. Assembles the final query with proper column casting
+    
+    Args:
+        evaluator: MacroEvaluator instance to access blueprint variables
+        
+    Returns:
+        SQLGlot expression representing the complete query
     """
     # Extract variables from the evaluator
     source_table = evaluator.var("source_table")
@@ -59,9 +74,9 @@ def entrypoint(evaluator: MacroEvaluator) -> str | exp.Expression:
     cte__scd = exp.select(exp.Star(), *scd_columns).from_("cte__source")
 
     # Process hooks to generate hook CTEs - inlined from original _process_hooks function
-    hook_selects = []
-    composite_hook_selects = []
-    primary_hook_select = None
+    hook_selects: List[exp.Expression] = []
+    composite_hook_selects: List[exp.Expression] = []
+    primary_hook_select: Optional[exp.Expression] = None
 
     for hook in hooks:
         hook_name = hook["name"]
@@ -103,7 +118,7 @@ def entrypoint(evaluator: MacroEvaluator) -> str | exp.Expression:
     cte__primary_hooks = exp.select(primary_hook_select, exp.Star()).from_("cte__composite_hooks")
 
     # Create prefixed column CTE - inlined from original _create_prefixed_columns function
-    prefixed_columns = []
+    prefixed_columns: List[exp.Expression] = []
 
     for col in columns:
         if col.startswith(("_hook__", "_pit_hook__")):

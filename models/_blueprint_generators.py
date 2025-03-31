@@ -1,14 +1,28 @@
+from typing import Dict, List, Tuple, Any, Optional
 import networkx as nx
 import os
 import yaml
 
-def load_yaml(path: str) -> dict:
-    """Load a YAML file and return its contents as a dictionary."""
+def load_yaml(path: str) -> Dict[str, Any]:
+    """Load a YAML file and return its contents as a dictionary.
+    
+    Args:
+        path: Path to the YAML file to load
+        
+    Returns:
+        Dictionary containing the loaded YAML content
+    """
     with open(path, 'r') as file:
         return yaml.safe_load(file)
 
-def export_blueprints(blueprints: dict, output_path: str, name_field:str = "name") -> None:
-
+def export_blueprints(blueprints: List[Dict[str, Any]], output_path: str, name_field: str = "name") -> None:
+    """Export blueprints to individual YAML files in the specified directory.
+    
+    Args:
+        blueprints: List of blueprint dictionaries to export
+        output_path: Directory path where blueprints will be saved
+        name_field: Key in blueprint dictionary to use as filename (default: "name")
+    """
     os.makedirs(output_path, exist_ok=True)
     
     for blueprint in blueprints:
@@ -16,9 +30,15 @@ def export_blueprints(blueprints: dict, output_path: str, name_field:str = "name
         with open(f"{output_path}/{name}.yml", "w") as f:
             yaml.dump(blueprint, f)
 
-def import_blueprints(directory_path: str) -> list:
+def import_blueprints(directory_path: str) -> List[Dict[str, Any]]:
     """Import all blueprint YAML files from a directory.
     This is the inverse operation of export_blueprints.
+    
+    Args:
+        directory_path: Path to directory containing blueprint YAML files
+        
+    Returns:
+        List of blueprint dictionaries loaded from YAML files
     """
     blueprints = []
     
@@ -41,7 +61,14 @@ def import_blueprints(directory_path: str) -> list:
     return blueprints
 
 def map_data_type_to_sql(data_type: str) -> str:
-    """Map data types to appropriate SQL types."""
+    """Map source data types to appropriate SQL data types.
+    
+    Args:
+        data_type: Source data type name
+        
+    Returns:
+        Mapped SQL data type string, defaults to "TEXT" if type not found
+    """
     type_map = {
         "xml": "text",
         "uniqueidentifier": "text", 
@@ -56,7 +83,7 @@ def map_data_type_to_sql(data_type: str) -> str:
     }
     return type_map.get(data_type, "TEXT")
 
-def process_raw_table_schema(name, schema):
+def process_raw_table_schema(name: str, schema: Dict[str, Any]) -> Dict[str, Any]:
     """
     Process a raw table schema into column definitions and descriptions.
     
@@ -95,7 +122,7 @@ def process_raw_table_schema(name, schema):
         "column_descriptions": column_descriptions
     }
 
-def generate_raw_blueprints(schema_path: str) -> list:
+def generate_raw_blueprints(schema_path: str) -> List[Dict[str, Any]]:
     """
     Generate a list of blueprint dictionaries from the schema YAML file
     for raw table models.
@@ -118,7 +145,7 @@ def generate_raw_blueprints(schema_path: str) -> list:
     
     return blueprints
 
-def extract_primary_keys(schema):
+def extract_primary_keys(schema: Dict[str, Any]) -> List[str]:
     """
     Extract primary keys from a table schema.
     
@@ -134,7 +161,7 @@ def extract_primary_keys(schema):
         if col_properties.get("primary_key", False)
     ]
 
-def extract_source_columns(schema):
+def extract_source_columns(schema: Dict[str, Any]) -> List[str]:
     """
     Extract non-DLT columns from a table schema.
     
@@ -146,7 +173,7 @@ def extract_source_columns(schema):
     """
     return [col for col in schema["columns"].keys() if not col.startswith("_dlt_")]
 
-def generate_hook_columns_and_metadata(hooks, column_prefix, schema):
+def generate_hook_columns_and_metadata(hooks: List[Dict[str, Any]], column_prefix: str, schema: Dict[str, Any]) -> Tuple[List[str], List[str], Dict[str, str], Dict[str, str], List[str], List[str]]:
     """
     Generate columns and related metadata for hook blueprints.
     
@@ -234,8 +261,11 @@ def generate_hook_columns_and_metadata(hooks, column_prefix, schema):
         
     return columns, prefixed_columns, column_data_types, column_descriptions, grain, references
 
-def create_hook_blueprint(name, description, grain, references, source_table, source_primary_keys, 
-                          source_columns, column_prefix, hooks, columns, column_data_types, column_descriptions):
+def create_hook_blueprint(name: str, description: str, grain: List[str], references: List[str], 
+                          source_table: str, source_primary_keys: List[str], 
+                          source_columns: List[str], column_prefix: str, hooks: List[Dict[str, Any]], 
+                          columns: List[str], column_data_types: Dict[str, str], 
+                          column_descriptions: Dict[str, str]) -> Dict[str, Any]:
     """
     Create a hook blueprint dictionary.
     
@@ -320,7 +350,7 @@ def generate_hook_blueprints(hook_config_path: str, schema_path: str) -> list:
 
     return blueprints
 
-def build_directed_graph(frames):
+def build_directed_graph(frames: Dict[str, Dict[str, Any]]) -> Tuple[nx.DiGraph, Dict[str, str]]:
     """
     Create a directed acyclic graph (DAG) where each node is a frame and edges represent dependencies.
     
@@ -377,7 +407,7 @@ def build_directed_graph(frames):
     
     return directed_acyclical_graph, primary_hooks
 
-def process_node_dependencies(node, graph_dict, directed_acyclical_graph):
+def process_node_dependencies(node: str, graph_dict: Dict[str, Any], directed_acyclical_graph: nx.DiGraph) -> Dict[str, Dict[str, Any]]:
     """
     Process dependencies for a node, creating a structured mapping with primary and inherited hooks.
     
@@ -423,7 +453,7 @@ def process_node_dependencies(node, graph_dict, directed_acyclical_graph):
         
     return dependencies
 
-def create_column_descriptions(peripheral, pit_hook, hook_value, hook_part, dependencies):
+def create_column_descriptions(peripheral: str, pit_hook: str, hook_value: str, hook_part: str, dependencies: Dict[str, Dict[str, Any]]) -> Dict[str, str]:
     """
     Create the column_description dictionary for a bridge blueprint.
     
@@ -521,7 +551,7 @@ def create_column_descriptions(peripheral, pit_hook, hook_value, hook_part, depe
     
     return column_description
 
-def create_column_data_types(column_description):
+def create_column_data_types(column_description: Dict[str, str]) -> Dict[str, str]:
     """
     Create the column_data_types dictionary based on column descriptions.
     
@@ -701,7 +731,7 @@ def generate_bridge_blueprints(hook_config_path: str = None) -> list:
 
     return graph_list
 
-def process_date_columns(hook_blueprint):
+def process_date_columns(hook_blueprint: Dict[str, Any]) -> Tuple[List[str], List[str], Dict[str, str], Dict[str, str]]:
     """
     Process date columns from a hook blueprint and generate event-related metadata.
     
@@ -730,7 +760,7 @@ def process_date_columns(hook_blueprint):
     
     return date_columns, event_columns, event_column_data_types, event_column_descriptions
 
-def create_event_blueprint(bridge, hook_blueprint):
+def create_event_blueprint(bridge: Dict[str, Any], hook_blueprint: Dict[str, Any]) -> Dict[str, Any]:
     """
     Create an event blueprint from bridge and hook blueprints.
     
@@ -808,7 +838,7 @@ def generate_event_blueprints(hook_blueprint_path: str, bridge_blueprint_path: s
 
     return blueprints
 
-def filter_hook_columns(hook_blueprint):
+def filter_hook_columns(hook_blueprint: Dict[str, Any]) -> Tuple[List[str], Dict[str, str], Dict[str, str]]:
     """
     Filter out hook columns from a hook blueprint and extract relevant metadata.
     
@@ -827,7 +857,7 @@ def filter_hook_columns(hook_blueprint):
     
     return columns, column_data_types, column_descriptions
 
-def create_peripheral_blueprint(hook_blueprint):
+def create_peripheral_blueprint(hook_blueprint: Dict[str, Any]) -> Dict[str, Any]:
     """
     Create a peripheral blueprint from a hook blueprint.
     

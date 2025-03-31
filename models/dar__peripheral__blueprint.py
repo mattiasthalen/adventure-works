@@ -1,3 +1,4 @@
+from typing import Dict, List, Union, Any, Optional
 from sqlglot import exp, parse_one
 from sqlmesh.core.macros import MacroEvaluator
 from sqlmesh.core.model import model
@@ -28,9 +29,17 @@ blueprints = generate_peripheral_blueprints(
     description="@{description}",
     #column_descriptions="@{column_descriptions}"
 )
-def entrypoint(evaluator: MacroEvaluator) -> str | exp.Expression:
+def entrypoint(evaluator: MacroEvaluator) -> Union[str, exp.Expression]:
     """
     Main entry point function for the peripheral blueprint model.
+    
+    This function transforms hook data into a peripheral model by creating
+    appropriate ghost columns for each data type and handling grain columns.
+    It performs the following operations:
+    1. Extracts configuration variables from the evaluator
+    2. Creates a source CTE from the hook model
+    3. Generates ghost columns based on data types
+    4. Assembles the final query with proper column casting
     
     Args:
         evaluator: MacroEvaluator providing access to template variables

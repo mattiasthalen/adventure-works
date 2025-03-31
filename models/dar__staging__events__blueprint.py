@@ -1,4 +1,5 @@
 
+from typing import Dict, List, Union, Any, Optional
 from sqlglot import exp, parse_one
 from sqlmesh.core.macros import MacroEvaluator
 from sqlmesh.core.model import model
@@ -33,9 +34,17 @@ blueprints = generate_event_blueprints(
     description="@{description}",
     #column_descriptions="@{column_descriptions}"
 )
-def entrypoint(evaluator: MacroEvaluator) -> str | exp.Expression:
+def entrypoint(evaluator: MacroEvaluator) -> Union[str, exp.Expression]:
     """
     Main entry point function for the event blueprint model.
+    
+    This function creates event models that handle point-in-time events with date-specific
+    dimensions. It performs the following operations:
+    1. Extracts configuration variables from the evaluator
+    2. Creates base CTEs from the bridge model
+    3. Creates event CTEs for each date column, handling different grain variants
+    4. Unions all event CTEs together
+    5. Assembles the final query with proper column casting and filtering
     
     Args:
         evaluator: MacroEvaluator providing access to template variables

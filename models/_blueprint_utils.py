@@ -5,9 +5,11 @@ This module contains common functions used across different blueprint models to
 promote code reuse and consistency.
 """
 
+from typing import Dict, List, Tuple, Any, Optional, Union
 from sqlglot import exp
+from sqlmesh.core.macros import MacroEvaluator
 
-def create_casted_columns(column_data_types, column_descriptions):
+def create_casted_columns(column_data_types: Dict[str, str], column_descriptions: Dict[str, str]) -> List[exp.Expression]:
     """
     Create properly casted columns with descriptions for the final query.
     
@@ -36,7 +38,7 @@ def create_casted_columns(column_data_types, column_descriptions):
         
     return casted_columns
 
-def create_source_cte(source_name, schema, columns=None, additional_columns=None):
+def create_source_cte(source_name: str, schema: str, columns: Optional[List[str]] = None, additional_columns: Optional[List[exp.Expression]] = None) -> exp.Expression:
     """
     Create a source CTE by selecting columns from a specified table.
     
@@ -61,7 +63,7 @@ def create_source_cte(source_name, schema, columns=None, additional_columns=None
         
     return exp.select(*select_columns).from_(f"{schema}.{source_name}")
 
-def create_bridge_record_metadata_columns(prefix, rename_to_prefix=None):
+def create_bridge_record_metadata_columns(prefix: str, rename_to_prefix: Optional[str] = None) -> List[exp.Expression]:
     """
     Create standard bridge record metadata columns with optional renaming.
     
@@ -92,7 +94,7 @@ def create_bridge_record_metadata_columns(prefix, rename_to_prefix=None):
             
     return metadata_columns
 
-def create_temporal_join_conditions(left_table, right_table, join_column, temporal_overlap=True, left_prefix="", right_prefix=""):
+def create_temporal_join_conditions(left_table: str, right_table: str, join_column: str, temporal_overlap: bool = True, left_prefix: str = "", right_prefix: str = "") -> List[exp.Expression]:
     """
     Create join conditions for temporal tables with validity periods.
     
@@ -139,7 +141,7 @@ def create_temporal_join_conditions(left_table, right_table, join_column, tempor
     # Combine all conditions with AND
     return exp.and_(*conditions)
 
-def create_scd_columns(primary_keys):
+def create_scd_columns(primary_keys: List[str]) -> List[exp.Expression]:
     """
     Create SCD Type 2 columns for versioning and validity tracking.
     
@@ -209,7 +211,7 @@ def create_scd_columns(primary_keys):
         record_updated_at
     ]
 
-def create_ghost_column(column, data_type, grain=None):
+def create_ghost_column(column: str, data_type: str, grain: Optional[str] = None) -> Optional[exp.Expression]:
     """
     Create an appropriate ghost column based on column name and data type.
     
@@ -249,7 +251,7 @@ def create_ghost_column(column, data_type, grain=None):
     else:
         return exp.Null().as_(column)
 
-def create_incremental_filter(ts_column, evaluator):
+def create_incremental_filter(ts_column: str, evaluator: MacroEvaluator) -> exp.Expression:
     """
     Create an incremental filter expression for time-based filtering.
     
@@ -266,7 +268,7 @@ def create_incremental_filter(ts_column, evaluator):
     )
 
 # Bridge blueprint specific functions
-def create_bridge_source_columns(peripheral, primary_hook, hook, column_prefix, dependencies):
+def create_bridge_source_columns(peripheral: str, primary_hook: str, hook: str, column_prefix: str, dependencies: Dict[str, Dict[str, Any]]) -> List[exp.Expression]:
     """
     Create source columns for the bridge model.
     
@@ -297,7 +299,7 @@ def create_bridge_source_columns(peripheral, primary_hook, hook, column_prefix, 
     
     return source_columns
 
-def create_pit_lookup_cte(dependencies):
+def create_pit_lookup_cte(dependencies: Dict[str, Dict[str, Any]]) -> Tuple[exp.Expression, List[exp.Expression], List[str]]:
     """
     Create the point-in-time lookup CTE with joins to dependency tables.
     
@@ -343,7 +345,7 @@ def create_pit_lookup_cte(dependencies):
     
     return cte__pit_lookup, cte_pit_lookup__select, dependency_tables
 
-def create_bridge_select_columns(peripheral, primary_hook, hook, cte_pit_lookup__select, dependency_tables):
+def create_bridge_select_columns(peripheral: str, primary_hook: str, hook: str, cte_pit_lookup__select: List[exp.Expression], dependency_tables: List[str]) -> List[exp.Expression]:
     """
     Create select columns for the bridge model, handling dependencies appropriately.
     
@@ -376,7 +378,7 @@ def create_bridge_select_columns(peripheral, primary_hook, hook, cte_pit_lookup_
     
     return select_columns
 
-def create_bridge_pit_cte(primary_hook, cte_pit_lookup__select, previous_cte):
+def create_bridge_pit_cte(primary_hook: str, cte_pit_lookup__select: List[exp.Expression], previous_cte: str) -> exp.Expression:
     """
     Create the bridge point-in-time CTE with the bridge PIT hook.
     

@@ -1,3 +1,4 @@
+from typing import Dict, List, Union, Any, Optional
 from sqlglot import exp
 from sqlmesh.core.macros import MacroEvaluator
 from sqlmesh.core.model import model
@@ -38,9 +39,17 @@ blueprints = generate_bridge_blueprints(
     description="@{description}",
     #column_descriptions="@{column_descriptions}"
 )
-def entrypoint(evaluator: MacroEvaluator) -> str | exp.Expression:
+def entrypoint(evaluator: MacroEvaluator) -> Union[str, exp.Expression]:
     """
     Main entry point function for the bridge blueprint model.
+    
+    This function builds a Puppini bridge model that connects facts to dimensions through
+    appropriate hooks and ensures proper temporal validity. It performs the following operations:
+    1. Extracts configuration variables from the evaluator
+    2. Creates source columns for the peripheral and hook tables
+    3. Generates a point-in-time (PIT) lookup with inherited hooks
+    4. Creates the bridge PIT CTE with temporal validity
+    5. Assembles the final query with proper column casting and filtering
     
     Args:
         evaluator: MacroEvaluator providing access to template variables
