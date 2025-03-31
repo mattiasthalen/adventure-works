@@ -63,7 +63,7 @@ columns:
 - sales_order_detail__record_valid_from
 - sales_order_detail__record_valid_to
 - sales_order_detail__is_current_record
-description: 'Hook for special_offer_id using keyset: reference__special_offer__adventure_works.'
+description: Individual products associated with a specific sales order. See SalesOrderHeader.
 grain: _pit_hook__order_line__sales
 hook_name: frame__adventure_works__sales_order_details
 peripheral_name: adventure_works__sales_order_details

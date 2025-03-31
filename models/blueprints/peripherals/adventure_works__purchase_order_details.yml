@@ -63,7 +63,7 @@ columns:
 - purchase_order_detail__record_valid_from
 - purchase_order_detail__record_valid_to
 - purchase_order_detail__is_current_record
-description: 'Hook for product_id using keyset: product__adventure_works.'
+description: Individual products associated with a specific purchase order. See PurchaseOrderHeader.
 grain: _pit_hook__order_line__purchase
 hook_name: frame__adventure_works__purchase_order_details
 peripheral_name: adventure_works__purchase_order_details

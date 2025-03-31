@@ -44,7 +44,7 @@ columns:
 - store__record_valid_from
 - store__record_valid_to
 - store__is_current_record
-description: 'Hook for sales_person_id using keyset: person__sales__adventure_works.'
+description: Customers (resellers) of Adventure Works products.
 grain: _pit_hook__store
 hook_name: frame__adventure_works__stores
 peripheral_name: adventure_works__stores

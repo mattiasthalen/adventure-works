@@ -58,7 +58,7 @@ columns:
 - special_offer__record_valid_from
 - special_offer__record_valid_to
 - special_offer__is_current_record
-description: 'Primary hook for special_offer_id using keyset: reference__special_offer__adventure_works.'
+description: Sale discounts lookup table.
 grain: _pit_hook__reference__special_offer
 hook_name: frame__adventure_works__special_offers
 peripheral_name: adventure_works__special_offers

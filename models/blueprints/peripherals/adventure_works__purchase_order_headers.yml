@@ -71,7 +71,7 @@ columns:
 - purchase_order_header__record_valid_from
 - purchase_order_header__record_valid_to
 - purchase_order_header__is_current_record
-description: 'Hook for ship_method_id using keyset: ship_method__adventure_works.'
+description: General purchase order information. See PurchaseOrderDetail.
 grain: _pit_hook__order__purchase
 hook_name: frame__adventure_works__purchase_order_headers
 peripheral_name: adventure_works__purchase_order_headers

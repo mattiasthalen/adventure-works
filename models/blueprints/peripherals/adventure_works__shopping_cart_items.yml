@@ -44,7 +44,7 @@ columns:
 - shopping_cart_item__record_valid_from
 - shopping_cart_item__record_valid_to
 - shopping_cart_item__is_current_record
-description: 'Hook for product_id using keyset: product__adventure_works.'
+description: Contains online customer orders until the order is submitted or cancelled.
 grain: _pit_hook__shopping_cart_item
 hook_name: frame__adventure_works__shopping_cart_items
 peripheral_name: adventure_works__shopping_cart_items

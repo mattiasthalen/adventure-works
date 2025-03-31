@@ -52,7 +52,7 @@ columns:
 - sales_person__record_valid_from
 - sales_person__record_valid_to
 - sales_person__is_current_record
-description: 'Hook for territory_id using keyset: territory__sales__adventure_works.'
+description: Sales representative current information.
 grain: _pit_hook__person__sales
 hook_name: frame__adventure_works__sales_persons
 peripheral_name: adventure_works__sales_persons

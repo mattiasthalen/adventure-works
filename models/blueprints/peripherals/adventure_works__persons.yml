@@ -71,7 +71,8 @@ columns:
 - person__record_valid_from
 - person__record_valid_to
 - person__is_current_record
-description: 'Primary hook for business_entity_id using keyset: person__individual__adventure_works.'
+description: 'Human beings involved with AdventureWorks: employees, customer contacts,
+  and vendor contacts.'
 grain: _pit_hook__person__individual
 hook_name: frame__adventure_works__persons
 peripheral_name: adventure_works__persons

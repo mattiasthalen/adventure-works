@@ -36,7 +36,7 @@ columns:
 - address_type__record_valid_from
 - address_type__record_valid_to
 - address_type__is_current_record
-description: 'Primary hook for address_type_id using keyset: reference__address_type__adventure_works.'
+description: Types of addresses stored in the Address table.
 grain: _pit_hook__reference__address_type
 hook_name: frame__adventure_works__address_types
 peripheral_name: adventure_works__address_types

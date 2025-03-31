@@ -38,7 +38,7 @@ columns:
 - shift__record_valid_from
 - shift__record_valid_to
 - shift__is_current_record
-description: 'Primary hook for shift_id using keyset: reference__shift__adventure_works.'
+description: Work shift lookup table.
 grain: _pit_hook__reference__shift
 hook_name: frame__adventure_works__shifts
 peripheral_name: adventure_works__shifts
