@@ -49,7 +49,7 @@ columns:
 - vendor__record_valid_from
 - vendor__record_valid_to
 - vendor__is_current_record
-description: 'Primary hook for business_entity_id using keyset: vendor__adventure_works.'
+description: Companies from whom Adventure Works Cycles purchases parts or other goods.
 grain: _pit_hook__vendor
 hook_name: frame__adventure_works__vendors
 peripheral_name: adventure_works__vendors

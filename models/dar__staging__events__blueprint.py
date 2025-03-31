@@ -1,8 +1,12 @@
 
+from typing import Dict, List, Union, Any, Optional
 from sqlglot import exp, parse_one
 from sqlmesh.core.macros import MacroEvaluator
 from sqlmesh.core.model import model
 from sqlmesh.core.model.kind import ModelKindName
+
+# Import shared utility functions
+from models._blueprint_utils import create_casted_columns, create_incremental_filter
 
 # Import from our blueprint module
 try:
@@ -30,27 +34,57 @@ blueprints = generate_event_blueprints(
     description="@{description}",
     #column_descriptions="@{column_descriptions}"
 )
-def entrypoint(evaluator: MacroEvaluator) -> str | exp.Expression:
-    bridge_name = evaluator.var("bridge_name")
-    column_data_types = evaluator.var("column_data_types")
-    column_descriptions = evaluator.var("column_descriptions")
-    columns = evaluator.var("columns")
-    date_columns = evaluator.var("date_columns")
-    description = evaluator.var("description")
-    hook_name = evaluator.var("hook_name")
-    event_name = evaluator.var("event_name")
-    primary_pit_hook = evaluator.var("primary_pit_hook")
+def entrypoint(evaluator: MacroEvaluator) -> Union[str, exp.Expression]:
+    """
+    Main entry point function for the event blueprint model.
     
-    # Define event CTE
-    bridge_columns = [exp.column(col, table=bridge_name) for col in columns if col not in date_columns.values() and col != "_hook__epoch__date"]
+    This function creates event models that handle point-in-time events with date-specific
+    dimensions. It performs the following operations:
+    1. Extracts configuration variables from the evaluator
+    2. Creates base CTEs from the bridge model
+    3. Creates event CTEs for each date column, handling different grain variants
+    4. Unions all event CTEs together
+    5. Assembles the final query with proper column casting and filtering
+    
+    Args:
+        evaluator: MacroEvaluator providing access to template variables
+        
+    Returns:
+        SQLGlot expression for the event model
+    """
+    # Extract variables from the evaluator with defaults to prevent None errors
+    bridge_name = evaluator.var("bridge_name") or ""
+    column_data_types = evaluator.var("column_data_types") or {}
+    column_descriptions = evaluator.var("column_descriptions") or {}
+    columns = evaluator.var("columns") or []
+    date_columns = evaluator.var("date_columns") or {}
+    hook_name = evaluator.var("hook_name") or ""
+    primary_pit_hook = evaluator.var("primary_pit_hook") or ""
+    
+    # Validate required parameters
+    if not bridge_name or not hook_name or not primary_pit_hook:
+        raise ValueError(f"Missing required variables: bridge_name={bridge_name}, "
+                         f"hook_name={hook_name}, primary_pit_hook={primary_pit_hook}")
+
+    # Create event CTE joining bridge and hook tables
+    # Get columns from bridge table (excluding date event columns)
+    bridge_columns = [
+        exp.column(col, table=bridge_name) 
+        for col in columns 
+        if col not in date_columns.values() and col != "_hook__epoch__date"
+    ]
+    
+    # Get date columns from hook table
     event_columns = [exp.column(col, table=hook_name) for col in date_columns.keys()]
+    
+    # Create the joined CTE
     cte__events = exp.select(*bridge_columns, *event_columns).from_(f"dar__staging.{bridge_name}").join(
         f"dab.{hook_name}",
         using=primary_pit_hook,
         join_type="left"
     )
 
-    # Define pivot CTE
+    # Create unpivot CTE
     unpivot_columns = ", ".join(date_columns.keys())
     
     # Create the SQL string for UNPIVOT since SQLGlot's Pivot class doesn't generate the correct syntax
@@ -66,30 +100,40 @@ def entrypoint(evaluator: MacroEvaluator) -> str | exp.Expression:
         )
     ) AS pivot__events
     """
-
-    # Parse the SQL string with SQLGlot
     cte__pivot = parse_one(unpivot_sql)
+
+    # Create aggregate CTE
+    # Create expressions for converting event names to boolean flags
+    event_expressions = [f'MAX(event = \'{old_name}\') AS {new_name}' 
+                        for old_name, new_name in date_columns.items()]
     
-    # Aggregated CTE
-    cte__aggregate = f"""
+    # Create SQL for the aggregation to generate event flags
+    aggregate_sql = f"""
     SELECT
         {primary_pit_hook},
         CONCAT('epoch__date|', event_date) AS _hook__epoch__date,
-        {', '.join([f'MAX(event = \'{old_name}\') AS {new_name}' for old_name, new_name in date_columns.items()])}
+        {', '.join(event_expressions)}
     FROM cte__pivot
     GROUP BY ALL
     ORDER BY ALL
     """
+    cte__aggregate = parse_one(aggregate_sql)
 
-    # Define final CTE
+    # Create final CTE combining bridge data with event flags
+    # Get all columns except the bridge hook which we'll reconstruct
     final_columns = [exp.column(col) for col in columns if col != "_pit_hook__bridge"]
+    
+    # Create the new bridge hook expression that includes the epoch date hook
+    bridge_hook_expr = exp.func(
+        "CONCAT_WS",
+        exp.Literal.string("~"),
+        exp.column("_pit_hook__bridge"),
+        exp.column("_hook__epoch__date")
+    ).as_("_pit_hook__bridge")
+    
+    # Create the joined CTE
     cte__final = exp.select(
-        exp.func(
-            "CONCAT_WS",
-            exp.Literal.string("~"),
-            exp.column("_pit_hook__bridge"),
-            exp.column("_hook__epoch__date")
-        ).as_("_pit_hook__bridge"),
+        bridge_hook_expr,
         *final_columns
     ).from_(f"dar__staging.{bridge_name}").join(
         "cte__aggregate",
@@ -97,28 +141,14 @@ def entrypoint(evaluator: MacroEvaluator) -> str | exp.Expression:
         join_type="left"
     )
 
-    # Final query - Explicitly cast all fields
-    casted_columns = []
+    # Create casted columns for the final query
+    casted_columns = create_casted_columns(column_data_types, column_descriptions)
 
-    for col, data_type in column_data_types.items():
-        data_type = "text" if data_type in ("xml", "uniqueidentifier") else data_type
-        
-        casted_column = exp.cast(exp.column(col), exp.DataType.build(data_type))
-        
-        description = column_descriptions.get(col)
-        casted_column.add_comments(comments=[description])
-        
-        casted_columns.append(casted_column)
-
+    # Assemble the final query
     sql = (
         exp.select(*casted_columns)
-        .from_(f"cte__final")
-        .where(
-            exp.column("bridge__record_updated_at").between(
-                low=evaluator.locals["start_ts"],
-                high=evaluator.locals["end_ts"]
-            )
-        )
+        .from_("cte__final")
+        .where(create_incremental_filter("bridge__record_updated_at", evaluator))
         .with_("cte__events", as_=cte__events)
         .with_("cte__pivot", as_=cte__pivot)
         .with_("cte__aggregate", as_=cte__aggregate)

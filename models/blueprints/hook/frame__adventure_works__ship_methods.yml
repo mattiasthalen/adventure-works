@@ -46,7 +46,7 @@ columns:
 - ship_method__record_valid_from
 - ship_method__record_valid_to
 - ship_method__is_current_record
-description: 'Primary hook for ship_method_id using keyset: ship_method__adventure_works.'
+description: Shipping company lookup table.
 grain: _pit_hook__ship_method
 hooks:
 - business_key_field: ship_method_id

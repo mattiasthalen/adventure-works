@@ -45,7 +45,7 @@ columns:
 - credit_card__record_valid_from
 - credit_card__record_valid_to
 - credit_card__is_current_record
-description: 'Primary hook for credit_card_id using keyset: credit_card__adventure_works.'
+description: Customer credit card information.
 grain: _pit_hook__credit_card
 hooks:
 - business_key_field: credit_card_id

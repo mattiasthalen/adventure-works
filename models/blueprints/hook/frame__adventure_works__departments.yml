@@ -39,7 +39,8 @@ columns:
 - department__record_valid_from
 - department__record_valid_to
 - department__is_current_record
-description: 'Primary hook for department_id using keyset: department__adventure_works.'
+description: Lookup table containing the departments within the Adventure Works Cycles
+  company.
 grain: _pit_hook__department
 hooks:
 - business_key_field: department_id

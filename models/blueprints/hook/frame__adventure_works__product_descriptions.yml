@@ -45,7 +45,7 @@ columns:
 - product_description__record_valid_from
 - product_description__record_valid_to
 - product_description__is_current_record
-description: 'Primary hook for product_description_id using keyset: reference__product_description__adventure_works.'
+description: Product descriptions in several languages.
 grain: _pit_hook__reference__product_description
 hooks:
 - business_key_field: product_description_id

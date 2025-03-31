@@ -99,7 +99,7 @@ columns:
 - product__record_valid_from
 - product__record_valid_to
 - product__is_current_record
-description: 'Hook for product_model_id using keyset: reference__product_model__adventure_works.'
+description: Products sold or used in the manufacturing of sold products.
 grain: _pit_hook__product
 hook_name: frame__adventure_works__products
 peripheral_name: adventure_works__products

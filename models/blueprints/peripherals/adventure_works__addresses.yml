@@ -49,7 +49,7 @@ columns:
 - address__record_valid_from
 - address__record_valid_to
 - address__is_current_record
-description: 'Hook for state_province_id using keyset: reference__state_province__adventure_works.'
+description: Street address information for customers, employees, and vendors.
 grain: _pit_hook__address
 hook_name: frame__adventure_works__addresses
 peripheral_name: adventure_works__addresses

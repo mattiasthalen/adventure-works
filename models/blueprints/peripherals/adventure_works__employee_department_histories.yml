@@ -49,7 +49,7 @@ columns:
 - employee_department_history__record_valid_from
 - employee_department_history__record_valid_to
 - employee_department_history__is_current_record
-description: 'Hook for start_date using keyset: epoch__date.'
+description: Employee department transfers.
 grain: _pit_hook__employee_department_history
 hook_name: frame__adventure_works__employee_department_histories
 peripheral_name: adventure_works__employee_department_histories

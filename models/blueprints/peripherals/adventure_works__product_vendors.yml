@@ -58,7 +58,7 @@ columns:
 - product_vendor__record_valid_from
 - product_vendor__record_valid_to
 - product_vendor__is_current_record
-description: 'Hook for unit_measure_code using keyset: reference__unit_measure__adventure_works.'
+description: Cross-reference table mapping vendors with the products they supply.
 grain: _pit_hook__product_vendor
 hook_name: frame__adventure_works__product_vendors
 peripheral_name: adventure_works__product_vendors

@@ -47,7 +47,7 @@ columns:
 - customer__record_valid_from
 - customer__record_valid_to
 - customer__is_current_record
-description: 'Hook for territory_id using keyset: territory__sales__adventure_works.'
+description: Current customer information. Also see the Person and Store tables.
 grain: _pit_hook__customer
 hook_name: frame__adventure_works__customers
 peripheral_name: adventure_works__customers

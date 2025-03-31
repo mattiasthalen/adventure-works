@@ -43,7 +43,8 @@ columns:
 - business_entity_address__record_valid_from
 - business_entity_address__record_valid_to
 - business_entity_address__is_current_record
-description: 'Hook for address_type_id using keyset: reference__address_type__adventure_works.'
+description: Cross-reference table mapping customers, vendors, and employees to their
+  addresses.
 grain: _pit_hook__address
 hook_name: frame__adventure_works__business_entity_addresses
 peripheral_name: adventure_works__business_entity_addresses

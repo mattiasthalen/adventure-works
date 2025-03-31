@@ -1,7 +1,11 @@
+from typing import Dict, List, Union, Any, Optional
 from sqlglot import exp, parse_one
 from sqlmesh.core.macros import MacroEvaluator
 from sqlmesh.core.model import model
 from sqlmesh.core.model.kind import ModelKindName
+
+# Import shared utility functions
+from models._blueprint_utils import create_casted_columns, create_ghost_column, create_source_cte
 
 # Import from our blueprint module
 try:
@@ -25,60 +29,54 @@ blueprints = generate_peripheral_blueprints(
     description="@{description}",
     #column_descriptions="@{column_descriptions}"
 )
-def entrypoint(evaluator: MacroEvaluator) -> str | exp.Expression:
-    column_data_types = evaluator.var("column_data_types")
-    column_descriptions = evaluator.var("column_descriptions")
-    columns = evaluator.var("columns")
-    hook_name = evaluator.var("hook_name")
-    grain = evaluator.var("grain")
+def entrypoint(evaluator: MacroEvaluator) -> Union[str, exp.Expression]:
+    """
+    Main entry point function for the peripheral blueprint model.
+    
+    This function transforms hook data into a peripheral model by creating
+    appropriate ghost columns for each data type and handling grain columns.
+    It performs the following operations:
+    1. Extracts configuration variables from the evaluator
+    2. Creates a source CTE from the hook model
+    3. Generates ghost columns based on data types
+    4. Assembles the final query with proper column casting
+    
+    Args:
+        evaluator: MacroEvaluator providing access to template variables
+        
+    Returns:
+        SQLGlot expression for the peripheral model
+    """
+    # Extract variables from the evaluator
+    column_data_types = evaluator.var("column_data_types") or {}
+    column_descriptions = evaluator.var("column_descriptions") or {}
+    columns = evaluator.var("columns") or []
+    hook_name = evaluator.var("hook_name") or ""
+    grain = evaluator.var("grain") or ""
+    
+    if not hook_name or not grain:
+        raise ValueError(f"Missing required variables: hook_name={hook_name}, grain={grain}")
 
-    cte__source = exp.select(*columns).from_(f"dab.{hook_name}")
+    # Create source CTE from the hook model
+    cte__source = create_source_cte(source_name=hook_name, schema="dab", columns=columns)
 
-    # Create ghost record
+    # Create ghost record CTE
     ghost_columns = [exp.Literal.string("ghost_record").as_(grain)]
+    
     for column, data_type in column_data_types.items():
-
-        if column == grain:
-            continue
-
-        elif data_type == "text":
-            ghost_column = exp.Literal.string("N/A")
-        
-        elif column.endswith(("__record_loaded_at", "__record_updated_at", "__record_valid_from")):
-            ghost_column = exp.cast(exp.Literal.string("1970-01-01 00:00:00"), exp.DataType.build("timestamp"))
-        
-        elif column.endswith("__record_valid_to"):
-            ghost_column = exp.cast(exp.Literal.string("9999-12-31 23:59:59"), exp.DataType.build("timestamp"))
-        
-        elif column.endswith("__record_version"):
-            ghost_column = exp.Literal.number(0)
-        
-        elif column.endswith("__is_current_record"):
-            ghost_column = exp.true()
-        
-        else:
-            ghost_column = exp.Null()
-        
-        ghost_columns.append(ghost_column.as_(column))
+        ghost_column = create_ghost_column(column, data_type, grain)
+        if ghost_column:
+            ghost_columns.append(ghost_column)
 
     cte__ghost = exp.select(*ghost_columns)
 
-    # Add ghost record
+    # Union the source and ghost record CTEs
     cte_union = exp.union(cte__source, cte__ghost)
 
-    # Explicit cast and commenting
-    casted_columns = []
+    # Create casted columns for the final select
+    casted_columns = create_casted_columns(column_data_types, column_descriptions)
 
-    for col, data_type in column_data_types.items():
-        data_type = "text" if data_type in ("xml", "uniqueidentifier") else data_type
-        
-        casted_column = exp.cast(exp.column(col), exp.DataType.build(data_type))
-        
-        description = column_descriptions.get(col)
-        casted_column.add_comments(comments=[description])
-        
-        casted_columns.append(casted_column)
-
+    # Assemble the final query
     sql = (
         exp.select(*casted_columns)
         .from_("cte_union")

@@ -38,7 +38,7 @@ columns:
 - location__record_valid_from
 - location__record_valid_to
 - location__is_current_record
-description: 'Primary hook for location_id using keyset: reference__location__adventure_works.'
+description: Product inventory and manufacturing locations.
 grain: _pit_hook__reference__location
 hook_name: frame__adventure_works__locations
 peripheral_name: adventure_works__locations

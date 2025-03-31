@@ -40,7 +40,7 @@ columns:
 - sales_reason__record_valid_from
 - sales_reason__record_valid_to
 - sales_reason__is_current_record
-description: 'Primary hook for sales_reason_id using keyset: reference__sales_reason__adventure_works.'
+description: Lookup table of customer purchase reasons.
 grain: _pit_hook__reference__sales_reason
 hooks:
 - business_key_field: sales_reason_id

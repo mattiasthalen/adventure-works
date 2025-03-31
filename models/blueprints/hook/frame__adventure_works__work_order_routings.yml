@@ -81,7 +81,7 @@ columns:
 - work_order_routing__record_valid_from
 - work_order_routing__record_valid_to
 - work_order_routing__is_current_record
-description: 'Hook for location_id using keyset: reference__location__adventure_works.'
+description: Work order details.
 grain: _pit_hook__work_order_routing
 hooks:
 - composite_key:

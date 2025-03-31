@@ -53,7 +53,7 @@ columns:
 - product_list_price_history__record_valid_from
 - product_list_price_history__record_valid_to
 - product_list_price_history__is_current_record
-description: 'Hook for start_date using keyset: epoch__date.'
+description: Changes in the list price of a product over time.
 grain: _pit_hook__product_list_price_history
 hooks:
 - composite_key:

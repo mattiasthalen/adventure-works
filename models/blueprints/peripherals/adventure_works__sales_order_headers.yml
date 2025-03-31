@@ -115,7 +115,7 @@ columns:
 - sales_order_header__record_valid_from
 - sales_order_header__record_valid_to
 - sales_order_header__is_current_record
-description: 'Hook for currency_rate_id using keyset: currency__adventure_works.'
+description: General sales order information.
 grain: _pit_hook__order__sales
 hook_name: frame__adventure_works__sales_order_headers
 peripheral_name: adventure_works__sales_order_headers
