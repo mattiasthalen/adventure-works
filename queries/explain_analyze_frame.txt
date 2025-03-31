@@ -1,0 +1,726 @@
+dab.frame__adventure_works__sales_order_details__refactored:
+┌────────────────────────────────────────────────┐
+│┌──────────────────────────────────────────────┐│
+││              Total Time: 0.0907s             ││
+│└──────────────────────────────────────────────┘│
+└────────────────────────────────────────────────┘
+┌───────────────────────────┐
+│           QUERY           │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│      EXPLAIN_ANALYZE      │
+│    ────────────────────   │
+│           0 Rows          │
+│          (0.00s)          │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│_pit_hook__order_line__sale│
+│             s             │
+│  _hook__order_line__sales │
+│    _hook__order__sales    │
+│       _hook__product      │
+│_hook__reference__special_o│
+│            ffer           │
+│sales_order_detail__sales_o│
+│          rder_id          │
+│sales_order_detail__sales_o│
+│       rder_detail_id      │
+│sales_order_detail__carrier│
+│      _tracking_number     │
+│sales_order_detail__order_q│
+│             ty            │
+│sales_order_detail__product│
+│            _id            │
+│sales_order_detail__special│
+│         _offer_id         │
+│sales_order_detail__unit_pr│
+│            ice            │
+│sales_order_detail__unit_pr│
+│        ice_discount       │
+│sales_order_detail__line_to│
+│            tal            │
+│sales_order_detail__rowguid│
+│sales_order_detail__modifie│
+│           d_date          │
+│sales_order_detail__record_│
+│         loaded_at         │
+│sales_order_detail__record_│
+│         updated_at        │
+│sales_order_detail__record_│
+│          version          │
+│sales_order_detail__record_│
+│         valid_from        │
+│sales_order_detail__record_│
+│          valid_to         │
+│sales_order_detail__is_curr│
+│         ent_record        │
+│                           │
+│        121317 Rows        │
+│          (0.17s)          │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│_pit_hook__order_line__sale│
+│             s             │
+│  _hook__order_line__sales │
+│    _hook__order__sales    │
+│       _hook__product      │
+│_hook__reference__special_o│
+│            ffer           │
+│sales_order_detail__sales_o│
+│          rder_id          │
+│sales_order_detail__sales_o│
+│       rder_detail_id      │
+│sales_order_detail__carrier│
+│      _tracking_number     │
+│sales_order_detail__order_q│
+│             ty            │
+│sales_order_detail__product│
+│            _id            │
+│sales_order_detail__special│
+│         _offer_id         │
+│sales_order_detail__unit_pr│
+│            ice            │
+│sales_order_detail__unit_pr│
+│        ice_discount       │
+│sales_order_detail__line_to│
+│            tal            │
+│sales_order_detail__rowguid│
+│sales_order_detail__modifie│
+│           d_date          │
+│sales_order_detail__record_│
+│         loaded_at         │
+│sales_order_detail__record_│
+│         updated_at        │
+│sales_order_detail__record_│
+│          version          │
+│sales_order_detail__record_│
+│         valid_from        │
+│sales_order_detail__record_│
+│          valid_to         │
+│sales_order_detail__is_curr│
+│         ent_record        │
+│                           │
+│        121317 Rows        │
+│          (0.00s)          │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│_pit_hook__order_line__sale│
+│             s             │
+│  _hook__order_line__sales │
+│    _hook__order__sales    │
+│       _hook__product      │
+│_hook__reference__special_o│
+│            ffer           │
+│       sales_order_id      │
+│   sales_order_detail_id   │
+│  carrier_tracking_number  │
+│         order_qty         │
+│         product_id        │
+│      special_offer_id     │
+│         unit_price        │
+│    unit_price_discount    │
+│         line_total        │
+│          rowguid          │
+│       modified_date       │
+│      record_loaded_at     │
+│       record_version      │
+│     record_valid_from     │
+│      record_valid_to      │
+│     is_current_record     │
+│     record_updated_at     │
+│                           │
+│        121317 Rows        │
+│          (0.01s)          │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│  _hook__order_line__sales │
+│    _hook__order__sales    │
+│       _hook__product      │
+│_hook__reference__special_o│
+│            ffer           │
+│       sales_order_id      │
+│   sales_order_detail_id   │
+│  carrier_tracking_number  │
+│         order_qty         │
+│         product_id        │
+│      special_offer_id     │
+│         unit_price        │
+│    unit_price_discount    │
+│         line_total        │
+│          rowguid          │
+│       modified_date       │
+│      record_loaded_at     │
+│       record_version      │
+│     record_valid_from     │
+│      record_valid_to      │
+│     is_current_record     │
+│     record_updated_at     │
+│                           │
+│        121317 Rows        │
+│          (0.03s)          │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│       sales_order_id      │
+│   sales_order_detail_id   │
+│  carrier_tracking_number  │
+│         order_qty         │
+│         product_id        │
+│      special_offer_id     │
+│         unit_price        │
+│    unit_price_discount    │
+│         line_total        │
+│          rowguid          │
+│       modified_date       │
+│      record_loaded_at     │
+│       record_version      │
+│     record_valid_from     │
+│      record_valid_to      │
+│     is_current_record     │
+│     record_updated_at     │
+│                           │
+│        121317 Rows        │
+│          (0.00s)          │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│             #0            │
+│             #1            │
+│             #2            │
+│             #3            │
+│             #4            │
+│             #5            │
+│             #6            │
+│             #7            │
+│             #8            │
+│             #9            │
+│            #10            │
+│            #11            │
+│            #12            │
+│            #12            │
+│            #13            │
+│            #13            │
+│            #13            │
+│            #13            │
+│            #13            │
+│            #13            │
+│                           │
+│        121317 Rows        │
+│          (0.00s)          │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│           WINDOW          │
+│    ────────────────────   │
+│        Projections:       │
+│     ROW_NUMBER() OVER     │
+│       (PARTITION BY       │
+│    sales_order_detail_id  │
+│  ORDER BY record_loaded_at│
+│       ASC NULLS LAST)     │
+│   LEAD(record_loaded_at)  │
+│     OVER (PARTITION BY    │
+│    sales_order_detail_id  │
+│  ORDER BY record_loaded_at│
+│       ASC NULLS LAST)     │
+│                           │
+│        121317 Rows        │
+│          (0.06s)          │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│           UNION           │
+│    ────────────────────   │
+│           0 Rows          ├──────────────┐
+│          (0.00s)          │              │
+└─────────────┬─────────────┘              │
+┌─────────────┴─────────────┐┌─────────────┴─────────────┐
+│         PROJECTION        ││         PROJECTION        │
+│    ────────────────────   ││    ────────────────────   │
+│       sales_order_id      ││       sales_order_id      │
+│   sales_order_detail_id   ││   sales_order_detail_id   │
+│  carrier_tracking_number  ││  carrier_tracking_number  │
+│         order_qty         ││         order_qty         │
+│         product_id        ││         product_id        │
+│      special_offer_id     ││      special_offer_id     │
+│         unit_price        ││         unit_price        │
+│    unit_price_discount    ││    unit_price_discount    │
+│         line_total        ││         line_total        │
+│          rowguid          ││          rowguid          │
+│       modified_date       ││       modified_date       │
+│      record_loaded_at     ││      record_loaded_at     │
+│                           ││                           │
+│        121317 Rows        ││           0 Rows          │
+│          (0.01s)          ││          (0.00s)          │
+└─────────────┬─────────────┘└─────────────┬─────────────┘
+┌─────────────┴─────────────┐┌─────────────┴─────────────┐
+│           FILTER          ││         PROJECTION        │
+│    ────────────────────   ││    ────────────────────   │
+│  (to_timestamp(CAST(CAST  ││             #0            │
+│  (_dlt_load_id AS DECIMAL ││             #1            │
+│    (18,3)) AS DOUBLE))    ││             #2            │
+│  BETWEEN '1969-12-31 23:00││             #3            │
+│  :00+00'::TIMESTAMP WITH  ││             #4            │
+│  TIME ZONE AND '9999-12-31││             #5            │
+│    22:59:59.999999+00':   ││             #6            │
+│ :TIMESTAMP WITH TIME ZONE)││             #7            │
+│                           ││             #8            │
+│                           ││             #9            │
+│                           ││            #10            │
+│                           ││            #11            │
+│                           ││                           │
+│        121317 Rows        ││           0 Rows          │
+│          (0.01s)          ││          (0.00s)          │
+└─────────────┬─────────────┘└─────────────┬─────────────┘
+┌─────────────┴─────────────┐┌─────────────┴─────────────┐
+│         PROJECTION        ││           FILTER          │
+│    ────────────────────   ││    ────────────────────   │
+│       sales_order_id      ││         (#12 = 1)         │
+│   sales_order_detail_id   ││                           │
+│  carrier_tracking_number  ││                           │
+│         order_qty         ││                           │
+│         product_id        ││                           │
+│      special_offer_id     ││                           │
+│         unit_price        ││                           │
+│    unit_price_discount    ││                           │
+│         line_total        ││                           │
+│          rowguid          ││                           │
+│       modified_date       ││                           │
+│        _dlt_load_id       ││                           │
+│                           ││                           │
+│        121317 Rows        ││           0 Rows          │
+│          (0.00s)          ││          (0.00s)          │
+└─────────────┬─────────────┘└─────────────┬─────────────┘
+┌─────────────┴─────────────┐┌─────────────┴─────────────┐
+│         TABLE_SCAN        ││         PROJECTION        │
+│    ────────────────────   ││    ────────────────────   │
+│         Function:         ││             #0            │
+│        PARQUET_SCAN       ││             #1            │
+│                           ││             #2            │
+│        Projections:       ││             #3            │
+│       sales_order_id      ││             #4            │
+│   sales_order_detail_id   ││             #5            │
+│  carrier_tracking_number  ││             #6            │
+│         order_qty         ││             #7            │
+│         product_id        ││             #8            │
+│      special_offer_id     ││             #9            │
+│         unit_price        ││            #10            │
+│    unit_price_discount    ││            #11            │
+│         line_total        ││            #12            │
+│          rowguid          ││                           │
+│       modified_date       ││                           │
+│        _dlt_load_id       ││                           │
+│                           ││                           │
+│        121317 Rows        ││           0 Rows          │
+│          (0.02s)          ││          (0.00s)          │
+└───────────────────────────┘└─────────────┬─────────────┘
+                             ┌─────────────┴─────────────┐
+                             │           WINDOW          │
+                             │    ────────────────────   │
+                             │        Projections:       │
+                             │     ROW_NUMBER() OVER     │
+                             │       (PARTITION BY       │
+                             │   sales_order_id ORDER BY │
+                             │   to_timestamp(CAST(CAST  │
+                             │  (_dlt_load_id AS DECIMAL │
+                             │  (18,3)) AS DOUBLE)) DESC │
+                             │         NULLS LAST)       │
+                             │                           │
+                             │           0 Rows          │
+                             │          (0.00s)          │
+                             └─────────────┬─────────────┘
+                             ┌─────────────┴─────────────┐
+                             │         HASH_JOIN         │
+                             │    ────────────────────   │
+                             │      Join Type: SEMI      │
+                             │                           │
+                             │        Conditions:        ├──────────────┐
+                             │    sales_order_id = #0    │              │
+                             │                           │              │
+                             │           0 Rows          │              │
+                             │          (0.00s)          │              │
+                             └─────────────┬─────────────┘              │
+                             ┌─────────────┴─────────────┐┌─────────────┴─────────────┐
+                             │           FILTER          ││         PROJECTION        │
+                             │    ────────────────────   ││    ────────────────────   │
+                             │  (to_timestamp(CAST(CAST  ││             #0            │
+                             │  (_dlt_load_id AS DECIMAL ││                           │
+                             │   (18,3)) AS DOUBLE)) <   ││                           │
+                             │ '1969-12-31 23:00:00+00': ││                           │
+                             │ :TIMESTAMP WITH TIME ZONE)││                           │
+                             │                           ││                           │
+                             │           0 Rows          ││        121317 Rows        │
+                             │          (0.01s)          ││          (0.00s)          │
+                             └─────────────┬─────────────┘└─────────────┬─────────────┘
+                             ┌─────────────┴─────────────┐┌─────────────┴─────────────┐
+                             │         PROJECTION        ││           FILTER          │
+                             │    ────────────────────   ││    ────────────────────   │
+                             │       sales_order_id      ││  (to_timestamp(CAST(CAST  │
+                             │   sales_order_detail_id   ││  (_dlt_load_id AS DECIMAL │
+                             │  carrier_tracking_number  ││    (18,3)) AS DOUBLE))    │
+                             │         order_qty         ││  BETWEEN '1969-12-31 23:00│
+                             │         product_id        ││  :00+00'::TIMESTAMP WITH  │
+                             │      special_offer_id     ││  TIME ZONE AND '9999-12-31│
+                             │         unit_price        ││    22:59:59.999999+00':   │
+                             │    unit_price_discount    ││ :TIMESTAMP WITH TIME ZONE)│
+                             │         line_total        ││                           │
+                             │          rowguid          ││                           │
+                             │       modified_date       ││                           │
+                             │        _dlt_load_id       ││                           │
+                             │                           ││                           │
+                             │        121317 Rows        ││        121317 Rows        │
+                             │          (0.00s)          ││          (0.01s)          │
+                             └─────────────┬─────────────┘└─────────────┬─────────────┘
+                             ┌─────────────┴─────────────┐┌─────────────┴─────────────┐
+                             │         TABLE_SCAN        ││         TABLE_SCAN        │
+                             │    ────────────────────   ││    ────────────────────   │
+                             │         Function:         ││         Function:         │
+                             │        PARQUET_SCAN       ││        PARQUET_SCAN       │
+                             │                           ││                           │
+                             │        Projections:       ││        Projections:       │
+                             │       sales_order_id      ││       sales_order_id      │
+                             │   sales_order_detail_id   ││        _dlt_load_id       │
+                             │  carrier_tracking_number  ││                           │
+                             │         order_qty         ││                           │
+                             │         product_id        ││                           │
+                             │      special_offer_id     ││                           │
+                             │         unit_price        ││                           │
+                             │    unit_price_discount    ││                           │
+                             │         line_total        ││                           │
+                             │          rowguid          ││                           │
+                             │       modified_date       ││                           │
+                             │        _dlt_load_id       ││                           │
+                             │                           ││                           │
+                             │        121317 Rows        ││        121317 Rows        │
+                             │          (0.02s)          ││          (0.00s)          │
+                             └───────────────────────────┘└───────────────────────────┘
+
+dab.frame__adventure_works__sales_order_details:
+┌────────────────────────────────────────────────┐
+│┌──────────────────────────────────────────────┐│
+││              Total Time: 0.0847s             ││
+│└──────────────────────────────────────────────┘│
+└────────────────────────────────────────────────┘
+┌───────────────────────────┐
+│           QUERY           │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│      EXPLAIN_ANALYZE      │
+│    ────────────────────   │
+│           0 Rows          │
+│          (0.00s)          │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│_pit_hook__order_line__sale│
+│             s             │
+│  _hook__order_line__sales │
+│    _hook__order__sales    │
+│       _hook__product      │
+│_hook__reference__special_o│
+│            ffer           │
+│sales_order_detail__sales_o│
+│          rder_id          │
+│sales_order_detail__sales_o│
+│       rder_detail_id      │
+│sales_order_detail__carrier│
+│      _tracking_number     │
+│sales_order_detail__order_q│
+│             ty            │
+│sales_order_detail__product│
+│            _id            │
+│sales_order_detail__special│
+│         _offer_id         │
+│sales_order_detail__unit_pr│
+│            ice            │
+│sales_order_detail__unit_pr│
+│        ice_discount       │
+│sales_order_detail__line_to│
+│            tal            │
+│sales_order_detail__rowguid│
+│sales_order_detail__modifie│
+│           d_date          │
+│sales_order_detail__record_│
+│         loaded_at         │
+│sales_order_detail__record_│
+│         updated_at        │
+│sales_order_detail__record_│
+│          version          │
+│sales_order_detail__record_│
+│         valid_from        │
+│sales_order_detail__record_│
+│          valid_to         │
+│sales_order_detail__is_curr│
+│         ent_record        │
+│                           │
+│        121317 Rows        │
+│          (0.17s)          │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│_pit_hook__order_line__sale│
+│             s             │
+│  _hook__order_line__sales │
+│    _hook__order__sales    │
+│       _hook__product      │
+│_hook__reference__special_o│
+│            ffer           │
+│sales_order_detail__sales_o│
+│          rder_id          │
+│sales_order_detail__sales_o│
+│       rder_detail_id      │
+│sales_order_detail__carrier│
+│      _tracking_number     │
+│sales_order_detail__order_q│
+│             ty            │
+│sales_order_detail__product│
+│            _id            │
+│sales_order_detail__special│
+│         _offer_id         │
+│sales_order_detail__unit_pr│
+│            ice            │
+│sales_order_detail__unit_pr│
+│        ice_discount       │
+│sales_order_detail__line_to│
+│            tal            │
+│sales_order_detail__rowguid│
+│sales_order_detail__modifie│
+│           d_date          │
+│sales_order_detail__record_│
+│         loaded_at         │
+│sales_order_detail__record_│
+│         updated_at        │
+│sales_order_detail__record_│
+│          version          │
+│sales_order_detail__record_│
+│         valid_from        │
+│sales_order_detail__record_│
+│          valid_to         │
+│sales_order_detail__is_curr│
+│         ent_record        │
+│                           │
+│        121317 Rows        │
+│          (0.00s)          │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│_pit_hook__order_line__sale│
+│             s             │
+│  _hook__order_line__sales │
+│    _hook__order__sales    │
+│       _hook__product      │
+│_hook__reference__special_o│
+│            ffer           │
+│       sales_order_id      │
+│   sales_order_detail_id   │
+│  carrier_tracking_number  │
+│         order_qty         │
+│         product_id        │
+│      special_offer_id     │
+│         unit_price        │
+│    unit_price_discount    │
+│         line_total        │
+│          rowguid          │
+│       modified_date       │
+│      record_loaded_at     │
+│       record_version      │
+│     record_valid_from     │
+│      record_valid_to      │
+│     is_current_record     │
+│     record_updated_at     │
+│                           │
+│        121317 Rows        │
+│          (0.01s)          │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│  _hook__order_line__sales │
+│    _hook__order__sales    │
+│       _hook__product      │
+│_hook__reference__special_o│
+│            ffer           │
+│       sales_order_id      │
+│   sales_order_detail_id   │
+│  carrier_tracking_number  │
+│         order_qty         │
+│         product_id        │
+│      special_offer_id     │
+│         unit_price        │
+│    unit_price_discount    │
+│         line_total        │
+│          rowguid          │
+│       modified_date       │
+│      record_loaded_at     │
+│       record_version      │
+│     record_valid_from     │
+│      record_valid_to      │
+│     is_current_record     │
+│     record_updated_at     │
+│                           │
+│        121317 Rows        │
+│          (0.03s)          │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│       sales_order_id      │
+│   sales_order_detail_id   │
+│  carrier_tracking_number  │
+│         order_qty         │
+│         product_id        │
+│      special_offer_id     │
+│         unit_price        │
+│    unit_price_discount    │
+│         line_total        │
+│          rowguid          │
+│       modified_date       │
+│      record_loaded_at     │
+│       record_version      │
+│     record_valid_from     │
+│      record_valid_to      │
+│     is_current_record     │
+│     record_updated_at     │
+│                           │
+│        121317 Rows        │
+│          (0.00s)          │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│           FILTER          │
+│    ────────────────────   │
+│ (CASE  WHEN (CASE  WHEN ((│
+│  (#18 IS NULL) OR (#17 =  │
+│ '9999-12-31 22:59:59+00': │
+│ :TIMESTAMP WITH TIME ZONE)│
+│ )) THEN (true) ELSE false │
+│         END) THEN         │
+│  (record_loaded_at) ELSE  │
+│  COALESCE(#19, '9999-12-31│
+│   22:59:59+00'::TIMESTAMP │
+│     WITH TIME ZONE) END   │
+│  BETWEEN '1969-12-31 23:00│
+│  :00+00'::TIMESTAMP WITH  │
+│  TIME ZONE AND '9999-12-31│
+│    22:59:59.999999+00':   │
+│ :TIMESTAMP WITH TIME ZONE)│
+│                           │
+│        121317 Rows        │
+│          (0.00s)          │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│             #0            │
+│             #1            │
+│             #2            │
+│             #3            │
+│             #4            │
+│             #5            │
+│             #6            │
+│             #7            │
+│             #8            │
+│             #9            │
+│            #10            │
+│            #11            │
+│            #12            │
+│            #12            │
+│            #13            │
+│            #13            │
+│            #13            │
+│            #13            │
+│            #13            │
+│            #13            │
+│                           │
+│        121317 Rows        │
+│          (0.00s)          │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│           WINDOW          │
+│    ────────────────────   │
+│        Projections:       │
+│     ROW_NUMBER() OVER     │
+│       (PARTITION BY       │
+│    sales_order_detail_id  │
+│  ORDER BY record_loaded_at│
+│       ASC NULLS LAST)     │
+│   LEAD(record_loaded_at)  │
+│     OVER (PARTITION BY    │
+│    sales_order_detail_id  │
+│  ORDER BY record_loaded_at│
+│       ASC NULLS LAST)     │
+│                           │
+│        121317 Rows        │
+│          (0.06s)          │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│       sales_order_id      │
+│   sales_order_detail_id   │
+│  carrier_tracking_number  │
+│         order_qty         │
+│         product_id        │
+│      special_offer_id     │
+│         unit_price        │
+│    unit_price_discount    │
+│         line_total        │
+│          rowguid          │
+│       modified_date       │
+│      record_loaded_at     │
+│                           │
+│        121317 Rows        │
+│          (0.01s)          │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         PROJECTION        │
+│    ────────────────────   │
+│       sales_order_id      │
+│   sales_order_detail_id   │
+│  carrier_tracking_number  │
+│         order_qty         │
+│         product_id        │
+│      special_offer_id     │
+│         unit_price        │
+│    unit_price_discount    │
+│         line_total        │
+│          rowguid          │
+│       modified_date       │
+│        _dlt_load_id       │
+│                           │
+│        121317 Rows        │
+│          (0.00s)          │
+└─────────────┬─────────────┘
+┌─────────────┴─────────────┐
+│         TABLE_SCAN        │
+│    ────────────────────   │
+│         Function:         │
+│        PARQUET_SCAN       │
+│                           │
+│        Projections:       │
+│       sales_order_id      │
+│   sales_order_detail_id   │
+│  carrier_tracking_number  │
+│         order_qty         │
+│         product_id        │
+│      special_offer_id     │
+│         unit_price        │
+│    unit_price_discount    │
+│         line_total        │
+│          rowguid          │
+│       modified_date       │
+│        _dlt_load_id       │
+│                           │
+│        121317 Rows        │
+│          (0.02s)          │
+└───────────────────────────┘
